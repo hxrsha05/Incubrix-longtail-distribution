@@ -12,7 +12,10 @@ x-logging: &logging
 services:
   # ---------------- our service ----------------
   api:
-    build: .
+    build:
+      context: .
+      args:
+        PIP_INDEX_URL: ${PIP_INDEX_URL:-https://pypi.org/simple}
     image: incubrix-api:local
     ports: ["8000:8000"]
     environment:
@@ -165,7 +168,8 @@ services:
       LEMMY_ADMIN_PASSWORD: ${LEMMY_ADMIN_PASSWORD:-local-dev-lemmy-admin}
       GHOST_URL: http://ghost.localhost:2368
       GHOST_ADMIN_EMAIL: ${GHOST_ADMIN_EMAIL:-admin@incubrix.test}
-      GHOST_ADMIN_PASSWORD: ${GHOST_ADMIN_PASSWORD:-local-dev-ghost-admin-1}
+      # Ghost rejects passwords containing "ghost", "local", the site name, etc., so this default avoids those words
+      GHOST_ADMIN_PASSWORD: ${GHOST_ADMIN_PASSWORD:-Maple-Quartz-7391-xyzzy}
       SEED_OUTPUT: /seed/connections.json
     volumes: [seed-data:/seed]
     depends_on: [lemmy, ghost]
@@ -182,7 +186,7 @@ configs:
           site_name: "IncuBrix Local Lemmy"
         }
         database: {
-          connection: "postgres://lemmy:${LEMMY_DB_PASSWORD:-local-dev-lemmy-db}@lemmy-db:5432/lemmy"
+          uri: "postgres://lemmy:${LEMMY_DB_PASSWORD:-local-dev-lemmy-db}@lemmy-db:5432/lemmy"
         }
         hostname: "localhost"
         bind: "0.0.0.0"

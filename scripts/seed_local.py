@@ -59,6 +59,13 @@ def seed_lemmy() -> dict:
     jwt = login.json()["jwt"]
     auth = {"Authorization": f"Bearer {jwt}"}
 
+    # Lemmy allows only ~6 posts per 10 minutes by default. That is right for real communities but would throttle
+    # our own certification runs, so relax it on THIS local test instance only.
+    relaxed = {f"rate_limit_{k}": 100000 for k in ("message", "post", "register", "image", "comment", "search")}
+    relaxed.update({f"rate_limit_{k}_per_second": 60 for k in ("message", "post", "register", "image", "comment", "search")})
+    edit = httpx.put(f"{LEMMY_URL}/api/v3/site", json=relaxed, headers=auth, timeout=15)
+    log("lemmy rate limits relaxed for local testing" if edit.status_code == 200 else f"could not relax lemmy rate limits: {edit.status_code} {edit.text[:200]}")
+
     found = httpx.get(f"{LEMMY_URL}/api/v3/community", params={"name": LEMMY_COMMUNITY}, headers=auth, timeout=10)
     if found.status_code == 200:
         community_id = found.json()["community_view"]["community"]["id"]
