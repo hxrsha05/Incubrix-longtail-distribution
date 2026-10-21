@@ -1,0 +1,202 @@
+# One command: `docker compose up` starts our service, its database + storage, and LOCAL Lemmy and Ghost
+# instances to publish real test posts to. Nothing here ever talks to a real community.
+#
+# Every value has a local-development default. The passwords below protect throwaway containers on your
+# own machine only; override any of them in .env (see .env.example).
+name: incubrix
+
+x-logging: &logging
+  driver: json-file
+  options: {max-size: "20m", max-file: "3"}
+
+services:
+  # ---------------- our service ----------------
+  api:
+    build: .
+    image: incubrix-api:local
+    ports: ["8000:8000"]
+    environment:
+      APP_ENV: ${APP_ENV:-dev}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      SIMULATION_MODE: ${SIMULATION_MODE:-false}
+      DATABASE_URL: postgresql+psycopg://incubrix:${DB_PASSWORD:-local-dev-db-password}@postgres:5432/incubrix
+      S3_ENDPOINT_URL: http://s3:9000
+      S3_BUCKET: ${S3_BUCKET:-incubrix-distribution}
+      S3_ACCESS_KEY: ${S3_ACCESS_KEY:-incubrix-local}
+      S3_SECRET_KEY: ${S3_SECRET_KEY:-local-dev-s3-secret}
+      CALLBACK_HMAC_SECRET: ${CALLBACK_HMAC_SECRET:-local-dev-callback-secret}
+      CONNECTIONS_FILE: /seed/connections.json
+    volumes:
+      - seed-data:/seed:ro
+    depends_on:
+      postgres: {condition: service_healthy}
+      s3: {condition: service_healthy}
+    logging: *logging
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: incubrix
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-local-dev-db-password}
+      POSTGRES_DB: incubrix
+    volumes: [pg-data:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U incubrix -d incubrix"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    logging: *logging
+
+  # S3-compatible object storage (RustFS, Apache-2.0; MinIO no longer publishes container images)
+  s3-perms:
+    image: alpine:3.20
+    user: root
+    command: chown -R 10001:10001 /data
+    volumes: [s3-data:/data]
+    restart: "no"
+
+  s3:
+    image: rustfs/rustfs:1.0.3
+    environment:
+      RUSTFS_ACCESS_KEY: ${S3_ACCESS_KEY:-incubrix-local}
+      RUSTFS_SECRET_KEY: ${S3_SECRET_KEY:-local-dev-s3-secret}
+    ports: ["9000:9000", "9001:9001"]
+    volumes: [s3-data:/data]
+    depends_on:
+      s3-perms: {condition: service_completed_successfully}
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:9000/health"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    logging: *logging
+
+  # ---------------- local Lemmy ----------------
+  lemmy-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: lemmy
+      POSTGRES_PASSWORD: ${LEMMY_DB_PASSWORD:-local-dev-lemmy-db}
+      POSTGRES_DB: lemmy
+    volumes: [lemmy-db-data:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lemmy -d lemmy"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    logging: *logging
+
+  pictrs:
+    image: asonix/pictrs:0.5
+    user: "991:991"
+    environment:
+      PICTRS__SERVER__API_KEY: ${PICTRS_API_KEY:-local-dev-pictrs-key}
+    volumes: [pictrs-data:/mnt]
+    logging: *logging
+
+  lemmy:
+    image: dessalines/lemmy:0.19.20
+    environment:
+      RUST_LOG: warn
+    configs:
+      - source: lemmy_config
+        target: /config/config.hjson
+    ports: ["8536:8536"]
+    depends_on:
+      lemmy-db: {condition: service_healthy}
+      pictrs: {condition: service_started}
+    logging: *logging
+
+  lemmy-ui:
+    image: dessalines/lemmy-ui:0.19.20
+    environment:
+      LEMMY_UI_LEMMY_INTERNAL_HOST: lemmy:8536
+      LEMMY_UI_LEMMY_EXTERNAL_HOST: localhost:8536
+      LEMMY_UI_HTTPS: "false"
+    ports: ["1234:1234"]
+    depends_on: [lemmy]
+    logging: *logging
+
+  # ---------------- local Ghost ----------------
+  ghost-db:
+    image: mysql:8.0
+    command: --innodb-buffer-pool-size=128M --performance-schema=OFF
+    environment:
+      MYSQL_ROOT_PASSWORD: ${GHOST_DB_ROOT_PASSWORD:-local-dev-ghost-root}
+      MYSQL_DATABASE: ghost
+      MYSQL_USER: ghost
+      MYSQL_PASSWORD: ${GHOST_DB_PASSWORD:-local-dev-ghost-db}
+    volumes: [ghost-db-data:/var/lib/mysql]
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    logging: *logging
+
+  ghost:
+    image: ghost:6.72.0
+    environment:
+      NODE_ENV: production
+      # Ghost redirects any request whose Host differs from `url`. `ghost.localhost` is the same name for
+      # your browser (browsers resolve *.localhost to this machine) and for our containers (network alias below).
+      url: http://ghost.localhost:2368
+      database__client: mysql
+      database__connection__host: ghost-db
+      database__connection__user: ghost
+      database__connection__password: ${GHOST_DB_PASSWORD:-local-dev-ghost-db}
+      database__connection__database: ghost
+      security__staffDeviceVerification: "false"  # no emailed login codes on a throwaway local instance
+    ports: ["2368:2368"]
+    networks:
+      default:
+        aliases: [ghost.localhost]
+    depends_on:
+      ghost-db: {condition: service_healthy}
+    logging: *logging
+
+  # ---------------- one-shot: create the test accounts + API keys ----------------
+  seed:
+    image: incubrix-api:local   # same image as `api`, built once
+    command: python -m scripts.seed_local
+    environment:
+      LEMMY_URL: http://lemmy:8536
+      LEMMY_ADMIN_USER: ${LEMMY_ADMIN_USER:-incubrix_admin}
+      LEMMY_ADMIN_PASSWORD: ${LEMMY_ADMIN_PASSWORD:-local-dev-lemmy-admin}
+      GHOST_URL: http://ghost.localhost:2368
+      GHOST_ADMIN_EMAIL: ${GHOST_ADMIN_EMAIL:-admin@incubrix.test}
+      GHOST_ADMIN_PASSWORD: ${GHOST_ADMIN_PASSWORD:-local-dev-ghost-admin-1}
+      SEED_OUTPUT: /seed/connections.json
+    volumes: [seed-data:/seed]
+    depends_on: [lemmy, ghost]
+    restart: "no"
+    logging: *logging
+
+configs:
+  lemmy_config:
+    content: |
+      {
+        setup: {
+          admin_username: "${LEMMY_ADMIN_USER:-incubrix_admin}"
+          admin_password: "${LEMMY_ADMIN_PASSWORD:-local-dev-lemmy-admin}"
+          site_name: "IncuBrix Local Lemmy"
+        }
+        database: {
+          connection: "postgres://lemmy:${LEMMY_DB_PASSWORD:-local-dev-lemmy-db}@lemmy-db:5432/lemmy"
+        }
+        hostname: "localhost"
+        bind: "0.0.0.0"
+        port: 8536
+        pictrs: {
+          url: "http://pictrs:8080/"
+          api_key: "${PICTRS_API_KEY:-local-dev-pictrs-key}"
+        }
+      }
+
+volumes:
+  pg-data:
+  s3-data:
+  lemmy-db-data:
+  pictrs-data:
+  ghost-db-data:
+  seed-data:
