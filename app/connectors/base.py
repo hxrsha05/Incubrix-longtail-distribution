@@ -38,7 +38,7 @@ class BaseConnector:
 
     # ---------- contract methods (Appendix A) ----------
     def validate(self, rendition: Rendition, destination: Destination, connection: Connection) -> ValidateResult:
-        surface = self.manifest.surface(destination.surface)
+        surface = self.manifest.surface(destination.surface) if destination.surface else self.manifest.surfaces[0]
         if surface is None:
             return ValidateResult(
                 ok=False,

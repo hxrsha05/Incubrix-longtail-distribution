@@ -17,6 +17,7 @@ class FakeLemmy:
         self.logins = 0
         self.valid_jwt = "jwt-1"
         self.fail = None  # (status, body) returned by the next /post call
+        self.duplicate_logins = 0  # how many logins to answer with Lemmy 0.19's same-second collision error
         self.requests: list[httpx.Request] = []
 
     def __call__(self, request: httpx.Request) -> httpx.Response:
@@ -25,7 +26,10 @@ class FakeLemmy:
         if path == "/api/v3/user/login":
             body = json.loads(request.content)
             if body["password"] != "right":
-                return httpx.Response(400, json={"error": "incorrect_login"})
+                return httpx.Response(401, json={"error": "incorrect_login"})
+            if self.duplicate_logins:
+                self.duplicate_logins -= 1
+                return httpx.Response(400, json={"error": "unknown", "message": 'duplicate key value violates unique constraint "login_token_pkey"'})
             self.logins += 1
             return httpx.Response(200, json={"jwt": self.valid_jwt})
         if request.headers.get("Authorization") != f"Bearer {self.valid_jwt}":
@@ -62,7 +66,9 @@ def lemmy():
 @pytest.fixture()
 def connector(lemmy):
     manifest = load_manifest(DEFAULT_MANIFEST_DIR / "lemmy.yaml")
-    return LemmyConnector(manifest, httpx.Client(transport=httpx.MockTransport(lemmy)))
+    c = LemmyConnector(manifest, httpx.Client(transport=httpx.MockTransport(lemmy)))
+    c.LOGIN_RETRY_DELAY_S = 0  # do not really wait a second in unit tests
+    return c
 
 
 CONN = Connection(base_url="http://lemmy.test", username="bot", password="right", extra={"ui_base_url": "http://ui.test"})
@@ -135,6 +141,25 @@ def test_reconcile_finds_an_existing_post_and_reports_absence(connector, lemmy):
     assert found is not None and found.platform_post_id == "1"
     connector.delete("1", CONN)
     assert connector.reconcile(RENDITION, DEST, CONN, "k") is None  # a deleted post doesn't count
+
+
+def test_same_second_login_collision_is_retried(connector, lemmy):
+    """Seen on a real Lemmy 0.19.20: two logins in one second give 400 'duplicate key ... login_token_pkey'."""
+    lemmy.duplicate_logins = 2
+    assert connector.publish(RENDITION, DEST, CONN, "k").status == "live"
+    assert lemmy.logins == 1
+
+
+def test_persistent_login_collision_eventually_fails_clearly(connector, lemmy):
+    lemmy.duplicate_logins = 99
+    with pytest.raises(IncuBrixError) as exc:
+        connector.publish(RENDITION, DEST, CONN, "k")
+    assert exc.value.code.value == "PLATFORM_CONTENT_REJECTED" and "login_token_pkey" in exc.value.details["platform_message"]
+
+
+def test_destination_without_surface_uses_the_connectors_own(connector):
+    result = connector.validate(Rendition(title="t" * 201), Destination(name="d", connector_key="lemmy"), CONN)
+    assert [v.field for v in result.violations] == ["title"]  # not a 'no such surface' error
 
 
 def test_metrics(connector):

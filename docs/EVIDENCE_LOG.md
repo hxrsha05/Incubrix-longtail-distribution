@@ -4,27 +4,27 @@
 > submission."* So: only tick **Yes** when the proof exists and I have seen it work.
 > **Status key:** Done = done and proven; Partial = partly done; Not started; Unverified = written but not yet proven
 
-Last updated: 2026-10-21. Unit tests: **73 passing** (`python -m pytest`, run from this folder).
+Last updated: 2026-10-21. Unit tests: **76 passing** (`python -m pytest`, run from this folder). Live tests against the local Lemmy: **9 passing** (opt-in, see `tests/live/test_lemmy_live.py`).
 
 ## Must-haves (all 9 must pass)
 
 | # | Must-have | Status | Evidence now | Still missing |
 |---|---|---|---|---|
 | 1 | Exact connector contract | Partial | `app/connectors/base.py`, `app/api/connector_routes.py`, `tests/test_connector_framework.py` | Contract test for every method on every connector; `manifest` check per connector |
-| 2 | Six Core connectors certified | Partial | Lemmy written + unit-tested: `tests/test_lemmy_connector.py` | Live Lemmy run; Ghost, Discourse, Dev.to, signed webhook, assisted connector; certification evidence for all six |
+| 2 | Six Core connectors certified | Partial | Lemmy: 15 unit tests (`tests/test_lemmy_connector.py`) and 9 live tests against the real local Lemmy (`tests/live/test_lemmy_live.py`): publish, visible in web UI, status, delete, reconcile, limits, errors | Certification harness and stored evidence; Ghost, Discourse, Dev.to, signed webhook, assisted connector |
 | 3 | Configuration, not code | Partial | Per-destination spec override: `test_destination_spec_overrides_manifest_default` | Catalogue API so a new forum is one row; live "add an instance" demo |
 | 4 | Rules checked before every post | Done | `tests/test_rules.py`, `tests/test_idempotency.py` (cap, promo, links, AI disclosure, fail-closed) | Show it through the live demo; rule test set for "caught vs missed" metric |
 | 5 | Never spam, never cheat | Partial | 429 + reset-time mapping tested; own-instances-only design | Certification harness, auto-delete within 10 minutes (also on failure), consecutive-failure stop, written proof from logs |
 | 6 | Safe retries | Done (unit) | `tests/test_idempotency.py::test_timeout_after_create_then_retry_does_not_duplicate` and others | Forced-timeout run against the live demo; screenshot/log for the form |
 | 7 | Secrets protected + simulation mode | Partial | Redaction: `app/logging_setup.py`, `tests/test_foundation.py` | Simulation mode with mock platforms; search repo + logs for tokens and save the result |
-| 8 | Local test instances (compose) | Unverified | `docker-compose.yml`, `scripts/seed_local.py` | Prove `docker compose up` works on a clean machine; seed result |
+| 8 | Local test instances (compose) | Partial | `docker compose up` starts all services here; `scripts/seed_local.py` creates the Lemmy community, the Ghost owner and Ghost API key, and is safe to re-run | Run on a clean machine; Ghost live test; mock servers for the rest |
 | 9 | Integration Standard + live demo | Not started | see below | Deploy live demo; keep it up until results |
 
 ## Integration Standard (2 marks each)
 
 | # | Point | Status | Evidence now | Still missing |
 |---|---|---|---|---|
-| 1 | One-command start and test | Unverified | `docker-compose.yml`, `.env.example` | `docker compose up` verified; one command that runs all tests with no keys |
+| 1 | One-command start and test | Partial | `docker-compose.yml`, `.env.example`; stack starts locally | Clean-machine run; one command that runs all tests with no keys |
 | 2 | `openapi.yaml` matching the service | Not started | FastAPI generates `/api/v1/openapi.json` | Commit `openapi.yaml`; test that it matches the running service |
 | 3 | Background jobs (202, status, HMAC callback) | Done | `app/jobs.py`, `tests/test_jobs.py` | Real job kinds (certification, import) |
 | 4 | Idempotency-Key on every POST | Done | `tests/test_idempotency.py`, `tests/test_jobs.py` | Check *every* POST route honours it |
@@ -99,3 +99,20 @@ errors mapped for expired token / rate limit / rejected content Partial (Lemmy +
 - [ ] Every link in the form opens for `admin@incubrix.com`
 - [ ] Nothing in the form is ticked "Yes" without proof
 - [ ] Submit **before the last hour** (deadline: Sun 25 Oct 2026, 11:59 PM IST)
+
+## Findings from live testing (material for REPORT.md)
+
+Checked against the real local Lemmy 0.19.20, not assumed:
+
+| Finding | What we did about it |
+|---|---|
+| Lemmy 0.19.x needs `database.uri` in its config. The `database.connection` key from Lemmy's development branch is silently ignored and Lemmy then tries `localhost`. | Fixed in `docker-compose.yml`. |
+| Two logins in the same second fail with HTTP 400 `duplicate key ... login_token_pkey` (the login token is built from the current second). | Connector waits 1.1 s and retries, up to 4 attempts. Unit-tested and live-tested. |
+| Wrong password and missing/invalid token both return HTTP 401 `incorrect_login`. | Mapped to `CONNECTION_AUTH_EXPIRED`. |
+| Title limit is 200 characters (201 is rejected as `invalid_post_title`). Body limit is **50,000**, not 10,000 as first assumed (`invalid_body_field`). | Manifest corrected to 50,000. |
+| Default post rate limit is 6 requests per 10 minutes. The error is HTTP **400** `rate_limit_error` with **no reset time**; failed requests count too. | Mapped to `PLATFORM_RATE_LIMIT`. The reset time is not provided by Lemmy, so none is reported. The seed job relaxes the limit on the local test instance only. |
+| Right after a rate-limit response, the next request on the same connection hung once until timeout. Not reproduced with the limits relaxed. | Timeouts are handled and treated as outcome-unknown (see idempotency). Worth watching. |
+| A missing community returns HTTP 404 `couldnt_find_community`. | Reported as `PLATFORM_CONTENT_REJECTED`. |
+| Ghost refuses admin passwords containing words such as "ghost" or "local" (site name). | Local default changed. |
+| `minio/minio` is no longer published on Docker Hub. | Replaced with RustFS (Apache-2.0). |
+| PyPI was very slow on the development network (about 56 KB/s). | Optional `PIP_INDEX_URL` build argument; the repository default stays the official PyPI. |

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import base64
 import json
+import time
 from typing import Any
 
 import httpx
@@ -20,6 +21,9 @@ _RATE_LIMIT_ERRORS = {"rate_limit_error"}
 
 @register_connector("lemmy")
 class LemmyConnector(BaseConnector):
+    LOGIN_ATTEMPTS = 4
+    LOGIN_RETRY_DELAY_S = 1.1  # slightly over one second, see _login
+
     def __init__(self, manifest, http) -> None:
         super().__init__(manifest, http)
         self._jwts: dict[tuple[str, str], str] = {}
@@ -110,12 +114,25 @@ class LemmyConnector(BaseConnector):
         if key not in self._jwts:
             if not (connection.username and connection.password):
                 raise IncuBrixError(ErrorCode.CONNECTION_AUTH_EXPIRED, "connection has neither a token nor a username/password")
-            resp = self._call(
-                "POST", f"{base}/api/v3/user/login",
-                json={"username_or_email": connection.username, "password": connection.password.get_secret_value()},
-            )
-            self._jwts[key] = resp.json()["jwt"]
+            self._jwts[key] = self._login(base, connection)
         return self._jwts[key]
+
+    def _login(self, base: str, connection: Connection) -> str:
+        """Lemmy 0.19 builds the login token from the current second, so two logins within the same second collide
+        ('duplicate key ... login_token_pkey', HTTP 400). Wait out the second and try again."""
+        for attempt in range(1, self.LOGIN_ATTEMPTS + 1):
+            try:
+                resp = self._call(
+                    "POST", f"{base}/api/v3/user/login",
+                    json={"username_or_email": connection.username, "password": connection.password.get_secret_value()},
+                )
+                return resp.json()["jwt"]
+            except IncuBrixError as exc:
+                duplicate_token = "login_token_pkey" in str(exc.details.get("platform_message", ""))
+                if not duplicate_token or attempt == self.LOGIN_ATTEMPTS:
+                    raise
+                time.sleep(self.LOGIN_RETRY_DELAY_S)
+        raise AssertionError("unreachable")
 
     def _cache_key(self, base: str, connection: Connection) -> tuple[str, str]:
         return base, connection.username or "token"

@@ -35,7 +35,7 @@ class Rendition(BaseModel):
 class Destination(BaseModel):
     name: str
     connector_key: str
-    surface: str = "topic"
+    surface: str | None = None  # None = the connector's first (usually only) surface
     base_url: str | None = None
     community: str | None = None  # forum category / lemmy community / etc.
     spec: dict[str, Any] = Field(default_factory=dict)  # per-destination overrides of the manifest spec
