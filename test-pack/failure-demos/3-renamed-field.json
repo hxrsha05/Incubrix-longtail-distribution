@@ -1,0 +1,75 @@
+{
+  "callback_status": "none",
+  "created_at": 1792689599.274284,
+  "error": null,
+  "job_id": "ca8141bbb78e4c8187f2199eb5256b4c",
+  "kind": "certify",
+  "progress": 100,
+  "result": {
+    "evidence": {
+      "record": {
+        "download_url": "http://localhost:9000/incubrix-distribution/certification/demo-forum-failures/run-829e87119a31.json?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=incubrix-local%2F20261022%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20261022T171959Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=a4b0244e53d221f8228461a4e4298ea55a06b3863694370fc568195ab4b73bba",
+        "local_path": "evidence/certification/demo-forum-failures/run-829e87119a31.json",
+        "s3_key": "certification/demo-forum-failures/run-829e87119a31.json"
+      },
+      "summary": {
+        "download_url": "http://localhost:9000/incubrix-distribution/certification/demo-forum-failures/run-829e87119a31.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=incubrix-local%2F20261022%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20261022T171959Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=74d018d41b7ff7c29950152c3cee92336e63eb2bbd2ee05f6acd854c09cad17b",
+        "local_path": "evidence/certification/demo-forum-failures/run-829e87119a31.txt",
+        "s3_key": "certification/demo-forum-failures/run-829e87119a31.txt"
+      }
+    },
+    "failure": {
+      "details": {
+        "missing_field": "topic_id"
+      },
+      "kind": "RESPONSE_SHAPE_CHANGED",
+      "summary": "the platform's response changed: field 'topic_id' is missing"
+    },
+    "manifest": {
+      "ai_generated": {
+        "label": "no AI-generated content in this result",
+        "present": false
+      },
+      "cost": {
+        "model_calls": 0,
+        "note": "no paid API or model is called by certification",
+        "usd": 0.0
+      },
+      "kind": "certification",
+      "licences": [
+        {
+          "component": "IncuBrix Distribution service (this repo)",
+          "licence": "own code",
+          "reference": "SOURCES.md"
+        },
+        {
+          "component": "FastAPI, Pydantic, SQLAlchemy, httpx",
+          "licence": "MIT / BSD (see SOURCES.md)",
+          "reference": "SOURCES.md"
+        }
+      ],
+      "settings": {
+        "rate_limit_wait_cap_s": 30.0,
+        "simulation_mode": true,
+        "test_post_ttl_s": 600
+      },
+      "timings": {
+        "duration_s": 0.006,
+        "finished_at": 1792689599.293624,
+        "started_at": 1792689599.2873294
+      },
+      "versions": {
+        "connector": "1.0.0",
+        "python": "3.12.15",
+        "service": "0.1.0"
+      },
+      "warnings": [
+        "publish failed but the platform had created the post; it was found by reconcile and will be deleted"
+      ]
+    },
+    "run_id": "829e87119a31",
+    "verdict": "failed"
+  },
+  "status": "succeeded",
+  "updated_at": 1792689599.3494334
+}

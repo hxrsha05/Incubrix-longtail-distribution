@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Any
 
 from fastapi import APIRouter, Header, Request
+from fastapi import Response
 from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel, Field
 
@@ -58,9 +59,9 @@ def get_destination(dest_id: str, request: Request) -> dict[str, Any]:
 
 
 @router.delete("/destinations/{dest_id}", status_code=204)
-def delete_destination(dest_id: str, request: Request) -> JSONResponse:
+def delete_destination(dest_id: str, request: Request) -> Response:
     request.app.state.catalogue.delete(dest_id)
-    return JSONResponse(status_code=204, content=None)
+    return Response(status_code=204)  # no body at all: a 204 with a body breaks real HTTP servers
 
 
 @router.post("/destinations/{dest_id}/certify", status_code=202)

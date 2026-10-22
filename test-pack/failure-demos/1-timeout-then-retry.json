@@ -1,0 +1,20 @@
+{
+  "first": {
+    "error": {
+      "code": "PLATFORM_UNAVAILABLE",
+      "details": {
+        "outcome_unknown": true,
+        "reason": "timeout",
+        "url": "http://mock-platforms:9100/discourse/posts.json"
+      },
+      "message": "platform timed out",
+      "retryable": true
+    }
+  },
+  "second": {
+    "live_url": "http://mock-platforms:9100/discourse/t/a-failure-demo-post-title/101",
+    "platform_post_id": "101",
+    "status": "live"
+  },
+  "topics_after": 1
+}

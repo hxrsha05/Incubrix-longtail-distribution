@@ -1,0 +1,55 @@
+{
+  "connector_key": "discourse",
+  "destination_id": "demo-forum-no-access",
+  "duration_s": 0.0,
+  "failure": {
+    "details": {},
+    "kind": "CONNECTION_AUTH_EXPIRED",
+    "summary": "CONNECTION_AUTH_EXPIRED: no credentials for 'nobody'; add it to the connections file"
+  },
+  "finished_at": 1792689600.38802,
+  "manifest": {
+    "ai_generated": {
+      "label": "no AI-generated content in this result",
+      "present": false
+    },
+    "cost": {
+      "model_calls": 0,
+      "note": "no paid API or model is called by certification",
+      "usd": 0.0
+    },
+    "kind": "certification",
+    "licences": [
+      {
+        "component": "IncuBrix Distribution service (this repo)",
+        "licence": "own code",
+        "reference": "SOURCES.md"
+      },
+      {
+        "component": "FastAPI, Pydantic, SQLAlchemy, httpx",
+        "licence": "MIT / BSD (see SOURCES.md)",
+        "reference": "SOURCES.md"
+      }
+    ],
+    "settings": {
+      "simulation_mode": true
+    },
+    "timings": {
+      "duration_s": 0.0,
+      "finished_at": 1792689600.38802,
+      "started_at": 1792689600.38802
+    },
+    "versions": {
+      "connector": null,
+      "python": "3.12.15",
+      "service": "0.1.0"
+    },
+    "warnings": []
+  },
+  "run_id": "skip-1792689600388",
+  "started_at": 1792689600.38802,
+  "steps": [],
+  "tier": null,
+  "verdict": "inconclusive",
+  "warnings": []
+}
