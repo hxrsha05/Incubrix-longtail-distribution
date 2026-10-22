@@ -172,6 +172,10 @@ def create_app() -> FastAPI:
         store[int(body["id"])].update(body.get("values", {}))
         return {"ok": True}
 
+    @app.get("/__control/partner_posts")
+    async def partner_posts_dump() -> list:
+        return [p for posts in state.partner_posts.values() for p in posts.values()]
+
     @app.get("/__control/state")
     async def dump() -> dict:
         return {
@@ -317,14 +321,18 @@ def create_app() -> FastAPI:
         return JSONResponse({"id": post_id, "url": f"http://partner.mock/{partner}/{post_id}"}, status_code=201)
 
     @app.get("/partner/hooks/{partner}/posts/{post_id}")
-    async def partner_get(partner: str, post_id: str):
+    async def partner_get(partner: str, post_id: str, request: Request):
+        if (denied := partner_denied(partner, b"", request.headers.get("X-IncuBrix-Signature"))) is not None:
+            return denied
         post = state.partner_posts.get(partner, {}).get(post_id)
         if post is None or post["deleted"]:
             return JSONResponse({"error": "not_found"}, status_code=404)
         return {"id": post_id, "url": f"http://partner.mock/{partner}/{post_id}", "status": "live"}
 
     @app.get("/partner/hooks/{partner}/by-key/{key}")
-    async def partner_by_key(partner: str, key: str):
+    async def partner_by_key(partner: str, key: str, request: Request):
+        if (denied := partner_denied(partner, b"", request.headers.get("X-IncuBrix-Signature"))) is not None:
+            return denied
         for post in state.partner_posts.get(partner, {}).values():
             if post["key"] == key and not post["deleted"]:
                 return {"id": post["id"], "url": f"http://partner.mock/{partner}/{post['id']}", "status": "live"}
@@ -332,6 +340,8 @@ def create_app() -> FastAPI:
 
     @app.delete("/partner/hooks/{partner}/posts/{post_id}")
     async def partner_delete(partner: str, post_id: str, request: Request):
+        if (denied := partner_denied(partner, b"", request.headers.get("X-IncuBrix-Signature"))) is not None:
+            return denied
         post = state.partner_posts.get(partner, {}).get(post_id)
         if post is None or post["deleted"]:
             return JSONResponse({"error": "not_found"}, status_code=404)

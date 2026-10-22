@@ -74,12 +74,15 @@ def test_partner_accepts_only_correctly_signed_bodies(client):
     ok = client.post("/partner/hooks/demo-partner", content=body, headers={"X-IncuBrix-Signature": sign(body), "X-IncuBrix-Idempotency-Key": "k1"})
     assert ok.status_code == 201
     post_id = ok.json()["id"]
-    assert client.get(f"/partner/hooks/demo-partner/by-key/k1").json()["id"] == post_id
+    empty = {"X-IncuBrix-Signature": sign(b"")}  # GET and DELETE sign an empty body
+    assert client.get("/partner/hooks/demo-partner/by-key/k1", headers=empty).json()["id"] == post_id
+    assert client.get("/partner/hooks/demo-partner/by-key/k1").status_code == 401  # unsigned reads are refused too
     assert client.post("/partner/hooks/demo-partner", content=body, headers={"X-IncuBrix-Signature": sign(body, "wrong")}).status_code == 401
     assert client.post("/partner/hooks/demo-partner", content=body + b" ", headers={"X-IncuBrix-Signature": sign(body)}).status_code == 401  # tampered
     assert client.post("/partner/hooks/demo-partner", content=body).status_code == 401  # unsigned
-    assert client.delete(f"/partner/hooks/demo-partner/posts/{post_id}").status_code == 204
-    assert client.get(f"/partner/hooks/demo-partner/posts/{post_id}").status_code == 404
+    assert client.delete(f"/partner/hooks/demo-partner/posts/{post_id}").status_code == 401  # unsigned delete refused
+    assert client.delete(f"/partner/hooks/demo-partner/posts/{post_id}", headers=empty).status_code == 204
+    assert client.get(f"/partner/hooks/demo-partner/posts/{post_id}", headers=empty).status_code == 404
 
 
 # ---------------------------------------------------------------- failure switches
@@ -115,8 +118,8 @@ def test_timeout_before_answers_late_and_creates_nothing(client):
 
 def test_renamed_field_stays_renamed_until_reset(client):
     fail(client, platform="discourse", kind="rename_field", rename={"topic_id": "topic_identifier"})
-    for _ in range(2):
-        made = client.post("/discourse/posts.json", headers=DISCOURSE, json={"title": TITLE + str(time.time()), "raw": RAW}).json()
+    for i in range(2):  # a counter, not the clock: Windows clocks can return the same time twice in a row
+        made = client.post("/discourse/posts.json", headers=DISCOURSE, json={"title": f"{TITLE} {i}", "raw": RAW}).json()
         assert "topic_identifier" in made and "topic_id" not in made
     client.post("/__control/reset")
     again = client.post("/discourse/posts.json", headers=DISCOURSE, json={"title": TITLE, "raw": RAW}).json()
