@@ -1,0 +1,11 @@
+key: assisted
+version: 1.0.0
+tier: assisted          # a person posts by hand; we prepare everything
+auth: none
+surfaces:
+  - key: post
+    content_types: [text, image, video_link, article]
+    spec: {title_max_chars: 300, body_max_chars: 10000, links_allowed: true}
+capabilities: [assist]
+error_map: {}
+instance_param: base_url
