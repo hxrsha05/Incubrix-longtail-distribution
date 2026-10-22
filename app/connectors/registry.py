@@ -50,7 +50,7 @@ class ConnectorRegistry:
         return set(self.manifests) & set(self.classes)
 
 
-BUILTIN_CONNECTOR_MODULES = ["lemmy", "ghost", "webhook"]  # importing a module runs its @register_connector
+BUILTIN_CONNECTOR_MODULES = ["lemmy", "ghost", "webhook", "discourse", "devto"]  # importing a module runs its @register_connector
 
 
 def build_registry(http: httpx.Client, disabled: set[str], manifest_dir: Path = DEFAULT_MANIFEST_DIR) -> ConnectorRegistry:
