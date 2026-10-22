@@ -51,6 +51,8 @@ class BaseConnector:
             violations.append(
                 Violation(field="content_type", reason=f"{rendition.content_type!r} not accepted; allowed: {surface.content_types}")
             )
+        if not rendition.title.strip():
+            violations.append(Violation(field="title", reason="title is required"))  # Ghost would silently post "(Untitled)"
         title_max = spec.get("title_max_chars")
         if title_max is not None and len(rendition.title) > title_max:
             violations.append(Violation(field="title", reason="title too long", limit=title_max, actual=len(rendition.title)))

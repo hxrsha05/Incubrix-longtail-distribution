@@ -116,7 +116,9 @@ def seed_ghost() -> dict:
             integration = r.json()["integrations"][0]
             log("ghost integration created")
         key = next(k for k in integration["api_keys"] if k["type"] == "admin")
-    return {"base_url": GHOST_URL, "admin_api_key": f"{key['id']}:{key['secret']}"}
+    # Ghost 6 already returns the full "id:secret" in the secret field; older versions return only the secret.
+    admin_key = key["secret"] if ":" in key["secret"] else f"{key['id']}:{key['secret']}"
+    return {"base_url": GHOST_URL, "admin_api_key": admin_key}
 
 
 def main() -> None:

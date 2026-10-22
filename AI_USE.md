@@ -29,6 +29,7 @@ No other AI coding tools were used.
 | Publish pipeline (idempotency, rules, connector) | `app/publish_service.py` |
 | Background jobs and signed callbacks | `app/jobs.py`, `app/api/job_routes.py` |
 | Lemmy connector | `app/connectors/lemmy.py`, `app/connectors/manifests/lemmy.yaml` |
+| Ghost connector | `app/connectors/ghost.py`, `app/connectors/manifests/ghost.yaml` |
 | Docker setup and seed script | `Dockerfile`, `docker-compose.yml`, `scripts/seed_local.py` |
 | Tests | `tests/` |
 | Documentation | `AI_USE.md`, `SOURCES.md`, `docs/EVIDENCE_LOG.md` |
@@ -43,6 +44,8 @@ No other AI coding tools were used.
 ## Corrections made along the way
 
 - The AI first specified MinIO for object storage. Its container image is no longer published, so the first image download failed. It was replaced with RustFS, an S3-compatible store.
+- The AI first assumed the Ghost 6 admin key was `id` plus `secret`; the real server returns the full key in the secret field. Found by testing against the live instance.
+- The AI first assumed a draft post on Ghost is private; the real server gives it an unlisted public preview link. The test and the documentation were corrected.
 
 ## Manual work
 

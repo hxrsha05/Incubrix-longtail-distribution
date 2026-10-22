@@ -4,14 +4,14 @@
 > submission."* So: only tick **Yes** when the proof exists and I have seen it work.
 > **Status key:** Done = done and proven; Partial = partly done; Not started; Unverified = written but not yet proven
 
-Last updated: 2026-10-21. Unit tests: **76 passing** (`python -m pytest`, run from this folder). Live tests against the local Lemmy: **9 passing** (opt-in, see `tests/live/test_lemmy_live.py`).
+Last updated: 2026-10-21. Unit tests: **99 passing** (`python -m pytest`, run from this folder). Live tests against the real local Lemmy and Ghost: **18 passing** (opt-in, see `tests/live/`).
 
 ## Must-haves (all 9 must pass)
 
 | # | Must-have | Status | Evidence now | Still missing |
 |---|---|---|---|---|
 | 1 | Exact connector contract | Partial | `app/connectors/base.py`, `app/api/connector_routes.py`, `tests/test_connector_framework.py` | Contract test for every method on every connector; `manifest` check per connector |
-| 2 | Six Core connectors certified | Partial | Lemmy: 15 unit tests (`tests/test_lemmy_connector.py`) and 9 live tests against the real local Lemmy (`tests/live/test_lemmy_live.py`): publish, visible in web UI, status, delete, reconcile, limits, errors | Certification harness and stored evidence; Ghost, Discourse, Dev.to, signed webhook, assisted connector |
+| 2 | Six Core connectors certified | Partial | Lemmy: 15 unit tests (`tests/test_lemmy_connector.py`) and 9 live tests against the real local Lemmy (`tests/live/test_lemmy_live.py`): publish, visible in web UI, status, delete, reconcile, limits, errors Ghost: 25 unit tests (`tests/test_ghost_connector.py`, fake Ghost that verifies the signed token) and 9 live tests against the real local Ghost (`tests/live/test_ghost_live.py`): publish, visible on the public blog, status, delete, reconcile by slug, drafts, escaping, limits, auth errors | Certification harness and stored evidence; Discourse, Dev.to, signed webhook, assisted connector |
 | 3 | Configuration, not code | Partial | Per-destination spec override: `test_destination_spec_overrides_manifest_default` | Catalogue API so a new forum is one row; live "add an instance" demo |
 | 4 | Rules checked before every post | Done | `tests/test_rules.py`, `tests/test_idempotency.py` (cap, promo, links, AI disclosure, fail-closed) | Show it through the live demo; rule test set for "caught vs missed" metric |
 | 5 | Never spam, never cheat | Partial | 429 + reset-time mapping tested; own-instances-only design | Certification harness, auto-delete within 10 minutes (also on failure), consecutive-failure stop, written proof from logs |
@@ -116,3 +116,15 @@ Checked against the real local Lemmy 0.19.20, not assumed:
 | Ghost refuses admin passwords containing words such as "ghost" or "local" (site name). | Local default changed. |
 | `minio/minio` is no longer published on Docker Hub. | Replaced with RustFS (Apache-2.0). |
 | PyPI was very slow on the development network (about 56 KB/s). | Optional `PIP_INDEX_URL` build argument; the repository default stays the official PyPI. |
+
+Ghost, checked against the real local Ghost 6.72.0:
+
+| Finding | What we did about it |
+|---|---|
+| In Ghost 6 the `secret` field of an Admin API key is already the full `id:secret` string (89 characters). The seed job had joined the id on again. | Seed job fixed; it also still handles older Ghost versions that return only the secret. |
+| Every call needs a freshly signed HS256 token (`kid` = key id, audience `/admin/`, 5-minute life), sent as `Authorization: Ghost <token>`. | Implemented with the standard library (no JWT dependency); the unit-test fake Ghost verifies the signature. |
+| Wrong secret, expired token and wrong audience give HTTP 401; a missing header gives 403; a garbage token gives HTTP **400** with code `INVALID_JWT`. | All mapped to `CONNECTION_AUTH_EXPIRED`. |
+| Title limit is 255 characters (256 gives 422). An **empty title is accepted and silently posted as "(Untitled)"**. | `validate` now rejects an empty title for every connector. |
+| A duplicate slug is silently renamed to `slug-2` instead of refused. | The slug is built from the idempotency key (`my-title-3f2a1b9c`), and `reconcile` looks the post up by that exact slug after a timeout. |
+| A Ghost **draft** has an unlisted preview link (`/p/<random-id>/`) that works for anyone who has the URL. | A draft is reported as `draft` with no live URL, and the live test checks it is not on the public site or feed. |
+| Windows Python cannot resolve `ghost.localhost` (browsers and containers can). | Host-side tests connect to 127.0.0.1 and send the `Host` header explicitly. |

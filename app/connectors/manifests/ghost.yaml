@@ -1,0 +1,17 @@
+key: ghost
+version: 1.0.0
+tier: native
+auth: api_key           # Ghost Admin API key ("id:secret"), exchanged per request for a short-lived signed token
+surfaces:
+  - key: post
+    content_types: [article, text]
+    spec: {title_max_chars: 255, body_max_chars: 1000000, links_allowed: true}
+rate_limits:
+  per_connection: {requests: 60, per_seconds: 60}
+capabilities: [publish, status, delete]
+error_map:
+  "401": CONNECTION_AUTH_EXPIRED
+  "403": CONNECTION_AUTH_EXPIRED
+  "422": PLATFORM_CONTENT_REJECTED
+  "429": PLATFORM_RATE_LIMIT
+instance_param: base_url
