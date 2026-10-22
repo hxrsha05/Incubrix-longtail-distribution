@@ -21,7 +21,7 @@ services:
     environment:
       APP_ENV: ${APP_ENV:-dev}
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
-      SIMULATION_MODE: ${SIMULATION_MODE:-false}
+      SIMULATION_MODE: ${SIMULATION_MODE:-true}   # true = destinations without real credentials use the mock platforms
       DATABASE_URL: postgresql+psycopg://incubrix:${DB_PASSWORD:-local-dev-db-password}@postgres:5432/incubrix
       S3_ENDPOINT_URL: http://s3:9000
       S3_BUCKET: ${S3_BUCKET:-incubrix-distribution}
@@ -29,8 +29,12 @@ services:
       S3_SECRET_KEY: ${S3_SECRET_KEY:-local-dev-s3-secret}
       CALLBACK_HMAC_SECRET: ${CALLBACK_HMAC_SECRET:-local-dev-callback-secret}
       CONNECTIONS_FILE: /seed/connections.json
+      MOCK_PLATFORMS_URL: http://mock-platforms:9100
+      S3_ENABLED: "true"
+      S3_PUBLIC_URL: http://localhost:9000
     volumes:
       - seed-data:/seed:ro
+      - ./evidence/certification:/srv/evidence/certification
     depends_on:
       postgres: {condition: service_healthy}
       s3: {condition: service_healthy}

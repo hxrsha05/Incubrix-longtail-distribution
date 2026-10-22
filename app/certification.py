@@ -61,7 +61,7 @@ def certify(
     started = clock()
     record: dict[str, Any] = {
         "run_id": run_id, "destination_id": destination_id, "connector_key": connector.manifest.key,
-        "tier": connector.manifest.tier, "started_at": started, "steps": [], "verdict": "passed", "warnings": [],
+        "tier": connector.manifest.tier, "target": connection.base_url or destination.base_url, "started_at": started, "steps": [], "verdict": "passed", "warnings": [],
     }
     state: dict[str, Any] = {"post": None, "published_at": None, "deleted": False}
 

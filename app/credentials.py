@@ -24,11 +24,21 @@ class CredentialProvider:
     def for_destination(self, destination: Destination) -> Connection:
         ref = destination.extra.get("connection_ref") or destination.connector_key
         if ref in self.entries:
-            return Connection.model_validate(self.entries[ref])
+            return _to_connection(self.entries[ref])
         explicit = "connection_ref" in destination.extra  # a named connection must exist; only the default falls back to the mocks
         if self.simulation_mode and not explicit and destination.connector_key in _MOCK_ACCOUNTS:
             return _MOCK_ACCOUNTS[destination.connector_key](self.mock_url, destination)
         raise IncuBrixError(ErrorCode.CONNECTION_AUTH_EXPIRED, f"no credentials for {ref!r}; add it to the connections file")
+
+
+def _to_connection(entry: dict) -> Connection:
+    """The seed file uses each platform's own words (admin_api_key ...); map them onto Connection, keep the rest in extra."""
+    entry = dict(entry)
+    if "admin_api_key" in entry:
+        entry["api_key"] = entry.pop("admin_api_key")
+    known = set(Connection.model_fields)
+    extra = {k: entry.pop(k) for k in list(entry) if k not in known}
+    return Connection.model_validate({**entry, "extra": {**entry.get("extra", {}), **extra}})
 
 
 def _mock_discourse(url: str, d: Destination) -> Connection:

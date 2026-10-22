@@ -41,6 +41,7 @@ class CertificationService:
 
     def certify_many(self, dest_ids: list[str], progress: Callable[[int], None] = lambda p: None) -> dict[str, Any]:
         """Certify several destinations. After N failures in a row on one connector we stop calling it (do not hammer it)."""
+        started = self.clock()
         results, streak, skipped = [], {}, []
         for i, dest_id in enumerate(dest_ids, 1):
             key = self.catalogue.get(dest_id)["connector_key"]
@@ -56,7 +57,7 @@ class CertificationService:
         verdicts = [r["verdict"] for r in results]
         return {"results": results, "skipped": skipped, "passed": verdicts.count("passed"), "failed": verdicts.count("failed"),
                 "inconclusive": verdicts.count("inconclusive"),
-                "manifest": build_manifest(kind="certification_batch", started_at=now, finished_at=now, settings={"simulation_mode": self.simulation})}
+                "manifest": build_manifest(kind="certification_batch", started_at=started, finished_at=now, settings={"simulation_mode": self.simulation})}
 
     def _unrunnable(self, row: dict[str, Any], exc: IncuBrixError) -> dict[str, Any]:
         now = self.clock()

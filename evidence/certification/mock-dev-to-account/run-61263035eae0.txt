@@ -1,0 +1,11 @@
+Certification run 61263035eae0
+destination: mock-dev-to-account  connector: devto
+verdict: PASSED   duration: 0.021 s
+  [ok] validate (0.0 s)
+  [ok] publish (0.015 s)
+  [ok] confirm_live (0.0 s)
+  [ok] status (0.002 s)
+  [ok] metrics (0.001 s)
+  [ok] delete (0.002 s)
+  [ok] confirm_deleted (0.001 s)
+test post: id=101 url=http://devto.mock/mock_user/incubrix-certification-test-61263035eae0-65 deleted=True after 0.005 s (limit 600 s)

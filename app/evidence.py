@@ -15,8 +15,20 @@ class S3Like(Protocol):  # the two boto3 client calls we use, so tests can pass 
 
 
 class EvidenceStore:
-    def __init__(self, directory: str | Path, s3: S3Like | None = None, bucket: str = "", link_ttl_s: int = 3600) -> None:
+    def __init__(self, directory: str | Path, s3: S3Like | None = None, bucket: str = "", link_ttl_s: int = 3600, presigner: S3Like | None = None) -> None:
         self.directory, self.s3, self.bucket, self.link_ttl_s = Path(directory), s3, bucket, link_ttl_s
+        self.presigner = presigner or s3  # presigning is offline: a client pointed at the browser-visible address makes links that work there
+        self._bucket_ready = False
+
+    def _ensure_bucket(self) -> None:
+        if self._bucket_ready or not hasattr(self.s3, "head_bucket"):
+            self._bucket_ready = True
+            return
+        try:
+            self.s3.head_bucket(Bucket=self.bucket)
+        except Exception:  # noqa: BLE001 - missing bucket (or any head failure): try to create it, and let a real problem surface there
+            self.s3.create_bucket(Bucket=self.bucket)
+        self._bucket_ready = True
 
     def save(self, destination_id: str, name: str, content: dict[str, Any] | str) -> dict[str, str | None]:
         """Write one evidence file. Returns where it went: local_path, s3_key, download_url."""
@@ -27,10 +39,11 @@ class EvidenceStore:
         path.write_text(text, encoding="utf-8")
         result: dict[str, str | None] = {"local_path": str(path).replace("\\", "/"), "s3_key": None, "download_url": f"/api/v1/evidence/{rel}"}
         if self.s3 is not None:
+            self._ensure_bucket()
             key = f"certification/{rel}"
             self.s3.put_object(Bucket=self.bucket, Key=key, Body=text.encode(), ContentType="application/json" if name.endswith(".json") else "text/plain")
             result["s3_key"] = key
-            result["download_url"] = self.s3.generate_presigned_url("get_object", Params={"Bucket": self.bucket, "Key": key}, ExpiresIn=self.link_ttl_s)
+            result["download_url"] = self.presigner.generate_presigned_url("get_object", Params={"Bucket": self.bucket, "Key": key}, ExpiresIn=self.link_ttl_s)
         return result
 
     def read(self, rel: str) -> Path | None:

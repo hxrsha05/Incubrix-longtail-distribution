@@ -1,0 +1,10 @@
+Certification run 6bf9b5e99dba
+destination: mock-partner-site-signed-webhook  connector: webhook
+verdict: PASSED   duration: 0.007 s
+  [ok] validate (0.0 s)
+  [ok] publish (0.003 s)
+  [ok] confirm_live (0.0 s)
+  [ok] status (0.002 s)
+  [ok] delete (0.001 s)
+  [ok] confirm_deleted (0.001 s)
+test post: id=p104 url=http://partner.mock/demo-partner/p104 deleted=True after 0.003 s (limit 600 s)

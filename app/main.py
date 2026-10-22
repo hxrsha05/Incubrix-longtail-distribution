@@ -66,7 +66,8 @@ def create_app(
     s3 = make_s3_client(settings.s3_endpoint_url, settings.s3_access_key.get_secret_value(), settings.s3_secret_key.get_secret_value()) if settings.s3_enabled else None
     app.state.idempotency_store = store
     app.state.catalogue = Catalogue(engine, clock)
-    app.state.evidence = EvidenceStore(settings.evidence_dir, s3, settings.s3_bucket)
+    presigner = make_s3_client(settings.s3_public_url, settings.s3_access_key.get_secret_value(), settings.s3_secret_key.get_secret_value()) if s3 and settings.s3_public_url else None
+    app.state.evidence = EvidenceStore(settings.evidence_dir, s3, settings.s3_bucket, presigner=presigner)
     app.state.certification = CertificationService(
         app.state.catalogue, app.state.registry,
         CredentialProvider(settings.connections_file, settings.simulation_mode, settings.mock_platforms_url), app.state.evidence,
