@@ -1,0 +1,18 @@
+key: webhook
+version: 1.0.0
+tier: bridge            # we bridge IncuBrix content to a partner's own website through a signed HTTP call
+auth: api_key           # a secret shared with the partner; every request is signed with it
+surfaces:
+  - key: post
+    content_types: [text, image, video_link, article]
+    spec: {title_max_chars: 300, body_max_chars: 100000, links_allowed: true}
+rate_limits:
+  per_connection: {requests: 60, per_seconds: 60}
+capabilities: [publish, status, delete]
+error_map:
+  "401": CONNECTION_AUTH_EXPIRED   # the partner does not accept our signature
+  "403": CONNECTION_AUTH_EXPIRED
+  "410": CONNECTION_AUTH_EXPIRED   # "Gone": the partner has revoked our permission
+  "422": PLATFORM_CONTENT_REJECTED
+  "429": PLATFORM_RATE_LIMIT
+instance_param: base_url
