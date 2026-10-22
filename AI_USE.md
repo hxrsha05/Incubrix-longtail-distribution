@@ -30,6 +30,7 @@ No other AI coding tools were used.
 | Background jobs and signed callbacks | `app/jobs.py`, `app/api/job_routes.py` |
 | Lemmy connector | `app/connectors/lemmy.py`, `app/connectors/manifests/lemmy.yaml` |
 | Ghost connector | `app/connectors/ghost.py`, `app/connectors/manifests/ghost.yaml` |
+| Mock platform server (fake Discourse, Dev.to, partner webhook; failure switches) | `mock_platforms/main.py` |
 | Docker setup and seed script | `Dockerfile`, `docker-compose.yml`, `scripts/seed_local.py` |
 | Tests | `tests/` |
 | Documentation | `AI_USE.md`, `SOURCES.md`, `docs/EVIDENCE_LOG.md` |

@@ -36,6 +36,19 @@ services:
       s3: {condition: service_healthy}
     logging: *logging
 
+  # Fake Discourse / Dev.to / partner webhook receiver, with switches that make it fail on purpose.
+  # Used by simulation mode and by the tests for platforms that cannot run on a laptop.
+  mock-platforms:
+    image: incubrix-api:local   # same image as `api`
+    command: uvicorn mock_platforms.main:app --host 0.0.0.0 --port 9100
+    environment:
+      MOCK_DISCOURSE_KEY: ${MOCK_DISCOURSE_KEY:-mock-discourse-key}
+      MOCK_DEVTO_KEY: ${MOCK_DEVTO_KEY:-mock-devto-key}
+      MOCK_PARTNER_SECRET: ${MOCK_PARTNER_SECRET:-mock-partner-secret}
+    ports: ["9100:9100"]
+    depends_on: [api]
+    logging: *logging
+
   postgres:
     image: postgres:16-alpine
     environment:
