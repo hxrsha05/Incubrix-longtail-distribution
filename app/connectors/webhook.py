@@ -20,22 +20,18 @@ The partner answers {"id": ..., "url": ...} for publish, and {"id", "url", "stat
 THE BODY OF A PUBLISH (JSON)
     {"event": "publish", "idempotency_key": <key>, "rendition": <the rendition as a plain dict>}
 
-HOW IT IS BUILT:
-  1. Write a small helper that makes the stamp from the secret and the bytes.            (secret: connection.api_key)
-  2. Write publish. Look at publish() in ghost.py for the pattern. Use self._call(...) so errors are mapped for you.
-  3. Write get_status and delete.   (How did ghost.py treat a 404?)
-  4. Write reconcile.               (Return None when the partner says 404.)
-  5. Make a missing secret raise CONNECTION_AUTH_EXPIRED, and never put the secret in an error message.
-  6. Add "webhook" to BUILTIN_CONNECTOR_MODULES in app/connectors/registry.py so the HTTP door can find it.
-
-Run:  python -m pytest tests/test_webhook_connector.py -v
+HOW IT IS BUILT
+  - sign() makes the stamp from the secret (connection.api_key) and the bytes.
+  - Every call goes through _signed(), which stamps the request and then uses self._call(...) so platform errors are
+    mapped to the shared error codes.
+  - A missing secret raises CONNECTION_AUTH_EXPIRED, and the secret is never put in an error message.
+  - A 404 on get_status means "not_found", on delete it means "already gone" (fine), on reconcile it means "not there".
 """
 from __future__ import annotations
 
 import hashlib
 import hmac
 import json
-from typing import Any
 
 import httpx
 
