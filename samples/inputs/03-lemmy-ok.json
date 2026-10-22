@@ -1,0 +1,7 @@
+{
+  "destination_id": "local-lemmy-incubrix-test",
+  "rendition": {
+    "title": "Batch runner test post",
+    "body": "Posted by the batch runner."
+  }
+}

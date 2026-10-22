@@ -9,20 +9,23 @@ import sys
 
 import httpx
 
+# A destination with missing rules is refused (the rules engine fails closed), so every row states all five rules.
+OPEN = {"frequency_cap": None, "self_promo_allowed": True, "link_policy": "allowed", "disclosure_required": False, "automation_allowed": True}
+
 DESTINATIONS = [
     {"destination": {"name": "Local Lemmy: incubrix_test", "connector_key": "lemmy", "community": "incubrix_test",
-                     "rules": {"frequency_cap": {"max_posts": 20, "per_seconds": 86400}}, "extra": {"community_id": 2}},
+                     "rules": {**OPEN, "frequency_cap": {"max_posts": 20, "per_seconds": 86400}}, "extra": {"community_id": 2}},
      "language": "en", "topics": ["ai", "video"]},
-    {"destination": {"name": "Local Ghost blog", "connector_key": "ghost", "rules": {"disclosure_required": False}},
+    {"destination": {"name": "Local Ghost blog", "connector_key": "ghost", "rules": OPEN},
      "language": "en", "topics": ["blog"]},
-    {"destination": {"name": "Mock Discourse forum", "connector_key": "discourse", "community": "4"},
+    {"destination": {"name": "Mock Discourse forum", "connector_key": "discourse", "community": "4", "rules": {**OPEN, "self_promo_allowed": False}},
      "language": "en", "topics": ["ai", "forum"]},
-    {"destination": {"name": "Mock Dev.to account", "connector_key": "devto", "rules": {"link_policy": "allowed"}},
+    {"destination": {"name": "Mock Dev.to account", "connector_key": "devto", "rules": OPEN},
      "language": "en", "topics": ["developers"]},
-    {"destination": {"name": "Mock partner site (signed webhook)", "connector_key": "webhook", "extra": {"partner": "demo-partner"}},
+    {"destination": {"name": "Mock partner site (signed webhook)", "connector_key": "webhook", "extra": {"partner": "demo-partner"}, "rules": OPEN},
      "language": "en", "topics": ["partner"]},
     {"destination": {"name": "Hand-posted forum (assisted)", "connector_key": "assisted",
-                     "extra": {"submit_url": "https://forum.example/submit"}, "rules": {"self_promo_allowed": False, "disclosure_required": True}},
+                     "extra": {"submit_url": "https://forum.example/submit"}, "rules": {**OPEN, "self_promo_allowed": False, "disclosure_required": True, "automation_allowed": False}},
      "language": "en", "topics": ["no-api"]},
 ]
 

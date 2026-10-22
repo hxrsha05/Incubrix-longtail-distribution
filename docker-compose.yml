@@ -35,6 +35,7 @@ services:
     volumes:
       - seed-data:/seed:ro
       - ./evidence/certification:/srv/evidence/certification
+      - ./test-pack:/srv/test-pack   # batch runner output lands here
     depends_on:
       postgres: {condition: service_healthy}
       s3: {condition: service_healthy}

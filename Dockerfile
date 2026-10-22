@@ -13,6 +13,7 @@ RUN pip install --no-cache-dir --default-timeout=120 --retries 8 --index-url ${P
 COPY app app
 COPY scripts scripts
 COPY mock_platforms mock_platforms
+COPY samples samples
 
 EXPOSE 8000
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

@@ -18,6 +18,7 @@ Status: **TO VERIFY** = recalled from memory, I must open the licence link and c
 | httpx | ≥0.27 | HTTP client | BSD-3-Clause | https://github.com/encode/httpx | TO VERIFY |
 | SQLAlchemy | ≥2.0 | Database access | MIT | https://github.com/sqlalchemy/sqlalchemy | TO VERIFY |
 | psycopg (v3) | ≥3.1 | Postgres driver | LGPL-3.0 (used as an unmodified library, not AGPL) | https://github.com/psycopg/psycopg | TO VERIFY |
+| boto3 / botocore | ≥1.34 | S3 client for certification evidence | Apache-2.0 | https://github.com/boto/boto3 | TO VERIFY |
 | pytest | ≥8 | Tests (dev only) | MIT | https://github.com/pytest-dev/pytest | TO VERIFY |
 
 ## Infrastructure containers (docker compose)

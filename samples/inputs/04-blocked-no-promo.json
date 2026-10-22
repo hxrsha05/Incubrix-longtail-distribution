@@ -1,0 +1,8 @@
+{
+  "destination_id": "mock-discourse-forum",
+  "rendition": {
+    "title": "Buy our product today",
+    "body": "Big discount, click now.",
+    "promotional": true
+  }
+}

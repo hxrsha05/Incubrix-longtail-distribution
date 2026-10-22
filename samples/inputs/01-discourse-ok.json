@@ -1,0 +1,7 @@
+{
+  "destination_id": "mock-discourse-forum",
+  "rendition": {
+    "title": "Our new video tool is out",
+    "body": "We built a small tool for editing short videos. Feedback is welcome."
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "destination_id": "mock-dev-to-account",
+  "rendition": {
+    "title": "How we retry safely",
+    "body": "A short write-up about idempotency keys.",
+    "tags": [
+      "api",
+      "python"
+    ],
+    "link_url": "https://example.com/post"
+  }
+}

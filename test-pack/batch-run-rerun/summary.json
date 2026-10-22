@@ -1,0 +1,34 @@
+{
+  "inputs": 5,
+  "published": 3,
+  "blocked": 1,
+  "failed": 1,
+  "duration_s": 0.047,
+  "results": [
+    {
+      "input": "01-discourse-ok.json",
+      "status": "published",
+      "duration_s": 0.005
+    },
+    {
+      "input": "02-devto-ok.json",
+      "status": "published",
+      "duration_s": 0.004
+    },
+    {
+      "input": "03-lemmy-ok.json",
+      "status": "published",
+      "duration_s": 0.004
+    },
+    {
+      "input": "04-blocked-no-promo.json",
+      "status": "blocked",
+      "duration_s": 0.005
+    },
+    {
+      "input": "05-bad-destination.json",
+      "status": "failed",
+      "duration_s": 0.001
+    }
+  ]
+}

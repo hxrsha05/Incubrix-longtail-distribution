@@ -1,0 +1,49 @@
+{
+  "duration_s": 0.001,
+  "error": {
+    "code": "NOT_FOUND",
+    "details": {},
+    "message": "no destination 'does-not-exist'",
+    "retryable": false
+  },
+  "input": "05-bad-destination.json",
+  "manifest": {
+    "ai_generated": {
+      "label": "no AI-generated content in this result",
+      "present": false
+    },
+    "cost": {
+      "model_calls": 0,
+      "note": "no paid API or model is called by certification",
+      "usd": 0.0
+    },
+    "kind": "publish",
+    "licences": [
+      {
+        "component": "IncuBrix Distribution service (this repo)",
+        "licence": "own code",
+        "reference": "SOURCES.md"
+      },
+      {
+        "component": "FastAPI, Pydantic, SQLAlchemy, httpx",
+        "licence": "MIT / BSD (see SOURCES.md)",
+        "reference": "SOURCES.md"
+      }
+    ],
+    "settings": {
+      "simulation_mode": true
+    },
+    "timings": {
+      "duration_s": 0.001,
+      "finished_at": 1792689502.5401092,
+      "started_at": 1792689502.539022
+    },
+    "versions": {
+      "connector": null,
+      "python": "3.12.15",
+      "service": "0.1.0"
+    },
+    "warnings": []
+  },
+  "status": "failed"
+}
