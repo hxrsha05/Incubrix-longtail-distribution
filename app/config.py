@@ -21,8 +21,17 @@ class Settings(BaseSettings):
     s3_access_key: SecretStr = SecretStr("change-me")
     s3_secret_key: SecretStr = SecretStr("change-me")
 
+    s3_enabled: bool = False  # true = also store evidence in S3 and hand out presigned download links
+    s3_public_url: str | None = None  # address a person's browser can use for presigned links, if it differs from s3_endpoint_url
+    evidence_dir: str = "evidence/certification"
+    connections_file: str | None = None  # JSON file with credentials per destination; never stored in the database
+    mock_platforms_url: str = "http://mock-platforms:9100"  # where simulation mode finds the fake platforms
+
     callback_hmac_secret: SecretStr = SecretStr("change-me")
     test_post_ttl_seconds: int = 600
+
+    certify_max_consecutive_failures: int = 3  # a batch stops hitting a connector after this many failures in a row
+    certify_rate_limit_wait_cap_s: float = 30.0  # longest we wait out a 429 during certification
 
     http_timeout_s: float = 10.0
     job_workers: int = 4

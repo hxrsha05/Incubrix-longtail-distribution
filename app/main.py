@@ -13,9 +13,14 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
+from app.api.catalogue_routes import router as catalogue_router
 from app.api.connector_routes import router as connector_router
 from app.api.job_routes import router as job_router
+from app.catalogue import Catalogue
+from app.certify_service import CertificationService, register_certification_jobs
 from app.config import get_settings
+from app.credentials import CredentialProvider
+from app.evidence import EvidenceStore, make_s3_client
 from app.connectors.registry import ConnectorRegistry, build_registry
 from app.db import init_db, make_engine
 from app.idempotency import IdempotencyStore
@@ -57,6 +62,18 @@ def create_app(
         callback_backoff_s=settings.callback_backoff_s,
         clock=clock,
     )
+
+    s3 = make_s3_client(settings.s3_endpoint_url, settings.s3_access_key.get_secret_value(), settings.s3_secret_key.get_secret_value()) if settings.s3_enabled else None
+    app.state.idempotency_store = store
+    app.state.catalogue = Catalogue(engine, clock)
+    app.state.evidence = EvidenceStore(settings.evidence_dir, s3, settings.s3_bucket)
+    app.state.certification = CertificationService(
+        app.state.catalogue, app.state.registry,
+        CredentialProvider(settings.connections_file, settings.simulation_mode, settings.mock_platforms_url), app.state.evidence,
+        ttl_s=settings.test_post_ttl_seconds, simulation=settings.simulation_mode,
+        max_consecutive_failures=settings.certify_max_consecutive_failures, rate_limit_wait_cap_s=settings.certify_rate_limit_wait_cap_s, clock=clock,
+    )
+    register_certification_jobs(app.state.jobs, app.state.certification, app.state.catalogue)
 
     @app.middleware("http")
     async def correlation_middleware(request: Request, call_next):
@@ -109,6 +126,7 @@ def create_app(
         return JSONResponse(status_code=200 if ok else 503, content={"status": "ready" if ok else "not_ready", "checks": checks})
 
     app.include_router(connector_router)  # POST /connector/v1/{connector_key}/{method}
+    app.include_router(catalogue_router)  # /api/v1/destinations, /api/v1/evidence
     app.include_router(job_router)  # POST /api/v1/jobs, GET /api/v1/jobs/{job_id}
     app.include_router(health)  # /health, /ready (as the brief names them)
     app.include_router(health, prefix="/api/v1")  # and under /api/v1 (all routes live there)
