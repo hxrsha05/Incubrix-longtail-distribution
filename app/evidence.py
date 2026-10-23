@@ -15,7 +15,9 @@ class S3Like(Protocol):  # the two boto3 client calls we use, so tests can pass 
 
 
 class EvidenceStore:
-    def __init__(self, directory: str | Path, s3: S3Like | None = None, bucket: str = "", link_ttl_s: int = 3600, presigner: S3Like | None = None) -> None:
+    def __init__(self, directory: str | Path, s3: S3Like | None = None, bucket: str = "", link_ttl_s: int = 3600, presigner: S3Like | None = None,
+                 s3_prefix: str = "certification", url_prefix: str = "/api/v1/evidence") -> None:
+        self.s3_prefix, self.url_prefix = s3_prefix, url_prefix
         self.directory, self.s3, self.bucket, self.link_ttl_s = Path(directory), s3, bucket, link_ttl_s
         self.presigner = presigner or s3  # presigning is offline: a client pointed at the browser-visible address makes links that work there
         self._bucket_ready = False
@@ -37,10 +39,10 @@ class EvidenceStore:
         path = self.directory / rel
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(text, encoding="utf-8")
-        result: dict[str, str | None] = {"local_path": str(path).replace("\\", "/"), "s3_key": None, "download_url": f"/api/v1/evidence/{rel}"}
+        result: dict[str, str | None] = {"local_path": str(path).replace("\\", "/"), "s3_key": None, "download_url": f"{self.url_prefix}/{rel}"}
         if self.s3 is not None:
             self._ensure_bucket()
-            key = f"certification/{rel}"
+            key = f"{self.s3_prefix}/{rel}"
             self.s3.put_object(Bucket=self.bucket, Key=key, Body=text.encode(), ContentType="application/json" if name.endswith(".json") else "text/plain")
             result["s3_key"] = key
             result["download_url"] = self.presigner.generate_presigned_url("get_object", Params={"Bucket": self.bucket, "Key": key}, ExpiresIn=self.link_ttl_s)

@@ -38,6 +38,7 @@ No other AI coding tools were used.
 | Destination catalogue and its API | `app/catalogue.py`, `app/api/catalogue_routes.py` |
 | Certification harness, evidence storage (local and S3), credentials lookup, output manifest | `app/certification.py`, `app/certify_service.py`, `app/evidence.py`, `app/credentials.py`, `app/output_manifest.py` |
 | Batch runner (command line) | `app/cli.py` |
+| CSV import (validate, de-duplicate, reachability, enrichment, report) and its job and routes | `app/csv_import.py`, `app/import_service.py`, `app/api/import_routes.py`, `scripts/make_sample_csv.py`, `scripts/import_demo.py`, `samples/catalogue/` |
 | Docker setup and seed scripts | `Dockerfile`, `docker-compose.yml`, `scripts/seed_local.py`, `scripts/seed_catalogue.py` |
 | OpenAPI export and secret scan | `scripts/export_openapi.py`, `scripts/secret_scan.py`, `openapi.yaml` |
 | Tests | `tests/` |
@@ -63,6 +64,9 @@ No other AI coding tools were used.
 - The first version of the credentials lookup fell back to the mock accounts even when a destination named a connection that did not exist. A test caught this; a named connection must now exist.
 - Some of the AI's own tests had wrong expectations (a miscounted batch, a message wording) and were corrected after the run; the code under test was right.
 - A destination with no posting rules is refused by design (the rules engine fails closed). The first batch-runner test hit this; the seed destinations now state all five rules.
+
+- The first 1,000-row test file had 20 "duplicates" written in upper case including the path; paths are case-sensitive, so they were correctly treated as different, missing pages. The file generator was changed to vary only the scheme and host, and the counts now match what the generator put in.
+- The importer accepts single-word host names (docker service names) only in local-demo mode; in normal mode they are refused as invalid.
 
 ## Manual work
 

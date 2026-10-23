@@ -15,8 +15,11 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from app.api.catalogue_routes import router as catalogue_router
 from app.api.connector_routes import router as connector_router
+from app.api.import_routes import router as import_router
 from app.api.job_routes import router as job_router
 from app.catalogue import Catalogue
+from app.csv_import import Importer
+from app.import_service import register_import_job
 from app.certify_service import CertificationService, register_certification_jobs
 from app.config import get_settings
 from app.credentials import CredentialProvider
@@ -74,6 +77,11 @@ def create_app(
         ttl_s=settings.test_post_ttl_seconds, simulation=settings.simulation_mode,
         max_consecutive_failures=settings.certify_max_consecutive_failures, rate_limit_wait_cap_s=settings.certify_rate_limit_wait_cap_s, clock=clock,
     )
+    app.state.imports = EvidenceStore(settings.import_dir, s3, settings.s3_bucket, presigner=presigner, s3_prefix="imports", url_prefix="/api/v1/import-files")
+    importer = Importer(app.state.catalogue, httpx.Client(timeout=settings.import_fetch_timeout_s, limits=httpx.Limits(max_connections=settings.import_workers * 2),
+                                                           headers={"User-Agent": "IncuBrix-Catalogue-Importer/0.1"}),
+                        workers=settings.import_workers, allow_private_hosts=settings.import_allow_private_hosts, fetch_timeout_s=settings.import_fetch_timeout_s, clock=clock)
+    register_import_job(app.state.jobs, importer, app.state.imports)
     register_certification_jobs(app.state.jobs, app.state.certification, app.state.catalogue)
 
     @app.middleware("http")
@@ -128,6 +136,7 @@ def create_app(
 
     app.include_router(connector_router)  # POST /connector/v1/{connector_key}/{method}
     app.include_router(catalogue_router)  # /api/v1/destinations, /api/v1/evidence
+    app.include_router(import_router)  # POST /api/v1/imports, /api/v1/import-files
     app.include_router(job_router)  # POST /api/v1/jobs, GET /api/v1/jobs/{job_id}
     app.include_router(health)  # /health, /ready (as the brief names them)
     app.include_router(health, prefix="/api/v1")  # and under /api/v1 (all routes live there)

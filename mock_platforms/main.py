@@ -348,6 +348,29 @@ def create_app() -> FastAPI:
         post["deleted"] = True
         return Response(status_code=204)
 
+    # ------------------------------------------------------------------ fake community websites (for the CSV import)
+    @app.get("/sites/{name}")
+    async def fake_site(name: str):
+        """A website whose behaviour is chosen by its name, so import tests and the 1,000-row run need no real internet.
+        dead-* -> 404 | gone-* -> 410 | boom-* -> 500 | slow-* -> answers after 0.3 s | discourse-* / ghost-* / lemmy-* -> says so
+        in its generator tag | lang-xx-* -> <html lang=xx> | anything else -> an ordinary page."""
+        if name.startswith("dead-"):
+            return Response("not found", status_code=404)
+        if name.startswith("gone-"):
+            return Response("gone", status_code=410)
+        if name.startswith("boom-"):
+            return Response("error", status_code=500)
+        if name.startswith("slow-"):
+            await asyncio.sleep(0.3)
+        lang = "en"
+        if (m := re.match(r"lang-([a-z]{2})-", name)):
+            lang = m.group(1)
+        generator = {"discourse": "Discourse 3.2.0", "ghost": "Ghost 5.80", "lemmy": "Lemmy 0.19"}.get(name.split("-")[0], "")
+        meta = f'<meta name="generator" content="{generator}">' if generator else ""
+        html = (f'<!doctype html><html lang="{lang}"><head><title>Community {name}</title>{meta}'
+                f'<meta name="description" content="A community called {name}."></head><body><h1>{name}</h1></body></html>')
+        return Response(html, media_type="text/html")
+
     return app
 
 

@@ -57,12 +57,22 @@ Then open http://localhost:8000/docs (API), http://localhost:1234 (Lemmy), http:
 | Certify every destination in the catalogue | `curl -X POST localhost:8000/api/v1/jobs -H "Content-Type: application/json" -d "{\"kind\":\"certify_batch\",\"params\":{}}"` |
 | Batch runner: a folder of inputs, results in one folder | `docker compose exec api python -m app.cli run --input samples/inputs --output test-pack/batch-run` |
 | Batch certification from the command line | `docker compose exec api python -m app.cli certify --output test-pack/batch-certification` |
+| Import a CSV of candidate destinations (job; `?commit=false` for a dry run) | `curl -X POST localhost:8000/api/v1/imports -H "Content-Type: text/csv" --data-binary @samples/catalogue/sample-1000.csv` |
+| The 1,000-row import demo, with timing and saved report | `python -m scripts.import_demo` |
 | Regenerate `openapi.yaml` (a test fails if it is stale) | `python -m scripts.export_openapi` |
 | Scan the repo and service logs for leaked secrets | `python -m scripts.secret_scan --docker-logs` |
 
 A batch input file:
 `{"destination_id": "mock-discourse-forum", "rendition": {"title": "...", "body": "..."}}`. Results: one `<name>.result.json`
 per input plus `summary.json`; each result has an output manifest (versions, settings, timings, cost, warnings, licences, AI-generated label).
+
+## CSV import
+
+Columns: `name`, `url` (required); `language`, `topics` (a;b;c), `connector_key`, `community` (optional). Every row is validated,
+normalised, de-duplicated (against the file and the catalogue), checked for reachability and enriched (title, language,
+platform). Accepted rows become catalogue rows with conservative rules (no self-promotion, one link, disclosure, one post a
+week) until a person confirms better ones. A site on Discourse, Ghost or Lemmy gets that connector; any other site becomes an
+"assisted" destination. The result is a row-by-row `report.csv` and `report.json` with download links.
 
 ## Simulation mode
 
@@ -89,6 +99,9 @@ credentials come from the seed file (`CONNECTIONS_FILE`) and take priority. No r
 | CERTIFY_RATE_LIMIT_WAIT_CAP_S | 30 | longest wait for a 429 during certification |
 | HTTP_TIMEOUT_S, JOB_WORKERS, IDEMPOTENCY_PENDING_TIMEOUT_S | 10, 4, 120 | timeouts and workers |
 | CALLBACK_MAX_ATTEMPTS, CALLBACK_BACKOFF_S | 3, 0.5 | callback delivery retries |
+| IMPORT_WORKERS, IMPORT_FETCH_TIMEOUT_S | 32, 5 | concurrent site checks in a CSV import, and the timeout for each |
+| IMPORT_ALLOW_PRIVATE_HOSTS | false (true in compose) | false = the importer refuses private and local addresses (SSRF protection) |
+| IMPORT_DIR | evidence/imports | where import files are kept |
 | DISABLED_CONNECTORS | - | kill switch: those connectors answer CONNECTOR_DISABLED |
 
 ## Error codes

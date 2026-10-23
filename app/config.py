@@ -27,6 +27,11 @@ class Settings(BaseSettings):
     connections_file: str | None = None  # JSON file with credentials per destination; never stored in the database
     mock_platforms_url: str = "http://mock-platforms:9100"  # where simulation mode finds the fake platforms
 
+    import_dir: str = "evidence/imports"
+    import_workers: int = 32  # concurrent site checks during a CSV import
+    import_fetch_timeout_s: float = 5.0
+    import_allow_private_hosts: bool = False  # false = refuse private/loopback addresses (SSRF); compose turns it on for the local demo
+
     callback_hmac_secret: SecretStr = SecretStr("change-me")
     test_post_ttl_seconds: int = 600
 

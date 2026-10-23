@@ -4,7 +4,7 @@
 > submission."* So: only tick **Yes** when the proof exists and I have seen it work.
 > **Status key:** Done = done and proven; Partial = partly done; Not started; Unverified = written but not yet proven
 
-Last updated: 2026-10-22. Unit and integration tests: **174 passing** (`python -m pytest`, run from this folder, no keys needed). Live tests against the real local Lemmy and Ghost: **18 passing** (opt-in, see `tests/live/`).
+Last updated: 2026-10-22. Unit and integration tests: **208 passing** (`python -m pytest`, run from this folder, no keys needed). Live tests against the real local Lemmy and Ghost: **18 passing** (opt-in, see `tests/live/`).
 
 ## Must-haves (all 9 must pass)
 
@@ -26,13 +26,13 @@ Last updated: 2026-10-22. Unit and integration tests: **174 passing** (`python -
 |---|---|---|---|---|
 | 1 | One-command start and test | Done | `docker compose up -d --build`; `python -m pytest` (no keys) | Clean-machine run |
 | 2 | `openapi.yaml` matching the service | Done | `openapi.yaml`, `tests/test_openapi.py` fails when stale | — |
-| 3 | Background jobs (202, status, HMAC callback) | Done | `app/jobs.py`, `tests/test_jobs.py`; real kinds `certify`, `certify_batch` | `import` job kind (Advanced) |
-| 4 | Idempotency-Key on every POST | Done | `tests/test_idempotency.py`, `tests/test_jobs.py`, destination POST (`tests/test_certification.py`), certify POST | Add the import POST when built |
+| 3 | Background jobs (202, status, HMAC callback) | Done | `app/jobs.py`, `tests/test_jobs.py`; real kinds `certify`, `certify_batch`, `import` | — |
+| 4 | Idempotency-Key on every POST | Done | `tests/test_idempotency.py`, `tests/test_jobs.py`, destination POST (`tests/test_certification.py`), certify POST | `POST /api/v1/imports` honours it too (`tests/test_csv_import.py`) |
 | 5 | Clear JSON errors | Done | `app/errors.py`, `tests/test_contract.py::test_every_error_is_the_documented_json_shape`, error table in `README.md` | — |
 | 6 | Configuration from environment | Done | `app/config.py`, `.env.example`, settings table in `README.md` | — |
 | 7 | Files in/out, S3 storage | Done | Certification evidence is written to RustFS and returned as presigned download links (`app/evidence.py`; real run through compose: `certify_batch` result links) | Open one link in the browser for the video |
 | 8 | JSON logs + `/health` + `/ready` | Done | `app/logging_setup.py`, `tests/test_foundation.py` | — |
-| 9 | Output manifest per result | Done | `app/output_manifest.py`; present in every certification record and every batch-runner result (versions, settings, timings, cost, warnings, licences, AI-generated label) | Add to import results |
+| 9 | Output manifest per result | Done | `app/output_manifest.py`; present in every certification record and every batch-runner result (versions, settings, timings, cost, warnings, licences, AI-generated label) | Also in every import result |
 | 10 | Batch runner CLI | Done | `app/cli.py`, `tests/test_cli.py`; outputs in `test-pack/batch-run/` and `test-pack/batch-run-rerun/` | — |
 
 ## Levels
@@ -41,7 +41,7 @@ Last updated: 2026-10-22. Unit and integration tests: **174 passing** (`python -
 errors mapped for expired token / rate limit / rejected content **Done** (every connector has tests for these)
 
 **Advanced — ALL five required, or the level scores 0 (and screening cannot reach 60):**
-- [ ] CSV import: validate, de-duplicate, reachability, enrichment, **1,000 rows < 5 min**, row-by-row error report
+- [x] CSV import: validate, normalise, de-duplicate (file and catalogue), reachability, enrichment, row-by-row report. **1,000 rows in 19 s** (limit 300 s). `app/csv_import.py`, `tests/test_csv_import.py` (34 tests), outputs in `test-pack/csv-import/sample-1000/` (input, report.csv, report.json, summary.txt). Note: all 1,000 test sites sit on one host, so the one-request-per-host politeness rule serialises them; a real list spread over many hosts is faster
 - [ ] Rules capture: AI reads a rules page → proposes rules → **a person confirms** before use
 - [ ] Relevance score 1–5 with a short explanation
 - [ ] Tailoring: title/text per destination, canonical URL, truncate at word boundary, hashtag/mention style
@@ -63,7 +63,7 @@ errors mapped for expired token / rate limit / rejected content **Done** (every 
 | Second post inside frequency cap | Done | `test_second_post_inside_the_cap_is_blocked_with_a_reason` |
 | Promo post to a no-promo community | Done | `test_promo_to_no_promo_destination_never_reaches_the_platform`; `test-pack/batch-run/04-blocked-no-promo.result.json` |
 | Platform renames a field → certification fails, destination demoted | Done | `test_a_renamed_field_fails_certification_demotes_and_leaves_no_stray_post`; live service: `test-pack/failure-demos/3-renamed-field.json` |
-| CSV with duplicates, bad URLs, mixed languages | Not started | needs CSV import |
+| CSV with duplicates, bad URLs, mixed languages | Done | `test_every_kind_of_row_gets_the_right_status_and_reason`; 1,000-row run: 108 duplicates, 60 invalid, 70 unreachable, language-mismatch warnings (`test-pack/csv-import/sample-1000/report.csv`) |
 | Partner revokes permission | Done | `test_a_partner_who_revokes_permission_is_an_auth_error_not_a_retry` (HTTP 410) |
 | Non-English community | Not started | add language to a catalogue row (field exists) and a non-English tailoring test |
 | Destination requires AI disclosure | Done | `tests/test_rules.py::test_ai_disclosure_required` |
@@ -73,7 +73,7 @@ errors mapped for expired token / rate limit / rejected content **Done** (every 
 - [x] Certification: 6 destinations certified in one batch (Lemmy 0.6 s, Ghost 1.5 s, others under 0.05 s); evidence links in `evidence/certification/`
 - [ ] Reliability: publish success rate (simulation + local); **duplicates under retry = 0** (shown once live; measure over many runs)
 - [ ] Rule safety: violations caught vs missed on a rule test set (any miss is serious)
-- [ ] Catalogue (Advanced): rows imported, duplicates and errors found, time for 1,000 rows
+- [x] Catalogue (Advanced): 1,000 rows -> 762 accepted, 108 duplicates, 60 invalid, 70 unreachable, in 19 s (53 rows/s, 32 workers, cost 0)
 - [ ] Recommendation (Outstanding): top-10 precision on my labelled set
 - [x] Cost: no paid API or model is called so far (manifest records 0); update when the AI features are added
 

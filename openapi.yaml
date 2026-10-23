@@ -349,6 +349,72 @@ paths:
                 type: object
           description: Successful Response
       summary: Health Check
+  /api/v1/import-files/{path}:
+    get:
+      operationId: download_import_file_api_v1_import_files__path__get
+      parameters:
+      - in: path
+        name: path
+        required: true
+        schema:
+          title: Path
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Download Import File
+  /api/v1/imports:
+    post:
+      description: 'Body: the CSV itself (Content-Type text/csv) or JSON {"csv": "..."}.
+        Columns: name, url (required); language, topics, connector_key, community
+        (optional).'
+      operationId: create_import_api_v1_imports_post
+      parameters:
+      - in: query
+        name: commit
+        required: false
+        schema:
+          default: true
+          title: Commit
+          type: boolean
+      - in: query
+        name: callback_url
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Callback Url
+      - in: header
+        name: idempotency-key
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Idempotency-Key
+      responses:
+        '202':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Create Import
   /api/v1/jobs:
     post:
       operationId: create_job_api_v1_jobs_post

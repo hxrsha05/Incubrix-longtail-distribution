@@ -30,12 +30,14 @@ services:
       CALLBACK_HMAC_SECRET: ${CALLBACK_HMAC_SECRET:-local-dev-callback-secret}
       CONNECTIONS_FILE: /seed/connections.json
       MOCK_PLATFORMS_URL: http://mock-platforms:9100
+      IMPORT_ALLOW_PRIVATE_HOSTS: "true"   # local demo only: the fake sites are on a private address. Leave it false anywhere real.
       S3_ENABLED: "true"
       S3_PUBLIC_URL: http://localhost:9000
     volumes:
       - seed-data:/seed:ro
       - ./evidence/certification:/srv/evidence/certification
       - ./test-pack:/srv/test-pack   # batch runner output lands here
+      - ./evidence/imports:/srv/evidence/imports
     depends_on:
       postgres: {condition: service_healthy}
       s3: {condition: service_healthy}
