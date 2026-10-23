@@ -85,8 +85,17 @@ class PublishService:
         return self._execute(connector, connector_key, req, scope, key), False
 
     # ---------- steps ----------
+    def _enforce_limits(self, connector: BaseConnector, req: PublishRequest) -> None:
+        """The destination's format limits (title and body length, link policy, media kinds and count) are checked before anything is
+        sent, so the caller gets field-level reasons instead of whatever error the platform would have produced."""
+        verdict = connector.validate(req.rendition, req.destination, req.connection)
+        if not verdict.ok:
+            raise IncuBrixError(ErrorCode.DEST_SPEC_VIOLATION, "post blocked: it breaks this destination's format limits",
+                                {"violations": [v.model_dump(exclude_none=True) for v in verdict.violations]})
+
     def _enforce_rules(self, connector: BaseConnector, req: PublishRequest) -> None:
         self._refuse_if_demoted(req)
+        self._enforce_limits(connector, req)
         dest_id = destination_id(req.destination)
         decision = check_rules(
             req.rendition,

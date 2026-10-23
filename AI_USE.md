@@ -42,6 +42,9 @@ No other AI coding tools were used.
 | Batch runner (command line) | `app/cli.py` |
 | Three more connectors: MRSS feed (with the feed host), Hashnode, Kit | `app/connectors/feed.py`, `app/feeds.py`, `app/api/feed_routes.py`, `app/connectors/hashnode.py`, `app/connectors/kit.py`, their manifests |
 | Recommender, its labelled test set and evaluation | `app/recommender.py`, `scripts/make_labelled_set.py`, `scripts/eval_recommender.py`, `samples/recommender/labelled_set.json` |
+| Access token and rate limit, Idempotency-Key middleware | `app/http_guard.py` |
+| Publish by destination, alerts, destination record and levels, audience relevance | `app/api/publish_routes.py`, `app/alerts.py`, `app/api/alert_routes.py`, `app/records.py`, `app/audience.py` |
+| Hard-case end-to-end suite | `tests/test_hard_cases.py` |
 | Recertification scheduler with auto-demotion | `app/recertify.py`, `app/api/recert_routes.py`, `scripts/demo_recertification.py` |
 | AI rules capture (proposal, verification, human confirmation) and its API | `app/rules_capture.py`, `app/api/rules_routes.py` |
 | Tailoring and relevance score, with their API | `app/tailoring.py`, `app/relevance.py`, `app/api/advice_routes.py` |
@@ -86,6 +89,8 @@ No other AI coding tools were used.
 - A demotion initially only changed a label. The AI made it bite: a demoted destination is refused at publish time and left out of recommendations.
 
 - Running the new build in Docker crashed on startup: the image had installed a much newer FastAPI (0.161, Starlette 1.9) than the one the tests ran on (0.115, Starlette 0.46), and the newer one no longer has `add_event_handler`. The AI replaced it with the lifespan mechanism (works on both), added a test for it, and pinned the dependencies in `requirements.txt` to the versions the tests ran on, so the container and the test machine now match.
+
+- Re-reading the brief in full (the AI had worked from a summary) showed several misses, which the AI then fixed: the Advanced relevance score is a score of each DESTINATION against IncuBrix's audience (the AI had built a content-to-destination fit instead, which is now a second, separate feature); the batch runner must call the API (the AI had run the application in-process); an Idempotency-Key header is required on every POST (only some routes had it); anything slower than 2 seconds must be a job (rules capture was synchronous); the manifest must name models and a seed; the destination record and levels L0 to L4 had no implementation; destination format limits were checked by a method but not enforced before publishing; Lemmy and Discourse claimed to take images but ignored media; a public demo needs a token and a rate limit.
 
 ## Manual work
 

@@ -35,7 +35,7 @@ Everything runs with `docker compose up`, with no real accounts needed. The code
 
 | Area | Result | Proof |
 |---|---|---|
-| Tests | 318 pass, 18 live tests skipped unless the real Lemmy and Ghost are running | `python -m pytest`; screenshot in `evidence/manual-demos/tests/` |
+| Tests | 406 pass, 18 live tests skipped unless the real Lemmy and Ghost are running; `tests/test_hard_cases.py` runs every hard case from the brief end to end through the API | `python -m pytest`; screenshot in `evidence/manual-demos/tests/` |
 | Certification | 9 destinations, 9 connectors, **9 passed, 0 failed** in one batch; Lemmy 0.5 s, Ghost 0.3 s, the rest under 0.03 s | `evidence/certification/` |
 | Real platforms | Lemmy 0.19 and Ghost 6 run in containers and are posted to, read back and deleted for real | `tests/live/`, screenshots in `evidence/manual-demos/` |
 | Safe retry | Timeout after the platform created the post, same-key retry: 1 post, **0 duplicates** | `test-pack/failure-demos/transcript.md` |
@@ -44,6 +44,8 @@ Everything runs with `docker compose up`, with no real accounts needed. The code
 | Recommender | precision@10 **96.7%** versus 82.0% for the plain relevance score and 9.0% for random; 94.3% without the synonym table | `test-pack/recommender/eval.md` |
 | Recertification | a failed re-check demotes; a demoted destination cannot be posted to and is not recommended; a later pass promotes it back | `tests/test_recertify.py`, `test-pack/recertification/` |
 | Contract | all seven contract methods on all nine connectors through one HTTP door; `openapi.yaml` is generated and a test fails if it is stale | `tests/test_contract.py`, `tests/test_openapi.py` |
+| Integration Standard | Idempotency-Key honoured on every POST under /api/v1 (a test walks the OpenAPI document), slow work is a job, errors are JSON with listed codes, the batch runner calls the API, every result has a manifest | `tests/test_http_guard.py`, `tests/test_cli.py` |
+| Public demo safety | an access token and a per-client rate limit can be switched on | `app/http_guard.py`, `tests/test_http_guard.py` |
 
 ## 4. What does not work, or is not proven
 
