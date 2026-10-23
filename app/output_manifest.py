@@ -18,10 +18,13 @@ LICENCES = [
 
 def build_manifest(*, kind: str, started_at: float, finished_at: float, connector_version: str | None = None,
                    settings: dict[str, Any] | None = None, warnings: list[str] | None = None,
-                   ai_generated: bool = False, model_calls: int = 0, cost_usd: float = 0.0) -> dict[str, Any]:
+                   ai_generated: bool = False, model_calls: int = 0, cost_usd: float = 0.0, models: list[dict[str, Any]] | None = None,
+                   seed: int | None = None) -> dict[str, Any]:
     return {
         "kind": kind,
         "versions": {"service": APP_VERSION, "connector": connector_version, "python": platform.python_version()},
+        "models": models or [],  # every AI model or provider used for this result, with its version; empty = none was used
+        "seed": seed,  # null: nothing in this result is random or sampled
         "settings": settings or {},
         "timings": {"started_at": started_at, "finished_at": finished_at, "duration_s": round(finished_at - started_at, 3)},
         "cost": {"model_calls": model_calls, "usd": cost_usd, "note": "no paid API or model is called by certification"},

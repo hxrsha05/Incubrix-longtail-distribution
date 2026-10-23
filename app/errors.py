@@ -27,6 +27,8 @@ class ErrorCode(str, Enum):
     IDEMPOTENCY_IN_PROGRESS = "IDEMPOTENCY_IN_PROGRESS"
     UNKNOWN_CONNECTOR = "UNKNOWN_CONNECTOR"
     UNKNOWN_METHOD = "UNKNOWN_METHOD"
+    UNAUTHORIZED = "UNAUTHORIZED"
+    RATE_LIMITED = "RATE_LIMITED"
     INTERNAL_ERROR = "INTERNAL_ERROR"
 
 
@@ -47,6 +49,8 @@ _META: dict[ErrorCode, tuple[bool, int]] = {
     ErrorCode.IDEMPOTENCY_IN_PROGRESS: (True, 409),
     ErrorCode.UNKNOWN_CONNECTOR: (False, 404),
     ErrorCode.UNKNOWN_METHOD: (False, 404),
+    ErrorCode.UNAUTHORIZED: (False, 401),
+    ErrorCode.RATE_LIMITED: (True, 429),
     ErrorCode.INTERNAL_ERROR: (False, 500),
 }
 

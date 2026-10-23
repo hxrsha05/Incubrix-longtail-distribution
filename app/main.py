@@ -19,6 +19,7 @@ from app.api.catalogue_routes import router as catalogue_router
 from app.api.connector_routes import router as connector_router
 from app.api.feed_routes import router as feed_router
 from app.api.import_routes import router as import_router
+from app.api.publish_routes import router as publish_router
 from app.api.recert_routes import router as recert_router
 from app.api.rules_routes import router as rules_router
 from app.api.job_routes import router as job_router
@@ -34,6 +35,7 @@ from app.evidence import EvidenceStore, make_s3_client
 from app.feeds import FeedStore
 from app.connectors.registry import ConnectorRegistry, build_registry
 from app.db import init_db, make_engine
+from app.http_guard import ApiGuard, IdempotencyMiddleware
 from app.idempotency import IdempotencyStore
 from app.jobs import JobService
 from app.publish_service import PostLog, PublishService
@@ -102,6 +104,7 @@ def create_app(
     importer = Importer(app.state.catalogue, httpx.Client(timeout=settings.import_fetch_timeout_s, limits=httpx.Limits(max_connections=settings.import_workers * 2),
                                                            headers={"User-Agent": "IncuBrix-Catalogue-Importer/0.1"}),
                         workers=settings.import_workers, allow_private_hosts=settings.import_allow_private_hosts, fetch_timeout_s=settings.import_fetch_timeout_s, clock=clock)
+    app.state.importer = importer
     register_import_job(app.state.jobs, importer, app.state.imports)
     if settings.rules_extractor == "anthropic":
         if settings.anthropic_api_key is None:
@@ -111,12 +114,17 @@ def create_app(
     else:
         extractor = MockExtractor()
     app.state.rules_capture = RulesCapture(engine, app.state.catalogue, extractor, http, allow_private_hosts=settings.import_allow_private_hosts, clock=clock)
+    app.state.jobs.register("rules_capture", lambda ctx, params: app.state.rules_capture.capture(params["destination_id"], url=params.get("url"), text=params.get("text")))
     register_certification_jobs(app.state.jobs, app.state.certification, app.state.catalogue)
     app.state.recertifier = Recertifier(app.state.catalogue, app.state.certification, max_age_s=settings.recert_max_age_s, demoted_cooldown_s=settings.recert_demoted_cooldown_s,
                                         attention_retry_s=settings.recert_attention_retry_s, batch_limit=settings.recert_batch_limit, clock=clock)
     app.state.jobs.register("recertify", lambda ctx, params: app.state.recertifier.run_once(dry_run=bool(params.get("dry_run", False)), force=bool(params.get("force", False))))
     app.state.scheduler = RecertScheduler(app.state.recertifier, settings.recert_interval_s)
 
+
+    app.add_middleware(IdempotencyMiddleware, store=store)  # Idempotency-Key on every POST under /api/v1/
+    app.add_middleware(ApiGuard, token=settings.api_token.get_secret_value() if settings.api_token else None,
+                       rate_per_minute=settings.rate_limit_per_minute, trust_proxy=settings.trust_proxy)  # outermost: refused requests do no work
 
     @app.middleware("http")
     async def correlation_middleware(request: Request, call_next):
@@ -171,6 +179,7 @@ def create_app(
     app.include_router(connector_router)  # POST /connector/v1/{connector_key}/{method}
     app.include_router(catalogue_router)  # /api/v1/destinations, /api/v1/evidence
     app.include_router(advice_router)  # POST /api/v1/tailor, /api/v1/relevance
+    app.include_router(publish_router)  # POST /api/v1/publish
     app.include_router(recert_router)  # POST /api/v1/recertify, GET /api/v1/recertification
     app.include_router(rules_router)  # AI rules capture: propose, review, confirm
     app.include_router(feed_router)  # GET /feeds/{id}.xml (public), /api/v1/feeds/... (token)

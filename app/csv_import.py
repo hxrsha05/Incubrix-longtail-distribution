@@ -36,6 +36,7 @@ from app.models import Destination
 from app.output_manifest import build_manifest
 
 MAX_ROWS = 10_000
+MAX_CSV_BYTES = 20_000_000
 MAX_PAGE_BYTES = 200_000
 REQUIRED = ("name", "url")
 REPORT_COLUMNS = ["row", "name", "url", "status", "reasons", "warnings", "normalized_url", "final_url", "http_status", "response_ms",
@@ -212,6 +213,31 @@ class Importer:
                                        settings={"workers": self.workers, "fetch_timeout_s": self.fetch_timeout_s, "allow_private_hosts": self.allow_private_hosts, "commit": commit},
                                        warnings=warnings),
         }
+
+    def fetch_csv(self, url: str) -> str:
+        """Download a CSV from an address (refusing private addresses, like every fetch the importer makes)."""
+        normalized, reason = normalize_url(url, self.allow_private_hosts)
+        if reason:
+            raise IncuBrixError(ErrorCode.VALIDATION_ERROR, f"cannot use that address: {reason}")
+        if not self.allow_private_hosts and is_private_host(urlsplit(normalized).hostname or ""):
+            raise IncuBrixError(ErrorCode.VALIDATION_ERROR, "the service will not fetch private or local addresses")
+        data: list[bytes] = []
+        try:
+            with self.http.stream("GET", normalized, timeout=self.fetch_timeout_s * 2, follow_redirects=True) as resp:
+                if resp.status_code >= 400:
+                    raise IncuBrixError(ErrorCode.PLATFORM_UNAVAILABLE, f"the CSV address answered HTTP {resp.status_code}", {"http_status": resp.status_code})
+                size = 0
+                for chunk in resp.iter_bytes():
+                    data.append(chunk)
+                    size += len(chunk)
+                    if size > MAX_CSV_BYTES:
+                        raise IncuBrixError(ErrorCode.VALIDATION_ERROR, f"the CSV is larger than {MAX_CSV_BYTES // 1_000_000} MB")
+        except httpx.HTTPError as exc:
+            raise IncuBrixError(ErrorCode.PLATFORM_UNAVAILABLE, f"could not download the CSV ({type(exc).__name__})") from None
+        try:
+            return b"".join(data).decode("utf-8")
+        except UnicodeDecodeError:
+            raise IncuBrixError(ErrorCode.VALIDATION_ERROR, "the CSV must be UTF-8 text") from None
 
     # ---------- step 1-3: validate, normalise, de-duplicate ----------
     @staticmethod

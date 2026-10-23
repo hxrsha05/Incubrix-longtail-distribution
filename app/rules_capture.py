@@ -232,6 +232,7 @@ class RulesCapture:
                 extractor=self.extractor.name, proposed={"rules": rules, "evidence": evidence, "dropped": dropped}, diff=diff, cost=cost, created_at=started))
         return self.get(proposal_id) | {"manifest": build_manifest(
             kind="rules_capture", started_at=started, finished_at=self.clock(), settings={"extractor": self.extractor.name}, ai_generated=self.extractor.name != MockExtractor.name,
+            models=[{"provider": self.extractor.name.split(":")[0], "model": self.extractor.name.split(":", 1)[-1], "role": "reads the rules page and proposes rules; a person confirms"}],
             model_calls=0 if self.extractor.name == MockExtractor.name else 1, cost_usd=cost["usd"],
             warnings=[f"{d.get('rule')}: {d['why']}" for d in dropped])}
 

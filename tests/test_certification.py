@@ -230,3 +230,10 @@ def test_catalogue_api_add_filter_certify_and_download_evidence(api):
     assert api.get("/api/v1/evidence/%2e%2e/api.db").status_code == 404
     assert api.delete("/api/v1/destinations/other").status_code == 204
     assert api.get("/api/v1/destinations").json()["total"] == 1
+
+
+def test_every_manifest_names_the_models_used_and_the_seed(env):
+    record = env.service.certify_destination(add(env, "forum", "discourse"))
+    manifest = record["manifest"]
+    assert manifest["models"] == [] and manifest["seed"] is None  # nothing AI and nothing random in a certification run: stated, not omitted
+    assert {"versions", "settings", "timings", "cost", "warnings", "licences", "ai_generated"} <= set(manifest)

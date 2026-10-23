@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import sys
+import time
 from pathlib import Path
 
 import httpx
@@ -56,9 +57,12 @@ def main() -> None:
     say("\n## 3. AI rules capture: propose, then a person confirms")
     http.post("/api/v1/destinations", json={"destination": {"name": "Demo strict forum", "connector_key": "assisted", "extra": {"submit_url": "https://forum.example/submit"},
                                                             "rules": CONSERVATIVE}, "language": "en"}).raise_for_status()
-    proposal = http.post("/api/v1/destinations/demo-strict-forum/rules/capture", json={"url": f"{MOCK_FROM_API}/rules/strict"}).json()
-    if "proposed" not in proposal:
-        raise SystemExit(f"capture failed: {proposal}")
+    job = http.post("/api/v1/destinations/demo-strict-forum/rules/capture", json={"url": f"{MOCK_FROM_API}/rules/strict"}).json()  # a job: 202 and the proposal in the result
+    while (state := http.get(f"/api/v1/jobs/{job['job_id']}").json())["status"] not in ("succeeded", "failed"):
+        time.sleep(0.5)
+    if state["status"] != "succeeded":
+        raise SystemExit(f"capture failed: {state['error']}")
+    proposal = state["result"]
     say(f"- proposal {proposal['id']} is {proposal['status'].upper()} (reader: {proposal['extractor']})")
     for rule, evidence in proposal["proposed"]["evidence"].items():
         say(f"  - {rule} = {proposal['proposed']['rules'][rule]}   quote: \"{evidence['quote']}\"")

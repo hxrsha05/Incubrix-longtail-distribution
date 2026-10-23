@@ -18,9 +18,14 @@ async def create_import(request: Request, commit: bool = True, callback_url: str
     raw = await request.body()
     if "json" in (request.headers.get("content-type") or ""):
         try:
-            text = json.loads(raw)["csv"]
-        except (ValueError, KeyError, TypeError):
-            raise IncuBrixError(ErrorCode.VALIDATION_ERROR, 'JSON body must look like {"csv": "name,url\n..."}') from None
+            payload = json.loads(raw)
+            text = payload.get("csv") if isinstance(payload, dict) else None
+            if text is None and isinstance(payload, dict) and payload.get("csv_url"):
+                text = request.app.state.importer.fetch_csv(payload["csv_url"])  # an address instead of an upload
+        except ValueError:
+            text = None
+        if text is None:
+            raise IncuBrixError(ErrorCode.VALIDATION_ERROR, 'JSON body must look like {"csv": "name,url\\n..."} or {"csv_url": "https://..."}')
     else:
         try:
             text = raw.decode("utf-8")

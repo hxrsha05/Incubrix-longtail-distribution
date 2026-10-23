@@ -146,6 +146,14 @@ def create_app() -> FastAPI:
         return response
 
     # ------------------------------------------------------------------ control
+    @app.middleware("http")
+    async def control_token(request: Request, call_next):
+        """On a public demo set MOCK_CONTROL_TOKEN: the failure switches then need the header X-Mock-Token (the fake platforms themselves stay open)."""
+        token = os.environ.get("MOCK_CONTROL_TOKEN")
+        if token and request.url.path.startswith("/__control") and request.headers.get("X-Mock-Token") != token:
+            return JSONResponse({"error": "the failure switches need the header X-Mock-Token"}, status_code=401)
+        return await call_next(request)
+
     @app.post("/__control/reset")
     async def reset() -> dict:
         fresh = MockState()
@@ -464,6 +472,11 @@ def create_app() -> FastAPI:
                    "Post as often as you like.</p></body></html>",
         "silent": "<html><body><h1>Welcome</h1><p>This is a friendly place to talk about video editing and creative tools.</p></body></html>",
     }
+
+    @app.get("/files/catalogue.csv")
+    async def fake_csv_file():
+        rows = ["name,url,language,topics", "Remote One,http://mock-platforms:9100/sites/plain-r1,en,ai", "Remote Two,http://mock-platforms:9100/sites/discourse-r2,en,video"]
+        return Response("\n".join(rows) + "\n", media_type="text/csv")
 
     @app.get("/rules/{name}")
     async def fake_rules_page(name: str):

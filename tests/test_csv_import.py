@@ -253,3 +253,29 @@ def test_json_body_works_too(api, mock):
     done = wait_job(api, r.json()["job_id"])
     assert done["result"]["accepted"] == 1 and done["result"]["committed"] is False
     assert api.get("/api/v1/destinations").json()["total"] == 0
+
+
+def test_the_csv_can_come_from_an_address_instead_of_an_upload(api, mock):
+    r = api.post("/api/v1/imports?commit=false", json={"csv_url": f"{mock.url}/files/catalogue.csv"})
+    assert r.status_code == 202 and r.json()["rows"] == 2
+    assert wait_job(api, r.json()["job_id"])["result"]["rows"] == 2
+    bad = api.post("/api/v1/imports", json={"csv_url": f"{mock.url}/files/missing.csv"})
+    assert bad.status_code == 404 or bad.json()["error"]["code"] in ("PLATFORM_UNAVAILABLE", "NOT_FOUND")
+    assert api.post("/api/v1/imports", json={"csv_url": "not a url"}).json()["error"]["code"] == "VALIDATION_ERROR"
+    assert api.post("/api/v1/imports", json={"nothing": 1}).json()["error"]["code"] == "VALIDATION_ERROR"
+
+
+def test_private_addresses_are_refused_for_a_csv_url_unless_allowed(tmp_path, monkeypatch):
+    from fastapi.testclient import TestClient
+
+    from app.config import get_settings
+    from app.main import create_app
+
+    monkeypatch.setenv("DATABASE_URL", f"sqlite:///{tmp_path / 'p.db'}")
+    monkeypatch.setenv("IMPORT_ALLOW_PRIVATE_HOSTS", "false")
+    get_settings.cache_clear()
+    try:
+        r = TestClient(create_app()).post("/api/v1/imports", json={"csv_url": "http://127.0.0.1:8000/secret.csv"})
+        assert r.status_code == 422 and "private or local" in r.json()["error"]["message"]
+    finally:
+        get_settings.cache_clear()

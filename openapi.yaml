@@ -187,6 +187,30 @@ components:
       - url
       title: Media
       type: object
+    PublishByDestination:
+      properties:
+        destination_id:
+          title: Destination Id
+          type: string
+        idempotency_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: the Idempotency-Key header works too
+          title: Idempotency Key
+        rendition:
+          $ref: '#/components/schemas/Rendition'
+        tailor:
+          default: true
+          description: fit the content to the destination first (every change is listed
+            in the answer)
+          title: Tailor
+          type: boolean
+      required:
+      - destination_id
+      - rendition
+      title: PublishByDestination
+      type: object
     RecommendRequest:
       properties:
         connector_key:
@@ -575,8 +599,11 @@ paths:
       summary: Certify Destination
   /api/v1/destinations/{dest_id}/rules/capture:
     post:
-      description: Read a rules page (by address or pasted text) and create a PENDING
+      description: 'Read a rules page (by address or pasted text) and create a PENDING
         proposal. Nothing is applied.
+
+        Fetching a page and asking an AI model can take seconds, so this is a job:
+        202 now, the proposal in the job result.'
       operationId: capture_rules_api_v1_destinations__dest_id__rules_capture_post
       parameters:
       - in: path
@@ -600,7 +627,7 @@ paths:
               $ref: '#/components/schemas/CaptureRequest'
         required: true
       responses:
-        '201':
+        '202':
           content:
             application/json:
               schema: {}
@@ -911,6 +938,40 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Get Job
+  /api/v1/publish:
+    post:
+      operationId: publish_to_destination_api_v1_publish_post
+      parameters:
+      - in: header
+        name: idempotency-key
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Idempotency-Key
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishByDestination'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                title: Response Publish To Destination Api V1 Publish Post
+                type: object
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Publish To Destination
   /api/v1/ready:
     get:
       operationId: ready_check_api_v1_ready_get

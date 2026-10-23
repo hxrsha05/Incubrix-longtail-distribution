@@ -1,5 +1,6 @@
 """AI rules capture: propose from a page, verify the quotes, a person confirms, loosening needs acknowledgement."""
 import json
+import time
 
 import httpx
 import pytest
@@ -229,26 +230,41 @@ def api(mock, tmp_path, monkeypatch):
         get_settings.cache_clear()
 
 
+def wait_job(client, job_id, seconds=20):
+    for _ in range(seconds * 10):
+        job = client.get(f"/api/v1/jobs/{job_id}").json()
+        if job["status"] in ("succeeded", "failed"):
+            return job
+        time.sleep(0.1)
+    raise AssertionError("job did not finish")
+
+
 def test_api_flow_capture_from_a_url_review_and_confirm(api, mock):
     r = api.post("/api/v1/destinations/forum/rules/capture", json={"url": f"{mock.url}/rules/strict"}, headers={"Idempotency-Key": "c1"})
-    assert r.status_code == 201
-    proposal = r.json()
+    assert r.status_code == 202  # a job: fetching a page and asking a model can take seconds
+    again = api.post("/api/v1/destinations/forum/rules/capture", json={"url": f"{mock.url}/rules/strict"}, headers={"Idempotency-Key": "c1"})
+    assert again.headers["Idempotent-Replayed"] == "true" and again.json()["job_id"] == r.json()["job_id"]
+    done = wait_job(api, r.json()["job_id"])
+    assert done["status"] == "succeeded"
+    proposal = done["result"]
     assert proposal["status"] == "pending" and proposal["proposed"]["rules"]["automation_allowed"] is False
-    assert api.post("/api/v1/destinations/forum/rules/capture", json={"url": f"{mock.url}/rules/strict"}, headers={"Idempotency-Key": "c1"}).headers["Idempotent-Replayed"] == "true"
+    assert proposal["manifest"]["models"][0]["provider"] == "mock-keyword-reader" and proposal["manifest"]["seed"] is None
     assert api.get(f"/api/v1/rule-proposals/{proposal['id']}").json()["status"] == "pending"
     assert len(api.get("/api/v1/destinations/forum/rules/proposals").json()["items"]) == 1
     assert api.get("/api/v1/destinations/forum").json()["destination"]["rules"]["link_policy"] == "max:1"  # untouched so far
     assert api.post(f"/api/v1/rule-proposals/{proposal['id']}/confirm", json={}).status_code == 422  # a reviewer name is required
-    done = api.post(f"/api/v1/rule-proposals/{proposal['id']}/confirm", json={"reviewer": "Asha Rao"})
-    assert done.status_code == 200 and done.json()["status"] == "confirmed"
+    confirmed = api.post(f"/api/v1/rule-proposals/{proposal['id']}/confirm", json={"reviewer": "Asha Rao"})
+    assert confirmed.status_code == 200 and confirmed.json()["status"] == "confirmed"
     after = api.get("/api/v1/destinations/forum").json()["destination"]
     assert after["rules"]["link_policy"] == "none" and after["extra"]["rules_status"] == "confirmed_by:Asha Rao"
     assert api.post(f"/api/v1/rule-proposals/{proposal['id']}/confirm", json={"reviewer": "Asha"}).status_code == 409
 
 
 def test_api_page_that_is_missing_or_silent(api, mock):
-    assert api.post("/api/v1/destinations/forum/rules/capture", json={"url": f"{mock.url}/rules/nope"}).json()["error"]["code"] == "PLATFORM_UNAVAILABLE"
-    silent = api.post("/api/v1/destinations/forum/rules/capture", json={"url": f"{mock.url}/rules/silent"}).json()
-    assert silent["proposed"]["rules"] == {} and silent["diff"] == []
+    missing = wait_job(api, api.post("/api/v1/destinations/forum/rules/capture", json={"url": f"{mock.url}/rules/nope"}).json()["job_id"])
+    assert missing["status"] == "failed" and missing["error"]["code"] == "PLATFORM_UNAVAILABLE"
+    silent = wait_job(api, api.post("/api/v1/destinations/forum/rules/capture", json={"url": f"{mock.url}/rules/silent"}).json()["job_id"])
+    assert silent["status"] == "succeeded" and silent["result"]["proposed"]["rules"] == {} and silent["result"]["diff"] == []
     assert api.post("/api/v1/destinations/forum/rules/capture", json={}).json()["error"]["code"] == "VALIDATION_ERROR"
+    assert api.post("/api/v1/destinations/nope/rules/capture", json={"text": "x" * 50}).json()["error"]["code"] == "NOT_FOUND"
     assert api.post("/api/v1/rule-proposals/nope/reject", json={"reviewer": "a"}).json()["error"]["code"] == "NOT_FOUND"

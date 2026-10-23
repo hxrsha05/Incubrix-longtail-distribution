@@ -8,7 +8,6 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
 from app.errors import ErrorCode, IncuBrixError
-from app.idempotency import request_hash
 
 router = APIRouter(prefix="/api/v1")
 
@@ -30,29 +29,15 @@ class RejectRequest(BaseModel):
     note: str | None = None
 
 
-@router.post("/destinations/{dest_id}/rules/capture", status_code=201)
+@router.post("/destinations/{dest_id}/rules/capture", status_code=202)
 def capture_rules(dest_id: str, body: CaptureRequest, request: Request, idempotency_key: str | None = Header(default=None)) -> JSONResponse:
-    """Read a rules page (by address or pasted text) and create a PENDING proposal. Nothing is applied."""
-    service, store = request.app.state.rules_capture, request.app.state.idempotency_store
-    scope = f"capture:{dest_id}"
-    if idempotency_key:
-        fingerprint = request_hash(body.model_dump())
-        record, created = store.begin(scope, idempotency_key, fingerprint)
-        if not created:
-            if record.request_hash != fingerprint:
-                raise IncuBrixError(ErrorCode.IDEMPOTENCY_KEY_REUSED, "this idempotency key was already used for a different request")
-            if record.state == "done":
-                return JSONResponse(content=record.response, headers={"Idempotent-Replayed": "true"})
-            raise IncuBrixError(ErrorCode.IDEMPOTENCY_IN_PROGRESS, "the same request is still being processed")
-    try:
-        proposal = service.capture(dest_id, url=body.url, text=body.text)
-    except BaseException:
-        if idempotency_key:
-            store.release(scope, idempotency_key)
-        raise
-    if idempotency_key:
-        store.complete(scope, idempotency_key, proposal)
-    return JSONResponse(status_code=201, content=proposal)
+    """Read a rules page (by address or pasted text) and create a PENDING proposal. Nothing is applied.
+    Fetching a page and asking an AI model can take seconds, so this is a job: 202 now, the proposal in the job result."""
+    request.app.state.catalogue.get(dest_id)  # a missing destination is a 404 now, not a failed job later
+    if not body.url and not body.text:
+        raise IncuBrixError(ErrorCode.VALIDATION_ERROR, "give the address of the rules page (url) or its text (text)")
+    job, created = request.app.state.jobs.submit("rules_capture", {"destination_id": dest_id, "url": body.url, "text": body.text}, None, idempotency_key)
+    return JSONResponse(status_code=202, content=job, headers={} if created else {"Idempotent-Replayed": "true"})
 
 
 @router.get("/destinations/{dest_id}/rules/proposals")

@@ -48,6 +48,10 @@ class Settings(BaseSettings):
     recert_attention_retry_s: float = 3600
     recert_batch_limit: int = 25
 
+    api_token: SecretStr | None = None  # set it on a public demo: every call except /health, /ready, the docs and public feeds then needs it
+    rate_limit_per_minute: int = 0  # 0 = off. Requests per minute per client; over the limit gets 429 RATE_LIMITED with Retry-After
+    trust_proxy: bool = False  # true only behind a reverse proxy you control: rate-limit by X-Forwarded-For instead of the socket address
+
     callback_hmac_secret: SecretStr = SecretStr("change-me")
     test_post_ttl_seconds: int = 600
 
