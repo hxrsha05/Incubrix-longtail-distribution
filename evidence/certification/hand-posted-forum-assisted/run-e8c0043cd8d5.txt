@@ -1,0 +1,4 @@
+Certification run e8c0043cd8d5
+destination: hand-posted-forum-assisted  connector: assisted
+verdict: PASSED   duration: 0.0 s
+  [ok] build_assist_pack (0.0 s)

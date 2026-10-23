@@ -1,0 +1,122 @@
+{
+  "connector_key": "feed",
+  "destination_id": "incubrix-mrss-feed-videos",
+  "duration_s": 0.018,
+  "finished_at": 1792758482.2319572,
+  "manifest": {
+    "ai_generated": {
+      "label": "no AI-generated content in this result",
+      "present": false
+    },
+    "cost": {
+      "model_calls": 0,
+      "note": "no paid API or model is called by certification",
+      "usd": 0.0
+    },
+    "kind": "certification",
+    "licences": [
+      {
+        "component": "IncuBrix Distribution service (this repo)",
+        "licence": "own code",
+        "reference": "SOURCES.md"
+      },
+      {
+        "component": "FastAPI, Pydantic, SQLAlchemy, httpx",
+        "licence": "MIT / BSD (see SOURCES.md)",
+        "reference": "SOURCES.md"
+      }
+    ],
+    "settings": {
+      "rate_limit_wait_cap_s": 30.0,
+      "simulation_mode": true,
+      "test_post_ttl_s": 600
+    },
+    "timings": {
+      "duration_s": 0.018,
+      "finished_at": 1792758482.2319572,
+      "started_at": 1792758482.2135873
+    },
+    "versions": {
+      "connector": "1.0.0",
+      "python": "3.12.15",
+      "service": "0.1.0"
+    },
+    "warnings": []
+  },
+  "run_id": "d9619e5417df",
+  "started_at": 1792758482.2135873,
+  "steps": [
+    {
+      "detail": {
+        "ok": true,
+        "violations": []
+      },
+      "duration_s": 0.0,
+      "name": "validate",
+      "ok": true,
+      "started_at": 1792758482.2136066
+    },
+    {
+      "detail": {
+        "attempts": 1,
+        "live_url": "http://localhost:8000/feeds/videos.xml#ik-3e3df8804dadd0e20f32",
+        "platform_post_id": "ik-3e3df8804dadd0e20f32",
+        "status": "live"
+      },
+      "duration_s": 0.008,
+      "name": "publish",
+      "ok": true,
+      "started_at": 1792758482.2136233
+    },
+    {
+      "detail": {
+        "expected_status": "live",
+        "live_url": "http://localhost:8000/feeds/videos.xml#ik-3e3df8804dadd0e20f32"
+      },
+      "duration_s": 0.0,
+      "name": "confirm_live",
+      "ok": true,
+      "started_at": 1792758482.2213743
+    },
+    {
+      "detail": {
+        "live_url": "http://localhost:8000/feeds/videos.xml#ik-3e3df8804dadd0e20f32",
+        "status": "live"
+      },
+      "duration_s": 0.003,
+      "name": "status",
+      "ok": true,
+      "started_at": 1792758482.2213771
+    },
+    {
+      "detail": {
+        "deleted": true
+      },
+      "duration_s": 0.005,
+      "name": "delete",
+      "ok": true,
+      "started_at": 1792758482.2247827
+    },
+    {
+      "detail": {
+        "note": "",
+        "status_after_delete": "not_found"
+      },
+      "duration_s": 0.002,
+      "name": "confirm_deleted",
+      "ok": true,
+      "started_at": 1792758482.2294788
+    }
+  ],
+  "target": "http://localhost:8000",
+  "test_post": {
+    "deleted": true,
+    "deleted_after_s": 0.008,
+    "limit_s": 600,
+    "live_url": "http://localhost:8000/feeds/videos.xml#ik-3e3df8804dadd0e20f32",
+    "platform_post_id": "ik-3e3df8804dadd0e20f32"
+  },
+  "tier": "feed",
+  "verdict": "passed",
+  "warnings": []
+}

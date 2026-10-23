@@ -1,0 +1,11 @@
+Certification run 01ecbb4427cb
+destination: recertification-demo-forum  connector: discourse
+verdict: PASSED   duration: 0.008 s
+  [ok] validate (0.0 s)
+  [ok] publish (0.003 s)
+  [ok] confirm_live (0.0 s)
+  [ok] status (0.002 s)
+  [ok] metrics (0.001 s)
+  [ok] delete (0.001 s)
+  [ok] confirm_deleted (0.001 s)
+test post: id=101 url=http://mock-platforms:9100/discourse/t/incubrix-certification-test-01ecbb4427cb/101 deleted=True after 0.004 s (limit 600 s)

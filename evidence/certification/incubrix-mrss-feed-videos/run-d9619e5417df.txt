@@ -1,0 +1,10 @@
+Certification run d9619e5417df
+destination: incubrix-mrss-feed-videos  connector: feed
+verdict: PASSED   duration: 0.018 s
+  [ok] validate (0.0 s)
+  [ok] publish (0.008 s)
+  [ok] confirm_live (0.0 s)
+  [ok] status (0.003 s)
+  [ok] delete (0.005 s)
+  [ok] confirm_deleted (0.002 s)
+test post: id=ik-3e3df8804dadd0e20f32 url=http://localhost:8000/feeds/videos.xml#ik-3e3df8804dadd0e20f32 deleted=True after 0.008 s (limit 600 s)

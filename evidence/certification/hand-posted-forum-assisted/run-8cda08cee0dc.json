@@ -1,0 +1,66 @@
+{
+  "connector_key": "assisted",
+  "destination_id": "hand-posted-forum-assisted",
+  "duration_s": 0.0,
+  "finished_at": 1792758482.15551,
+  "manifest": {
+    "ai_generated": {
+      "label": "no AI-generated content in this result",
+      "present": false
+    },
+    "cost": {
+      "model_calls": 0,
+      "note": "no paid API or model is called by certification",
+      "usd": 0.0
+    },
+    "kind": "certification",
+    "licences": [
+      {
+        "component": "IncuBrix Distribution service (this repo)",
+        "licence": "own code",
+        "reference": "SOURCES.md"
+      },
+      {
+        "component": "FastAPI, Pydantic, SQLAlchemy, httpx",
+        "licence": "MIT / BSD (see SOURCES.md)",
+        "reference": "SOURCES.md"
+      }
+    ],
+    "settings": {
+      "rate_limit_wait_cap_s": 30.0,
+      "simulation_mode": true,
+      "test_post_ttl_s": 600
+    },
+    "timings": {
+      "duration_s": 0.0,
+      "finished_at": 1792758482.15551,
+      "started_at": 1792758482.1554759
+    },
+    "versions": {
+      "connector": "1.0.0",
+      "python": "3.12.15",
+      "service": "0.1.0"
+    },
+    "warnings": []
+  },
+  "run_id": "8cda08cee0dc",
+  "started_at": 1792758482.1554759,
+  "steps": [
+    {
+      "detail": {
+        "caption_chars": 137,
+        "checklist_items": 6,
+        "deep_link": "https://forum.example/submit",
+        "note": "assisted: nothing is posted; a person posts by hand"
+      },
+      "duration_s": 0.0,
+      "name": "build_assist_pack",
+      "ok": true,
+      "started_at": 1792758482.155479
+    }
+  ],
+  "target": "http://mock-platforms:9100",
+  "tier": "assisted",
+  "verdict": "passed",
+  "warnings": []
+}

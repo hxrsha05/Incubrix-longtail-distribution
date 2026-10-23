@@ -1,0 +1,11 @@
+Certification run b28e68c34c33
+destination: recertification-demo-forum  connector: discourse
+verdict: PASSED   duration: 0.007 s
+  [ok] validate (0.0 s)
+  [ok] publish (0.002 s)
+  [ok] confirm_live (0.0 s)
+  [ok] status (0.001 s)
+  [ok] metrics (0.001 s)
+  [ok] delete (0.001 s)
+  [ok] confirm_deleted (0.002 s)
+test post: id=107 url=http://mock-platforms:9100/discourse/t/incubrix-certification-test-b28e68c34c33/107 deleted=True after 0.004 s (limit 600 s)

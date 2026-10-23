@@ -1,0 +1,11 @@
+Certification run 883dcceea3d1
+destination: mock-hashnode-blog  connector: hashnode
+verdict: PASSED   duration: 0.007 s
+  [ok] validate (0.0 s)
+  [ok] publish (0.002 s)
+  [ok] confirm_live (0.0 s)
+  [ok] status (0.001 s)
+  [ok] metrics (0.001 s)
+  [ok] delete (0.001 s)
+  [ok] confirm_deleted (0.001 s)
+test post: id=hn6c url=http://hashnode.mock/incubrix-certification-test-883dcceea3d1-hn6c deleted=True after 0.004 s (limit 600 s)

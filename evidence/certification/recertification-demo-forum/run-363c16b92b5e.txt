@@ -1,0 +1,9 @@
+Certification run 363c16b92b5e
+destination: recertification-demo-forum  connector: discourse
+verdict: FAILED   duration: 0.004 s
+  [ok] validate (0.0 s)
+  [FAIL] publish (0.002 s)
+  [ok] cleanup (0.001 s)
+failure: the platform's response changed: field 'topic_id' is missing
+test post: id=111 url=http://mock-platforms:9100/discourse/t/incubrix-certification-test-363c16b92b5e/111 deleted=True after 0.001 s (limit 600 s)
+warning: publish failed but the platform had created the post; it was found by reconcile and will be deleted
