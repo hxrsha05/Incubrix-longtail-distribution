@@ -85,6 +85,8 @@ No other AI coding tools were used.
 - Without a real research source the AI did not invent the "150 real destinations"; that item is left undone and reported as such.
 - A demotion initially only changed a label. The AI made it bite: a demoted destination is refused at publish time and left out of recommendations.
 
+- Running the new build in Docker crashed on startup: the image had installed a much newer FastAPI (0.161, Starlette 1.9) than the one the tests ran on (0.115, Starlette 0.46), and the newer one no longer has `add_event_handler`. The AI replaced it with the lifespan mechanism (works on both), added a test for it, and pinned the dependencies in `requirements.txt` to the versions the tests ran on, so the container and the test machine now match.
+
 ## Manual work
 
 No outputs have been edited by hand and presented as automated.

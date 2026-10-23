@@ -245,3 +245,23 @@ def test_recertification_api(mock, tmp_path, monkeypatch):
         assert client.get("/api/v1/recertification").json()["last_run"]["dry_run"] is True
     finally:
         get_settings.cache_clear()
+
+
+def test_the_scheduler_starts_and_stops_with_the_server(tmp_path, monkeypatch):
+    """Lifespan wiring: entering the app starts the scheduler thread, leaving it stops it (this broke once on a newer FastAPI)."""
+    from fastapi.testclient import TestClient
+
+    from app.config import get_settings
+    from app.main import create_app
+
+    monkeypatch.setenv("DATABASE_URL", f"sqlite:///{tmp_path / 'life.db'}")
+    monkeypatch.setenv("RECERT_INTERVAL_S", "30")
+    get_settings.cache_clear()
+    try:
+        app = create_app()
+        assert app.state.scheduler.enabled and app.state.scheduler._thread is None
+        with TestClient(app):
+            assert app.state.scheduler._thread is not None and app.state.scheduler._thread.is_alive()
+        assert app.state.scheduler._stop.is_set()
+    finally:
+        get_settings.cache_clear()

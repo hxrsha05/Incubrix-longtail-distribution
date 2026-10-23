@@ -1,9 +1,11 @@
-fastapi>=0.115,<1
-uvicorn>=0.30
-pydantic>=2.7
-pydantic-settings>=2.3
-pyyaml>=6
-httpx>=0.27
-sqlalchemy>=2.0
-psycopg[binary]>=3.1   # Postgres driver, used by docker compose
-boto3>=1.34   # S3 client (RustFS in docker compose)
+# Pinned to the versions the test suite ran against (pip list), so a clean install behaves like the tested one.
+fastapi==0.115.13
+starlette==0.46.2
+uvicorn==0.34.3
+pydantic==2.13.4
+pydantic-settings==2.10.0
+pyyaml==6.0.2
+httpx==0.28.1
+sqlalchemy==2.0.41
+boto3==1.43.117
+psycopg[binary]>=3.1,<4   # Postgres driver, used by docker compose

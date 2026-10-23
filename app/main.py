@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import logging
+from contextlib import asynccontextmanager
 import time
 import uuid
 from typing import Callable
@@ -48,6 +49,16 @@ def _error_response(err: IncuBrixError) -> JSONResponse:
     return JSONResponse(status_code=err.http_status, content=err.to_body())
 
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Start the recertification scheduler with the server and stop it with the server (the modern replacement for startup/shutdown handlers)."""
+    app.state.scheduler.start()
+    try:
+        yield
+    finally:
+        app.state.scheduler.stop()
+
+
 def create_app(
     registry: ConnectorRegistry | None = None,
     callback_http: httpx.Client | None = None,
@@ -55,7 +66,7 @@ def create_app(
 ) -> FastAPI:
     settings = get_settings()
     configure_logging(settings.log_level)
-    app = FastAPI(title="IncuBrix Long-Tail Distribution", version="0.1.0", openapi_url="/api/v1/openapi.json")
+    app = FastAPI(title="IncuBrix Long-Tail Distribution", version="0.1.0", openapi_url="/api/v1/openapi.json", lifespan=lifespan)
 
     http = httpx.Client(timeout=settings.http_timeout_s)
     engine = make_engine(settings.database_url)
@@ -105,8 +116,7 @@ def create_app(
                                         attention_retry_s=settings.recert_attention_retry_s, batch_limit=settings.recert_batch_limit, clock=clock)
     app.state.jobs.register("recertify", lambda ctx, params: app.state.recertifier.run_once(dry_run=bool(params.get("dry_run", False)), force=bool(params.get("force", False))))
     app.state.scheduler = RecertScheduler(app.state.recertifier, settings.recert_interval_s)
-    app.add_event_handler("startup", app.state.scheduler.start)
-    app.add_event_handler("shutdown", app.state.scheduler.stop)
+
 
     @app.middleware("http")
     async def correlation_middleware(request: Request, call_next):
