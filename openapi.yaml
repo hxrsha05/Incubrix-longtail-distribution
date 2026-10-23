@@ -86,6 +86,148 @@ components:
       - kind
       title: JobRequest
       type: object
+    Media:
+      properties:
+        kind:
+          default: image
+          enum:
+          - image
+          - video
+          - file
+          title: Kind
+          type: string
+        mime_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Mime Type
+        url:
+          title: Url
+          type: string
+      required:
+      - url
+      title: Media
+      type: object
+    RelevanceRequest:
+      properties:
+        connector_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Connector Key
+        destination_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Destination Ids
+        rendition:
+          $ref: '#/components/schemas/Rendition'
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        top:
+          anyOf:
+          - maximum: 1000.0
+            minimum: 1.0
+            type: integer
+          - type: 'null'
+          title: Top
+      required:
+      - rendition
+      title: RelevanceRequest
+      type: object
+    Rendition:
+      properties:
+        ai_disclosure:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ai Disclosure
+        ai_generated:
+          default: false
+          title: Ai Generated
+          type: boolean
+        body:
+          default: ''
+          title: Body
+          type: string
+        canonical_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Canonical Url
+        content_type:
+          default: text
+          title: Content Type
+          type: string
+        language:
+          default: en
+          title: Language
+          type: string
+        link_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Link Url
+        media:
+          default: []
+          items:
+            $ref: '#/components/schemas/Media'
+          title: Media
+          type: array
+        promotional:
+          default: false
+          title: Promotional
+          type: boolean
+        tags:
+          default: []
+          items:
+            type: string
+          title: Tags
+          type: array
+        title:
+          title: Title
+          type: string
+      required:
+      - title
+      title: Rendition
+      type: object
+    TailorRequest:
+      properties:
+        destination_id:
+          title: Destination Id
+          type: string
+        rendition:
+          $ref: '#/components/schemas/Rendition'
+      required:
+      - rendition
+      - destination_id
+      title: TailorRequest
+      type: object
+    TailoredResult:
+      properties:
+        changes:
+          default: []
+          items:
+            type: string
+          title: Changes
+          type: array
+        rendition:
+          $ref: '#/components/schemas/Rendition'
+        warnings:
+          default: []
+          items:
+            type: string
+          title: Warnings
+          type: array
+      required:
+      - rendition
+      title: TailoredResult
+      type: object
     ValidationError:
       properties:
         loc:
@@ -482,6 +624,57 @@ paths:
               schema: {}
           description: Successful Response
       summary: Ready Check
+  /api/v1/relevance:
+    post:
+      description: Score 1-5 with an explanation for each destination, best first.
+      operationId: relevance_api_v1_relevance_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RelevanceRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                title: Response Relevance Api V1 Relevance Post
+                type: object
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Relevance
+  /api/v1/tailor:
+    post:
+      description: Fit the content to one catalogue destination and list every change
+        made.
+      operationId: tailor_for_destination_api_v1_tailor_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TailorRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TailoredResult'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Tailor For Destination
   /connector/v1/{connector_key}/{method}:
     post:
       operationId: call_connector_connector_v1__connector_key___method__post

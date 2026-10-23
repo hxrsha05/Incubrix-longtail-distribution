@@ -23,10 +23,11 @@ from pydantic import ValidationError
 
 from app.errors import IncuBrixError
 from app.models import PublishRequest, Rendition
+from app.tailoring import tailor
 from app.output_manifest import build_manifest
 
 
-def run_folder(app, input_dir: Path, output_dir: Path) -> dict[str, Any]:
+def run_folder(app, input_dir: Path, output_dir: Path, tailoring: bool = True) -> dict[str, Any]:
     state = app.state
     output_dir.mkdir(parents=True, exist_ok=True)
     files = sorted(input_dir.glob("*.json"))
@@ -38,7 +39,13 @@ def run_folder(app, input_dir: Path, output_dir: Path) -> dict[str, Any]:
             spec = json.loads(file.read_text(encoding="utf-8"))
             destination = state.catalogue.destination(spec["destination_id"])
             connection = state.certification.credentials.for_destination(destination)
-            request = PublishRequest(rendition=Rendition.model_validate(spec["rendition"]), destination=destination, connection=connection,
+            rendition = Rendition.model_validate(spec["rendition"])
+            if tailoring:  # fit the content to this destination first; every change is listed in the result
+                row = state.catalogue.get(spec["destination_id"])
+                tailored = tailor(rendition, destination, state.registry.get(destination.connector_key).effective_spec(destination), row.get("language"))
+                rendition = tailored.rendition
+                entry["tailoring"] = {"changes": tailored.changes, "warnings": tailored.warnings}
+            request = PublishRequest(rendition=rendition, destination=destination, connection=connection,
                                      idempotency_key=spec.get("idempotency_key") or file.stem)
             result, replayed = state.publish_service.publish(destination.connector_key, request)
             entry.update(status="published", replayed=replayed, result=result)
@@ -71,6 +78,7 @@ def main(argv: list[str] | None = None) -> int:
     run = sub.add_parser("run", help="publish every *.json request in a folder")
     run.add_argument("--input", required=True, type=Path)
     run.add_argument("--output", required=True, type=Path)
+    run.add_argument("--no-tailor", action="store_true", help="publish the content exactly as written")
     cert = sub.add_parser("certify", help="certify catalogue destinations")
     cert.add_argument("--output", required=True, type=Path)
     cert.add_argument("--connector")
@@ -80,7 +88,7 @@ def main(argv: list[str] | None = None) -> int:
 
     app = create_app()
     if args.cmd == "run":
-        summary = run_folder(app, args.input, args.output)
+        summary = run_folder(app, args.input, args.output, tailoring=not args.no_tailor)
         print(f"{summary['inputs']} inputs: {summary['published']} published, {summary['blocked']} blocked by rules, {summary['failed']} failed -> {args.output}")
         return 0 if summary["failed"] == 0 else 1
     out = certify_all(app, args.output, args.connector)

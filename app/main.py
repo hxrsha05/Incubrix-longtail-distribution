@@ -13,6 +13,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
+from app.api.advice_routes import router as advice_router
 from app.api.catalogue_routes import router as catalogue_router
 from app.api.connector_routes import router as connector_router
 from app.api.import_routes import router as import_router
@@ -136,6 +137,7 @@ def create_app(
 
     app.include_router(connector_router)  # POST /connector/v1/{connector_key}/{method}
     app.include_router(catalogue_router)  # /api/v1/destinations, /api/v1/evidence
+    app.include_router(advice_router)  # POST /api/v1/tailor, /api/v1/relevance
     app.include_router(import_router)  # POST /api/v1/imports, /api/v1/import-files
     app.include_router(job_router)  # POST /api/v1/jobs, GET /api/v1/jobs/{job_id}
     app.include_router(health)  # /health, /ready (as the brief names them)

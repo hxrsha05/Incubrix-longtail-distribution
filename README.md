@@ -66,6 +66,10 @@ A batch input file:
 `{"destination_id": "mock-discourse-forum", "rendition": {"title": "...", "body": "..."}}`. Results: one `<name>.result.json`
 per input plus `summary.json`; each result has an output manifest (versions, settings, timings, cost, warnings, licences, AI-generated label).
 
+## Tailoring and relevance
+
+`POST /api/v1/tailor` fits content to one destination and lists every change (word-boundary shortening, link policy, mention and tag style, canonical URL, AI disclosure that is never cut, language warning). `POST /api/v1/relevance` scores the catalogue 1 to 5 for a piece of content and explains each score. The batch runner tailors by default (`--no-tailor` turns it off).
+
 ## CSV import
 
 Columns: `name`, `url` (required); `language`, `topics` (a;b;c), `connector_key`, `community` (optional). Every row is validated,

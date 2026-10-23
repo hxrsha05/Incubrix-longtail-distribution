@@ -38,6 +38,7 @@ No other AI coding tools were used.
 | Destination catalogue and its API | `app/catalogue.py`, `app/api/catalogue_routes.py` |
 | Certification harness, evidence storage (local and S3), credentials lookup, output manifest | `app/certification.py`, `app/certify_service.py`, `app/evidence.py`, `app/credentials.py`, `app/output_manifest.py` |
 | Batch runner (command line) | `app/cli.py` |
+| Tailoring and relevance score, with their API | `app/tailoring.py`, `app/relevance.py`, `app/api/advice_routes.py` |
 | CSV import (validate, de-duplicate, reachability, enrichment, report) and its job and routes | `app/csv_import.py`, `app/import_service.py`, `app/api/import_routes.py`, `scripts/make_sample_csv.py`, `scripts/import_demo.py`, `samples/catalogue/` |
 | Docker setup and seed scripts | `Dockerfile`, `docker-compose.yml`, `scripts/seed_local.py`, `scripts/seed_catalogue.py` |
 | OpenAPI export and secret scan | `scripts/export_openapi.py`, `scripts/secret_scan.py`, `openapi.yaml` |
@@ -69,6 +70,8 @@ No other AI coding tools were used.
 - The importer accepts single-word host names (docker service names) only in local-demo mode; in normal mode they are refused as invalid.
 
 - The test suite caught two real faults in the AI's new code: a replayed import upload rewrote the input file while the first job was reading it (the job saw an empty CSV), and two "could not run" certification records created in the same millisecond got the same id. Files are now written atomically, an upload never rewrites an existing input, and record ids are random.
+
+- The AI's first word-boundary truncation kept a rough 40% of the text before backing up to a space, which cut "quick" to "quic" at one limit. A test caught it; the rule is now: always cut at a word, except inside one single enormous word.
 
 ## Manual work
 

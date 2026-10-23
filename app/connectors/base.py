@@ -36,6 +36,11 @@ class BaseConnector:
         self.manifest = manifest
         self.http = http
 
+    def effective_spec(self, destination: Destination) -> dict[str, Any]:
+        """The connector's surface spec with the destination row's own overrides on top (the destination wins)."""
+        surface = self.manifest.surface(destination.surface) if destination.surface else self.manifest.surfaces[0]
+        return {**(surface.spec if surface else {}), **destination.spec}
+
     # ---------- contract methods (Appendix A) ----------
     def validate(self, rendition: Rendition, destination: Destination, connection: Connection) -> ValidateResult:
         surface = self.manifest.surface(destination.surface) if destination.surface else self.manifest.surfaces[0]
