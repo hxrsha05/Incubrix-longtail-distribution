@@ -95,7 +95,7 @@ errors mapped for expired token / rate limit / rejected content **Done** (every 
 ## Manual captures still wanted (screenshots the AI cannot take)
 
 - [x] Lemmy UI showing the batch-runner post: `evidence/manual-demos/lemmy/01-batch-runner-post-live.png`
-- [ ] The certification summary text opened from a presigned S3 link in the browser (link is in the `certify_batch` job result)
+- [x] Certification summary opened from a presigned S3 link: `evidence/manual-demos/certification/01-s3-download-link-ghost-run.png`
 - [ ] Terminal with `python -m pytest` finishing green
 - [ ] Terminal with `python -m scripts.demo_failures` output
 

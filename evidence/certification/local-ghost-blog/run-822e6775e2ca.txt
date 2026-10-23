@@ -1,0 +1,10 @@
+Certification run 822e6775e2ca
+destination: local-ghost-blog  connector: ghost
+verdict: PASSED   duration: 0.164 s
+  [ok] validate (0.0 s)
+  [ok] publish (0.102 s)
+  [ok] confirm_live (0.0 s)
+  [ok] status (0.018 s)
+  [ok] delete (0.034 s)
+  [ok] confirm_deleted (0.01 s)
+test post: id=6adb136521c7500001c1947c url=http://ghost.localhost:2368/incubrix-certification-test-822e6775e2ca-678fe9c5/ deleted=True after 0.052 s (limit 600 s)

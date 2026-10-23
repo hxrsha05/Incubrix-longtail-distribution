@@ -30,3 +30,9 @@ the header `Idempotent-Replayed: true`.
 | File | What it shows |
 |---|---|
 | `lemmy/01-batch-runner-post-live.png` | The post "Batch runner test post" in the community `incubrix_test` on the local Lemmy (http://localhost:1234), published by the service's account through `python -m app.cli run --input samples/inputs --output test-pack/batch-run`. The matching record is `test-pack/batch-run/03-lemmy-ok.result.json` (it holds the Lemmy post id and the live URL). |
+
+## Certification evidence opened from the S3 download link
+
+| File | What it shows |
+|---|---|
+| `certification/01-s3-download-link-ghost-run.png` | The certification summary of the Ghost destination (run 822e6775e2ca, verdict PASSED, every step ok, test post deleted 0.052 s after it was created, limit 600 s), opened in the browser from the presigned S3 link (`localhost:9000/incubrix-distribution/certification/local-ghost-blog/...`). The same record is in `evidence/certification/local-ghost-blog/`. |
