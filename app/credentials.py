@@ -18,11 +18,28 @@ class CredentialProvider:
     def __init__(self, connections_file: str | None, simulation_mode: bool, mock_url: str, self_url: str = "http://localhost:8000", feed_token: str = "local-dev-feed-token") -> None:
         self.simulation_mode, self.mock_url = simulation_mode, mock_url.rstrip("/")
         self.self_url, self.feed_token = self_url.rstrip("/"), feed_token
+        self.connections_file = connections_file
         self.entries: dict[str, dict] = {}
-        if connections_file and Path(connections_file).is_file():
-            self.entries = json.loads(Path(connections_file).read_text(encoding="utf-8"))
+        self._loaded_stamp: tuple[int, int] | None = None
+        self._reload_if_changed()
+
+    def _reload_if_changed(self) -> None:
+        """The file may appear (or change) after the service starts: on a fresh `docker compose up` the seed step writes it a few seconds later."""
+        if not self.connections_file:
+            return
+        path = Path(self.connections_file)
+        try:
+            info = path.stat()
+        except OSError:
+            self.entries, self._loaded_stamp = {}, None
+            return
+        stamp = (info.st_mtime_ns, info.st_size)
+        if stamp != self._loaded_stamp:
+            self.entries = json.loads(path.read_text(encoding="utf-8"))
+            self._loaded_stamp = stamp
 
     def for_destination(self, destination: Destination) -> Connection:
+        self._reload_if_changed()
         ref = destination.extra.get("connection_ref") or destination.connector_key
         if ref in self.entries:
             return _to_connection(self.entries[ref])

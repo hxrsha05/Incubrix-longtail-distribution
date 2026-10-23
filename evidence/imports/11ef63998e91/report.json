@@ -1,0 +1,110 @@
+{
+  "manifest": {
+    "ai_generated": {
+      "label": "no AI-generated content in this result",
+      "present": false
+    },
+    "cost": {
+      "model_calls": 0,
+      "note": "no paid API or model is called by certification",
+      "usd": 0.0
+    },
+    "kind": "csv_import",
+    "licences": [
+      {
+        "component": "IncuBrix Distribution service (this repo)",
+        "licence": "own code",
+        "reference": "SOURCES.md"
+      },
+      {
+        "component": "FastAPI, Pydantic, SQLAlchemy, httpx",
+        "licence": "MIT / BSD (see SOURCES.md)",
+        "reference": "SOURCES.md"
+      }
+    ],
+    "models": [],
+    "seed": null,
+    "settings": {
+      "allow_private_hosts": true,
+      "catalogue_only": true,
+      "commit": true,
+      "fetch_timeout_s": 5.0,
+      "private_host_allowlist": [],
+      "workers": 32
+    },
+    "timings": {
+      "duration_s": 0.017,
+      "finished_at": 1792764722.725379,
+      "started_at": 1792764722.7088385
+    },
+    "versions": {
+      "connector": null,
+      "python": "3.10.10",
+      "service": "0.1.0"
+    },
+    "warnings": []
+  },
+  "rows": [
+    {
+      "category": "forum",
+      "connector_key": "discourse",
+      "description": "A community called discourse-real.",
+      "destination_id": "real-forum",
+      "detected_language": "en",
+      "detected_platform": "discourse",
+      "duplicate_of": null,
+      "final_url": "http://127.0.0.1:65517/sites/discourse-real",
+      "http_status": 200,
+      "language": "en",
+      "member_count": 1194,
+      "name": "Real Forum",
+      "normalized_url": "http://127.0.0.1:65517/sites/discourse-real",
+      "reasons": [],
+      "relevance_reason": "2/5: matches 1 of 6 audience segments: AI (ai). No signal for video, marketing, SaaS, creators, founders.",
+      "relevance_score": 2,
+      "response_ms": 0,
+      "row": 2,
+      "rules_url": "http://127.0.0.1:65517/sites/discourse-real/rules",
+      "status": "accepted",
+      "title": "Community discourse-real",
+      "url": "http://127.0.0.1:65517/sites/discourse-real",
+      "warnings": []
+    },
+    {
+      "category": "community (posted by hand)",
+      "connector_key": "assisted",
+      "description": "A community called plain-real.",
+      "destination_id": "real-blog",
+      "detected_language": "en",
+      "detected_platform": null,
+      "duplicate_of": null,
+      "final_url": "http://127.0.0.1:65517/sites/plain-real",
+      "http_status": 200,
+      "language": "en",
+      "member_count": null,
+      "name": "Real Blog",
+      "normalized_url": "http://127.0.0.1:65517/sites/plain-real",
+      "reasons": [],
+      "relevance_reason": "2/5: matches 1 of 6 audience segments: video (video). No signal for AI, marketing, SaaS, creators, founders.",
+      "relevance_score": 2,
+      "response_ms": 0,
+      "row": 3,
+      "rules_url": "http://127.0.0.1:65517/sites/plain-real/rules",
+      "status": "accepted",
+      "title": "Community plain-real",
+      "url": "http://127.0.0.1:65517/sites/plain-real",
+      "warnings": []
+    }
+  ],
+  "summary": {
+    "accepted": 2,
+    "catalogue_rows_created": 2,
+    "committed": true,
+    "duplicate": 0,
+    "duration_s": 0.02,
+    "invalid": 0,
+    "rows": 2,
+    "rows_per_second": 120.9,
+    "unreachable": 0
+  }
+}
