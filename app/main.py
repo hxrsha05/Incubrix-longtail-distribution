@@ -23,6 +23,7 @@ from app.api.publish_routes import router as publish_router
 from app.api.alert_routes import router as alert_router
 from app.api.recert_routes import router as recert_router
 from app.api.rules_routes import router as rules_router
+from app.api.simulation_routes import router as simulation_router
 from app.api.job_routes import router as job_router
 from app.catalogue import Catalogue
 from app.csv_import import Importer
@@ -78,6 +79,8 @@ def create_app(
     store = IdempotencyStore(engine, settings.idempotency_pending_timeout_s, clock)
     app.state.engine = engine
     app.state.registry = registry or build_registry(http, settings.disabled_connector_set)
+    app.state.settings = settings
+    app.state.simulation_http = httpx.Client()
     app.state.catalogue = Catalogue(engine, clock)
     app.state.publish_service = PublishService(app.state.registry, store, PostLog(engine), clock, app.state.catalogue)
     app.state.jobs = JobService(
@@ -105,7 +108,7 @@ def create_app(
     app.state.imports = EvidenceStore(settings.import_dir, s3, settings.s3_bucket, presigner=presigner, s3_prefix="imports", url_prefix="/api/v1/import-files")
     importer = Importer(app.state.catalogue, httpx.Client(timeout=settings.import_fetch_timeout_s, limits=httpx.Limits(max_connections=settings.import_workers * 2),
                                                            headers={"User-Agent": "IncuBrix-Catalogue-Importer/0.1"}),
-                        workers=settings.import_workers, allow_private_hosts=settings.import_allow_private_hosts, fetch_timeout_s=settings.import_fetch_timeout_s, clock=clock)
+                        workers=settings.import_workers, allow_private_hosts=settings.import_allow_private_hosts, private_host_allowlist=settings.private_host_allowlist, fetch_timeout_s=settings.import_fetch_timeout_s, clock=clock)
     app.state.importer = importer
     register_import_job(app.state.jobs, importer, app.state.imports)
     if settings.rules_extractor == "anthropic":
@@ -115,7 +118,7 @@ def create_app(
                                        settings.rules_price_per_mtok_in, settings.rules_price_per_mtok_out)
     else:
         extractor = MockExtractor()
-    app.state.rules_capture = RulesCapture(engine, app.state.catalogue, extractor, http, allow_private_hosts=settings.import_allow_private_hosts, clock=clock)
+    app.state.rules_capture = RulesCapture(engine, app.state.catalogue, extractor, http, allow_private_hosts=settings.import_allow_private_hosts, private_host_allowlist=settings.private_host_allowlist, clock=clock)
     app.state.jobs.register("rules_capture", lambda ctx, params: app.state.rules_capture.capture(params["destination_id"], url=params.get("url"), text=params.get("text")))
     register_certification_jobs(app.state.jobs, app.state.certification, app.state.catalogue)
     app.state.alerts = AlertService(engine, http, settings.alert_webhook_url, settings.callback_hmac_secret.get_secret_value(), clock)
@@ -183,6 +186,7 @@ def create_app(
     app.include_router(catalogue_router)  # /api/v1/destinations, /api/v1/evidence
     app.include_router(advice_router)  # POST /api/v1/tailor, /api/v1/relevance
     app.include_router(publish_router)  # POST /api/v1/publish
+    app.include_router(simulation_router)  # /api/v1/simulation/*: failure switches for the fake platforms (simulation mode only)
     app.include_router(alert_router)  # GET /api/v1/alerts, POST /api/v1/alerts/{id}/acknowledge
     app.include_router(recert_router)  # POST /api/v1/recertify, GET /api/v1/recertification
     app.include_router(rules_router)  # AI rules capture: propose, review, confirm

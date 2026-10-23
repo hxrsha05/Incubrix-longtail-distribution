@@ -279,3 +279,35 @@ def test_private_addresses_are_refused_for_a_csv_url_unless_allowed(tmp_path, mo
         assert r.status_code == 422 and "private or local" in r.json()["error"]["message"]
     finally:
         get_settings.cache_clear()
+
+
+def test_the_allowlist_lets_a_public_demo_reach_only_its_own_fake_sites(mock, tmp_path, monkeypatch):
+    from fastapi.testclient import TestClient
+
+    from app.config import get_settings
+    from app.main import create_app
+
+    monkeypatch.setenv("DATABASE_URL", f"sqlite:///{tmp_path / 'al.db'}")
+    monkeypatch.setenv("IMPORT_ALLOW_PRIVATE_HOSTS", "false")
+    monkeypatch.setenv("IMPORT_PRIVATE_HOST_ALLOWLIST", "127.0.0.1")
+    get_settings.cache_clear()
+    try:
+        client = TestClient(create_app())
+        # the allowlisted host (the mock's) works for the CSV address, the site check and a rules page
+        assert client.post("/api/v1/imports?commit=false", json={"csv_url": f"{mock.url}/files/catalogue.csv"}).status_code == 202
+        csv_text = f"name,url\nOk,{mock.url}/sites/plain-1\nInternal,http://10.0.0.5/admin\nMetadata,http://169.254.169.254/latest\n"
+        job = client.post("/api/v1/imports?commit=false", content=csv_text, headers={"Content-Type": "text/csv"}).json()["job_id"]
+        done = wait_job(client, job)
+        statuses = {r["name"]: r["status"] for r in client.get(done["result"]["files"]["report_json"]).json()["rows"]}
+        assert statuses == {"Ok": "accepted", "Internal": "invalid", "Metadata": "invalid"}
+        assert client.post("/api/v1/imports", json={"csv_url": "http://169.254.169.254/latest/meta-data"}).status_code == 422  # not on the list
+    finally:
+        get_settings.cache_clear()
+
+
+def test_host_is_blocked_rules():
+    from app.csv_import import host_is_blocked
+
+    assert host_is_blocked("127.0.0.1") and host_is_blocked("10.2.3.4") and not host_is_blocked("8.8.8.8")
+    assert not host_is_blocked("127.0.0.1", allow_all=True) and not host_is_blocked("127.0.0.1", allowlist={"127.0.0.1"}) and not host_is_blocked("LOCALHOST", allowlist={"localhost"})
+    assert host_is_blocked("10.2.3.4", allowlist={"127.0.0.1"})

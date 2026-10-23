@@ -206,10 +206,11 @@ def make_diff(current: dict[str, Any], proposed: dict[str, Any]) -> list[dict[st
 
 # ---------------------------------------------------------------- the service
 class RulesCapture:
-    def __init__(self, engine: Engine, catalogue: Catalogue, extractor: Extractor, http: httpx.Client, *, allow_private_hosts: bool = False,
+    def __init__(self, engine: Engine, catalogue: Catalogue, extractor: Extractor, http: httpx.Client, *, allow_private_hosts: bool = False, private_host_allowlist: frozenset[str] = frozenset(),
                  clock: Callable[[], float] = time.time) -> None:
         self.engine, self.catalogue, self.extractor, self.http = engine, catalogue, extractor, http
         self.allow_private_hosts, self.clock = allow_private_hosts, clock
+        self.private_host_allowlist = private_host_allowlist
 
     def capture(self, dest_id: str, *, url: str | None = None, text: str | None = None) -> dict[str, Any]:
         row = self.catalogue.get(dest_id)
@@ -290,12 +291,12 @@ class RulesCapture:
     def _fetch(self, url: str) -> str:
         from urllib.parse import urlsplit
 
-        from app.csv_import import is_private_host, normalize_url
+        from app.csv_import import host_is_blocked, normalize_url
 
-        normalized, reason = normalize_url(url, self.allow_private_hosts)
+        normalized, reason = normalize_url(url, self.allow_private_hosts or bool(self.private_host_allowlist))
         if reason:
             raise IncuBrixError(ErrorCode.VALIDATION_ERROR, f"cannot use that address: {reason}")
-        if not self.allow_private_hosts and is_private_host(urlsplit(normalized).hostname or ""):
+        if host_is_blocked(urlsplit(normalized).hostname or "", self.allow_private_hosts, self.private_host_allowlist):
             raise IncuBrixError(ErrorCode.VALIDATION_ERROR, "the service will not fetch private or local addresses")
         try:
             resp = self.http.get(normalized, timeout=10, follow_redirects=True)

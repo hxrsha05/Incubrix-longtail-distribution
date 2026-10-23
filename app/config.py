@@ -26,10 +26,12 @@ class Settings(BaseSettings):
     evidence_dir: str = "evidence/certification"
     connections_file: str | None = None  # JSON file with credentials per destination; never stored in the database
     mock_platforms_url: str = "http://mock-platforms:9100"  # where simulation mode finds the fake platforms
+    mock_control_token: SecretStr | None = None  # sent to the mock server's failure switches when that server is protected
 
     import_dir: str = "evidence/imports"
     import_workers: int = 32  # concurrent site checks during a CSV import
     import_fetch_timeout_s: float = 5.0
+    import_private_host_allowlist: str = ""  # comma-separated host names the service may fetch although they are private (a public demo lists only its own fake-sites host)
     import_allow_private_hosts: bool = False  # false = refuse private/loopback addresses (SSRF); compose turns it on for the local demo
 
     rules_extractor: str = "mock"  # mock = deterministic keyword reader (no key, no cost); anthropic = Claude via the Messages API
@@ -66,6 +68,10 @@ class Settings(BaseSettings):
     callback_backoff_s: float = 0.5
     # Kill switch: comma-separated connector keys that must refuse every call (CONNECTOR_DISABLED)
     disabled_connectors: str = ""
+
+    @property
+    def private_host_allowlist(self) -> frozenset[str]:
+        return frozenset(h.strip().lower() for h in self.import_private_host_allowlist.split(",") if h.strip())
 
     @property
     def disabled_connector_set(self) -> set[str]:

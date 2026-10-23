@@ -50,7 +50,9 @@ Everything runs with `docker compose up`, with no real accounts needed. The code
 ## 4. What does not work, or is not proven
 
 - **Discourse, Dev.to, Hashnode and Kit are verified against a mock, not the real platforms.** The mock is modelled on their documented
-  behaviour and can fail on purpose, but a real platform may differ. Lemmy, Ghost and the feed are verified end to end.
+  behaviour and can fail on purpose, but a real platform may differ. Lemmy, Ghost and the feed are verified end to end. For Kit I read the official
+  API reference and fixed my connector to send every required field. For Hashnode, its own announcement confirms the `publishPost` mutation but also says
+  writes need the publication to be on Hashnode Pro, and I could not confirm the `removePost` name from official documentation (`SOURCES.md`).
 - **Dev.to has no article delete.** "Delete" there means unpublish, and certification records that honestly.
 - **The recommender's number is optimistic.** The labelled set is synthetic (300 generated destinations, 30 generated posts, hidden true
   topics, messy descriptions) and the synonym table and the set were written by the same author. It shows the method copes with messy

@@ -115,6 +115,15 @@ def _is_ip(host: str) -> bool:
         return False
 
 
+def host_is_blocked(host: str, allow_all: bool = False, allowlist: "frozenset[str] | set[str]" = frozenset()) -> bool:
+    """The one rule for every address the service is asked to fetch (a CSV address, a page to check, a rules page): private, loopback and
+    link-local addresses are refused, unless everything is allowed (local demos) or the host is on the short allowlist (a public demo that
+    must still reach its own fake sites)."""
+    if allow_all or host.lower() in {h.lower() for h in allowlist}:
+        return False
+    return is_private_host(host)
+
+
 def is_private_host(host: str) -> bool:
     """True when the host resolves to a private, loopback or link-local address. Unresolvable hosts are 'not private'
     (the fetch will fail on its own)."""
@@ -191,10 +200,12 @@ def parse_csv(text: str) -> list[dict[str, str]]:
 
 # ---------------------------------------------------------------- the importer
 class Importer:
-    def __init__(self, catalogue: Catalogue, http: httpx.Client, *, workers: int = 32, allow_private_hosts: bool = False,
+    def __init__(self, catalogue: Catalogue, http: httpx.Client, *, workers: int = 32, allow_private_hosts: bool = False, private_host_allowlist: frozenset[str] = frozenset(),
                  fetch_timeout_s: float = 5.0, clock: Callable[[], float] = time.time) -> None:
         self.catalogue, self.http, self.workers = catalogue, http, workers
         self.allow_private_hosts, self.fetch_timeout_s, self.clock = allow_private_hosts, fetch_timeout_s, clock
+        self.private_host_allowlist = private_host_allowlist
+        self.allow_local_names = allow_private_hosts or bool(private_host_allowlist)  # single-word host names (docker service names) are valid only in a local setup
         self._host_locks: dict[str, threading.Lock] = defaultdict(threading.Lock)
         self._locks_guard = threading.Lock()
 
@@ -230,16 +241,16 @@ class Importer:
             "duration_s": round(finished - started, 2), "rows_per_second": round(len(results) / max(finished - started, 0.001), 1),
             "report": public_report(results),
             "manifest": build_manifest(kind="csv_import", started_at=started, finished_at=finished,
-                                       settings={"workers": self.workers, "fetch_timeout_s": self.fetch_timeout_s, "allow_private_hosts": self.allow_private_hosts, "commit": commit},
+                                       settings={"workers": self.workers, "fetch_timeout_s": self.fetch_timeout_s, "allow_private_hosts": self.allow_private_hosts, "private_host_allowlist": sorted(self.private_host_allowlist), "commit": commit},
                                        warnings=warnings),
         }
 
     def fetch_csv(self, url: str) -> str:
         """Download a CSV from an address (refusing private addresses, like every fetch the importer makes)."""
-        normalized, reason = normalize_url(url, self.allow_private_hosts)
+        normalized, reason = normalize_url(url, self.allow_local_names)
         if reason:
             raise IncuBrixError(ErrorCode.VALIDATION_ERROR, f"cannot use that address: {reason}")
-        if not self.allow_private_hosts and is_private_host(urlsplit(normalized).hostname or ""):
+        if host_is_blocked(urlsplit(normalized).hostname or "", self.allow_private_hosts, self.private_host_allowlist):
             raise IncuBrixError(ErrorCode.VALIDATION_ERROR, "the service will not fetch private or local addresses")
         data: list[bytes] = []
         try:
@@ -275,7 +286,7 @@ class Importer:
         for raw, r in zip(rows, results):
             if not raw.get("name"):
                 r["reasons"].append("name is empty")
-            normalized, reason = normalize_url(raw.get("url", ""), self.allow_private_hosts)
+            normalized, reason = normalize_url(raw.get("url", ""), self.allow_local_names)
             if reason:
                 r["reasons"].append(reason)
             lang, lang_warning = normalize_language(raw.get("language"))
@@ -314,7 +325,7 @@ class Importer:
     def _check_site(self, r: dict[str, Any]) -> None:
         url = r["normalized_url"]
         host = urlsplit(url).hostname or ""
-        if not self.allow_private_hosts and is_private_host(host):
+        if host_is_blocked(host, self.allow_private_hosts, self.private_host_allowlist):
             r["status"] = "invalid"
             r["reasons"].append("host is a private or local address; the service will not fetch it")
             return

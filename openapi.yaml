@@ -107,6 +107,54 @@ components:
       - destination
       title: DestinationIn
       type: object
+    FailureSwitch:
+      properties:
+        count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: how many times it fires (default once; a renamed field stays
+            until reset)
+          title: Count
+        delay_s:
+          default: 3.0
+          description: how late the answer comes (timeout_*)
+          title: Delay S
+          type: number
+        kind:
+          default: status
+          description: status | timeout_before | timeout_after | rename_field
+          title: Kind
+          type: string
+        op:
+          default: any
+          description: create | read | update | delete | any
+          title: Op
+          type: string
+        platform:
+          description: discourse | devto | partner | hashnode | kit
+          title: Platform
+          type: string
+        rename:
+          additionalProperties:
+            type: string
+          description: 'for kind rename_field, for example {"topic_id": "topic_identifier"}'
+          title: Rename
+          type: object
+        retry_after:
+          anyOf:
+          - type: number
+          - type: 'null'
+          description: seconds the platform says to wait (status 429)
+          title: Retry After
+        status:
+          default: 500
+          title: Status
+          type: integer
+      required:
+      - platform
+      title: FailureSwitch
+      type: object
     FeedItemIn:
       properties:
         canonical_url:
@@ -1311,6 +1359,82 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Reject Proposal
+  /api/v1/simulation/fail:
+    delete:
+      operationId: clear_failures_api_v1_simulation_fail_delete
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                title: Response Clear Failures Api V1 Simulation Fail Delete
+                type: object
+          description: Successful Response
+      summary: Clear Failures
+      tags:
+      - simulation
+    post:
+      description: Arm one failure on a fake platform. It fires on that platform's
+        next matching call, then clears (unless count says more).
+      operationId: add_failure_api_v1_simulation_fail_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FailureSwitch'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                title: Response Add Failure Api V1 Simulation Fail Post
+                type: object
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Add Failure
+      tags:
+      - simulation
+  /api/v1/simulation/reset:
+    post:
+      description: Wipe the fake platforms (posts, failure switches) back to empty.
+      operationId: reset_platforms_api_v1_simulation_reset_post
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                title: Response Reset Platforms Api V1 Simulation Reset Post
+                type: object
+          description: Successful Response
+      summary: Reset Platforms
+      tags:
+      - simulation
+  /api/v1/simulation/state:
+    get:
+      description: 'What the fake platforms hold right now (for example how many topics
+        exist: the proof that a retry created no duplicate).'
+      operationId: platform_state_api_v1_simulation_state_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                title: Response Platform State Api V1 Simulation State Get
+                type: object
+          description: Successful Response
+      summary: Platform State
+      tags:
+      - simulation
   /api/v1/tailor:
     post:
       description: Fit the content to one catalogue destination and list every change

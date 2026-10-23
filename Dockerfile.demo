@@ -1,0 +1,42 @@
+# One small container for the PUBLIC DEMO: the API plus the fake platforms, in simulation mode (no real accounts).
+# Lemmy and Ghost are not in it (they need their own servers: use docker compose for those). Everything else works:
+# Discourse, Dev.to, Hashnode, Kit, the signed webhook, the MRSS feed and the assisted connector, certification, import,
+# rules capture, tailoring, recommender, recertification, and the failure switches.
+#
+#   docker build -f Dockerfile.demo -t incubrix-demo .
+#   docker run -p 8000:8000 -e API_TOKEN=choose-a-long-token -e SERVICE_BASE_URL=http://localhost:8000 incubrix-demo
+#
+# The platform it runs on tells it which port to use through PORT (Render, Hugging Face Spaces and others do).
+FROM python:3.12-slim
+
+ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1
+WORKDIR /srv
+
+ARG PIP_INDEX_URL=https://pypi.org/simple
+COPY requirements.txt .
+RUN pip install --no-cache-dir --default-timeout=120 --retries 8 --index-url ${PIP_INDEX_URL} -r requirements.txt
+
+COPY app app
+COPY scripts scripts
+COPY mock_platforms mock_platforms
+COPY samples samples
+COPY openapi.yaml openapi.yaml
+
+# Simulation mode: the fake platforms run inside this container; only they (127.0.0.1) may be fetched although they are on a private address.
+ENV SIMULATION_MODE=true \
+    MOCK_PLATFORMS_URL=http://127.0.0.1:9100 \
+    IMPORT_PRIVATE_HOST_ALLOWLIST=127.0.0.1 \
+    DATABASE_URL=sqlite:////tmp/incubrix/app.db \
+    EVIDENCE_DIR=/tmp/incubrix/certification \
+    IMPORT_DIR=/tmp/incubrix/imports \
+    RATE_LIMIT_PER_MINUTE=120 \
+    TRUST_PROXY=true \
+    S3_ENABLED=false \
+    LOG_LEVEL=INFO
+
+# A non-root user: the demo needs no privileges.
+RUN useradd --create-home --uid 10001 demo && mkdir -p /tmp/incubrix && chown -R demo /tmp/incubrix /srv
+USER demo
+
+EXPOSE 8000
+CMD ["sh", "scripts/start_demo.sh"]

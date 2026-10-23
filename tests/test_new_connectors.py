@@ -258,3 +258,19 @@ def test_feeds_are_separate(feed_env):
     c, conn, dest, http = feed_env
     c.publish(POST, dest, conn, "k1")
     assert ET.fromstring(http.get("/feeds/other.xml").text).find("channel/item") is None
+
+
+def test_kit_sends_every_field_kits_api_reference_marks_as_required(mock):
+    c, conn, dest = kit(mock)
+    c.publish(POST, dest, conn, "k1")
+    sent = httpx.get(f"{mock.url}/kit/v4/broadcasts", headers={"X-Kit-Api-Key": "mock-kit-key"}).json()["broadcasts"][0]
+    assert sent["preview_text"].startswith("We built a small tool") and len(sent["preview_text"]) <= 140 and sent["public"] is False and sent["send_at"] is None
+    # a request without the required fields is refused by the (modelled) platform, as the real one does
+    r = httpx.post(f"{mock.url}/kit/v4/broadcasts", headers={"X-Kit-Api-Key": "mock-kit-key"}, json={"subject": "s", "content": "c"})
+    assert r.status_code == 422 and any("preview_text" in e for e in r.json()["errors"])
+
+
+def test_kit_a_destination_can_choose_the_audience_filter(mock):
+    c, conn, _ = kit(mock)
+    c.publish(POST, Destination(name="n", connector_key="kit", extra={"subscriber_filter": [{"all": [], "any": [{"type": "tag", "ids": [7]}], "none": []}]}), conn, "k2")
+    assert mock.state()["kit_broadcasts"] == 1

@@ -1,0 +1,15 @@
+# Render blueprint for the PUBLIC DEMO (see docs/DEPLOY.md). Deploys Dockerfile.demo: the API and the fake platforms in one container.
+services:
+  - type: web
+    name: incubrix-demo
+    runtime: docker
+    dockerfilePath: ./Dockerfile.demo
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: API_TOKEN            # Render makes a random one; copy it into the submission form (it is never in the repository)
+        generateValue: true
+      - key: SERVICE_BASE_URL     # set to the address Render gives you, for example https://incubrix-demo.onrender.com
+        sync: false
+      - key: RATE_LIMIT_PER_MINUTE
+        value: "120"

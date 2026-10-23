@@ -10,6 +10,7 @@ HONESTY NOTE: built against Kit's documented v4 API and a mock; it has not been 
 """
 from __future__ import annotations
 
+from datetime import datetime, timezone
 from typing import Any
 
 import httpx
@@ -23,11 +24,19 @@ from app.models import Connection, DeleteResult, Destination, MetricsResult, Pub
 DEFAULT_BASE = "https://api.kit.com"
 
 
+def _preview(rendition: Rendition) -> str:
+    text = " ".join((rendition.body or rendition.title).split())
+    return text[:140]  # the inbox preview line
+
+
 @register_connector("kit")
 class KitConnector(BaseConnector):
     def publish(self, rendition: Rendition, destination: Destination, connection: Connection, idempotency_key: str) -> PublishResult:
+        # every field below is marked required in Kit's API reference for creating a broadcast (checked against developers.kit.com)
         body: dict[str, Any] = {"subject": rendition.title, "content": to_html(rendition), "public": False, "send_at": None,
-                                "description": f"IncuBrix {idempotency_key}"[:120]}
+                                "description": f"IncuBrix {idempotency_key}"[:120], "preview_text": _preview(rendition),
+                                "published_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                                "subscriber_filter": destination.extra.get("subscriber_filter") or [{"all": [], "any": [], "none": []}]}
         mode = destination.extra.get("send_mode", "draft")
         if mode == "schedule":
             if not destination.extra.get("send_at"):
@@ -54,7 +63,7 @@ class KitConnector(BaseConnector):
                 return StatusResult(status="not_found", live_url=None)
             raise
         status = self._status(data)
-        return StatusResult(status=status, live_url=self._url(connection, None, data["id"]) if status == "live" else None)
+        return StatusResult(status=status, live_url=self._url(connection, None, data["id"], data.get("public_url")) if status == "live" else None)
 
     def delete(self, platform_post_id: str, connection: Connection) -> DeleteResult:
         try:
@@ -75,12 +84,14 @@ class KitConnector(BaseConnector):
             return "live"
         return "scheduled" if data.get("send_at") else "draft"
 
-    def _url(self, connection: Connection, destination: Destination | None, broadcast_id: Any) -> str:
+    def _url(self, connection: Connection, destination: Destination | None, broadcast_id: Any, public_url: str | None = None) -> str:
+        if public_url:
+            return public_url  # Kit gives a public page once a broadcast is public
         base = (connection.base_url or (destination.base_url if destination else None) or DEFAULT_BASE).rstrip("/")
-        return f"{base}/v4/broadcasts/{broadcast_id}"  # the API address of the broadcast: Kit gives no public page for a draft
+        return f"{base}/v4/broadcasts/{broadcast_id}"  # no public page for a draft: the API address of the broadcast
 
     def _result(self, connection: Connection, destination: Destination | None, data: dict[str, Any]) -> PublishResult:
-        return PublishResult(platform_post_id=str(data["id"]), live_url=self._url(connection, destination, data["id"]), status=self._status(data))
+        return PublishResult(platform_post_id=str(data["id"]), live_url=self._url(connection, destination, data["id"], data.get("public_url")), status=self._status(data))
 
     def _api(self, method: str, path: str, connection: Connection, destination: Destination | None = None, **kwargs: Any) -> httpx.Response:
         if not connection.api_key:

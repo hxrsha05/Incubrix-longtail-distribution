@@ -413,7 +413,9 @@ def create_app() -> FastAPI:
 
     def kit_view(b: dict[str, Any]) -> dict[str, Any]:
         return {"id": b["id"], "subject": b["subject"], "content": b["content"], "public": b["public"], "send_at": b["send_at"], "published_at": b["published_at"],
-                "created_at": b["created_at"], "preview_text": b.get("preview_text"), "description": b.get("description")}
+                "created_at": b["created_at"], "preview_text": b.get("preview_text"), "description": b.get("description"),
+                "public_url": f"http://kit.mock/posts/{b['id']}" if b["public"] and b["published_at"] else None,
+                "status": "draft" if not b["send_at"] else "scheduled"}
 
     @app.post("/kit/v4/broadcasts")
     async def kit_create(request: Request):
@@ -422,6 +424,10 @@ def create_app() -> FastAPI:
         data = await request.json()
         if not str(data.get("subject", "")).strip():
             return JSONResponse({"errors": ["Subject can't be blank"]}, status_code=422)
+        # Kit's API reference marks these as required (checked against developers.kit.com); a real Kit refuses a request without them
+        missing = [f for f in ("content", "description", "public", "published_at", "preview_text", "subscriber_filter") if f not in data]
+        if missing:
+            return JSONResponse({"errors": [f"{f} is required" for f in missing]}, status_code=422)
         broadcast_id = state.new_id()
         sent = bool(data.get("send_at")) and bool(data.get("public"))
         state.kit_broadcasts[broadcast_id] = {

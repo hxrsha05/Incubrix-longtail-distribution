@@ -1,11 +1,13 @@
 ﻿"""Fill the destination catalogue with the local test destinations, through the public API (so it is also a demo of
 "a new destination is a row, not code"). Safe to re-run: destinations are updated by name.
 
-    python -m scripts.seed_catalogue [http://localhost:8000]
+    python -m scripts.seed_catalogue [http://localhost:8000] [--profile demo]   (token from INCUBRIX_TOKEN if the API is protected)
 """
 from __future__ import annotations
 
+import os
 import sys
+import time
 
 import httpx
 
@@ -36,13 +38,27 @@ DESTINATIONS = [
 ]
 
 
-def main(base: str) -> None:
-    with httpx.Client(base_url=base, timeout=30) as http:
-        for row in DESTINATIONS:
+DEMO_SKIP = {"lemmy", "ghost"}  # these need their own server (docker compose); a small public demo has only the fake platforms
+
+
+def main(base: str, profile: str = "full") -> None:
+    token = os.environ.get("INCUBRIX_TOKEN")
+    headers = {"Authorization": f"Bearer {token}"} if token else {}
+    rows = [r for r in DESTINATIONS if not (profile == "demo" and r["destination"]["connector_key"] in DEMO_SKIP)]
+    with httpx.Client(base_url=base, timeout=30, headers=headers) as http:
+        for _ in range(60):  # the API may still be starting
+            try:
+                if http.get("/health").status_code == 200:
+                    break
+            except httpx.HTTPError:
+                pass
+            time.sleep(1)
+        for row in rows:
             r = http.post("/api/v1/destinations", json=row)
             r.raise_for_status()
             print(f"{r.status_code} {r.json()['id']}")
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8000")
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    main(args[0] if args else "http://localhost:8000", "demo" if "--profile" in sys.argv and "demo" in sys.argv else "full")

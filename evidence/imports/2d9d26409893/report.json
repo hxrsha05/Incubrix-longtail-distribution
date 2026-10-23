@@ -1,0 +1,113 @@
+{
+  "manifest": {
+    "ai_generated": {
+      "label": "no AI-generated content in this result",
+      "present": false
+    },
+    "cost": {
+      "model_calls": 0,
+      "note": "no paid API or model is called by certification",
+      "usd": 0.0
+    },
+    "kind": "csv_import",
+    "licences": [
+      {
+        "component": "IncuBrix Distribution service (this repo)",
+        "licence": "own code",
+        "reference": "SOURCES.md"
+      },
+      {
+        "component": "FastAPI, Pydantic, SQLAlchemy, httpx",
+        "licence": "MIT / BSD (see SOURCES.md)",
+        "reference": "SOURCES.md"
+      }
+    ],
+    "models": [],
+    "seed": null,
+    "settings": {
+      "allow_private_hosts": false,
+      "commit": false,
+      "fetch_timeout_s": 5.0,
+      "private_host_allowlist": [
+        "127.0.0.1"
+      ],
+      "workers": 32
+    },
+    "timings": {
+      "duration_s": 11.382,
+      "finished_at": 1792759829.9913478,
+      "started_at": 1792759818.6089253
+    },
+    "versions": {
+      "connector": null,
+      "python": "3.10.10",
+      "service": "0.1.0"
+    },
+    "warnings": []
+  },
+  "rows": [
+    {
+      "category": null,
+      "connector_key": null,
+      "destination_id": null,
+      "detected_language": null,
+      "detected_platform": null,
+      "duplicate_of": null,
+      "final_url": null,
+      "http_status": null,
+      "language": "en",
+      "member_count": null,
+      "name": "Remote One",
+      "normalized_url": "http://mock-platforms:9100/sites/plain-r1",
+      "reasons": [
+        "connection failed (ConnectError)"
+      ],
+      "relevance_reason": null,
+      "relevance_score": null,
+      "response_ms": null,
+      "row": 2,
+      "rules_url": null,
+      "status": "unreachable",
+      "title": null,
+      "url": "http://mock-platforms:9100/sites/plain-r1",
+      "warnings": []
+    },
+    {
+      "category": null,
+      "connector_key": null,
+      "destination_id": null,
+      "detected_language": null,
+      "detected_platform": null,
+      "duplicate_of": null,
+      "final_url": null,
+      "http_status": null,
+      "language": "en",
+      "member_count": null,
+      "name": "Remote Two",
+      "normalized_url": "http://mock-platforms:9100/sites/discourse-r2",
+      "reasons": [
+        "connection failed (ConnectError)"
+      ],
+      "relevance_reason": null,
+      "relevance_score": null,
+      "response_ms": null,
+      "row": 3,
+      "rules_url": null,
+      "status": "unreachable",
+      "title": null,
+      "url": "http://mock-platforms:9100/sites/discourse-r2",
+      "warnings": []
+    }
+  ],
+  "summary": {
+    "accepted": 0,
+    "catalogue_rows_created": 0,
+    "committed": false,
+    "duplicate": 0,
+    "duration_s": 11.38,
+    "invalid": 0,
+    "rows": 2,
+    "rows_per_second": 0.2,
+    "unreachable": 2
+  }
+}
