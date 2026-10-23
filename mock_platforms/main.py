@@ -348,6 +348,21 @@ def create_app() -> FastAPI:
         post["deleted"] = True
         return Response(status_code=204)
 
+    # ------------------------------------------------------------------ fake rules pages (for AI rules capture)
+    RULES_PAGES = {
+        "strict": "<html><body><h1>Community rules</h1><ul><li>Self-promotion is not allowed. Do not promote your own products.</li>"
+                  "<li>You may post one post per week.</li><li>Do not post any links in the first comment or the body.</li>"
+                  "<li>AI-generated content must be disclosed with the [AI] tag.</li><li>Bots are not allowed on this forum.</li></ul></body></html>",
+        "relaxed": "<html><body><h1>Rules</h1><p>Be kind. Self-promotion is welcome if you take part in discussions. Up to 2 links per post. "
+                   "Post as often as you like.</p></body></html>",
+        "silent": "<html><body><h1>Welcome</h1><p>This is a friendly place to talk about video editing and creative tools.</p></body></html>",
+    }
+
+    @app.get("/rules/{name}")
+    async def fake_rules_page(name: str):
+        page = RULES_PAGES.get(name)
+        return Response(page, media_type="text/html") if page else Response("not found", status_code=404)
+
     # ------------------------------------------------------------------ fake community websites (for the CSV import)
     @app.get("/sites/{name}")
     async def fake_site(name: str):

@@ -10,6 +10,8 @@ AI tools used in this project, and what each was used for.
 
 No other AI coding tools were used.
 
+**AI inside the product:** the rules-capture feature can call an AI model (Claude, through the Anthropic Messages API) to read a community's rules page. It is off by default (an offline keyword reader is used instead) and is switched on only with `RULES_EXTRACTOR=anthropic` and an API key. Whatever it proposes is checked against the page text and applied only after a named person confirms it. Results made with it are labelled as AI-generated in the output manifest. It has not been run against the live API during development.
+
 ## What the AI wrote
 
 | Component | Files |
@@ -38,6 +40,7 @@ No other AI coding tools were used.
 | Destination catalogue and its API | `app/catalogue.py`, `app/api/catalogue_routes.py` |
 | Certification harness, evidence storage (local and S3), credentials lookup, output manifest | `app/certification.py`, `app/certify_service.py`, `app/evidence.py`, `app/credentials.py`, `app/output_manifest.py` |
 | Batch runner (command line) | `app/cli.py` |
+| AI rules capture (proposal, verification, human confirmation) and its API | `app/rules_capture.py`, `app/api/rules_routes.py` |
 | Tailoring and relevance score, with their API | `app/tailoring.py`, `app/relevance.py`, `app/api/advice_routes.py` |
 | CSV import (validate, de-duplicate, reachability, enrichment, report) and its job and routes | `app/csv_import.py`, `app/import_service.py`, `app/api/import_routes.py`, `scripts/make_sample_csv.py`, `scripts/import_demo.py`, `samples/catalogue/` |
 | Docker setup and seed scripts | `Dockerfile`, `docker-compose.yml`, `scripts/seed_local.py`, `scripts/seed_catalogue.py` |

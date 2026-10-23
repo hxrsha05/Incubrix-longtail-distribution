@@ -32,6 +32,12 @@ class Settings(BaseSettings):
     import_fetch_timeout_s: float = 5.0
     import_allow_private_hosts: bool = False  # false = refuse private/loopback addresses (SSRF); compose turns it on for the local demo
 
+    rules_extractor: str = "mock"  # mock = deterministic keyword reader (no key, no cost); anthropic = Claude via the Messages API
+    anthropic_api_key: SecretStr | None = None
+    rules_model: str = "claude-haiku-5-5"
+    rules_price_per_mtok_in: float = 0.0  # set the real prices to get a cost estimate in the output manifest
+    rules_price_per_mtok_out: float = 0.0
+
     callback_hmac_secret: SecretStr = SecretStr("change-me")
     test_post_ttl_seconds: int = 600
 

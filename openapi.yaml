@@ -1,5 +1,44 @@
 components:
   schemas:
+    CaptureRequest:
+      properties:
+        text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Text
+        url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Url
+      title: CaptureRequest
+      type: object
+    ConfirmRequest:
+      properties:
+        acknowledge_loosening:
+          default: false
+          title: Acknowledge Loosening
+          type: boolean
+        note:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Note
+        overrides:
+          additionalProperties: true
+          description: rule values the reviewer sets themselves instead of the proposal's
+          title: Overrides
+          type: object
+        reviewer:
+          description: the person confirming; recorded with the decision
+          minLength: 1
+          title: Reviewer
+          type: string
+      required:
+      - reviewer
+      title: ConfirmRequest
+      type: object
     Destination:
       properties:
         base_url:
@@ -107,6 +146,21 @@ components:
       required:
       - url
       title: Media
+      type: object
+    RejectRequest:
+      properties:
+        note:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Note
+        reviewer:
+          minLength: 1
+          title: Reviewer
+          type: string
+      required:
+      - reviewer
+      title: RejectRequest
       type: object
     RelevanceRequest:
       properties:
@@ -455,6 +509,72 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Certify Destination
+  /api/v1/destinations/{dest_id}/rules/capture:
+    post:
+      description: Read a rules page (by address or pasted text) and create a PENDING
+        proposal. Nothing is applied.
+      operationId: capture_rules_api_v1_destinations__dest_id__rules_capture_post
+      parameters:
+      - in: path
+        name: dest_id
+        required: true
+        schema:
+          title: Dest Id
+          type: string
+      - in: header
+        name: idempotency-key
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Idempotency-Key
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaptureRequest'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Capture Rules
+  /api/v1/destinations/{dest_id}/rules/proposals:
+    get:
+      operationId: list_proposals_api_v1_destinations__dest_id__rules_proposals_get
+      parameters:
+      - in: path
+        name: dest_id
+        required: true
+        schema:
+          title: Dest Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                title: Response List Proposals Api V1 Destinations  Dest Id  Rules
+                  Proposals Get
+                type: object
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: List Proposals
   /api/v1/evidence/{path}:
     get:
       operationId: download_evidence_api_v1_evidence__path__get
@@ -650,6 +770,98 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Relevance
+  /api/v1/rule-proposals/{proposal_id}:
+    get:
+      operationId: get_proposal_api_v1_rule_proposals__proposal_id__get
+      parameters:
+      - in: path
+        name: proposal_id
+        required: true
+        schema:
+          title: Proposal Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                title: Response Get Proposal Api V1 Rule Proposals  Proposal Id  Get
+                type: object
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Proposal
+  /api/v1/rule-proposals/{proposal_id}/confirm:
+    post:
+      operationId: confirm_proposal_api_v1_rule_proposals__proposal_id__confirm_post
+      parameters:
+      - in: path
+        name: proposal_id
+        required: true
+        schema:
+          title: Proposal Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfirmRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                title: Response Confirm Proposal Api V1 Rule Proposals  Proposal Id  Confirm
+                  Post
+                type: object
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Confirm Proposal
+  /api/v1/rule-proposals/{proposal_id}/reject:
+    post:
+      operationId: reject_proposal_api_v1_rule_proposals__proposal_id__reject_post
+      parameters:
+      - in: path
+        name: proposal_id
+        required: true
+        schema:
+          title: Proposal Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RejectRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                title: Response Reject Proposal Api V1 Rule Proposals  Proposal Id  Reject
+                  Post
+                type: object
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Reject Proposal
   /api/v1/tailor:
     post:
       description: Fit the content to one catalogue destination and list every change

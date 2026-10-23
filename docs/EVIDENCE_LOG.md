@@ -4,7 +4,7 @@
 > submission."* So: only tick **Yes** when the proof exists and I have seen it work.
 > **Status key:** Done = done and proven; Partial = partly done; Not started; Unverified = written but not yet proven
 
-Last updated: 2026-10-22. Unit and integration tests: **246 passing** (`python -m pytest`, run from this folder, no keys needed). Live tests against the real local Lemmy and Ghost: **18 passing** (opt-in, see `tests/live/`).
+Last updated: 2026-10-22. Unit and integration tests: **268 passing** (`python -m pytest`, run from this folder, no keys needed). Live tests against the real local Lemmy and Ghost: **18 passing** (opt-in, see `tests/live/`).
 
 ## Must-haves (all 9 must pass)
 
@@ -42,7 +42,7 @@ errors mapped for expired token / rate limit / rejected content **Done** (every 
 
 **Advanced — ALL five required, or the level scores 0 (and screening cannot reach 60):**
 - [x] CSV import: validate, normalise, de-duplicate (file and catalogue), reachability, enrichment, row-by-row report. **1,000 rows in 19 s** (limit 300 s). `app/csv_import.py`, `tests/test_csv_import.py` (34 tests), outputs in `test-pack/csv-import/sample-1000/` (input, report.csv, report.json, summary.txt). Note: all 1,000 test sites sit on one host, so the one-request-per-host politeness rule serialises them; a real list spread over many hosts is faster
-- [ ] Rules capture: AI reads a rules page → proposes rules → **a person confirms** before use
+- [x] Rules capture: AI reads a rules page → proposes rules with quotes → **a person confirms** before use: `app/rules_capture.py`, `app/api/rules_routes.py`, `tests/test_rules_capture.py` (22 tests). Quotes are verified against the page (an invented rule is dropped), nothing applies until a named person confirms, loosening needs an extra acknowledgement. The offline mock reader is the default; the Claude adapter (`RULES_EXTRACTOR=anthropic`) is tested against a fake API only and is **not verified against the live API** (no key used)
 - [x] Relevance score 1–5 with a short explanation: `app/relevance.py` (rule-based: topic overlap, language, fit/vetoes, certification), `POST /api/v1/relevance`, `tests/test_relevance.py`. Scores are reproducible and cost nothing; the explanation names the signals
 - [x] Tailoring: `app/tailoring.py`, `POST /api/v1/tailor`, `tests/test_tailoring.py` (26 tests): word-boundary truncation, link policy, mention style, tag style or hashtags, canonical URL, AI disclosure never cut, language warning; a test proves the tailored output passes every connector's own validate()
 - [ ] Three more connectors (suggested: MRSS feed, Hashnode, Kit/Mailchimp)

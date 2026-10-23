@@ -51,7 +51,7 @@ These run only as throwaway local instances so certification can publish real te
 
 | Name | What for | Licence / terms | Link | Status |
 |---|---|---|---|---|
-| _(none yet)_ | | | | |
+| Anthropic Claude (Messages API), model `claude-haiku-5-5` | Optional: reads a community's rules page in the rules-capture feature (off by default; the mock reader is used) | Anthropic commercial terms | https://www.anthropic.com/legal/commercial-terms | TO VERIFY (not used during development) |
 
 Add here when used: any LLM for rules capture / relevance scoring (provider + model + terms link + cost), any dataset,
 any image/media used in test posts (only own, public-domain or properly licensed media).

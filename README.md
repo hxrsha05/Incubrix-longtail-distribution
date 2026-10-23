@@ -66,6 +66,10 @@ A batch input file:
 `{"destination_id": "mock-discourse-forum", "rendition": {"title": "...", "body": "..."}}`. Results: one `<name>.result.json`
 per input plus `summary.json`; each result has an output manifest (versions, settings, timings, cost, warnings, licences, AI-generated label).
 
+## AI rules capture (a person confirms)
+
+`POST /api/v1/destinations/{id}/rules/capture` reads a community's rules page (`url`) or pasted text and creates a **pending proposal**: for each rule it found, a value and a quote from the page. Quotes are checked against the page, so an invented rule is dropped. Nothing changes until a person calls `POST /api/v1/rule-proposals/{id}/confirm` with their name (they may edit values first); making a destination looser needs `acknowledge_loosening=true`. Until then the destination keeps its conservative rules. `RULES_EXTRACTOR=mock` (default) is an offline keyword reader; `RULES_EXTRACTOR=anthropic` with `ANTHROPIC_API_KEY` uses Claude.
+
 ## Tailoring and relevance
 
 `POST /api/v1/tailor` fits content to one destination and lists every change (word-boundary shortening, link policy, mention and tag style, canonical URL, AI disclosure that is never cut, language warning). `POST /api/v1/relevance` scores the catalogue 1 to 5 for a piece of content and explains each score. The batch runner tailors by default (`--no-tailor` turns it off).
@@ -106,6 +110,8 @@ credentials come from the seed file (`CONNECTIONS_FILE`) and take priority. No r
 | IMPORT_WORKERS, IMPORT_FETCH_TIMEOUT_S | 32, 5 | concurrent site checks in a CSV import, and the timeout for each |
 | IMPORT_ALLOW_PRIVATE_HOSTS | false (true in compose) | false = the importer refuses private and local addresses (SSRF protection) |
 | IMPORT_DIR | evidence/imports | where import files are kept |
+| RULES_EXTRACTOR, ANTHROPIC_API_KEY, RULES_MODEL | mock, -, claude-haiku-5-5 | who reads rules pages: the offline mock, or Claude |
+| RULES_PRICE_PER_MTOK_IN / _OUT | 0 | prices used to estimate the cost in the output manifest |
 | DISABLED_CONNECTORS | - | kill switch: those connectors answer CONNECTOR_DISABLED |
 
 ## Error codes

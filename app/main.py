@@ -17,10 +17,12 @@ from app.api.advice_routes import router as advice_router
 from app.api.catalogue_routes import router as catalogue_router
 from app.api.connector_routes import router as connector_router
 from app.api.import_routes import router as import_router
+from app.api.rules_routes import router as rules_router
 from app.api.job_routes import router as job_router
 from app.catalogue import Catalogue
 from app.csv_import import Importer
 from app.import_service import register_import_job
+from app.rules_capture import AnthropicExtractor, MockExtractor, RulesCapture
 from app.certify_service import CertificationService, register_certification_jobs
 from app.config import get_settings
 from app.credentials import CredentialProvider
@@ -83,6 +85,14 @@ def create_app(
                                                            headers={"User-Agent": "IncuBrix-Catalogue-Importer/0.1"}),
                         workers=settings.import_workers, allow_private_hosts=settings.import_allow_private_hosts, fetch_timeout_s=settings.import_fetch_timeout_s, clock=clock)
     register_import_job(app.state.jobs, importer, app.state.imports)
+    if settings.rules_extractor == "anthropic":
+        if settings.anthropic_api_key is None:
+            raise RuntimeError("RULES_EXTRACTOR=anthropic needs ANTHROPIC_API_KEY")
+        extractor = AnthropicExtractor(httpx.Client(), settings.anthropic_api_key.get_secret_value(), settings.rules_model,
+                                       settings.rules_price_per_mtok_in, settings.rules_price_per_mtok_out)
+    else:
+        extractor = MockExtractor()
+    app.state.rules_capture = RulesCapture(engine, app.state.catalogue, extractor, http, allow_private_hosts=settings.import_allow_private_hosts, clock=clock)
     register_certification_jobs(app.state.jobs, app.state.certification, app.state.catalogue)
 
     @app.middleware("http")
@@ -138,6 +148,7 @@ def create_app(
     app.include_router(connector_router)  # POST /connector/v1/{connector_key}/{method}
     app.include_router(catalogue_router)  # /api/v1/destinations, /api/v1/evidence
     app.include_router(advice_router)  # POST /api/v1/tailor, /api/v1/relevance
+    app.include_router(rules_router)  # AI rules capture: propose, review, confirm
     app.include_router(import_router)  # POST /api/v1/imports, /api/v1/import-files
     app.include_router(job_router)  # POST /api/v1/jobs, GET /api/v1/jobs/{job_id}
     app.include_router(health)  # /health, /ready (as the brief names them)

@@ -78,6 +78,27 @@ certification_runs = Table(
 )
 
 
+# AI-proposed rules for a destination. Nothing here changes the destination until a person confirms it.
+rule_proposals = Table(
+    "rule_proposals",
+    metadata,
+    Column("id", String(32), primary_key=True),
+    Column("destination_id", String(120), nullable=False, index=True),
+    Column("status", String(12), nullable=False),  # pending | confirmed | rejected
+    Column("source_url", Text),
+    Column("source_hash", String(64)),
+    Column("extractor", String(100), nullable=False),
+    Column("proposed", JSON, nullable=False),  # {rules: {...}, evidence: {...}, dropped: [...]}
+    Column("diff", JSON, nullable=False),
+    Column("cost", JSON),
+    Column("created_at", Float, nullable=False),
+    Column("decided_at", Float),
+    Column("decided_by", String(200)),
+    Column("final_rules", JSON),
+    Column("note", Text),
+)
+
+
 def make_engine(url: str) -> Engine:
     kwargs: dict = {"pool_pre_ping": True}
     parsed = make_url(url)
