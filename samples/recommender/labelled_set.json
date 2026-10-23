@@ -1,0 +1,7648 @@
+{
+ "description": "Build the labelled set used to MEASURE the recommender:   python -m scripts.make_labelled_set\n\nHONEST DESCRIPTION OF THE SET (also written into the file):\n  * It is SYNTHETIC. 300 imaginary destinations and 30 imaginary posts, generated with a fixed seed.\n  * Every destination and post has HIDDEN true topics. The recommender never sees them. It only sees surface text: names,\n    listed topics, site descriptions, and the post's title, body and tags.\n  * The label \"relevant\" = the destination's true topics overlap the post's true topics, the destination is in the post's\n    language, and the destination would not refuse the post (no-promo / no-link rules).\n  * The surface text is deliberately messy: synonyms instead of the plain word, topics left out of the listed topics,\n    generic names, and \"false friends\" (a gaming forum whose name contains \"footage\").\nSo the measured precision tells how well the recommender copes with messy descriptions. It does NOT prove performance on\nreal communities, and the labels follow a simple rule, not the judgement of many people. A person should review the file.",
+ "seed": 7,
+ "destinations": [
+  {
+   "id": "d000",
+   "name": "Devops Open Source Hub 0",
+   "topics": [
+    "maintainer"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for devops and open-source",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "devtools",
+    "opensource"
+   ]
+  },
+  {
+   "id": "d001",
+   "name": "The Big Room 1",
+   "topics": [
+    "film",
+    "gaming"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "video",
+    "gaming"
+   ]
+  },
+  {
+   "id": "d002",
+   "name": "Ui Photo Community Founder 2",
+   "topics": [
+    "design"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "design",
+    "photography",
+    "music"
+   ]
+  },
+  {
+   "id": "d003",
+   "name": "Audio Ui Circle 3",
+   "topics": [
+    "radio",
+    "ux"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for audio and ui",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "podcasting",
+    "design"
+   ]
+  },
+  {
+   "id": "d004",
+   "name": "Newsletter Circle 4",
+   "topics": [
+    "marketing"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "marketing"
+   ]
+  },
+  {
+   "id": "d005",
+   "name": "Recipe Growth Community 5",
+   "topics": [
+    "baking",
+    "gpt"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking",
+    "marketing",
+    "ai"
+   ]
+  },
+  {
+   "id": "d006",
+   "name": "Marketing Collective 6",
+   "topics": [
+    "marketing"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "marketing"
+   ]
+  },
+  {
+   "id": "d007",
+   "name": "Engineering Foss Network 7",
+   "topics": [
+    "engineering",
+    "foss"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for engineering and foss",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "devtools",
+    "opensource"
+   ]
+  },
+  {
+   "id": "d008",
+   "name": "Software Club 8",
+   "topics": [
+    "devtools"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "devtools"
+   ]
+  },
+  {
+   "id": "d009",
+   "name": "Github Fitness Lounge 9",
+   "topics": [
+    "opensource"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource",
+    "fitness",
+    "cooking"
+   ]
+  },
+  {
+   "id": "d010",
+   "name": "Game Film Club 10",
+   "topics": [
+    "gaming"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for game and film",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "gaming",
+    "video"
+   ]
+  },
+  {
+   "id": "d011",
+   "name": "Ai Devops Lounge 11",
+   "topics": [
+    "ai",
+    "devops"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for ai and devops",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "ai",
+    "devtools"
+   ]
+  },
+  {
+   "id": "d012",
+   "name": "Blog Club 12",
+   "topics": [
+    "writing"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "writing"
+   ]
+  },
+  {
+   "id": "d013",
+   "name": "Cooking Collective 13",
+   "topics": [
+    "cooking"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for cooking",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking"
+   ]
+  },
+  {
+   "id": "d014",
+   "name": "Writer Club 14",
+   "topics": [
+    "author"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for writer",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "writing"
+   ]
+  },
+  {
+   "id": "d015",
+   "name": "Game Gym Corner 15",
+   "topics": [
+    "gaming",
+    "fitness"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "gaming",
+    "fitness"
+   ]
+  },
+  {
+   "id": "d016",
+   "name": "Meals Corner 16",
+   "topics": [
+    "cooking"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for meals",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking"
+   ]
+  },
+  {
+   "id": "d017",
+   "name": "Indie Game Club 17",
+   "topics": [
+    "gaming"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "gaming"
+   ]
+  },
+  {
+   "id": "d018",
+   "name": "Oss Exchange 18",
+   "topics": [
+    "opensource"
+   ],
+   "language": "fr",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource"
+   ]
+  },
+  {
+   "id": "d019",
+   "name": "Blog Circle 19",
+   "topics": [
+    "writing"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "writing"
+   ]
+  },
+  {
+   "id": "d020",
+   "name": "Gym Lounge 20",
+   "topics": [
+    "fitness"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for gym",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "fitness"
+   ]
+  },
+  {
+   "id": "d021",
+   "name": "Portrait Marketing Hub 21",
+   "topics": [
+    "photography"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "photography",
+    "marketing",
+    "ai"
+   ]
+  },
+  {
+   "id": "d022",
+   "name": "Lens Marathon Exchange 22",
+   "topics": [
+    "photography",
+    "running"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "photography",
+    "fitness"
+   ]
+  },
+  {
+   "id": "d023",
+   "name": "Song Exchange 23",
+   "topics": [
+    "song"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "music"
+   ]
+  },
+  {
+   "id": "d024",
+   "name": "Startup Novel Collective 24",
+   "topics": [
+    "saas"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for startup and novel",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "startups",
+    "writing"
+   ]
+  },
+  {
+   "id": "d025",
+   "name": "Blog Place 25",
+   "topics": [
+    "author"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for blog",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "writing"
+   ]
+  },
+  {
+   "id": "d026",
+   "name": "Llm Lounge 26",
+   "topics": [
+    "ai"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for llm",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "ai"
+   ]
+  },
+  {
+   "id": "d027",
+   "name": "Lightroom Gamedev Exchange 27",
+   "topics": [
+    "photo",
+    "gaming"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "photography",
+    "gaming",
+    "marketing"
+   ]
+  },
+  {
+   "id": "d028",
+   "name": "Camera Maintainer Corner 28",
+   "topics": [
+    "opensource"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for camera and maintainer",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "photography",
+    "opensource"
+   ]
+  },
+  {
+   "id": "d029",
+   "name": "Baking Bootstrapped Hub Producer 29",
+   "topics": [
+    "launch"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking",
+    "startups",
+    "design"
+   ]
+  },
+  {
+   "id": "d030",
+   "name": "Guitar Newsletter Collective 30",
+   "topics": [
+    "music",
+    "marketing"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "music",
+    "marketing"
+   ]
+  },
+  {
+   "id": "d031",
+   "name": "Models Lounge Author 31",
+   "topics": [
+    "machine-learning"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "ai"
+   ]
+  },
+  {
+   "id": "d032",
+   "name": "Figma Club 32",
+   "topics": [
+    "ui"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "design"
+   ]
+  },
+  {
+   "id": "d033",
+   "name": "Radio Collective 33",
+   "topics": [
+    "interview"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "podcasting"
+   ]
+  },
+  {
+   "id": "d034",
+   "name": "Open Source Corner 34",
+   "topics": [
+    "opensource"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource"
+   ]
+  },
+  {
+   "id": "d035",
+   "name": "Devops Typography Circle 35",
+   "topics": [
+    "devtools"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "devtools",
+    "design"
+   ]
+  },
+  {
+   "id": "d036",
+   "name": "Meals Storytelling Network 36",
+   "topics": [
+    "music"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking",
+    "writing",
+    "music"
+   ]
+  },
+  {
+   "id": "d037",
+   "name": "Marketing Circle 37",
+   "topics": [
+    "marketing"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "marketing"
+   ]
+  },
+  {
+   "id": "d038",
+   "name": "Author Place 38",
+   "topics": [
+    "writing"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for author",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "writing"
+   ]
+  },
+  {
+   "id": "d039",
+   "name": "Music Marathon Lounge Film 39",
+   "topics": [
+    "guitar",
+    "gym",
+    "startups"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for music and marathon and founder",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "music",
+    "fitness",
+    "startups"
+   ]
+  },
+  {
+   "id": "d040",
+   "name": "Coffee Table Talks Marketing 40",
+   "topics": [
+    "photography"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "photography"
+   ]
+  },
+  {
+   "id": "d041",
+   "name": "Game Club 41",
+   "topics": [
+    "gaming"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "gaming"
+   ]
+  },
+  {
+   "id": "d042",
+   "name": "Newsletter Place 42",
+   "topics": [
+    "growth"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for newsletter",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "marketing"
+   ]
+  },
+  {
+   "id": "d043",
+   "name": "Friendly Folks 43",
+   "topics": [
+    "interview"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "podcasting"
+   ]
+  },
+  {
+   "id": "d044",
+   "name": "Radio Exchange 44",
+   "topics": [
+    "episode"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "podcasting"
+   ]
+  },
+  {
+   "id": "d045",
+   "name": "Weekend Chat 45",
+   "topics": [
+    "lightroom",
+    "podcasting"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "photography",
+    "podcasting"
+   ]
+  },
+  {
+   "id": "d046",
+   "name": "Kitchen Software Exchange 46",
+   "topics": [
+    "chef",
+    "devtools"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking",
+    "devtools",
+    "music"
+   ]
+  },
+  {
+   "id": "d047",
+   "name": "Devops Place 47",
+   "topics": [
+    "devtools"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for devops",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "devtools"
+   ]
+  },
+  {
+   "id": "d048",
+   "name": "Founder Running Hub 48",
+   "topics": [
+    "running",
+    "ai"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for founder and running and gpt",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "startups",
+    "fitness",
+    "ai"
+   ]
+  },
+  {
+   "id": "d049",
+   "name": "Ux Gaming Collective 49",
+   "topics": [
+    "design",
+    "game"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "design",
+    "gaming"
+   ]
+  },
+  {
+   "id": "d050",
+   "name": "Clips Place 50",
+   "topics": [
+    "video"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for clips",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "video"
+   ]
+  },
+  {
+   "id": "d051",
+   "name": "Recipe Corner 51",
+   "topics": [
+    "cooking"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking"
+   ]
+  },
+  {
+   "id": "d052",
+   "name": "Game Lounge 52",
+   "topics": [
+    "gamedev"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "gaming"
+   ]
+  },
+  {
+   "id": "d053",
+   "name": "Gamedev Founder Club 53",
+   "topics": [
+    "entrepreneur",
+    "opensource"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "gaming",
+    "startups",
+    "opensource"
+   ]
+  },
+  {
+   "id": "d054",
+   "name": "Friendly Folks 54",
+   "topics": [
+    "video",
+    "gym"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "video",
+    "fitness"
+   ]
+  },
+  {
+   "id": "d055",
+   "name": "Footage Collective 55",
+   "topics": [
+    "footage"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for footage",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "video"
+   ]
+  },
+  {
+   "id": "d056",
+   "name": "Esports Place 56",
+   "topics": [
+    "game"
+   ],
+   "language": "fr",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "gaming"
+   ]
+  },
+  {
+   "id": "d057",
+   "name": "Devops Open Source Corner 57",
+   "topics": [
+    "devops",
+    "opensource",
+    "video"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for devops and open-source and film",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "devtools",
+    "opensource",
+    "video"
+   ]
+  },
+  {
+   "id": "d058",
+   "name": "Marketing Developer Corner 58",
+   "topics": [
+    "marketing"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "marketing",
+    "devtools"
+   ]
+  },
+  {
+   "id": "d059",
+   "name": "Models Clips Club 59",
+   "topics": [
+    "video"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "ai",
+    "video"
+   ]
+  },
+  {
+   "id": "d060",
+   "name": "Video Github Corner 60",
+   "topics": [
+    "contributors"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for video and github",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "video",
+    "opensource"
+   ]
+  },
+  {
+   "id": "d061",
+   "name": "Design Training Corner Startup 61",
+   "topics": [
+    "design",
+    "fitness"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for design and training",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "design",
+    "fitness"
+   ]
+  },
+  {
+   "id": "d062",
+   "name": "Programming Marketing Lounge 62",
+   "topics": [
+    "devtools",
+    "seo"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for programming and marketing",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "devtools",
+    "marketing"
+   ]
+  },
+  {
+   "id": "d063",
+   "name": "Open Source Circle 63",
+   "topics": [
+    "opensource"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource"
+   ]
+  },
+  {
+   "id": "d064",
+   "name": "Neural Place 64",
+   "topics": [
+    "ai"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for neural",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "ai"
+   ]
+  },
+  {
+   "id": "d065",
+   "name": "Kitchen Club 65",
+   "topics": [
+    "kitchen"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for kitchen",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking"
+   ]
+  },
+  {
+   "id": "d066",
+   "name": "Entrepreneur Episode Hub 66",
+   "topics": [
+    "saas",
+    "podcast",
+    "gpt"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for entrepreneur and episode and machine-learning",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "startups",
+    "podcasting",
+    "ai"
+   ]
+  },
+  {
+   "id": "d067",
+   "name": "Llm Community 67",
+   "topics": [
+    "llm"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "ai"
+   ]
+  },
+  {
+   "id": "d068",
+   "name": "Programming Footage Hub 68",
+   "topics": [
+    "video"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for programming and footage",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "devtools",
+    "video"
+   ]
+  },
+  {
+   "id": "d069",
+   "name": "Photo Newsletter Circle 69",
+   "topics": [
+    "marketing"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for photo and newsletter",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "photography",
+    "marketing"
+   ]
+  },
+  {
+   "id": "d070",
+   "name": "Open Mic 70",
+   "topics": [
+    "video",
+    "design"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for youtube and typography",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "video",
+    "design"
+   ]
+  },
+  {
+   "id": "d071",
+   "name": "Maintainer Lounge 71",
+   "topics": [
+    "maintainer"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for maintainer",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource"
+   ]
+  },
+  {
+   "id": "d072",
+   "name": "Author Photography Corner 72",
+   "topics": [
+    "writing"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for author and photography",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "writing",
+    "photography"
+   ]
+  },
+  {
+   "id": "d073",
+   "name": "Interview Youtube Lounge 73",
+   "topics": [
+    "podcasting",
+    "film"
+   ],
+   "language": "fr",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "podcasting",
+    "video"
+   ]
+  },
+  {
+   "id": "d074",
+   "name": "Maintainer Lounge 74",
+   "topics": [
+    "opensource"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource"
+   ]
+  },
+  {
+   "id": "d075",
+   "name": "Gpt Github Network 75",
+   "topics": [
+    "ai",
+    "open-source"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for gpt and github",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "ai",
+    "opensource"
+   ]
+  },
+  {
+   "id": "d076",
+   "name": "Open Mic 76",
+   "topics": [
+    "seo",
+    "training",
+    "launch"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for newsletter and marathon and entrepreneur",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "marketing",
+    "fitness",
+    "startups"
+   ]
+  },
+  {
+   "id": "d077",
+   "name": "Neural Youtube Corner 77",
+   "topics": [
+    "photography"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "ai",
+    "video",
+    "photography"
+   ]
+  },
+  {
+   "id": "d078",
+   "name": "Llm Club 78",
+   "topics": [
+    "llm"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for llm",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "ai"
+   ]
+  },
+  {
+   "id": "d079",
+   "name": "Camera Startup Network 79",
+   "topics": [
+    "podcasting"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "photography",
+    "startups",
+    "podcasting"
+   ]
+  },
+  {
+   "id": "d080",
+   "name": "The Big Room 80",
+   "topics": [
+    "fitness",
+    "marketing"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for marathon and audience",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "fitness",
+    "marketing"
+   ]
+  },
+  {
+   "id": "d081",
+   "name": "Bootstrapped Devops Exchange 81",
+   "topics": [
+    "startups",
+    "devtools"
+   ],
+   "language": "fr",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "startups",
+    "devtools"
+   ]
+  },
+  {
+   "id": "d082",
+   "name": "Coding Circle 82",
+   "topics": [
+    "developer"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for coding",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "devtools"
+   ]
+  },
+  {
+   "id": "d083",
+   "name": "Interview Ux Community 83",
+   "topics": [
+    "podcasting",
+    "design",
+    "machine-learning"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for interview and ux and gpt",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "podcasting",
+    "design",
+    "ai"
+   ]
+  },
+  {
+   "id": "d084",
+   "name": "Foss Recipe Community 84",
+   "topics": [
+    "recipe"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for foss and recipe",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource",
+    "cooking"
+   ]
+  },
+  {
+   "id": "d085",
+   "name": "Movie Lounge Fitness 85",
+   "topics": [
+    "film"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for movie",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "video"
+   ]
+  },
+  {
+   "id": "d086",
+   "name": "Speedrun Synth Hub 86",
+   "topics": [
+    "esports",
+    "photography"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "gaming",
+    "music",
+    "photography"
+   ]
+  },
+  {
+   "id": "d087",
+   "name": "Models Novel Hub 87",
+   "topics": [
+    "writing"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "ai",
+    "writing"
+   ]
+  },
+  {
+   "id": "d088",
+   "name": "Guitar Kitchen Corner 88",
+   "topics": [
+    "music",
+    "cooking"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for guitar and kitchen",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "music",
+    "cooking"
+   ]
+  },
+  {
+   "id": "d089",
+   "name": "Saas Maintainer Circle 89",
+   "topics": [
+    "startups",
+    "foss"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "startups",
+    "opensource"
+   ]
+  },
+  {
+   "id": "d090",
+   "name": "Maintainer Lounge 90",
+   "topics": [
+    "oss"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for maintainer",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource"
+   ]
+  },
+  {
+   "id": "d091",
+   "name": "Video Hub 91",
+   "topics": [
+    "movie"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "video"
+   ]
+  },
+  {
+   "id": "d092",
+   "name": "Friendly Folks 92",
+   "topics": [
+    "fitness"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for training",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "fitness"
+   ]
+  },
+  {
+   "id": "d093",
+   "name": "Models Network 93",
+   "topics": [
+    "ai"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for models",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "ai"
+   ]
+  },
+  {
+   "id": "d094",
+   "name": "Coffee Table Talks 94",
+   "topics": [
+    "photography",
+    "figma"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "photography",
+    "marketing",
+    "design"
+   ]
+  },
+  {
+   "id": "d095",
+   "name": "Photography Hub Marketing 95",
+   "topics": [
+    "photography"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for photography",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "photography"
+   ]
+  },
+  {
+   "id": "d096",
+   "name": "Ux Gaming Place 96",
+   "topics": [
+    "figma",
+    "devtools"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "design",
+    "gaming",
+    "devtools"
+   ]
+  },
+  {
+   "id": "d097",
+   "name": "Contributors Exchange 97",
+   "topics": [
+    "opensource"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource"
+   ]
+  },
+  {
+   "id": "d098",
+   "name": "Portrait Hub 98",
+   "topics": [
+    "photography"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for portrait",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "photography"
+   ]
+  },
+  {
+   "id": "d099",
+   "name": "Coffee Table Talks 99",
+   "topics": [
+    "devtools",
+    "marketing"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "devtools",
+    "marketing"
+   ]
+  },
+  {
+   "id": "d100",
+   "name": "Programming Storytelling Exchange 100",
+   "topics": [
+    "programming",
+    "writing",
+    "fitness"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "devtools",
+    "writing",
+    "fitness"
+   ]
+  },
+  {
+   "id": "d101",
+   "name": "Oss Design Network 101",
+   "topics": [
+    "opensource"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for oss and design",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource",
+    "design"
+   ]
+  },
+  {
+   "id": "d102",
+   "name": "Friendly Folks 102",
+   "topics": [
+    "design"
+   ],
+   "language": "fr",
+   "status": "uncertified",
+   "site_title": "A place for typography",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "design"
+   ]
+  },
+  {
+   "id": "d103",
+   "name": "Coffee Table Talks 103",
+   "topics": [
+    "fitness",
+    "entrepreneur",
+    "music"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for workout and launch and music",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "fitness",
+    "startups",
+    "music"
+   ]
+  },
+  {
+   "id": "d104",
+   "name": "Producer Place 104",
+   "topics": [
+    "music"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for producer",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "music"
+   ]
+  },
+  {
+   "id": "d105",
+   "name": "Camera Circle 105",
+   "topics": [
+    "photography"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for camera",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "photography"
+   ]
+  },
+  {
+   "id": "d106",
+   "name": "Author Campaign Community 106",
+   "topics": [
+    "newsletter"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for author and campaign",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "writing",
+    "marketing"
+   ]
+  },
+  {
+   "id": "d107",
+   "name": "Synth Blog Network 107",
+   "topics": [
+    "music"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "music",
+    "writing"
+   ]
+  },
+  {
+   "id": "d108",
+   "name": "Developer Place 108",
+   "topics": [
+    "devtools"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "devtools"
+   ]
+  },
+  {
+   "id": "d109",
+   "name": "Meals Photography Collective 109",
+   "topics": [
+    "cooking",
+    "photography"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for meals and photography",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking",
+    "photography"
+   ]
+  },
+  {
+   "id": "d110",
+   "name": "Microphone Saas Corner 110",
+   "topics": [
+    "interview",
+    "startups"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for microphone and saas",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "podcasting",
+    "startups"
+   ]
+  },
+  {
+   "id": "d111",
+   "name": "The Daily Hangout 111",
+   "topics": [
+    "photography"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for camera",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "photography"
+   ]
+  },
+  {
+   "id": "d112",
+   "name": "Software Network 112",
+   "topics": [
+    "devtools"
+   ],
+   "language": "fr",
+   "status": "uncertified",
+   "site_title": "A place for software",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "devtools"
+   ]
+  },
+  {
+   "id": "d113",
+   "name": "Cooking Beat Corner 113",
+   "topics": [
+    "cooking",
+    "figma"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for cooking and beat and designer",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking",
+    "music",
+    "design"
+   ]
+  },
+  {
+   "id": "d114",
+   "name": "Novel Community 114",
+   "topics": [
+    "writing"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for novel",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "writing"
+   ]
+  },
+  {
+   "id": "d115",
+   "name": "Radio Contributors Hub Footage 115",
+   "topics": [
+    "opensource"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "podcasting",
+    "opensource"
+   ]
+  },
+  {
+   "id": "d116",
+   "name": "Recipe Programming Club 116",
+   "topics": [
+    "kitchen",
+    "devtools"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking",
+    "devtools"
+   ]
+  },
+  {
+   "id": "d117",
+   "name": "Footage Figma Collective 117",
+   "topics": [
+    "youtube",
+    "design",
+    "chef"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "video",
+    "design",
+    "cooking"
+   ]
+  },
+  {
+   "id": "d118",
+   "name": "Photo Esports Place 118",
+   "topics": [
+    "photography"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "photography",
+    "gaming"
+   ]
+  },
+  {
+   "id": "d119",
+   "name": "Music Models Hub 119",
+   "topics": [
+    "music",
+    "ai"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for music and models and launch",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "music",
+    "ai",
+    "startups"
+   ]
+  },
+  {
+   "id": "d120",
+   "name": "Workout Figma Community 120",
+   "topics": [
+    "fitness"
+   ],
+   "language": "fr",
+   "status": "uncertified",
+   "site_title": "A place for workout and figma",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "fitness",
+    "design"
+   ]
+  },
+  {
+   "id": "d121",
+   "name": "Esports Novel Lounge 121",
+   "topics": [
+    "author"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for esports and novel",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "gaming",
+    "writing"
+   ]
+  },
+  {
+   "id": "d122",
+   "name": "Open Source Corner 122",
+   "topics": [
+    "opensource"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for open-source",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource"
+   ]
+  },
+  {
+   "id": "d123",
+   "name": "Footage Lounge 123",
+   "topics": [
+    "video"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for footage",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "video"
+   ]
+  },
+  {
+   "id": "d124",
+   "name": "Video Writing Community Audio 124",
+   "topics": [
+    "writing"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "video",
+    "writing"
+   ]
+  },
+  {
+   "id": "d125",
+   "name": "Microphone Esports Corner 125",
+   "topics": [
+    "podcasting"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "podcasting",
+    "gaming"
+   ]
+  },
+  {
+   "id": "d126",
+   "name": "Podcast Typography Hub 126",
+   "topics": [
+    "microphone",
+    "ui",
+    "cooking"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "podcasting",
+    "design",
+    "cooking"
+   ]
+  },
+  {
+   "id": "d127",
+   "name": "Blog Footage Hub 127",
+   "topics": [
+    "writing"
+   ],
+   "language": "fr",
+   "status": "uncertified",
+   "site_title": "A place for blog and footage",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "writing",
+    "video"
+   ]
+  },
+  {
+   "id": "d128",
+   "name": "Photography Campaign Exchange 128",
+   "topics": [
+    "photography",
+    "open-source"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for photography and campaign and oss",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "photography",
+    "marketing",
+    "opensource"
+   ]
+  },
+  {
+   "id": "d129",
+   "name": "Maintainer Circle 129",
+   "topics": [
+    "contributors"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource"
+   ]
+  },
+  {
+   "id": "d130",
+   "name": "The Daily Hangout 130",
+   "topics": [
+    "podcasting",
+    "indie-game"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for interview and gamedev",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "podcasting",
+    "gaming"
+   ]
+  },
+  {
+   "id": "d131",
+   "name": "The Daily Hangout 131",
+   "topics": [
+    "episode"
+   ],
+   "language": "fr",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "podcasting"
+   ]
+  },
+  {
+   "id": "d132",
+   "name": "Friendly Folks 132",
+   "topics": [
+    "ai",
+    "marketing"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for gpt and audience",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "ai",
+    "marketing"
+   ]
+  },
+  {
+   "id": "d133",
+   "name": "Marathon Corner 133",
+   "topics": [
+    "workout"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "fitness"
+   ]
+  },
+  {
+   "id": "d134",
+   "name": "Founder Author Circle 134",
+   "topics": [
+    "author"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "startups",
+    "writing"
+   ]
+  },
+  {
+   "id": "d135",
+   "name": "Cooking Youtube Corner 135",
+   "topics": [
+    "baking",
+    "film"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for cooking and youtube",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking",
+    "video"
+   ]
+  },
+  {
+   "id": "d136",
+   "name": "Campaign Lounge 136",
+   "topics": [
+    "marketing"
+   ],
+   "language": "fr",
+   "status": "uncertified",
+   "site_title": "A place for campaign",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "marketing"
+   ]
+  },
+  {
+   "id": "d137",
+   "name": "Open Source Club 137",
+   "topics": [
+    "contributors"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for open-source",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource"
+   ]
+  },
+  {
+   "id": "d138",
+   "name": "Devops Place 138",
+   "topics": [
+    "coding"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for devops",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "devtools"
+   ]
+  },
+  {
+   "id": "d139",
+   "name": "Kitchen Software Lounge 139",
+   "topics": [
+    "programming"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for kitchen and software",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking",
+    "devtools"
+   ]
+  },
+  {
+   "id": "d140",
+   "name": "Oss Ui Hub 140",
+   "topics": [
+    "design"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource",
+    "design"
+   ]
+  },
+  {
+   "id": "d141",
+   "name": "Radio Photo Exchange 141",
+   "topics": [
+    "podcasting",
+    "photo"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for radio and photo and engineering",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "podcasting",
+    "photography",
+    "devtools"
+   ]
+  },
+  {
+   "id": "d142",
+   "name": "Speedrun Collective 142",
+   "topics": [
+    "speedrun"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "gaming"
+   ]
+  },
+  {
+   "id": "d143",
+   "name": "Coffee Table Talks 143",
+   "topics": [
+    "contributors",
+    "writer",
+    "video"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for maintainer and blog and footage",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource",
+    "writing",
+    "video"
+   ]
+  },
+  {
+   "id": "d144",
+   "name": "Portrait Marketing Club 144",
+   "topics": [
+    "marketing"
+   ],
+   "language": "fr",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "photography",
+    "marketing"
+   ]
+  },
+  {
+   "id": "d145",
+   "name": "Marketing Portrait Corner 145",
+   "topics": [
+    "campaign"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for marketing and portrait",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "marketing",
+    "photography"
+   ]
+  },
+  {
+   "id": "d146",
+   "name": "Design Place 146",
+   "topics": [
+    "design"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "design"
+   ]
+  },
+  {
+   "id": "d147",
+   "name": "Design Exchange 147",
+   "topics": [
+    "design"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for design",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "design"
+   ]
+  },
+  {
+   "id": "d148",
+   "name": "Guitar Hub 148",
+   "topics": [
+    "music"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for guitar",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "music"
+   ]
+  },
+  {
+   "id": "d149",
+   "name": "Audio Foss Club 149",
+   "topics": [
+    "podcasting",
+    "opensource"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "podcasting",
+    "opensource"
+   ]
+  },
+  {
+   "id": "d150",
+   "name": "The Daily Hangout 150",
+   "topics": [
+    "gym"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for gym",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "fitness"
+   ]
+  },
+  {
+   "id": "d151",
+   "name": "Meals Marketing Hub 151",
+   "topics": [
+    "cooking",
+    "audience"
+   ],
+   "language": "fr",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking",
+    "marketing"
+   ]
+  },
+  {
+   "id": "d152",
+   "name": "Oss Exchange 152",
+   "topics": [
+    "maintainer"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for oss",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource"
+   ]
+  },
+  {
+   "id": "d153",
+   "name": "Engineering Seo Circle 153",
+   "topics": [
+    "devops",
+    "audience",
+    "neural"
+   ],
+   "language": "fr",
+   "status": "uncertified",
+   "site_title": "A place for engineering and seo and llm",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "devtools",
+    "marketing",
+    "ai"
+   ]
+  },
+  {
+   "id": "d154",
+   "name": "Fitness Ui Community 154",
+   "topics": [
+    "running"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "fitness",
+    "design"
+   ]
+  },
+  {
+   "id": "d155",
+   "name": "Ui Running Community 155",
+   "topics": [
+    "design"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for ui and running",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "design",
+    "fitness"
+   ]
+  },
+  {
+   "id": "d156",
+   "name": "Founder Beat Exchange 156",
+   "topics": [
+    "startups",
+    "novel"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "startups",
+    "music",
+    "writing"
+   ]
+  },
+  {
+   "id": "d157",
+   "name": "Esports Gpt Network 157",
+   "topics": [
+    "indie-game",
+    "ai",
+    "growth"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "gaming",
+    "ai",
+    "marketing"
+   ]
+  },
+  {
+   "id": "d158",
+   "name": "Meals Place 158",
+   "topics": [
+    "cooking"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking"
+   ]
+  },
+  {
+   "id": "d159",
+   "name": "Running Collective 159",
+   "topics": [
+    "running"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for running",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "fitness"
+   ]
+  },
+  {
+   "id": "d160",
+   "name": "Growth Typography Network 160",
+   "topics": [
+    "marketing",
+    "design",
+    "camera"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for growth and typography and portrait",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "marketing",
+    "design",
+    "photography"
+   ]
+  },
+  {
+   "id": "d161",
+   "name": "Maintainer Song Community 161",
+   "topics": [
+    "open-source",
+    "music",
+    "photography"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource",
+    "music",
+    "photography"
+   ]
+  },
+  {
+   "id": "d162",
+   "name": "Producer Circle 162",
+   "topics": [
+    "music"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for producer",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "music"
+   ]
+  },
+  {
+   "id": "d163",
+   "name": "Oss Corner 163",
+   "topics": [
+    "opensource"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource"
+   ]
+  },
+  {
+   "id": "d164",
+   "name": "The Daily Hangout 164",
+   "topics": [
+    "writing",
+    "fitness"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for writer and fitness",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "writing",
+    "fitness"
+   ]
+  },
+  {
+   "id": "d165",
+   "name": "The Daily Hangout 165",
+   "topics": [
+    "gaming",
+    "startups"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "devtools",
+    "gaming",
+    "startups"
+   ]
+  },
+  {
+   "id": "d166",
+   "name": "Audio Coding Community Ui 166",
+   "topics": [
+    "devtools"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "podcasting",
+    "devtools",
+    "writing"
+   ]
+  },
+  {
+   "id": "d167",
+   "name": "Marketing Hub 167",
+   "topics": [
+    "audience"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "marketing"
+   ]
+  },
+  {
+   "id": "d168",
+   "name": "Seo Models Exchange 168",
+   "topics": [
+    "seo",
+    "machine-learning"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "marketing",
+    "ai"
+   ]
+  },
+  {
+   "id": "d169",
+   "name": "The Big Room 169",
+   "topics": [
+    "design"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for figma",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "design"
+   ]
+  },
+  {
+   "id": "d170",
+   "name": "Lens Founder Exchange 170",
+   "topics": [
+    "camera",
+    "startups"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for lens and founder",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "photography",
+    "startups"
+   ]
+  },
+  {
+   "id": "d171",
+   "name": "Lens Collective 171",
+   "topics": [
+    "lens"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for lens",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "photography"
+   ]
+  },
+  {
+   "id": "d172",
+   "name": "Launch Workout Circle 172",
+   "topics": [
+    "startups",
+    "running",
+    "marketing"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "startups",
+    "fitness",
+    "marketing"
+   ]
+  },
+  {
+   "id": "d173",
+   "name": "Youtube Guitar Lounge 173",
+   "topics": [
+    "footage"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for youtube and guitar",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "video",
+    "music"
+   ]
+  },
+  {
+   "id": "d174",
+   "name": "Recipe Designer Club 174",
+   "topics": [
+    "designer",
+    "startups"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking",
+    "design",
+    "startups"
+   ]
+  },
+  {
+   "id": "d175",
+   "name": "Contributors Youtube Club 175",
+   "topics": [
+    "opensource",
+    "video"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for contributors and youtube",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource",
+    "video"
+   ]
+  },
+  {
+   "id": "d176",
+   "name": "Coding Oss Community 176",
+   "topics": [
+    "devtools",
+    "opensource",
+    "startups"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "devtools",
+    "opensource",
+    "startups"
+   ]
+  },
+  {
+   "id": "d177",
+   "name": "The Big Room 177",
+   "topics": [
+    "fitness"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for training",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "fitness"
+   ]
+  },
+  {
+   "id": "d178",
+   "name": "Weekend Chat 178",
+   "topics": [
+    "cooking"
+   ],
+   "language": "fr",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking"
+   ]
+  },
+  {
+   "id": "d179",
+   "name": "Foss Campaign Place 179",
+   "topics": [
+    "opensource",
+    "campaign"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource",
+    "marketing"
+   ]
+  },
+  {
+   "id": "d180",
+   "name": "Ui Devops Network 180",
+   "topics": [
+    "design",
+    "programming"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "design",
+    "devtools",
+    "photography"
+   ]
+  },
+  {
+   "id": "d181",
+   "name": "Lightroom Club 181",
+   "topics": [
+    "photo"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for lightroom",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "photography"
+   ]
+  },
+  {
+   "id": "d182",
+   "name": "Contributors Meals Corner 182",
+   "topics": [
+    "opensource",
+    "recipe",
+    "devtools"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for contributors and meals and programming",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource",
+    "cooking",
+    "devtools"
+   ]
+  },
+  {
+   "id": "d183",
+   "name": "Llm Software Corner Gaming 183",
+   "topics": [
+    "neural",
+    "devtools"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for llm and software",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "ai",
+    "devtools"
+   ]
+  },
+  {
+   "id": "d184",
+   "name": "Bootstrapped Kitchen Community 184",
+   "topics": [
+    "recipe"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "startups",
+    "cooking"
+   ]
+  },
+  {
+   "id": "d185",
+   "name": "Baking Lounge 185",
+   "topics": [
+    "cooking"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking"
+   ]
+  },
+  {
+   "id": "d186",
+   "name": "Contributors Coding Club 186",
+   "topics": [
+    "opensource",
+    "devtools"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for contributors and coding",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource",
+    "devtools"
+   ]
+  },
+  {
+   "id": "d187",
+   "name": "Contributors Seo Lounge 187",
+   "topics": [
+    "open-source",
+    "marketing"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for contributors and seo",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource",
+    "marketing"
+   ]
+  },
+  {
+   "id": "d188",
+   "name": "Launch Running Circle 188",
+   "topics": [
+    "fitness"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for launch and running",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "startups",
+    "fitness"
+   ]
+  },
+  {
+   "id": "d189",
+   "name": "Marketing Lounge 189",
+   "topics": [
+    "marketing"
+   ],
+   "language": "fr",
+   "status": "uncertified",
+   "site_title": "A place for marketing",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "marketing"
+   ]
+  },
+  {
+   "id": "d190",
+   "name": "Radio Portrait Hub 190",
+   "topics": [
+    "podcasting",
+    "photography",
+    "marketing"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for radio and portrait and campaign",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "podcasting",
+    "photography",
+    "marketing"
+   ]
+  },
+  {
+   "id": "d191",
+   "name": "Marathon Microphone Place 191",
+   "topics": [
+    "workout"
+   ],
+   "language": "fr",
+   "status": "uncertified",
+   "site_title": "A place for marathon and microphone",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "fitness",
+    "podcasting"
+   ]
+  },
+  {
+   "id": "d192",
+   "name": "Marketing Oss Exchange 192",
+   "topics": [
+    "marketing",
+    "maintainer",
+    "design"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for marketing and oss and ui",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "marketing",
+    "opensource",
+    "design"
+   ]
+  },
+  {
+   "id": "d193",
+   "name": "Esports Training Corner 193",
+   "topics": [
+    "gaming",
+    "ai"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "gaming",
+    "fitness",
+    "ai"
+   ]
+  },
+  {
+   "id": "d194",
+   "name": "The Big Room Startup 194",
+   "topics": [
+    "gaming"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for esports",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "gaming"
+   ]
+  },
+  {
+   "id": "d195",
+   "name": "Author Community 195",
+   "topics": [
+    "storytelling"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for author",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "writing"
+   ]
+  },
+  {
+   "id": "d196",
+   "name": "Meals Training Circle 196",
+   "topics": [
+    "marathon"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking",
+    "fitness"
+   ]
+  },
+  {
+   "id": "d197",
+   "name": "Recipe Game Collective 197",
+   "topics": [
+    "cooking",
+    "gamedev"
+   ],
+   "language": "fr",
+   "status": "uncertified",
+   "site_title": "A place for recipe and game",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking",
+    "gaming"
+   ]
+  },
+  {
+   "id": "d198",
+   "name": "Engineering Network 198",
+   "topics": [
+    "devtools"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "devtools"
+   ]
+  },
+  {
+   "id": "d199",
+   "name": "Footage Place 199",
+   "topics": [
+    "video"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "video"
+   ]
+  },
+  {
+   "id": "d200",
+   "name": "Novel Community 200",
+   "topics": [
+    "writing"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for novel",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "writing"
+   ]
+  },
+  {
+   "id": "d201",
+   "name": "Founder Club 201",
+   "topics": [
+    "startups"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for founder",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "startups"
+   ]
+  },
+  {
+   "id": "d202",
+   "name": "Founder Clips Lounge 202",
+   "topics": [
+    "startups",
+    "video"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for founder and clips",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "startups",
+    "video"
+   ]
+  },
+  {
+   "id": "d203",
+   "name": "Writing Corner 203",
+   "topics": [
+    "writing"
+   ],
+   "language": "fr",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "writing"
+   ]
+  },
+  {
+   "id": "d204",
+   "name": "Workout Club 204",
+   "topics": [
+    "training"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "fitness"
+   ]
+  },
+  {
+   "id": "d205",
+   "name": "Beat Interview Club 205",
+   "topics": [
+    "music",
+    "audio"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for beat and interview",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "music",
+    "podcasting"
+   ]
+  },
+  {
+   "id": "d206",
+   "name": "Models Coding Collective 206",
+   "topics": [
+    "ai",
+    "devops",
+    "design"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for models and coding and ux",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "ai",
+    "devtools",
+    "design"
+   ]
+  },
+  {
+   "id": "d207",
+   "name": "Gym Exchange 207",
+   "topics": [
+    "gym"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "fitness"
+   ]
+  },
+  {
+   "id": "d208",
+   "name": "Saas Indie Game Lounge 208",
+   "topics": [
+    "saas"
+   ],
+   "language": "fr",
+   "status": "uncertified",
+   "site_title": "A place for saas and indie-game",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "startups",
+    "gaming"
+   ]
+  },
+  {
+   "id": "d209",
+   "name": "Producer Video Community 209",
+   "topics": [
+    "guitar",
+    "clips"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for producer and video and workout",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "music",
+    "video",
+    "fitness"
+   ]
+  },
+  {
+   "id": "d210",
+   "name": "Open Source Design Club 210",
+   "topics": [
+    "foss",
+    "design"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for open-source and design and growth",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource",
+    "design",
+    "marketing"
+   ]
+  },
+  {
+   "id": "d211",
+   "name": "Song Speedrun Place 211",
+   "topics": [
+    "music",
+    "indie-game",
+    "photography"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "music",
+    "gaming",
+    "photography"
+   ]
+  },
+  {
+   "id": "d212",
+   "name": "Open Mic 212",
+   "topics": [
+    "design"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "design"
+   ]
+  },
+  {
+   "id": "d213",
+   "name": "Engineering Gpt Lounge 213",
+   "topics": [
+    "devtools",
+    "clips"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "devtools",
+    "ai",
+    "video"
+   ]
+  },
+  {
+   "id": "d214",
+   "name": "Producer Collective 214",
+   "topics": [
+    "synth"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "music"
+   ]
+  },
+  {
+   "id": "d215",
+   "name": "Music Audio Collective Film 215",
+   "topics": [
+    "beat",
+    "podcasting"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "music",
+    "podcasting"
+   ]
+  },
+  {
+   "id": "d216",
+   "name": "Audience Founder Lounge 216",
+   "topics": [
+    "campaign",
+    "startups"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for audience and founder",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "marketing",
+    "startups"
+   ]
+  },
+  {
+   "id": "d217",
+   "name": "Coffee Table Talks 217",
+   "topics": [
+    "startup",
+    "gamedev"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "startups",
+    "gaming"
+   ]
+  },
+  {
+   "id": "d218",
+   "name": "Lightroom Place 218",
+   "topics": [
+    "photography"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for lightroom",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "photography"
+   ]
+  },
+  {
+   "id": "d219",
+   "name": "Gaming Hub Camera 219",
+   "topics": [
+    "gamedev"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for gaming",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "gaming"
+   ]
+  },
+  {
+   "id": "d220",
+   "name": "Ai Circle 220",
+   "topics": [
+    "ai"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for ai",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "ai"
+   ]
+  },
+  {
+   "id": "d221",
+   "name": "Machine Learning Audio Exchange 221",
+   "topics": [
+    "ai",
+    "podcasting"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "ai",
+    "podcasting"
+   ]
+  },
+  {
+   "id": "d222",
+   "name": "Youtube Podcast Network 222",
+   "topics": [
+    "video",
+    "audio"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "video",
+    "podcasting"
+   ]
+  },
+  {
+   "id": "d223",
+   "name": "Baking Oss Circle 223",
+   "topics": [
+    "cooking",
+    "opensource"
+   ],
+   "language": "fr",
+   "status": "uncertified",
+   "site_title": "A place for baking and oss",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking",
+    "opensource"
+   ]
+  },
+  {
+   "id": "d224",
+   "name": "Marathon Hub 224",
+   "topics": [
+    "fitness"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "fitness"
+   ]
+  },
+  {
+   "id": "d225",
+   "name": "Youtube Newsletter Network 225",
+   "topics": [
+    "movie",
+    "marketing",
+    "writing"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for youtube and newsletter and writer",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "video",
+    "marketing",
+    "writing"
+   ]
+  },
+  {
+   "id": "d226",
+   "name": "Designer Growth Lounge Song 226",
+   "topics": [
+    "ui",
+    "campaign"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "design",
+    "marketing"
+   ]
+  },
+  {
+   "id": "d227",
+   "name": "Devops Music Network 227",
+   "topics": [
+    "engineering",
+    "music"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for devops and music",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "devtools",
+    "music"
+   ]
+  },
+  {
+   "id": "d228",
+   "name": "Weekend Chat 228",
+   "topics": [
+    "guitar",
+    "ai"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "music",
+    "ai"
+   ]
+  },
+  {
+   "id": "d229",
+   "name": "Radio Camera Exchange 229",
+   "topics": [
+    "podcasting",
+    "training"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for radio and camera and fitness",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "podcasting",
+    "photography",
+    "fitness"
+   ]
+  },
+  {
+   "id": "d230",
+   "name": "Workout Machine Learning Club 230",
+   "topics": [
+    "fitness",
+    "ai"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "fitness",
+    "ai"
+   ]
+  },
+  {
+   "id": "d231",
+   "name": "Cooking Figma Community 231",
+   "topics": [
+    "design",
+    "interview"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking",
+    "design",
+    "podcasting"
+   ]
+  },
+  {
+   "id": "d232",
+   "name": "Marketing Music Network 232",
+   "topics": [
+    "marketing",
+    "music"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for marketing and music",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "marketing",
+    "music"
+   ]
+  },
+  {
+   "id": "d233",
+   "name": "Maintainer Circle 233",
+   "topics": [
+    "opensource"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for maintainer",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource"
+   ]
+  },
+  {
+   "id": "d234",
+   "name": "Gym Video Place 234",
+   "topics": [
+    "fitness",
+    "ai"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "fitness",
+    "video",
+    "ai"
+   ]
+  },
+  {
+   "id": "d235",
+   "name": "Episode Lounge 235",
+   "topics": [
+    "episode"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for episode",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "podcasting"
+   ]
+  },
+  {
+   "id": "d236",
+   "name": "Contributors Photo Exchange 236",
+   "topics": [
+    "opensource",
+    "photography",
+    "fitness"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for contributors and photo and running",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource",
+    "photography",
+    "fitness"
+   ]
+  },
+  {
+   "id": "d237",
+   "name": "Episode Circle 237",
+   "topics": [
+    "podcasting"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "podcasting"
+   ]
+  },
+  {
+   "id": "d238",
+   "name": "Film Figma Community 238",
+   "topics": [
+    "clips",
+    "design"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for film and figma",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "video",
+    "design"
+   ]
+  },
+  {
+   "id": "d239",
+   "name": "The Big Room 239",
+   "topics": [
+    "video"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for film",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "video"
+   ]
+  },
+  {
+   "id": "d240",
+   "name": "Chef Founder Corner 240",
+   "topics": [
+    "saas"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for chef and founder",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking",
+    "startups"
+   ]
+  },
+  {
+   "id": "d241",
+   "name": "Song Open Source Place 241",
+   "topics": [
+    "producer"
+   ],
+   "language": "fr",
+   "status": "uncertified",
+   "site_title": "A place for song and open-source",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "music",
+    "opensource"
+   ]
+  },
+  {
+   "id": "d242",
+   "name": "Coffee Table Talks 242",
+   "topics": [
+    "photography",
+    "startups"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for photography and launch",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "photography",
+    "startups"
+   ]
+  },
+  {
+   "id": "d243",
+   "name": "Radio Music Collective 243",
+   "topics": [
+    "beat"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "podcasting",
+    "music"
+   ]
+  },
+  {
+   "id": "d244",
+   "name": "Entrepreneur Community 244",
+   "topics": [
+    "startups"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for entrepreneur",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "startups"
+   ]
+  },
+  {
+   "id": "d245",
+   "name": "Movie Game Exchange Oss 245",
+   "topics": [
+    "footage",
+    "gaming"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for movie and game",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "video",
+    "gaming"
+   ]
+  },
+  {
+   "id": "d246",
+   "name": "Audience Ai Corner 246",
+   "topics": [
+    "campaign",
+    "ai"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "marketing",
+    "ai",
+    "writing"
+   ]
+  },
+  {
+   "id": "d247",
+   "name": "The Daily Hangout 247",
+   "topics": [
+    "audio"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "podcasting"
+   ]
+  },
+  {
+   "id": "d248",
+   "name": "Software Club 248",
+   "topics": [
+    "programming"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for software",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "devtools"
+   ]
+  },
+  {
+   "id": "d249",
+   "name": "Oss Photography Collective 249",
+   "topics": [
+    "opensource",
+    "photography"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for oss and photography",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource",
+    "photography"
+   ]
+  },
+  {
+   "id": "d250",
+   "name": "Running Community 250",
+   "topics": [
+    "marathon"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for running",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "fitness"
+   ]
+  },
+  {
+   "id": "d251",
+   "name": "Writing Movie Exchange 251",
+   "topics": [
+    "novel",
+    "startups"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "writing",
+    "video",
+    "startups"
+   ]
+  },
+  {
+   "id": "d252",
+   "name": "Machine Learning Lounge 252",
+   "topics": [
+    "ai"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for machine-learning",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "ai"
+   ]
+  },
+  {
+   "id": "d253",
+   "name": "Clips Club 253",
+   "topics": [
+    "video"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "video"
+   ]
+  },
+  {
+   "id": "d254",
+   "name": "Models Producer Place 254",
+   "topics": [
+    "ai",
+    "music"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "ai",
+    "music"
+   ]
+  },
+  {
+   "id": "d255",
+   "name": "Devops Maintainer Corner 255",
+   "topics": [
+    "engineering",
+    "opensource",
+    "baking"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "devtools",
+    "opensource",
+    "cooking"
+   ]
+  },
+  {
+   "id": "d256",
+   "name": "Beat Storytelling Network 256",
+   "topics": [
+    "music",
+    "novel",
+    "video"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for beat and storytelling and clips",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "music",
+    "writing",
+    "video"
+   ]
+  },
+  {
+   "id": "d257",
+   "name": "Baking Place 257",
+   "topics": [
+    "cooking"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking"
+   ]
+  },
+  {
+   "id": "d258",
+   "name": "Episode Machine Learning Collective 258",
+   "topics": [
+    "episode",
+    "ai"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "podcasting",
+    "ai"
+   ]
+  },
+  {
+   "id": "d259",
+   "name": "Coding Bootstrapped Club 259",
+   "topics": [
+    "developer",
+    "founder"
+   ],
+   "language": "fr",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "devtools",
+    "startups"
+   ]
+  },
+  {
+   "id": "d260",
+   "name": "Entrepreneur Club 260",
+   "topics": [
+    "startups"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "startups"
+   ]
+  },
+  {
+   "id": "d261",
+   "name": "Music Maintainer Club 261",
+   "topics": [
+    "music",
+    "opensource"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "music",
+    "opensource"
+   ]
+  },
+  {
+   "id": "d262",
+   "name": "Writing Youtube Circle 262",
+   "topics": [
+    "video"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "writing",
+    "video"
+   ]
+  },
+  {
+   "id": "d263",
+   "name": "Ui Circle Marketing 263",
+   "topics": [
+    "typography"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "design"
+   ]
+  },
+  {
+   "id": "d264",
+   "name": "Maintainer Network 264",
+   "topics": [
+    "maintainer"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource"
+   ]
+  },
+  {
+   "id": "d265",
+   "name": "Marathon Footage Hub 265",
+   "topics": [
+    "fitness",
+    "video"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "fitness",
+    "video"
+   ]
+  },
+  {
+   "id": "d266",
+   "name": "Blog Coding Place 266",
+   "topics": [
+    "writing",
+    "devtools"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "writing",
+    "devtools"
+   ]
+  },
+  {
+   "id": "d267",
+   "name": "Bootstrapped Lounge 267",
+   "topics": [
+    "startups"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for bootstrapped",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "startups"
+   ]
+  },
+  {
+   "id": "d268",
+   "name": "Kitchen Neural Exchange 268",
+   "topics": [
+    "cooking",
+    "ai"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for kitchen and neural",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking",
+    "ai"
+   ]
+  },
+  {
+   "id": "d269",
+   "name": "Episode Gamedev Corner 269",
+   "topics": [
+    "podcasting",
+    "gaming"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "podcasting",
+    "gaming"
+   ]
+  },
+  {
+   "id": "d270",
+   "name": "Baking Club 270",
+   "topics": [
+    "cooking"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for baking",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking"
+   ]
+  },
+  {
+   "id": "d271",
+   "name": "Lightroom Exchange 271",
+   "topics": [
+    "photography"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for lightroom",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "photography"
+   ]
+  },
+  {
+   "id": "d272",
+   "name": "Beat Entrepreneur Lounge 272",
+   "topics": [
+    "music",
+    "startups",
+    "gaming"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "music",
+    "startups",
+    "gaming"
+   ]
+  },
+  {
+   "id": "d273",
+   "name": "Designer Devops Corner 273",
+   "topics": [
+    "design",
+    "coding"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "design",
+    "devtools"
+   ]
+  },
+  {
+   "id": "d274",
+   "name": "Weekend Chat 274",
+   "topics": [
+    "ai",
+    "podcasting"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for recipe and models and interview",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking",
+    "ai",
+    "podcasting"
+   ]
+  },
+  {
+   "id": "d275",
+   "name": "Friendly Folks 275",
+   "topics": [
+    "film"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "video"
+   ]
+  },
+  {
+   "id": "d276",
+   "name": "Marathon Chef Circle 276",
+   "topics": [
+    "fitness",
+    "cooking"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for marathon and chef",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "fitness",
+    "cooking"
+   ]
+  },
+  {
+   "id": "d277",
+   "name": "Open Source Saas Lounge 277",
+   "topics": [
+    "opensource",
+    "founder"
+   ],
+   "language": "fr",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource",
+    "startups",
+    "music"
+   ]
+  },
+  {
+   "id": "d278",
+   "name": "Recipe Launch Collective 278",
+   "topics": [
+    "cooking"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for recipe and launch",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking",
+    "startups"
+   ]
+  },
+  {
+   "id": "d279",
+   "name": "Blog Film Exchange 279",
+   "topics": [
+    "video",
+    "ai"
+   ],
+   "language": "fr",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "writing",
+    "video",
+    "ai"
+   ]
+  },
+  {
+   "id": "d280",
+   "name": "Contributors Clips Club 280",
+   "topics": [
+    "opensource",
+    "video"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for contributors and clips",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource",
+    "video"
+   ]
+  },
+  {
+   "id": "d281",
+   "name": "Fitness Network 281",
+   "topics": [
+    "fitness"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for fitness",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "fitness"
+   ]
+  },
+  {
+   "id": "d282",
+   "name": "Friendly Folks 282",
+   "topics": [
+    "opensource",
+    "chef"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource",
+    "cooking",
+    "writing"
+   ]
+  },
+  {
+   "id": "d283",
+   "name": "Gpt Interview Club 283",
+   "topics": [
+    "ai",
+    "podcasting",
+    "cooking"
+   ],
+   "language": "fr",
+   "status": "uncertified",
+   "site_title": "A place for gpt and interview and baking",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "ai",
+    "podcasting",
+    "cooking"
+   ]
+  },
+  {
+   "id": "d284",
+   "name": "Chef Models Collective 284",
+   "topics": [
+    "cooking",
+    "ai"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for chef and models",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "cooking",
+    "ai"
+   ]
+  },
+  {
+   "id": "d285",
+   "name": "Author Hub 285",
+   "topics": [
+    "author"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "writing"
+   ]
+  },
+  {
+   "id": "d286",
+   "name": "Clips Collective 286",
+   "topics": [
+    "film"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for clips",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "none",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "video"
+   ]
+  },
+  {
+   "id": "d287",
+   "name": "Video Campaign Community 287",
+   "topics": [
+    "video"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for video and campaign",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "video",
+    "marketing"
+   ]
+  },
+  {
+   "id": "d288",
+   "name": "The Big Room 288",
+   "topics": [
+    "guitar",
+    "ai"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for guitar and gpt and portrait",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "music",
+    "ai",
+    "photography"
+   ]
+  },
+  {
+   "id": "d289",
+   "name": "Launch Models Community 289",
+   "topics": [
+    "startups",
+    "ai"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "startups",
+    "ai"
+   ]
+  },
+  {
+   "id": "d290",
+   "name": "Llm Exchange 290",
+   "topics": [
+    "ai"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "ai"
+   ]
+  },
+  {
+   "id": "d291",
+   "name": "Synth Network 291",
+   "topics": [
+    "music"
+   ],
+   "language": "fr",
+   "status": "uncertified",
+   "site_title": "A place for synth",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "music"
+   ]
+  },
+  {
+   "id": "d292",
+   "name": "Weekend Chat 292",
+   "topics": [
+    "video"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "video"
+   ]
+  },
+  {
+   "id": "d293",
+   "name": "Coffee Table Talks 293",
+   "topics": [
+    "ui"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": "A place for ux",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "design"
+   ]
+  },
+  {
+   "id": "d294",
+   "name": "Maintainer Club 294",
+   "topics": [
+    "opensource"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for maintainer",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "opensource"
+   ]
+  },
+  {
+   "id": "d295",
+   "name": "Footage Corner 295",
+   "topics": [
+    "video"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "video"
+   ]
+  },
+  {
+   "id": "d296",
+   "name": "Launch Contributors Exchange 296",
+   "topics": [
+    "startups",
+    "opensource",
+    "photography"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for launch and contributors and photo",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "startups",
+    "opensource",
+    "photography"
+   ]
+  },
+  {
+   "id": "d297",
+   "name": "Friendly Folks 297",
+   "topics": [
+    "podcasting"
+   ],
+   "language": "fr",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": false,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "podcasting"
+   ]
+  },
+  {
+   "id": "d298",
+   "name": "Design Models Lounge 298",
+   "topics": [
+    "design"
+   ],
+   "language": "de",
+   "status": "uncertified",
+   "site_title": null,
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "max:1",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "design",
+    "ai"
+   ]
+  },
+  {
+   "id": "d299",
+   "name": "Coding Llm Corner 299",
+   "topics": [
+    "programming",
+    "machine-learning"
+   ],
+   "language": "en",
+   "status": "uncertified",
+   "site_title": "A place for coding and llm",
+   "rules": {
+    "frequency_cap": null,
+    "self_promo_allowed": true,
+    "link_policy": "allowed",
+    "disclosure_required": false,
+    "automation_allowed": true
+   },
+   "true_topics": [
+    "devtools",
+    "ai"
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "id": "q00",
+   "title": "New song and music update",
+   "body": "We are sharing something about music, song and producer. It is free to try. We have been working on this for a while.",
+   "tags": [],
+   "language": "en",
+   "promotional": false,
+   "link_url": null,
+   "true_topics": [
+    "music"
+   ],
+   "relevant": [
+    "d002",
+    "d023",
+    "d030",
+    "d036",
+    "d039",
+    "d046",
+    "d088",
+    "d103",
+    "d104",
+    "d107",
+    "d113",
+    "d119",
+    "d148",
+    "d161",
+    "d162",
+    "d173",
+    "d209",
+    "d211",
+    "d214",
+    "d215",
+    "d227",
+    "d232",
+    "d254",
+    "d256",
+    "d261",
+    "d272",
+    "d288"
+   ]
+  },
+  {
+   "id": "q01",
+   "title": "New newsletter and growth update",
+   "body": "We are sharing something about campaign, marketing and seo. Feedback is very welcome. We have been working on this for a while.",
+   "tags": [
+    "marketing"
+   ],
+   "language": "en",
+   "promotional": true,
+   "link_url": null,
+   "true_topics": [
+    "marketing"
+   ],
+   "relevant": [
+    "d005",
+    "d030",
+    "d042",
+    "d058",
+    "d062",
+    "d069",
+    "d094",
+    "d106",
+    "d128",
+    "d157",
+    "d160",
+    "d168",
+    "d179",
+    "d190",
+    "d192",
+    "d232",
+    "d246",
+    "d287"
+   ]
+  },
+  {
+   "id": "q02",
+   "title": "New running and training update",
+   "body": "We are sharing something about marathon, workout and training. Feedback is very welcome. More details are below.",
+   "tags": [
+    "fitness"
+   ],
+   "language": "en",
+   "promotional": false,
+   "link_url": null,
+   "true_topics": [
+    "fitness"
+   ],
+   "relevant": [
+    "d009",
+    "d015",
+    "d020",
+    "d022",
+    "d039",
+    "d048",
+    "d054",
+    "d080",
+    "d092",
+    "d100",
+    "d103",
+    "d133",
+    "d150",
+    "d154",
+    "d155",
+    "d159",
+    "d172",
+    "d177",
+    "d188",
+    "d204",
+    "d207",
+    "d209",
+    "d229",
+    "d230",
+    "d234",
+    "d236",
+    "d250",
+    "d265",
+    "d276",
+    "d281"
+   ]
+  },
+  {
+   "id": "q03",
+   "title": "New programming and devops update",
+   "body": "We are sharing something about coding, software and developer. It is free to try. More details are below.",
+   "tags": [
+    "devtools"
+   ],
+   "language": "en",
+   "promotional": false,
+   "link_url": "https://example.com/post",
+   "true_topics": [
+    "devtools"
+   ],
+   "relevant": [
+    "d000",
+    "d007",
+    "d046",
+    "d058",
+    "d062",
+    "d068",
+    "d096",
+    "d100",
+    "d138",
+    "d139",
+    "d141",
+    "d183",
+    "d198",
+    "d206",
+    "d213",
+    "d227",
+    "d255",
+    "d299"
+   ]
+  },
+  {
+   "id": "q04",
+   "title": "New gym and running update",
+   "body": "We are sharing something about fitness, training and marathon. Feedback is very welcome. It is free to try.",
+   "tags": [],
+   "language": "en",
+   "promotional": false,
+   "link_url": null,
+   "true_topics": [
+    "fitness"
+   ],
+   "relevant": [
+    "d009",
+    "d015",
+    "d020",
+    "d022",
+    "d039",
+    "d048",
+    "d054",
+    "d080",
+    "d092",
+    "d100",
+    "d103",
+    "d133",
+    "d150",
+    "d154",
+    "d155",
+    "d159",
+    "d172",
+    "d177",
+    "d188",
+    "d204",
+    "d207",
+    "d209",
+    "d229",
+    "d230",
+    "d234",
+    "d236",
+    "d250",
+    "d265",
+    "d276",
+    "d281"
+   ]
+  },
+  {
+   "id": "q05",
+   "title": "New video and clips update",
+   "body": "We are sharing something about movie, clips and video. Here is what we learned. More details are below.",
+   "tags": [
+    "video"
+   ],
+   "language": "en",
+   "promotional": false,
+   "link_url": "https://example.com/post",
+   "true_topics": [
+    "video"
+   ],
+   "relevant": [
+    "d001",
+    "d054",
+    "d055",
+    "d059",
+    "d060",
+    "d068",
+    "d070",
+    "d091",
+    "d117",
+    "d143",
+    "d173",
+    "d175",
+    "d209",
+    "d213",
+    "d222",
+    "d234",
+    "d245",
+    "d253",
+    "d265",
+    "d275",
+    "d280",
+    "d287",
+    "d292",
+    "d295"
+   ]
+  },
+  {
+   "id": "q06",
+   "title": "New founder and startup update",
+   "body": "We are sharing something about saas, launch and entrepreneur. Feedback is very welcome. We have been working on this for a while.",
+   "tags": [
+    "startups"
+   ],
+   "language": "en",
+   "promotional": false,
+   "link_url": "https://example.com/post",
+   "true_topics": [
+    "startups"
+   ],
+   "relevant": [
+    "d048",
+    "d066",
+    "d079",
+    "d110",
+    "d119",
+    "d170",
+    "d172",
+    "d174",
+    "d184",
+    "d201",
+    "d216",
+    "d217",
+    "d244",
+    "d272",
+    "d278",
+    "d289",
+    "d296"
+   ]
+  },
+  {
+   "id": "q07",
+   "title": "New portrait and lightroom update",
+   "body": "We are sharing something about lens, photo and portrait. More details are below. We have been working on this for a while.",
+   "tags": [],
+   "language": "en",
+   "promotional": true,
+   "link_url": null,
+   "true_topics": [
+    "photography"
+   ],
+   "relevant": [
+    "d002",
+    "d022",
+    "d069",
+    "d079",
+    "d094",
+    "d095",
+    "d098",
+    "d105",
+    "d109",
+    "d128",
+    "d141",
+    "d160",
+    "d171",
+    "d181",
+    "d190",
+    "d211",
+    "d218",
+    "d236",
+    "d249",
+    "d271",
+    "d288",
+    "d296"
+   ]
+  },
+  {
+   "id": "q08",
+   "title": "New photography and photo update",
+   "body": "We are sharing something about photo, lens and camera. Here is what we learned. It is free to try.",
+   "tags": [
+    "photography"
+   ],
+   "language": "en",
+   "promotional": true,
+   "link_url": null,
+   "true_topics": [
+    "photography"
+   ],
+   "relevant": [
+    "d002",
+    "d022",
+    "d069",
+    "d079",
+    "d094",
+    "d095",
+    "d098",
+    "d105",
+    "d109",
+    "d128",
+    "d141",
+    "d160",
+    "d171",
+    "d181",
+    "d190",
+    "d211",
+    "d218",
+    "d236",
+    "d249",
+    "d271",
+    "d288",
+    "d296"
+   ]
+  },
+  {
+   "id": "q09",
+   "title": "New cooking and kitchen update",
+   "body": "We are sharing something about meals, kitchen and recipe. Here is what we learned. More details are below.",
+   "tags": [
+    "cooking"
+   ],
+   "language": "en",
+   "promotional": false,
+   "link_url": "https://example.com/post",
+   "true_topics": [
+    "cooking"
+   ],
+   "relevant": [
+    "d005",
+    "d009",
+    "d013",
+    "d036",
+    "d046",
+    "d088",
+    "d109",
+    "d117",
+    "d126",
+    "d139",
+    "d174",
+    "d184",
+    "d185",
+    "d231",
+    "d255",
+    "d270",
+    "d276",
+    "d278",
+    "d282"
+   ]
+  },
+  {
+   "id": "q10",
+   "title": "New engineering and developer update",
+   "body": "We are sharing something about devops, software and developer. It is free to try. Here is what we learned.",
+   "tags": [],
+   "language": "en",
+   "promotional": false,
+   "link_url": null,
+   "true_topics": [
+    "devtools"
+   ],
+   "relevant": [
+    "d000",
+    "d007",
+    "d046",
+    "d047",
+    "d057",
+    "d058",
+    "d062",
+    "d068",
+    "d096",
+    "d100",
+    "d108",
+    "d138",
+    "d139",
+    "d141",
+    "d166",
+    "d180",
+    "d183",
+    "d186",
+    "d198",
+    "d206",
+    "d213",
+    "d227",
+    "d255",
+    "d266",
+    "d299"
+   ]
+  },
+  {
+   "id": "q11",
+   "title": "New speedrun and game update",
+   "body": "We are sharing something about speedrun, engineering and gamedev. Here is what we learned. We have been working on this for a while.",
+   "tags": [
+    "devtools"
+   ],
+   "language": "en",
+   "promotional": false,
+   "link_url": "https://example.com/post",
+   "true_topics": [
+    "gaming",
+    "devtools"
+   ],
+   "relevant": [
+    "d000",
+    "d001",
+    "d007",
+    "d015",
+    "d017",
+    "d027",
+    "d046",
+    "d052",
+    "d058",
+    "d062",
+    "d068",
+    "d096",
+    "d100",
+    "d138",
+    "d139",
+    "d141",
+    "d142",
+    "d157",
+    "d183",
+    "d194",
+    "d198",
+    "d206",
+    "d213",
+    "d217",
+    "d219",
+    "d227",
+    "d245",
+    "d255",
+    "d269",
+    "d272",
+    "d299"
+   ]
+  },
+  {
+   "id": "q12",
+   "title": "New founder and launch update",
+   "body": "We are sharing something about saas, launch and founder. Here is what we learned. We have been working on this for a while.",
+   "tags": [],
+   "language": "en",
+   "promotional": false,
+   "link_url": "https://example.com/post",
+   "true_topics": [
+    "startups"
+   ],
+   "relevant": [
+    "d048",
+    "d066",
+    "d079",
+    "d110",
+    "d119",
+    "d170",
+    "d172",
+    "d174",
+    "d184",
+    "d201",
+    "d216",
+    "d217",
+    "d244",
+    "d272",
+    "d278",
+    "d289",
+    "d296"
+   ]
+  },
+  {
+   "id": "q13",
+   "title": "New programming and film update",
+   "body": "We are sharing something about devops, footage and film. It is free to try. More details are below.",
+   "tags": [
+    "video"
+   ],
+   "language": "en",
+   "promotional": false,
+   "link_url": "https://example.com/post",
+   "true_topics": [
+    "devtools",
+    "video"
+   ],
+   "relevant": [
+    "d000",
+    "d001",
+    "d007",
+    "d046",
+    "d054",
+    "d055",
+    "d058",
+    "d059",
+    "d060",
+    "d062",
+    "d068",
+    "d070",
+    "d091",
+    "d096",
+    "d100",
+    "d117",
+    "d138",
+    "d139",
+    "d141",
+    "d143",
+    "d173",
+    "d175",
+    "d183",
+    "d198",
+    "d206",
+    "d209",
+    "d213",
+    "d222",
+    "d227",
+    "d234",
+    "d245",
+    "d253",
+    "d255",
+    "d265",
+    "d275",
+    "d280",
+    "d287",
+    "d292",
+    "d295",
+    "d299"
+   ]
+  },
+  {
+   "id": "q14",
+   "title": "New saas and founder update",
+   "body": "We are sharing something about saas, startup and entrepreneur. Here is what we learned. We have been working on this for a while.",
+   "tags": [
+    "startups"
+   ],
+   "language": "en",
+   "promotional": false,
+   "link_url": null,
+   "true_topics": [
+    "startups"
+   ],
+   "relevant": [
+    "d039",
+    "d048",
+    "d066",
+    "d079",
+    "d089",
+    "d103",
+    "d110",
+    "d119",
+    "d134",
+    "d170",
+    "d172",
+    "d174",
+    "d184",
+    "d188",
+    "d201",
+    "d216",
+    "d217",
+    "d240",
+    "d244",
+    "d267",
+    "d272",
+    "d278",
+    "d289",
+    "d296"
+   ]
+  },
+  {
+   "id": "q15",
+   "title": "New podcast and episode update",
+   "body": "We are sharing something about baking, interview and meals. Here is what we learned. It is free to try.",
+   "tags": [
+    "podcasting"
+   ],
+   "language": "en",
+   "promotional": true,
+   "link_url": null,
+   "true_topics": [
+    "podcasting",
+    "cooking"
+   ],
+   "relevant": [
+    "d005",
+    "d013",
+    "d036",
+    "d044",
+    "d046",
+    "d066",
+    "d079",
+    "d083",
+    "d088",
+    "d109",
+    "d110",
+    "d113",
+    "d115",
+    "d125",
+    "d126",
+    "d130",
+    "d139",
+    "d141",
+    "d158",
+    "d174",
+    "d184",
+    "d190",
+    "d221",
+    "d222",
+    "d231",
+    "d237",
+    "d240",
+    "d255",
+    "d257",
+    "d258",
+    "d269",
+    "d276",
+    "d278"
+   ]
+  },
+  {
+   "id": "q16",
+   "title": "New entrepreneur and founder update",
+   "body": "We are sharing something about founder, bootstrapped and launch. We have been working on this for a while. It is free to try.",
+   "tags": [],
+   "language": "en",
+   "promotional": false,
+   "link_url": "https://example.com/post",
+   "true_topics": [
+    "startups"
+   ],
+   "relevant": [
+    "d048",
+    "d066",
+    "d079",
+    "d110",
+    "d119",
+    "d170",
+    "d172",
+    "d174",
+    "d184",
+    "d201",
+    "d216",
+    "d217",
+    "d244",
+    "d272",
+    "d278",
+    "d289",
+    "d296"
+   ]
+  },
+  {
+   "id": "q17",
+   "title": "New github and contributors update",
+   "body": "We are sharing something about foss, maintainer and oss. Feedback is very welcome. Here is what we learned.",
+   "tags": [],
+   "language": "en",
+   "promotional": true,
+   "link_url": null,
+   "true_topics": [
+    "opensource"
+   ],
+   "relevant": [
+    "d000",
+    "d034",
+    "d057",
+    "d063",
+    "d071",
+    "d075",
+    "d089",
+    "d090",
+    "d097",
+    "d101",
+    "d115",
+    "d128",
+    "d137",
+    "d140",
+    "d152",
+    "d163",
+    "d179",
+    "d192",
+    "d236",
+    "d249",
+    "d255",
+    "d261",
+    "d264",
+    "d280",
+    "d294",
+    "d296"
+   ]
+  },
+  {
+   "id": "q18",
+   "title": "New video and footage update",
+   "body": "We are sharing something about video, footage and film. Here is what we learned. We have been working on this for a while.",
+   "tags": [],
+   "language": "en",
+   "promotional": false,
+   "link_url": null,
+   "true_topics": [
+    "video"
+   ],
+   "relevant": [
+    "d001",
+    "d010",
+    "d050",
+    "d054",
+    "d055",
+    "d057",
+    "d059",
+    "d060",
+    "d068",
+    "d070",
+    "d091",
+    "d117",
+    "d124",
+    "d135",
+    "d143",
+    "d173",
+    "d175",
+    "d199",
+    "d209",
+    "d213",
+    "d222",
+    "d234",
+    "d245",
+    "d253",
+    "d256",
+    "d265",
+    "d275",
+    "d280",
+    "d287",
+    "d292",
+    "d295"
+   ]
+  },
+  {
+   "id": "q19",
+   "title": "New ux and figma update",
+   "body": "We are sharing something about oss, ui and github. Feedback is very welcome. It is free to try.",
+   "tags": [
+    "opensource"
+   ],
+   "language": "en",
+   "promotional": false,
+   "link_url": null,
+   "true_topics": [
+    "opensource",
+    "design"
+   ],
+   "relevant": [
+    "d000",
+    "d002",
+    "d007",
+    "d009",
+    "d028",
+    "d032",
+    "d034",
+    "d049",
+    "d057",
+    "d060",
+    "d063",
+    "d070",
+    "d071",
+    "d074",
+    "d075",
+    "d083",
+    "d089",
+    "d090",
+    "d094",
+    "d096",
+    "d097",
+    "d101",
+    "d113",
+    "d115",
+    "d117",
+    "d126",
+    "d128",
+    "d129",
+    "d137",
+    "d140",
+    "d143",
+    "d146",
+    "d147",
+    "d149",
+    "d152",
+    "d154",
+    "d155",
+    "d160",
+    "d161",
+    "d163",
+    "d169",
+    "d174",
+    "d175",
+    "d179",
+    "d180",
+    "d186",
+    "d192",
+    "d206",
+    "d210",
+    "d212",
+    "d231",
+    "d236",
+    "d249",
+    "d255",
+    "d261",
+    "d263",
+    "d264",
+    "d280",
+    "d282",
+    "d294",
+    "d296"
+   ]
+  },
+  {
+   "id": "q20",
+   "title": "New neural and machine learning update",
+   "body": "We are sharing something about models, llm and machine-learning. More details are below. Feedback is very welcome.",
+   "tags": [
+    "ai"
+   ],
+   "language": "en",
+   "promotional": false,
+   "link_url": "https://example.com/post",
+   "true_topics": [
+    "ai"
+   ],
+   "relevant": [
+    "d005",
+    "d026",
+    "d031",
+    "d048",
+    "d059",
+    "d066",
+    "d067",
+    "d083",
+    "d087",
+    "d093",
+    "d119",
+    "d132",
+    "d157",
+    "d168",
+    "d183",
+    "d206",
+    "d213",
+    "d230",
+    "d234",
+    "d246",
+    "d252",
+    "d258",
+    "d288",
+    "d289",
+    "d290",
+    "d299"
+   ]
+  },
+  {
+   "id": "q21",
+   "title": "New gpt and machine learning update",
+   "body": "We are sharing something about gym, gpt and training. Here is what we learned. Feedback is very welcome.",
+   "tags": [
+    "ai"
+   ],
+   "language": "en",
+   "promotional": false,
+   "link_url": "https://example.com/post",
+   "true_topics": [
+    "fitness",
+    "ai"
+   ],
+   "relevant": [
+    "d005",
+    "d009",
+    "d015",
+    "d020",
+    "d022",
+    "d026",
+    "d031",
+    "d048",
+    "d054",
+    "d059",
+    "d066",
+    "d067",
+    "d080",
+    "d083",
+    "d087",
+    "d092",
+    "d093",
+    "d100",
+    "d119",
+    "d132",
+    "d150",
+    "d154",
+    "d157",
+    "d159",
+    "d168",
+    "d172",
+    "d177",
+    "d183",
+    "d206",
+    "d207",
+    "d209",
+    "d213",
+    "d229",
+    "d230",
+    "d234",
+    "d236",
+    "d246",
+    "d250",
+    "d252",
+    "d258",
+    "d265",
+    "d276",
+    "d281",
+    "d288",
+    "d289",
+    "d290",
+    "d299"
+   ]
+  },
+  {
+   "id": "q22",
+   "title": "New author and meals update",
+   "body": "We are sharing something about baking, writing and cooking. Here is what we learned. More details are below.",
+   "tags": [
+    "writing"
+   ],
+   "language": "en",
+   "promotional": false,
+   "link_url": null,
+   "true_topics": [
+    "cooking",
+    "writing"
+   ],
+   "relevant": [
+    "d005",
+    "d009",
+    "d013",
+    "d014",
+    "d016",
+    "d036",
+    "d046",
+    "d072",
+    "d087",
+    "d088",
+    "d100",
+    "d106",
+    "d107",
+    "d109",
+    "d113",
+    "d114",
+    "d117",
+    "d121",
+    "d124",
+    "d126",
+    "d134",
+    "d135",
+    "d139",
+    "d143",
+    "d158",
+    "d166",
+    "d174",
+    "d184",
+    "d185",
+    "d195",
+    "d231",
+    "d240",
+    "d246",
+    "d255",
+    "d256",
+    "d257",
+    "d266",
+    "d270",
+    "d276",
+    "d278",
+    "d282",
+    "d285"
+   ]
+  },
+  {
+   "id": "q23",
+   "title": "New blog and novel update",
+   "body": "We are sharing something about storytelling, novel and blog. It is free to try. More details are below.",
+   "tags": [
+    "writing"
+   ],
+   "language": "en",
+   "promotional": true,
+   "link_url": null,
+   "true_topics": [
+    "writing"
+   ],
+   "relevant": [
+    "d036",
+    "d087",
+    "d106",
+    "d107",
+    "d114",
+    "d124",
+    "d195",
+    "d246",
+    "d256",
+    "d266",
+    "d285"
+   ]
+  },
+  {
+   "id": "q24",
+   "title": "New neural and gpt update",
+   "body": "We are sharing something about neural, ai and models. Feedback is very welcome. More details are below.",
+   "tags": [],
+   "language": "en",
+   "promotional": true,
+   "link_url": "https://example.com/post",
+   "true_topics": [
+    "ai"
+   ],
+   "relevant": [
+    "d005",
+    "d026",
+    "d031",
+    "d048",
+    "d059",
+    "d066",
+    "d083",
+    "d087",
+    "d119",
+    "d157",
+    "d168",
+    "d183",
+    "d213",
+    "d230",
+    "d234",
+    "d246",
+    "d258",
+    "d288",
+    "d289",
+    "d290",
+    "d299"
+   ]
+  },
+  {
+   "id": "q25",
+   "title": "New novel and writing update",
+   "body": "We are sharing something about storytelling, author and novel. Feedback is very welcome. It is free to try.",
+   "tags": [
+    "writing"
+   ],
+   "language": "en",
+   "promotional": false,
+   "link_url": "https://example.com/post",
+   "true_topics": [
+    "writing"
+   ],
+   "relevant": [
+    "d036",
+    "d072",
+    "d087",
+    "d100",
+    "d106",
+    "d143",
+    "d195",
+    "d246",
+    "d282",
+    "d285"
+   ]
+  },
+  {
+   "id": "q26",
+   "title": "New launch and bootstrapped update",
+   "body": "We are sharing something about writer, bootstrapped and saas. More details are below. We have been working on this for a while.",
+   "tags": [],
+   "language": "en",
+   "promotional": false,
+   "link_url": null,
+   "true_topics": [
+    "startups",
+    "writing"
+   ],
+   "relevant": [
+    "d014",
+    "d036",
+    "d039",
+    "d048",
+    "d066",
+    "d072",
+    "d079",
+    "d087",
+    "d089",
+    "d100",
+    "d103",
+    "d106",
+    "d107",
+    "d110",
+    "d114",
+    "d119",
+    "d121",
+    "d124",
+    "d134",
+    "d143",
+    "d166",
+    "d170",
+    "d172",
+    "d174",
+    "d184",
+    "d188",
+    "d195",
+    "d201",
+    "d216",
+    "d217",
+    "d240",
+    "d244",
+    "d246",
+    "d256",
+    "d266",
+    "d267",
+    "d272",
+    "d278",
+    "d282",
+    "d285",
+    "d289",
+    "d296"
+   ]
+  },
+  {
+   "id": "q27",
+   "title": "New designer and coding update",
+   "body": "We are sharing something about programming, ux and figma. We have been working on this for a while. It is free to try.",
+   "tags": [],
+   "language": "de",
+   "promotional": false,
+   "link_url": null,
+   "true_topics": [
+    "design",
+    "devtools"
+   ],
+   "relevant": [
+    "d003",
+    "d008",
+    "d011",
+    "d029",
+    "d035",
+    "d061",
+    "d082",
+    "d099",
+    "d116",
+    "d165",
+    "d176",
+    "d182",
+    "d226",
+    "d238",
+    "d248",
+    "d273",
+    "d293",
+    "d298"
+   ]
+  },
+  {
+   "id": "q28",
+   "title": "New chef and recipe update",
+   "body": "We are sharing something about meals, baking and chef. It is free to try. More details are below.",
+   "tags": [
+    "cooking"
+   ],
+   "language": "de",
+   "promotional": false,
+   "link_url": null,
+   "true_topics": [
+    "cooking"
+   ],
+   "relevant": [
+    "d029",
+    "d051",
+    "d065",
+    "d084",
+    "d116",
+    "d182",
+    "d196",
+    "d268",
+    "d274",
+    "d284"
+   ]
+  },
+  {
+   "id": "q29",
+   "title": "New entrepreneur and figma update",
+   "body": "We are sharing something about ux, figma and typography. It is free to try. More details are below.",
+   "tags": [],
+   "language": "de",
+   "promotional": false,
+   "link_url": null,
+   "true_topics": [
+    "design",
+    "startups"
+   ],
+   "relevant": [
+    "d003",
+    "d024",
+    "d029",
+    "d035",
+    "d053",
+    "d061",
+    "d076",
+    "d156",
+    "d165",
+    "d176",
+    "d202",
+    "d226",
+    "d238",
+    "d242",
+    "d251",
+    "d260",
+    "d273",
+    "d293",
+    "d298"
+   ]
+  }
+ ]
+}

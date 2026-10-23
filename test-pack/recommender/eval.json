@@ -1,0 +1,253 @@
+{
+  "k": 10,
+  "queries": 30,
+  "destinations": 300,
+  "precision_at_10": {
+    "random": 0.09,
+    "relevance": 0.82,
+    "recommender": 0.967,
+    "no_synonyms": 0.943
+  },
+  "per_query": [
+    {
+      "query": "q00",
+      "relevant": 27,
+      "random": 0.1,
+      "relevance": 0.9,
+      "recommender": 1.0,
+      "no_synonyms": 1.0
+    },
+    {
+      "query": "q01",
+      "relevant": 18,
+      "random": 0.05,
+      "relevance": 0.7,
+      "recommender": 0.9,
+      "no_synonyms": 0.9
+    },
+    {
+      "query": "q02",
+      "relevant": 30,
+      "random": 0.1,
+      "relevance": 1.0,
+      "recommender": 1.0,
+      "no_synonyms": 1.0
+    },
+    {
+      "query": "q03",
+      "relevant": 18,
+      "random": 0.06,
+      "relevance": 0.7,
+      "recommender": 1.0,
+      "no_synonyms": 1.0
+    },
+    {
+      "query": "q04",
+      "relevant": 30,
+      "random": 0.1,
+      "relevance": 1.0,
+      "recommender": 1.0,
+      "no_synonyms": 1.0
+    },
+    {
+      "query": "q05",
+      "relevant": 24,
+      "random": 0.08,
+      "relevance": 0.9,
+      "recommender": 1.0,
+      "no_synonyms": 1.0
+    },
+    {
+      "query": "q06",
+      "relevant": 17,
+      "random": 0.06,
+      "relevance": 1.0,
+      "recommender": 0.9,
+      "no_synonyms": 0.9
+    },
+    {
+      "query": "q07",
+      "relevant": 22,
+      "random": 0.08,
+      "relevance": 1.0,
+      "recommender": 1.0,
+      "no_synonyms": 1.0
+    },
+    {
+      "query": "q08",
+      "relevant": 22,
+      "random": 0.08,
+      "relevance": 0.9,
+      "recommender": 1.0,
+      "no_synonyms": 1.0
+    },
+    {
+      "query": "q09",
+      "relevant": 19,
+      "random": 0.07,
+      "relevance": 0.4,
+      "recommender": 1.0,
+      "no_synonyms": 1.0
+    },
+    {
+      "query": "q10",
+      "relevant": 25,
+      "random": 0.08,
+      "relevance": 0.9,
+      "recommender": 0.9,
+      "no_synonyms": 0.9
+    },
+    {
+      "query": "q11",
+      "relevant": 31,
+      "random": 0.11,
+      "relevance": 0.9,
+      "recommender": 1.0,
+      "no_synonyms": 0.9
+    },
+    {
+      "query": "q12",
+      "relevant": 17,
+      "random": 0.06,
+      "relevance": 0.9,
+      "recommender": 0.8,
+      "no_synonyms": 0.8
+    },
+    {
+      "query": "q13",
+      "relevant": 40,
+      "random": 0.14,
+      "relevance": 0.8,
+      "recommender": 1.0,
+      "no_synonyms": 0.9
+    },
+    {
+      "query": "q14",
+      "relevant": 24,
+      "random": 0.09,
+      "relevance": 1.0,
+      "recommender": 0.9,
+      "no_synonyms": 1.0
+    },
+    {
+      "query": "q15",
+      "relevant": 33,
+      "random": 0.11,
+      "relevance": 0.8,
+      "recommender": 1.0,
+      "no_synonyms": 1.0
+    },
+    {
+      "query": "q16",
+      "relevant": 17,
+      "random": 0.05,
+      "relevance": 0.7,
+      "recommender": 1.0,
+      "no_synonyms": 1.0
+    },
+    {
+      "query": "q17",
+      "relevant": 26,
+      "random": 0.1,
+      "relevance": 1.0,
+      "recommender": 1.0,
+      "no_synonyms": 1.0
+    },
+    {
+      "query": "q18",
+      "relevant": 31,
+      "random": 0.1,
+      "relevance": 0.7,
+      "recommender": 1.0,
+      "no_synonyms": 0.9
+    },
+    {
+      "query": "q19",
+      "relevant": 61,
+      "random": 0.21,
+      "relevance": 0.7,
+      "recommender": 1.0,
+      "no_synonyms": 1.0
+    },
+    {
+      "query": "q20",
+      "relevant": 26,
+      "random": 0.08,
+      "relevance": 1.0,
+      "recommender": 1.0,
+      "no_synonyms": 1.0
+    },
+    {
+      "query": "q21",
+      "relevant": 47,
+      "random": 0.17,
+      "relevance": 1.0,
+      "recommender": 1.0,
+      "no_synonyms": 1.0
+    },
+    {
+      "query": "q22",
+      "relevant": 42,
+      "random": 0.15,
+      "relevance": 0.8,
+      "recommender": 1.0,
+      "no_synonyms": 1.0
+    },
+    {
+      "query": "q23",
+      "relevant": 11,
+      "random": 0.04,
+      "relevance": 0.8,
+      "recommender": 0.9,
+      "no_synonyms": 0.8
+    },
+    {
+      "query": "q24",
+      "relevant": 21,
+      "random": 0.06,
+      "relevance": 1.0,
+      "recommender": 1.0,
+      "no_synonyms": 1.0
+    },
+    {
+      "query": "q25",
+      "relevant": 10,
+      "random": 0.04,
+      "relevance": 0.6,
+      "recommender": 0.8,
+      "no_synonyms": 0.8
+    },
+    {
+      "query": "q26",
+      "relevant": 42,
+      "random": 0.15,
+      "relevance": 0.9,
+      "recommender": 1.0,
+      "no_synonyms": 1.0
+    },
+    {
+      "query": "q27",
+      "relevant": 18,
+      "random": 0.07,
+      "relevance": 0.8,
+      "recommender": 1.0,
+      "no_synonyms": 1.0
+    },
+    {
+      "query": "q28",
+      "relevant": 10,
+      "random": 0.04,
+      "relevance": 0.3,
+      "recommender": 0.9,
+      "no_synonyms": 0.9
+    },
+    {
+      "query": "q29",
+      "relevant": 19,
+      "random": 0.07,
+      "relevance": 0.5,
+      "recommender": 1.0,
+      "no_synonyms": 0.6
+    }
+  ]
+}

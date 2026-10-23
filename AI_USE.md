@@ -41,6 +41,8 @@ No other AI coding tools were used.
 | Certification harness, evidence storage (local and S3), credentials lookup, output manifest | `app/certification.py`, `app/certify_service.py`, `app/evidence.py`, `app/credentials.py`, `app/output_manifest.py` |
 | Batch runner (command line) | `app/cli.py` |
 | Three more connectors: MRSS feed (with the feed host), Hashnode, Kit | `app/connectors/feed.py`, `app/feeds.py`, `app/api/feed_routes.py`, `app/connectors/hashnode.py`, `app/connectors/kit.py`, their manifests |
+| Recommender, its labelled test set and evaluation | `app/recommender.py`, `scripts/make_labelled_set.py`, `scripts/eval_recommender.py`, `samples/recommender/labelled_set.json` |
+| Recertification scheduler with auto-demotion | `app/recertify.py`, `app/api/recert_routes.py`, `scripts/demo_recertification.py` |
 | AI rules capture (proposal, verification, human confirmation) and its API | `app/rules_capture.py`, `app/api/rules_routes.py` |
 | Tailoring and relevance score, with their API | `app/tailoring.py`, `app/relevance.py`, `app/api/advice_routes.py` |
 | CSV import (validate, de-duplicate, reachability, enrichment, report) and its job and routes | `app/csv_import.py`, `app/import_service.py`, `app/api/import_routes.py`, `scripts/make_sample_csv.py`, `scripts/import_demo.py`, `samples/catalogue/` |
@@ -78,6 +80,10 @@ No other AI coding tools were used.
 - The AI's first word-boundary truncation kept a rough 40% of the text before backing up to a space, which cut "quick" to "quic" at one limit. A test caught it; the rule is now: always cut at a word, except inside one single enormous word.
 
 - Email sends real messages to real people, so the AI chose to make the Kit connector draft-only (a scheduled send is possible only when a destination asks for it; sending immediately is refused), and certification treats "draft" as the expected state for it.
+
+- The AI wrote both the recommender's synonym table and the labelled test set, so they share a vocabulary. To show how much that matters it measured the recommender with the synonym table switched off (94.3% against 96.7%), and the evaluation report carries a caution that the figures are optimistic and the set is synthetic.
+- Without a real research source the AI did not invent the "150 real destinations"; that item is left undone and reported as such.
+- A demotion initially only changed a label. The AI made it bite: a demoted destination is refused at publish time and left out of recommendations.
 
 ## Manual work
 

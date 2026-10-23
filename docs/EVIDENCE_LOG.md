@@ -4,7 +4,7 @@
 > submission."* So: only tick **Yes** when the proof exists and I have seen it work.
 > **Status key:** Done = done and proven; Partial = partly done; Not started; Unverified = written but not yet proven
 
-Last updated: 2026-10-22. Unit and integration tests: **291 passing** (`python -m pytest`, run from this folder, no keys needed). Live tests against the real local Lemmy and Ghost: **18 passing** (opt-in, see `tests/live/`).
+Last updated: 2026-10-22. Unit and integration tests: **317 passing** (`python -m pytest`, run from this folder, no keys needed). Live tests against the real local Lemmy and Ghost: **18 passing** (opt-in, see `tests/live/`).
 
 ## Must-haves (all 9 must pass)
 
@@ -49,8 +49,11 @@ errors mapped for expired token / rate limit / rejected content **Done** (every 
 
 **Advanced demo against the running service:** `python -m scripts.demo_advanced` -> `test-pack/advanced-demos/transcript.md` (tailoring, relevance with explanations, rules capture with quotes, human confirmation, a second confirmation refused).
 
-**Outstanding (stretch):** recommender with top-10 precision on my labelled set · `fetch_metrics` on ≥3 connectors
-(**done**: Lemmy, Discourse, Dev.to) · recertification scheduler with auto-demotion (demotion on a failed run is done; the scheduler is not) · ≥150 real destinations researched
+**Outstanding (stretch):**
+- [x] Recommender with measured top-10 precision: `app/recommender.py`, `POST /api/v1/recommend`, `scripts/eval_recommender.py`, labelled set `samples/recommender/labelled_set.json`, results `test-pack/recommender/eval.md`. **precision@10: recommender 96.7%, plain relevance score 82.0%, random 9.0%; without the synonym table 94.3%.** The set is SYNTHETIC (300 generated destinations, 30 generated posts, hidden true topics, messy surface text) and the synonym table and the set were written by the same author, so the figure is optimistic and says nothing certain about real communities. `tests/test_recommender.py`
+- [x] `fetch_metrics` on 5 connectors: Lemmy, Discourse, Dev.to, Hashnode, Kit (tests in `tests/test_discourse_devto_connectors.py`, `tests/test_new_connectors.py`, `tests/test_lemmy_connector.py`)
+- [x] Recertification scheduler with auto-demotion: `app/recertify.py`, `app/api/recert_routes.py`, `tests/test_recertify.py` (13 tests, fake clock). Certified destinations are rechecked after 7 days, demoted ones after a 1-day cooldown (a pass promotes them back), needs_attention after 1 hour; uncertified ones never automatically. A demotion blocks publishing (`DEST_SPEC_VIOLATION`, rule `destination_demoted`) and removes the destination from recommendations. Off by default (`RECERT_INTERVAL_S=0`); run by hand with `POST /api/v1/recertify`. Live demo: `python -m scripts.demo_recertification` -> `test-pack/recertification/transcript.md`
+- [ ] 150 real destinations researched: **not done**. It needs real research (addresses, rules, language of each community) that cannot be checked from here, and inventing entries would be worse than leaving it out. The CSV importer and `samples/catalogue/` are ready to take such a list
 
 ## Hard cases (tab `6_Hard_cases`) — each needs a test and a saved output
 

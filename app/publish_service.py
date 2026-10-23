@@ -18,6 +18,7 @@ from sqlalchemy.engine import Engine
 
 from app.connectors.base import BaseConnector
 from app.connectors.registry import ConnectorRegistry
+from app.catalogue import slugify
 from app.db import post_log
 from app.errors import ErrorCode, IncuBrixError
 from app.idempotency import IdempotencyStore, request_hash
@@ -46,7 +47,8 @@ class PostLog:
 
 
 class PublishService:
-    def __init__(self, registry: ConnectorRegistry, store: IdempotencyStore, posts: PostLog, clock: Callable[[], float] = time.time) -> None:
+    def __init__(self, registry: ConnectorRegistry, store: IdempotencyStore, posts: PostLog, clock: Callable[[], float] = time.time, catalogue: Any = None) -> None:
+        self.catalogue = catalogue  # optional: lets a demotion stop publishing to a destination
         self.registry = registry
         self.store = store
         self.posts = posts
@@ -84,6 +86,7 @@ class PublishService:
 
     # ---------- steps ----------
     def _enforce_rules(self, connector: BaseConnector, req: PublishRequest) -> None:
+        self._refuse_if_demoted(req)
         dest_id = destination_id(req.destination)
         decision = check_rules(
             req.rendition,
@@ -100,6 +103,18 @@ class PublishService:
             details["retry_after_s"] = max(0.0, decision.reschedule_at - self.clock())
             raise IncuBrixError(ErrorCode.DEST_RULE_FREQUENCY_CAP, "post rescheduled: frequency cap reached", details)
         raise IncuBrixError(ErrorCode.DEST_SPEC_VIOLATION, "post blocked by destination rules", details)
+
+    def _refuse_if_demoted(self, req: PublishRequest) -> None:
+        """Recertification demoted this destination: its platform changed under us, so nothing is sent until a later check passes."""
+        if self.catalogue is None:
+            return
+        try:
+            row = self.catalogue.get(slugify(req.destination.name))
+        except IncuBrixError:
+            return  # not a catalogue destination (ad-hoc call): nothing to check
+        if row["status"] == "demoted":
+            raise IncuBrixError(ErrorCode.DEST_SPEC_VIOLATION, "post blocked: this destination is demoted until it passes certification again",
+                                {"violations": [{"rule": "destination_demoted", "reason": row["status_reason"] or "failed its last certification"}]})
 
     def _execute(self, connector: BaseConnector, connector_key: str, req: PublishRequest, scope: str, key: str) -> dict[str, Any]:
         try:

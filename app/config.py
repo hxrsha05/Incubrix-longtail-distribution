@@ -42,6 +42,12 @@ class Settings(BaseSettings):
     feed_token: SecretStr = SecretStr("local-dev-feed-token")  # lets a client add and remove feed items; the feed itself is public
     feed_max_items: int = 50
 
+    recert_interval_s: float = 0  # 0 = the scheduler is off (run it by hand: POST /api/v1/recertify); e.g. 3600 = look for due destinations hourly
+    recert_max_age_s: float = 7 * 86400
+    recert_demoted_cooldown_s: float = 86400
+    recert_attention_retry_s: float = 3600
+    recert_batch_limit: int = 25
+
     callback_hmac_secret: SecretStr = SecretStr("change-me")
     test_post_ttl_seconds: int = 600
 

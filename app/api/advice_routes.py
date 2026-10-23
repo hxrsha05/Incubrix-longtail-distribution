@@ -8,6 +8,7 @@ from pydantic import BaseModel, Field
 
 from app.errors import ErrorCode, IncuBrixError
 from app.models import Rendition
+from app.recommender import Recommendation, recommend
 from app.relevance import rank
 from app.tailoring import TailoredResult, tailor
 
@@ -47,3 +48,18 @@ def relevance(body: RelevanceRequest, request: Request) -> dict[str, Any]:
     if not rows:
         raise IncuBrixError(ErrorCode.NOT_FOUND, "no destinations to score")
     return {"items": [r.model_dump() for r in rank(body.rendition, rows, body.top)], "scored": len(rows)}
+
+
+class RecommendRequest(BaseModel):
+    rendition: Rendition
+    top: int = Field(default=10, ge=1, le=100)
+    status: str | None = None  # e.g. "certified" to suggest only proven destinations
+    connector_key: str | None = None
+
+
+@router.post("/recommend")
+def recommend_destinations(body: RecommendRequest, request: Request) -> dict[str, Any]:
+    """Which destinations should this content go to? Best first; destinations that would refuse it are left out."""
+    rows = request.app.state.catalogue.list(connector_key=body.connector_key, status=body.status, limit=5000)["items"]
+    items: list[Recommendation] = recommend(body.rendition, rows, body.top)
+    return {"items": [i.model_dump() for i in items], "considered": len(rows)}

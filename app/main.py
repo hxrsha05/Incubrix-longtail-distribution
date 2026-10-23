@@ -18,11 +18,13 @@ from app.api.catalogue_routes import router as catalogue_router
 from app.api.connector_routes import router as connector_router
 from app.api.feed_routes import router as feed_router
 from app.api.import_routes import router as import_router
+from app.api.recert_routes import router as recert_router
 from app.api.rules_routes import router as rules_router
 from app.api.job_routes import router as job_router
 from app.catalogue import Catalogue
 from app.csv_import import Importer
 from app.import_service import register_import_job
+from app.recertify import RecertScheduler, Recertifier
 from app.rules_capture import AnthropicExtractor, MockExtractor, RulesCapture
 from app.certify_service import CertificationService, register_certification_jobs
 from app.config import get_settings
@@ -61,7 +63,8 @@ def create_app(
     store = IdempotencyStore(engine, settings.idempotency_pending_timeout_s, clock)
     app.state.engine = engine
     app.state.registry = registry or build_registry(http, settings.disabled_connector_set)
-    app.state.publish_service = PublishService(app.state.registry, store, PostLog(engine), clock)
+    app.state.catalogue = Catalogue(engine, clock)
+    app.state.publish_service = PublishService(app.state.registry, store, PostLog(engine), clock, app.state.catalogue)
     app.state.jobs = JobService(
         engine, store, callback_http or http,
         callback_secret=settings.callback_hmac_secret.get_secret_value(),
@@ -73,7 +76,6 @@ def create_app(
 
     s3 = make_s3_client(settings.s3_endpoint_url, settings.s3_access_key.get_secret_value(), settings.s3_secret_key.get_secret_value()) if settings.s3_enabled else None
     app.state.idempotency_store = store
-    app.state.catalogue = Catalogue(engine, clock)
     app.state.feeds = FeedStore(engine, settings.feed_max_items, clock)
     app.state.feed_token = settings.feed_token.get_secret_value()
     app.state.service_base_url = settings.service_base_url
@@ -99,6 +101,12 @@ def create_app(
         extractor = MockExtractor()
     app.state.rules_capture = RulesCapture(engine, app.state.catalogue, extractor, http, allow_private_hosts=settings.import_allow_private_hosts, clock=clock)
     register_certification_jobs(app.state.jobs, app.state.certification, app.state.catalogue)
+    app.state.recertifier = Recertifier(app.state.catalogue, app.state.certification, max_age_s=settings.recert_max_age_s, demoted_cooldown_s=settings.recert_demoted_cooldown_s,
+                                        attention_retry_s=settings.recert_attention_retry_s, batch_limit=settings.recert_batch_limit, clock=clock)
+    app.state.jobs.register("recertify", lambda ctx, params: app.state.recertifier.run_once(dry_run=bool(params.get("dry_run", False)), force=bool(params.get("force", False))))
+    app.state.scheduler = RecertScheduler(app.state.recertifier, settings.recert_interval_s)
+    app.add_event_handler("startup", app.state.scheduler.start)
+    app.add_event_handler("shutdown", app.state.scheduler.stop)
 
     @app.middleware("http")
     async def correlation_middleware(request: Request, call_next):
@@ -153,6 +161,7 @@ def create_app(
     app.include_router(connector_router)  # POST /connector/v1/{connector_key}/{method}
     app.include_router(catalogue_router)  # /api/v1/destinations, /api/v1/evidence
     app.include_router(advice_router)  # POST /api/v1/tailor, /api/v1/relevance
+    app.include_router(recert_router)  # POST /api/v1/recertify, GET /api/v1/recertification
     app.include_router(rules_router)  # AI rules capture: propose, review, confirm
     app.include_router(feed_router)  # GET /feeds/{id}.xml (public), /api/v1/feeds/... (token)
     app.include_router(import_router)  # POST /api/v1/imports, /api/v1/import-files

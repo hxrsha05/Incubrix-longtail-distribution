@@ -89,6 +89,12 @@ class Catalogue:
         else:
             self._set_status(dest_id, "needs_attention", record.get("failure", {}).get("summary", "certification inconclusive"))
 
+    def last_attempts(self) -> dict[str, float]:
+        """destination id -> time of its most recent certification attempt (any verdict)."""
+        with self.engine.begin() as conn:
+            rows = conn.execute(select(certification_runs.c.destination_id, func.max(certification_runs.c.started_at)).group_by(certification_runs.c.destination_id)).all()
+        return {r[0]: r[1] for r in rows}
+
     def runs(self, dest_id: str, limit: int = 20) -> list[dict[str, Any]]:
         self.get(dest_id)
         with self.engine.begin() as conn:

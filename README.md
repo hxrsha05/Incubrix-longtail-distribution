@@ -66,6 +66,12 @@ A batch input file:
 `{"destination_id": "mock-discourse-forum", "rendition": {"title": "...", "body": "..."}}`. Results: one `<name>.result.json`
 per input plus `summary.json`; each result has an output manifest (versions, settings, timings, cost, warnings, licences, AI-generated label).
 
+## Recommender and recertification
+
+`POST /api/v1/recommend` suggests the best destinations for a piece of content (rare words weigh more, endings and obvious synonyms are folded together, destinations that would refuse the content or that are demoted are left out); each suggestion carries a 1 to 5 score and the reason. Quality is measured, not claimed: `python -m scripts.eval_recommender` reports precision@10 on a labelled set (`test-pack/recommender/eval.md`; the set is synthetic, read its caveats).
+
+Destinations are re-checked on a schedule (`RECERT_INTERVAL_S`, off by default; or `POST /api/v1/recertify`, `GET /api/v1/recertification`). A failed re-check **demotes** a destination: publishing to it is refused and it is not recommended until a later check passes. Uncertified destinations are never re-checked automatically, because certification publishes a test post.
+
 ## The nine connectors
 
 | Connector | What it posts to | Notes |
@@ -127,6 +133,8 @@ credentials come from the seed file (`CONNECTIONS_FILE`) and take priority. No r
 | RULES_EXTRACTOR, ANTHROPIC_API_KEY, RULES_MODEL | mock, -, claude-haiku-5-5 | who reads rules pages: the offline mock, or Claude |
 | RULES_PRICE_PER_MTOK_IN / _OUT | 0 | prices used to estimate the cost in the output manifest |
 | SERVICE_BASE_URL, FEED_TOKEN, FEED_MAX_ITEMS | http://localhost:8000, local-dev-feed-token, 50 | this service's own address (used in feed links), the token that lets a client write to feeds, items kept per feed |
+| RECERT_INTERVAL_S | 0 (off) | seconds between automatic recertification runs |
+| RECERT_MAX_AGE_S, RECERT_DEMOTED_COOLDOWN_S, RECERT_ATTENTION_RETRY_S, RECERT_BATCH_LIMIT | 7 days, 1 day, 1 hour, 25 | when a destination is due, and how many are checked per run |
 | DISABLED_CONNECTORS | - | kill switch: those connectors answer CONNECTOR_DISABLED |
 
 ## Error codes

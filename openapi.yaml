@@ -187,6 +187,30 @@ components:
       - url
       title: Media
       type: object
+    RecommendRequest:
+      properties:
+        connector_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Connector Key
+        rendition:
+          $ref: '#/components/schemas/Rendition'
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        top:
+          default: 10
+          maximum: 100.0
+          minimum: 1.0
+          title: Top
+          type: integer
+      required:
+      - rendition
+      title: RecommendRequest
+      type: object
     RejectRequest:
       properties:
         note:
@@ -897,6 +921,90 @@ paths:
               schema: {}
           description: Successful Response
       summary: Ready Check
+  /api/v1/recertification:
+    get:
+      description: The schedule, what is due right now, and the summary of the last
+        run.
+      operationId: recertification_status_api_v1_recertification_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                title: Response Recertification Status Api V1 Recertification Get
+                type: object
+          description: Successful Response
+      summary: Recertification Status
+  /api/v1/recertify:
+    post:
+      description: Start a recertification run as a background job (dry_run=true only
+        lists what would be checked; force=true ignores ages and cooldowns, never
+        includes uncertified).
+      operationId: recertify_now_api_v1_recertify_post
+      parameters:
+      - in: query
+        name: dry_run
+        required: false
+        schema:
+          default: false
+          title: Dry Run
+          type: boolean
+      - in: query
+        name: force
+        required: false
+        schema:
+          default: false
+          title: Force
+          type: boolean
+      - in: header
+        name: idempotency-key
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Idempotency-Key
+      responses:
+        '202':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Recertify Now
+  /api/v1/recommend:
+    post:
+      description: Which destinations should this content go to? Best first; destinations
+        that would refuse it are left out.
+      operationId: recommend_destinations_api_v1_recommend_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecommendRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                title: Response Recommend Destinations Api V1 Recommend Post
+                type: object
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Recommend Destinations
   /api/v1/relevance:
     post:
       description: Score 1-5 with an explanation for each destination, best first.
