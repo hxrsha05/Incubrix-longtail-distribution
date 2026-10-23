@@ -162,3 +162,9 @@ Run against the rebuilt docker compose stack (API image rebuilt from the final c
 - `scripts.import_demo`: 1,000 rows in 18.3 s (762 accepted, 108 duplicates, 60 invalid, 70 unreachable).
 - `scripts.measure_reliability --local http://localhost:8000` -> `test-pack/reliability/report.md`: 200 of 200 simulated publishes, 0 duplicates in 120 retry cases, 20 of 20 429 answers carried the reset time, and 20 of 20 full certification cycles passed on each of the real local Lemmy (mean 0.21 s) and Ghost (mean 0.08 s).
 - `python -m pytest`: 442 passed, 18 skipped (live-instance tests); secret scan clean.
+
+### Fresh-clone test (23 Oct 2026, final safety check, must-have 8)
+Followed the README exactly on a clean clone of the repository, with all containers and volumes removed first: `copy .env.example .env`, `docker compose up -d --build` (15 s with cached images; the seed step created the Lemmy community and the Ghost account by itself), `python -m scripts.seed_catalogue`.
+- First attempt found a real bug: the service read the credentials file once at start, before the seed step had written it, so the Lemmy and Ghost destinations answered `CONNECTION_AUTH_EXPIRED` until a restart (batch run: 2 published and 2 failed; certification: 2 inconclusive). Fixed in `app/credentials.py` (the file is re-read when it appears or changes), test `tests/test_credentials.py`.
+- Second attempt, from a new clean clone: batch run 3 published, 1 blocked by rules, 1 failed cleanly; `app.cli certify`: 9 passed, 0 failed, 0 inconclusive (including the real local Lemmy and Ghost); `python -m pytest` on the clone: 444 passed, 18 skipped.
+- The same session found and fixed a flaky test: two feed items added in one clock tick tied on their timestamp (`app/feeds.py` now stamps items strictly increasing).
