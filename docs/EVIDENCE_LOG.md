@@ -94,7 +94,7 @@ errors mapped for expired token / rate limit / rejected content **Done** (every 
 
 ## Manual captures still wanted (screenshots the AI cannot take)
 
-- [ ] Lemmy UI showing the batch-runner post "Batch runner test post" in community incubrix_test (http://localhost:1234)
+- [x] Lemmy UI showing the batch-runner post: `evidence/manual-demos/lemmy/01-batch-runner-post-live.png`
 - [ ] The certification summary text opened from a presigned S3 link in the browser (link is in the `certify_batch` job result)
 - [ ] Terminal with `python -m pytest` finishing green
 - [ ] Terminal with `python -m scripts.demo_failures` output

@@ -24,3 +24,9 @@ API log of the cleanup (local time):
 
 The same request sent twice with the same idempotency key produced one post: the second answer was identical and carried
 the header `Idempotent-Replayed: true`.
+
+## Lemmy: post made by the batch runner
+
+| File | What it shows |
+|---|---|
+| `lemmy/01-batch-runner-post-live.png` | The post "Batch runner test post" in the community `incubrix_test` on the local Lemmy (http://localhost:1234), published by the service's account through `python -m app.cli run --input samples/inputs --output test-pack/batch-run`. The matching record is `test-pack/batch-run/03-lemmy-ok.result.json` (it holds the Lemmy post id and the live URL). |
