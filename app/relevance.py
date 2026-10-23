@@ -5,7 +5,7 @@ It is a transparent rule-based score (no model, no cost, same answer every time)
   language  same language as the destination                                                             0 to 1 point
   fit       the content is allowed there: promotion vs the no-promo rule, and the platform accepts the type 0 to 1 point (or a veto)
   health    the destination has passed certification                                                      0 to 0.5 point
-A destination that would refuse the content outright (for example promotion to a no-promo community) is capped at 1,
+A destination with no topical overlap at all is capped at 2. A destination that would refuse the content outright (for example promotion to a no-promo community) is capped at 1,
 whatever the topic says. The explanation names the signals so a person can see why.
 """
 from __future__ import annotations
@@ -56,6 +56,8 @@ def score_destination(rendition: Rendition, row: dict[str, Any]) -> Relevance:
 
     total = topic_points + language_points + fit_points + health_points  # 0 to 5.5
     score = max(1, min(5, int(total + 0.5)))  # round to the nearest whole point, 1 to 5
+    if topic_points == 0:
+        score = min(score, 2)  # being in the right language and healthy is not relevance: no shared topic, never above 2
     if vetoes:
         score = 1
     parts = []

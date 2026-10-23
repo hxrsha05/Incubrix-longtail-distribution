@@ -1,0 +1,11 @@
+Certification run ebf5621b42dc
+destination: local-lemmy-incubrix-test  connector: lemmy
+verdict: PASSED   duration: 0.499 s
+  [ok] validate (0.0 s)
+  [ok] publish (0.279 s)
+  [ok] confirm_live (0.0 s)
+  [ok] status (0.056 s)
+  [ok] metrics (0.056 s)
+  [ok] delete (0.052 s)
+  [ok] confirm_deleted (0.056 s)
+test post: id=42 url=http://lemmy:8536/post/42 deleted=True after 0.164 s (limit 600 s)

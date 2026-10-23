@@ -1,0 +1,27 @@
+{
+  "changes": [
+    "tags cleaned to lower-case letters and digits, duplicates removed",
+    "tags limited to 4 (dropped 1)",
+    "canonical URL set to the original link",
+    "title shortened at a word boundary: 192 -> 128 characters (limit 128)"
+  ],
+  "rendition": {
+    "ai_disclosure": null,
+    "ai_generated": true,
+    "body": "We just released our open-source editor. Thanks @alice! See https://example.com/launch and https://example.com/docs for details.",
+    "canonical_url": "https://example.com/launch",
+    "content_type": "text",
+    "language": "en",
+    "link_url": "https://example.com/launch",
+    "media": [],
+    "promotional": false,
+    "tags": [
+      "ai",
+      "videotools",
+      "indie",
+      "opensource"
+    ],
+    "title": "Ten practical ways to make your short videos easier to find and share on every platform you use Ten practical ways to make your\u2026"
+  },
+  "warnings": []
+}

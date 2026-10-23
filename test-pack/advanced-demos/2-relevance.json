@@ -1,0 +1,74 @@
+{
+  "items": [
+    {
+      "destination_id": "incubrix-mrss-feed-videos",
+      "explanation": "4/5: shared topics: video; same language; certified.",
+      "score": 4,
+      "signals": {
+        "fit_points": 1.0,
+        "health_points": 0.5,
+        "language_points": 1.0,
+        "shared_words": [
+          "video"
+        ],
+        "topic_points": 1.0,
+        "vetoes": []
+      }
+    },
+    {
+      "destination_id": "local-lemmy-incubrix-test",
+      "explanation": "4/5: shared topics: video; same language; certified.",
+      "score": 4,
+      "signals": {
+        "fit_points": 1.0,
+        "health_points": 0.5,
+        "language_points": 1.0,
+        "shared_words": [
+          "video"
+        ],
+        "topic_points": 1.0,
+        "vetoes": []
+      }
+    },
+    {
+      "destination_id": "hand-posted-forum-assisted",
+      "explanation": "2/5: no shared topics; same language; certified.",
+      "score": 2,
+      "signals": {
+        "fit_points": 1.0,
+        "health_points": 0.5,
+        "language_points": 1.0,
+        "shared_words": [],
+        "topic_points": 0.0,
+        "vetoes": []
+      }
+    },
+    {
+      "destination_id": "local-ghost-blog",
+      "explanation": "2/5: no shared topics; same language; certified.",
+      "score": 2,
+      "signals": {
+        "fit_points": 1.0,
+        "health_points": 0.5,
+        "language_points": 1.0,
+        "shared_words": [],
+        "topic_points": 0.0,
+        "vetoes": []
+      }
+    },
+    {
+      "destination_id": "mock-dev-to-account",
+      "explanation": "2/5: no shared topics; same language; certified.",
+      "score": 2,
+      "signals": {
+        "fit_points": 1.0,
+        "health_points": 0.5,
+        "language_points": 1.0,
+        "shared_words": [],
+        "topic_points": 0.0,
+        "vetoes": []
+      }
+    }
+  ],
+  "scored": 9
+}

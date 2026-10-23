@@ -11,7 +11,7 @@ Last updated: 2026-10-22. Unit and integration tests: **291 passing** (`python -
 | # | Must-have | Status | Evidence now | Still missing |
 |---|---|---|---|---|
 | 1 | Exact connector contract | Done | `app/connectors/base.py`, `app/api/connector_routes.py`, `tests/test_connector_framework.py`, `tests/test_contract.py` (all 7 methods on all 6 connectors through the HTTP door), `openapi.yaml` + `tests/test_openapi.py` | — |
-| 2 | Six Core connectors certified | Done | Real certification runs of Lemmy and Ghost (real local instances) and Discourse, Dev.to, signed webhook, assisted (mock platforms): `evidence/certification/*/run-*.txt|json`, produced by `certify_batch` through the running service (6 of 6 passed). Unit tests per connector in `tests/`, live tests in `tests/live/` | Screenshots of a live Lemmy post and a Ghost post (manual, see below); Discourse and Dev.to are verified against a mock, not the real platforms (stated honestly in the form) |
+| 2 | Six Core connectors certified | Done (nine connectors) | Real certification runs of Lemmy and Ghost (real local instances) and Discourse, Dev.to, signed webhook, assisted (mock platforms): `evidence/certification/*/run-*.txt|json`, produced by `certify_batch` through the running service (6 of 6 passed). Unit tests per connector in `tests/`, live tests in `tests/live/` | Screenshots of a live Lemmy post and a Ghost post (manual, see below); Discourse and Dev.to are verified against a mock, not the real platforms (stated honestly in the form) |
 | 3 | Configuration, not code | Done | Catalogue API (`app/api/catalogue_routes.py`, `tests/test_certification.py::test_catalogue_api_...`): a new destination is one POST; per-destination spec override test | Live "add an instance" demo in the video |
 | 4 | Rules checked before every post | Done | `tests/test_rules.py`, `tests/test_idempotency.py`; batch runner shows a blocked promo post: `test-pack/batch-run/04-blocked-no-promo.result.json` | Rule test set for the "caught vs missed" metric |
 | 5 | Never spam, never cheat | Done | 429 + reset time (`test-pack/failure-demos/2-rate-limit.json`), certification waits out a 429 with a cap, stops after 3 consecutive failures on a connector, test posts deleted (also on failure, within 10 minutes: `tests/test_certification.py`), own local instances only | Written proof from logs for the form |
@@ -47,6 +47,8 @@ errors mapped for expired token / rate limit / rejected content **Done** (every 
 - [x] Tailoring: `app/tailoring.py`, `POST /api/v1/tailor`, `tests/test_tailoring.py` (26 tests): word-boundary truncation, link policy, mention style, tag style or hashtags, canonical URL, AI disclosure never cut, language warning; a test proves the tailored output passes every connector's own validate()
 - [x] Three more connectors: **MRSS feed** (`app/connectors/feed.py`, `app/feeds.py`, `app/api/feed_routes.py`: a real feed host, valid Media RSS), **Hashnode** (`app/connectors/hashnode.py`, GraphQL, errors read from the body) and **Kit** (`app/connectors/kit.py`, API v4 broadcasts, drafts only so it can never email subscribers). Tests: `tests/test_new_connectors.py` (19), contract and certification tests cover them too. Hashnode and Kit are built against the documented APIs and a mock, **not verified against real accounts**; the feed is verified end to end because we host it
 
+**Advanced demo against the running service:** `python -m scripts.demo_advanced` -> `test-pack/advanced-demos/transcript.md` (tailoring, relevance with explanations, rules capture with quotes, human confirmation, a second confirmation refused).
+
 **Outstanding (stretch):** recommender with top-10 precision on my labelled set · `fetch_metrics` on ≥3 connectors
 (**done**: Lemmy, Discourse, Dev.to) · recertification scheduler with auto-demotion (demotion on a failed run is done; the scheduler is not) · ≥150 real destinations researched
 
@@ -70,7 +72,7 @@ errors mapped for expired token / rate limit / rejected content **Done** (every 
 
 ## Metrics to measure (tab `5_Metrics`)
 
-- [x] Certification: 6 destinations certified in one batch (Lemmy 0.6 s, Ghost 1.5 s, others under 0.05 s); evidence links in `evidence/certification/`
+- [x] Certification: 9 destinations (9 connectors) certified in one `certify_batch` through the running service, 9 passed, 0 failed (Lemmy 0.5 s, Ghost 0.3 s, others under 0.03 s); evidence links in `evidence/certification/`
 - [ ] Reliability: publish success rate (simulation + local); **duplicates under retry = 0** (shown once live; measure over many runs)
 - [ ] Rule safety: violations caught vs missed on a rule test set (any miss is serious)
 - [x] Catalogue (Advanced): 1,000 rows -> 762 accepted, 108 duplicates, 60 invalid, 70 unreachable, in 19 s (53 rows/s, 32 workers, cost 0)

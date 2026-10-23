@@ -1,0 +1,137 @@
+{
+  "connector_key": "hashnode",
+  "destination_id": "mock-hashnode-blog",
+  "duration_s": 0.006,
+  "finished_at": 1792745246.9242258,
+  "manifest": {
+    "ai_generated": {
+      "label": "no AI-generated content in this result",
+      "present": false
+    },
+    "cost": {
+      "model_calls": 0,
+      "note": "no paid API or model is called by certification",
+      "usd": 0.0
+    },
+    "kind": "certification",
+    "licences": [
+      {
+        "component": "IncuBrix Distribution service (this repo)",
+        "licence": "own code",
+        "reference": "SOURCES.md"
+      },
+      {
+        "component": "FastAPI, Pydantic, SQLAlchemy, httpx",
+        "licence": "MIT / BSD (see SOURCES.md)",
+        "reference": "SOURCES.md"
+      }
+    ],
+    "settings": {
+      "rate_limit_wait_cap_s": 30.0,
+      "simulation_mode": true,
+      "test_post_ttl_s": 600
+    },
+    "timings": {
+      "duration_s": 0.006,
+      "finished_at": 1792745246.9242258,
+      "started_at": 1792745246.917738
+    },
+    "versions": {
+      "connector": "1.0.0",
+      "python": "3.12.15",
+      "service": "0.1.0"
+    },
+    "warnings": []
+  },
+  "run_id": "05ad1904363e",
+  "started_at": 1792745246.917738,
+  "steps": [
+    {
+      "detail": {
+        "ok": true,
+        "violations": []
+      },
+      "duration_s": 0.0,
+      "name": "validate",
+      "ok": true,
+      "started_at": 1792745246.917756
+    },
+    {
+      "detail": {
+        "attempts": 1,
+        "live_url": "http://hashnode.mock/incubrix-certification-test-05ad1904363e-hn68",
+        "platform_post_id": "hn68",
+        "status": "live"
+      },
+      "duration_s": 0.002,
+      "name": "publish",
+      "ok": true,
+      "started_at": 1792745246.9177692
+    },
+    {
+      "detail": {
+        "expected_status": "live",
+        "live_url": "http://hashnode.mock/incubrix-certification-test-05ad1904363e-hn68"
+      },
+      "duration_s": 0.0,
+      "name": "confirm_live",
+      "ok": true,
+      "started_at": 1792745246.9198768
+    },
+    {
+      "detail": {
+        "live_url": "http://hashnode.mock/incubrix-certification-test-05ad1904363e-hn68",
+        "status": "live"
+      },
+      "duration_s": 0.001,
+      "name": "status",
+      "ok": true,
+      "started_at": 1792745246.919879
+    },
+    {
+      "detail": {
+        "clicks": 0,
+        "comments": 0,
+        "likes": 0,
+        "saves": 0,
+        "shares": 0,
+        "views": 0,
+        "watch_time_s": 0.0
+      },
+      "duration_s": 0.001,
+      "name": "metrics",
+      "ok": true,
+      "started_at": 1792745246.9211094
+    },
+    {
+      "detail": {
+        "deleted": true
+      },
+      "duration_s": 0.001,
+      "name": "delete",
+      "ok": true,
+      "started_at": 1792745246.9222312
+    },
+    {
+      "detail": {
+        "note": "",
+        "status_after_delete": "not_found"
+      },
+      "duration_s": 0.001,
+      "name": "confirm_deleted",
+      "ok": true,
+      "started_at": 1792745246.9232347
+    }
+  ],
+  "target": "http://mock-platforms:9100/hashnode/graphql",
+  "test_post": {
+    "deleted": true,
+    "deleted_after_s": 0.003,
+    "limit_s": 600,
+    "live_url": "http://hashnode.mock/incubrix-certification-test-05ad1904363e-hn68",
+    "platform_post_id": "hn68"
+  },
+  "tier": "native",
+  "verdict": "passed",
+  "warnings": []
+}

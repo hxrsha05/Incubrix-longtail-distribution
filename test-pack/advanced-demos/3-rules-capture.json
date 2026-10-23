@@ -1,0 +1,241 @@
+{
+  "confirmed": {
+    "cost": {
+      "extractor": "mock-keyword-reader",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "usd": 0.0
+    },
+    "created_at": 1792745326.9588192,
+    "decided_at": 1792745327.0224128,
+    "decided_by": "Demo Reviewer",
+    "destination_id": "demo-strict-forum",
+    "diff": [
+      {
+        "change": "same",
+        "from": false,
+        "rule": "self_promo_allowed",
+        "to": false
+      },
+      {
+        "change": "same",
+        "from": {
+          "max_posts": 1,
+          "per_seconds": 604800
+        },
+        "rule": "frequency_cap",
+        "to": {
+          "max_posts": 1,
+          "per_seconds": 604800
+        }
+      },
+      {
+        "change": "tightens",
+        "from": "max:1",
+        "rule": "link_policy",
+        "to": "none"
+      },
+      {
+        "change": "same",
+        "from": true,
+        "rule": "disclosure_required",
+        "to": true
+      },
+      {
+        "change": "tightens",
+        "from": true,
+        "rule": "automation_allowed",
+        "to": false
+      }
+    ],
+    "extractor": "mock-keyword-reader",
+    "final_rules": {
+      "automation_allowed": false,
+      "disclosure_required": true,
+      "frequency_cap": {
+        "max_posts": 1,
+        "per_seconds": 604800
+      },
+      "link_policy": "none",
+      "self_promo_allowed": false
+    },
+    "id": "3177d4c0cde4492c",
+    "note": null,
+    "proposed": {
+      "dropped": [],
+      "evidence": {
+        "automation_allowed": {
+          "confidence": 0.9,
+          "quote": "Bots are not allowed on this forum."
+        },
+        "disclosure_required": {
+          "confidence": 0.85,
+          "quote": "AI-generated content must be disclosed with the [AI] tag."
+        },
+        "frequency_cap": {
+          "confidence": 0.8,
+          "quote": "You may post one post per week."
+        },
+        "link_policy": {
+          "confidence": 0.85,
+          "quote": "Do not post any links in the first comment or the body."
+        },
+        "self_promo_allowed": {
+          "confidence": 0.9,
+          "quote": "Self-promotion is not allowed."
+        }
+      },
+      "rules": {
+        "automation_allowed": false,
+        "disclosure_required": true,
+        "frequency_cap": {
+          "max_posts": 1,
+          "per_seconds": 604800
+        },
+        "link_policy": "none",
+        "self_promo_allowed": false
+      }
+    },
+    "source_url": "http://mock-platforms:9100/rules/strict",
+    "status": "confirmed"
+  },
+  "proposal": {
+    "cost": {
+      "extractor": "mock-keyword-reader",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "usd": 0.0
+    },
+    "created_at": 1792745326.9588192,
+    "decided_at": null,
+    "decided_by": null,
+    "destination_id": "demo-strict-forum",
+    "diff": [
+      {
+        "change": "same",
+        "from": false,
+        "rule": "self_promo_allowed",
+        "to": false
+      },
+      {
+        "change": "same",
+        "from": {
+          "max_posts": 1,
+          "per_seconds": 604800
+        },
+        "rule": "frequency_cap",
+        "to": {
+          "max_posts": 1,
+          "per_seconds": 604800
+        }
+      },
+      {
+        "change": "tightens",
+        "from": "max:1",
+        "rule": "link_policy",
+        "to": "none"
+      },
+      {
+        "change": "same",
+        "from": true,
+        "rule": "disclosure_required",
+        "to": true
+      },
+      {
+        "change": "tightens",
+        "from": true,
+        "rule": "automation_allowed",
+        "to": false
+      }
+    ],
+    "extractor": "mock-keyword-reader",
+    "final_rules": null,
+    "id": "3177d4c0cde4492c",
+    "manifest": {
+      "ai_generated": {
+        "label": "no AI-generated content in this result",
+        "present": false
+      },
+      "cost": {
+        "model_calls": 0,
+        "note": "no paid API or model is called by certification",
+        "usd": 0.0
+      },
+      "kind": "rules_capture",
+      "licences": [
+        {
+          "component": "IncuBrix Distribution service (this repo)",
+          "licence": "own code",
+          "reference": "SOURCES.md"
+        },
+        {
+          "component": "FastAPI, Pydantic, SQLAlchemy, httpx",
+          "licence": "MIT / BSD (see SOURCES.md)",
+          "reference": "SOURCES.md"
+        }
+      ],
+      "settings": {
+        "extractor": "mock-keyword-reader"
+      },
+      "timings": {
+        "duration_s": 0.009,
+        "finished_at": 1792745326.967361,
+        "started_at": 1792745326.9588192
+      },
+      "versions": {
+        "connector": null,
+        "python": "3.12.15",
+        "service": "0.1.0"
+      },
+      "warnings": []
+    },
+    "note": null,
+    "proposed": {
+      "dropped": [],
+      "evidence": {
+        "automation_allowed": {
+          "confidence": 0.9,
+          "quote": "Bots are not allowed on this forum."
+        },
+        "disclosure_required": {
+          "confidence": 0.85,
+          "quote": "AI-generated content must be disclosed with the [AI] tag."
+        },
+        "frequency_cap": {
+          "confidence": 0.8,
+          "quote": "You may post one post per week."
+        },
+        "link_policy": {
+          "confidence": 0.85,
+          "quote": "Do not post any links in the first comment or the body."
+        },
+        "self_promo_allowed": {
+          "confidence": 0.9,
+          "quote": "Self-promotion is not allowed."
+        }
+      },
+      "rules": {
+        "automation_allowed": false,
+        "disclosure_required": true,
+        "frequency_cap": {
+          "max_posts": 1,
+          "per_seconds": 604800
+        },
+        "link_policy": "none",
+        "self_promo_allowed": false
+      }
+    },
+    "source_url": "http://mock-platforms:9100/rules/strict",
+    "status": "pending"
+  },
+  "rules_after": {
+    "automation_allowed": false,
+    "disclosure_required": true,
+    "frequency_cap": {
+      "max_posts": 1,
+      "per_seconds": 604800
+    },
+    "link_policy": "none",
+    "self_promo_allowed": false
+  }
+}

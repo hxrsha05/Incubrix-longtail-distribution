@@ -29,6 +29,11 @@ def test_an_off_topic_destination_scores_low():
     assert s.score <= 2 and "no shared topics" in s.explanation
 
 
+def test_no_shared_topic_never_scores_above_two_even_when_everything_else_is_perfect():
+    s = score_destination(POST, row(topics=["gardening"], language="en", status="certified", name="Garden"))
+    assert s.score == 2 and "no shared topics" in s.explanation
+
+
 def test_more_overlap_never_scores_lower_than_less():
     scores = [score_destination(POST, row(topics=t)).score for t in ([], ["video"], ["video", "creators"], ["video", "creators", "open-source"])]
     assert scores == sorted(scores)
