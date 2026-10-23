@@ -20,12 +20,16 @@ from app.catalogue import Catalogue
 from app.certify_service import CertificationService
 
 log = logging.getLogger("incubrix.recertify")
+MAX_AGE_LIMIT_S = 30 * 86400
 
 
 class Recertifier:
     def __init__(self, catalogue: Catalogue, service: CertificationService, *, max_age_s: float = 7 * 86400, demoted_cooldown_s: float = 86400,
-                 attention_retry_s: float = 3600, batch_limit: int = 25, clock: Callable[[], float] = time.time) -> None:
-        self.catalogue, self.service, self.clock = catalogue, service, clock
+                 attention_retry_s: float = 3600, batch_limit: int = 25, clock: Callable[[], float] = time.time, alerts: Any = None) -> None:
+        self.catalogue, self.service, self.clock, self.alerts = catalogue, service, clock, alerts
+        if max_age_s > MAX_AGE_LIMIT_S:
+            log.warning("RECERT_MAX_AGE_S is above 30 days; lowered to 30 days (destinations must be re-tested before 30 days)")
+            max_age_s = MAX_AGE_LIMIT_S
         self.max_age_s, self.demoted_cooldown_s, self.attention_retry_s, self.batch_limit = max_age_s, demoted_cooldown_s, attention_retry_s, batch_limit
         self.last_run: dict[str, Any] | None = None
         self._lock = threading.Lock()  # two runs at once would double the test posts
@@ -67,6 +71,7 @@ class Recertifier:
                 summary["checked"] += 1
                 if after != before[dest_id]:
                     summary["transitions"].append({"destination_id": dest_id, "from": before[dest_id], "to": after, "run": result["run_id"]})
+                    self._alert(dest_id, before[dest_id], after, result)
                 if after == "certified" and before[dest_id] == "certified":
                     summary["still_certified"] += 1
                 elif after == "certified":
@@ -79,6 +84,20 @@ class Recertifier:
             summary["finished_at"] = self.clock()
             self.last_run = summary
             return summary
+
+
+    def _alert(self, dest_id: str, before: str, after: str, result: dict[str, Any]) -> None:
+        """A person should hear about a destination that stopped working (a ticket), and about one that came back."""
+        if self.alerts is None:
+            return
+        reason = self.catalogue.get(dest_id)["status_reason"]
+        if after == "demoted":
+            self.alerts.raise_alert("destination_demoted", dest_id, f"{dest_id} was demoted and is excluded from publishing and recommendations: {reason}",
+                                    details={"from": before, "run": result["run_id"], "evidence": result.get("evidence")})
+        elif after == "certified" and before in ("demoted", "needs_attention"):
+            self.alerts.raise_alert("destination_recovered", dest_id, f"{dest_id} passed certification again and is back in use", severity="info", details={"from": before, "run": result["run_id"]})
+        elif after == "needs_attention" and before == "certified":
+            self.alerts.raise_alert("destination_needs_attention", dest_id, f"{dest_id} could not be re-tested (a temporary problem?): {reason}", details={"run": result["run_id"]})
 
 
 class RecertScheduler:

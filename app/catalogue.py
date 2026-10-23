@@ -10,7 +10,7 @@ import re
 import time
 from typing import Any, Callable
 
-from sqlalchemy import delete, func, insert, select, update
+from sqlalchemy import case, delete, func, insert, select, update
 from sqlalchemy.engine import Engine
 
 from app.db import certification_runs, destinations
@@ -94,6 +94,13 @@ class Catalogue:
         with self.engine.begin() as conn:
             rows = conn.execute(select(certification_runs.c.destination_id, func.max(certification_runs.c.started_at)).group_by(certification_runs.c.destination_id)).all()
         return {r[0]: r[1] for r in rows}
+
+    def run_stats(self) -> dict[str, dict[str, int]]:
+        """destination id -> how many certification runs it had and how many passed (its track record)."""
+        with self.engine.begin() as conn:
+            rows = conn.execute(select(certification_runs.c.destination_id, func.count(), func.sum(case((certification_runs.c.verdict == "passed", 1), else_=0)))
+                                .group_by(certification_runs.c.destination_id)).all()
+        return {r[0]: {"runs": int(r[1]), "passes": int(r[2] or 0)} for r in rows}
 
     def runs(self, dest_id: str, limit: int = 20) -> list[dict[str, Any]]:
         self.get(dest_id)

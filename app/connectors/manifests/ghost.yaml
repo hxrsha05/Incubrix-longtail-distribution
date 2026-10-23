@@ -5,7 +5,7 @@ auth: api_key           # Ghost Admin API key ("id:secret"), exchanged per reque
 surfaces:
   - key: post
     content_types: [article, text]
-    spec: {title_max_chars: 255, body_max_chars: 1000000, links_allowed: true, tag_style: tags, max_tags: 10, canonical_supported: true, mention_style: none}
+    spec: {title_max_chars: 255, body_max_chars: 1000000, links_allowed: true, tag_style: tags, max_tags: 10, canonical_supported: true, mention_style: none, media_kinds: [image], max_media: 10}
 rate_limits:
   per_connection: {requests: 60, per_seconds: 60}
 capabilities: [publish, status, delete]

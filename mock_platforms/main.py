@@ -484,6 +484,21 @@ def create_app() -> FastAPI:
         return Response(page, media_type="text/html") if page else Response("not found", status_code=404)
 
     # ------------------------------------------------------------------ fake community websites (for the CSV import)
+    def _members(name: str) -> int:
+        return 100 + sum(ord(c) for c in name) * 7 % 9000  # a stable fake number per site
+
+    @app.get("/sites/{name}/api/v3/site")
+    async def fake_lemmy_stats(name: str):
+        return {"site_view": {"counts": {"users": _members(name), "communities": 12}}}
+
+    @app.get("/sites/{name}/about.json")
+    async def fake_discourse_stats(name: str):
+        return {"about": {"stats": {"users_count": _members(name), "topics_count": 300}}}
+
+    @app.get("/sites/{name}/rules")
+    async def fake_site_rules(name: str):
+        return Response("<html><body><h1>Rules</h1><p>Be kind. Self-promotion is not allowed.</p></body></html>", media_type="text/html")
+
     @app.get("/sites/{name}")
     async def fake_site(name: str):
         """A website whose behaviour is chosen by its name, so import tests and the 1,000-row run need no real internet.
@@ -503,7 +518,8 @@ def create_app() -> FastAPI:
         generator = {"discourse": "Discourse 3.2.0", "ghost": "Ghost 5.80", "lemmy": "Lemmy 0.19"}.get(name.split("-")[0], "")
         meta = f'<meta name="generator" content="{generator}">' if generator else ""
         html = (f'<!doctype html><html lang="{lang}"><head><title>Community {name}</title>{meta}'
-                f'<meta name="description" content="A community called {name}."></head><body><h1>{name}</h1></body></html>')
+                f'<meta name="description" content="A community called {name}."></head><body><h1>{name}</h1>'
+                f'<p><a href="/sites/{name}/rules">Community rules</a></p></body></html>')
         return Response(html, media_type="text/html")
 
     return app

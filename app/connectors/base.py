@@ -61,6 +61,14 @@ class BaseConnector:
         title_max = spec.get("title_max_chars")
         if title_max is not None and len(rendition.title) > title_max:
             violations.append(Violation(field="title", reason="title too long", limit=title_max, actual=len(rendition.title)))
+        accepted_media = spec.get("media_kinds", [])  # which kinds of media file/URL this destination can take; none listed = none accepted
+        for i, item in enumerate(rendition.media):
+            if item.kind not in accepted_media:
+                hint = "; share it as a link instead" if item.kind == "video" else ""
+                violations.append(Violation(field=f"media[{i}]", reason=f"{item.kind} media is not accepted here (accepted: {accepted_media or 'none'}){hint}"))
+        max_media = spec.get("max_media")
+        if max_media is not None and len(rendition.media) > max_media:
+            violations.append(Violation(field="media", reason="too many media items", limit=max_media, actual=len(rendition.media)))
         body_max = spec.get("body_max_chars")
         if body_max is not None and len(rendition.body) > body_max:
             violations.append(Violation(field="body", reason="body too long", limit=body_max, actual=len(rendition.body)))
@@ -134,6 +142,12 @@ class BaseConnector:
             if retry_after is not None:
                 details["retry_after_s"] = retry_after
         return IncuBrixError(code, f"platform returned HTTP {status}", details)
+
+
+def markdown_images(rendition: Rendition, skip: int = 0) -> str:
+    """Image URLs as markdown, for the platforms that show an image from its address (Lemmy, Discourse, Dev.to, Hashnode)."""
+    images = [m.url for m in rendition.media if m.kind == "image" and m.url.startswith(("http://", "https://"))][skip:]
+    return "\n\n".join(f"![]({u})" for u in images)
 
 
 def _reset_seconds(resp: httpx.Response) -> float | None:

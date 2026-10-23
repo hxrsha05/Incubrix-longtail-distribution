@@ -23,6 +23,7 @@ ELLIPSIS = "…"
 URL = re.compile(r"https?://[^\s<>\"')\]]+")
 MENTION = re.compile(r"(?<![\w@])@([A-Za-z0-9_][A-Za-z0-9_.-]{0,38})")
 DEFAULT_DISCLOSURE = "This post was created with the help of AI."
+DISCUSSION_PROMPT = "What do you think? I would like to hear how others see this."
 
 
 class TailoredResult(BaseModel):
@@ -117,6 +118,11 @@ def tailor(rendition: Rendition, destination: Destination, spec: dict[str, Any],
         if r.tags:
             changes.append("tags dropped: this destination has no tags")
         r.tags = []
+
+    # ---- discussion-first framing (forums) ----
+    if spec.get("framing") == "discussion" and "?" not in r.body:
+        r.body = (r.body.rstrip() + "\n\n" + DISCUSSION_PROMPT).strip()
+        changes.append("closing question added: forum members answer questions, an announcement with no question gets few replies")
 
     # ---- canonical URL ----
     if spec.get("canonical_supported"):

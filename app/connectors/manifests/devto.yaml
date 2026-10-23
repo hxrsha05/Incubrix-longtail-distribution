@@ -5,7 +5,7 @@ auth: api_key
 surfaces:
   - key: article
     content_types: [article, text, video_link]
-    spec: {title_max_chars: 128, body_max_chars: 100000, links_allowed: true, tag_style: tags, max_tags: 4, canonical_supported: true, mention_style: at}
+    spec: {title_max_chars: 128, body_max_chars: 100000, links_allowed: true, tag_style: tags, max_tags: 4, canonical_supported: true, mention_style: at, media_kinds: [image], max_media: 10}
 rate_limits:
   per_connection: {requests: 30, per_seconds: 30}
 capabilities: [publish, status, delete, metrics]   # delete = unpublish: Dev.to has no article delete

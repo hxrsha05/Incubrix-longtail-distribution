@@ -9,7 +9,7 @@ from typing import Any
 
 import httpx
 
-from app.connectors.base import BaseConnector
+from app.connectors.base import BaseConnector, markdown_images
 from app.connectors.registry import register_connector
 from app.errors import ErrorCode, IncuBrixError
 from app.models import Connection, DeleteResult, Destination, MetricsResult, PublishResult, Rendition, StatusResult
@@ -19,7 +19,8 @@ def _raw(rendition: Rendition) -> str:
     raw = rendition.body
     if rendition.link_url and rendition.link_url not in raw:
         raw = f"{raw}\n\n{rendition.link_url}".strip()
-    return raw
+    images = markdown_images(rendition)
+    return f"{raw}\n\n{images}".strip() if images else raw
 
 
 @register_connector("discourse")

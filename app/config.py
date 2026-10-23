@@ -43,7 +43,8 @@ class Settings(BaseSettings):
     feed_max_items: int = 50
 
     recert_interval_s: float = 0  # 0 = the scheduler is off (run it by hand: POST /api/v1/recertify); e.g. 3600 = look for due destinations hourly
-    recert_max_age_s: float = 7 * 86400
+    recert_max_age_s: float = 7 * 86400  # certified destinations are re-tested at this age; never more than 30 days (the brief's limit), larger values are lowered
+    alert_webhook_url: str | None = None  # optional: demotions and recoveries are also POSTed here, signed with the callback secret
     recert_demoted_cooldown_s: float = 86400
     recert_attention_retry_s: float = 3600
     recert_batch_limit: int = 25

@@ -167,3 +167,24 @@ def test_result_always_fits_every_connectors_limits():
         out = tailor(content, d, connector.effective_spec(d))
         verdict = connector.validate(out.rendition, d, None)
         assert verdict.ok, (key, verdict.violations)
+
+
+def test_forums_get_a_closing_question_when_the_post_has_none():
+    out = tailor(Rendition(title="New editor", body="We built a video editor."), dest("lemmy"), spec_for("lemmy"))
+    assert out.rendition.body.endswith("What do you think? I would like to hear how others see this.")
+    assert any("closing question added" in c for c in out.changes)
+
+
+def test_a_post_that_already_asks_a_question_is_left_alone():
+    out = tailor(Rendition(title="New editor", body="Would you use a free video editor?"), dest("discourse"), spec_for("discourse"))
+    assert out.rendition.body == "Would you use a free video editor?" and not any("closing question" in c for c in out.changes)
+
+
+def test_blogs_and_newsletters_do_not_get_a_discussion_prompt():
+    for key in ("ghost", "devto", "hashnode", "kit", "feed"):
+        assert "What do you think?" not in tailor(Rendition(title="T", body="An article."), dest(key), spec_for(key)).rendition.body
+
+
+def test_the_closing_question_never_pushes_the_disclosure_out():
+    out = tailor(Rendition(title="T", body="word " * 100, ai_generated=True, ai_disclosure="Made with AI."), dest("lemmy", rules={"disclosure_required": True}), spec_for("lemmy", body_max_chars=120))
+    assert len(out.rendition.body) <= 120 and out.rendition.body.endswith("Made with AI.")

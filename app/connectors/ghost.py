@@ -59,6 +59,9 @@ def to_html(rendition: Rendition) -> str:
     if rendition.link_url:
         url = html.escape(rendition.link_url, quote=True)
         parts.append(f'<p><a href="{url}" rel="noopener">{url}</a></p>')
+    for m in rendition.media:  # images from their address; the address is escaped and must be http(s), so it cannot inject anything
+        if m.kind == "image" and m.url.startswith(("http://", "https://")):
+            parts.append(f'<figure><img src="{html.escape(m.url, quote=True)}" alt=""></figure>')
     return "".join(parts)
 
 

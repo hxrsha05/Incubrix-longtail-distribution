@@ -7,6 +7,7 @@ Methods compared, simplest first:
   relevance     the plain 1-5 relevance score (app/relevance.py), ties broken by name
   recommender   the idf-weighted, synonym-aware, veto-filtering recommender (app/recommender.py)
   no synonyms   the same recommender with the synonym table switched off (an ablation: how much of the result is the table?)
+  content only  the recommender without the audience-fit and track-record bonuses (an ablation: do those bonuses cost or add precision on this set?)
 Writes test-pack/recommender/eval.md and eval.json. See scripts/make_labelled_set.py for what the labelled set is, and is not.
 """
 from __future__ import annotations
@@ -42,7 +43,7 @@ def evaluate(data: dict) -> dict:
     rows = rows_of(data["destinations"])
     ids = [r["id"] for r in rows]
     rnd = random.Random(1)
-    scores: dict[str, list[float]] = {"random": [], "relevance": [], "recommender": [], "no_synonyms": []}
+    scores: dict[str, list[float]] = {"random": [], "relevance": [], "recommender": [], "no_synonyms": [], "content_only": []}
     per_query = []
     for q in data["queries"]:
         relevant, rendition = set(q["relevant"]), rendition_of(q)
@@ -55,11 +56,13 @@ def evaluate(data: dict) -> dict:
         p_relevance = precision([r.destination_id for r in relevance_rank(rendition, rows)], relevant)
         p_reco = precision([r.destination_id for r in recommend(rendition, rows, top=K)], relevant)
         p_plain = precision([r.destination_id for r in recommend(rendition, rows, top=K, synonyms=False)], relevant)
+        p_content = precision([r.destination_id for r in recommend(rendition, rows, top=K, audience_weight=0.0, history_weight=0.0)], relevant)
+        scores["content_only"].append(p_content)
         scores["no_synonyms"].append(p_plain)
         scores["random"].append(p_random)
         scores["relevance"].append(p_relevance)
         scores["recommender"].append(p_reco)
-        per_query.append({"query": q["id"], "relevant": len(relevant), "random": round(p_random, 2), "relevance": p_relevance, "recommender": p_reco, "no_synonyms": p_plain})
+        per_query.append({"query": q["id"], "relevant": len(relevant), "random": round(p_random, 2), "relevance": p_relevance, "recommender": p_reco, "no_synonyms": p_plain, "content_only": p_content})
     summary = {m: round(statistics.mean(v), 3) for m, v in scores.items()}
     return {"k": K, "queries": len(data["queries"]), "destinations": len(data["destinations"]), "precision_at_10": summary, "per_query": per_query}
 
@@ -77,9 +80,9 @@ def main() -> None:
         f"Labelled set: {result['queries']} posts, {result['destinations']} destinations (synthetic, see `scripts/make_labelled_set.py`).",
         f"Measure: precision@{K} = how many of the top {K} suggestions are truly relevant, averaged over the posts.", "",
         "| Method | precision@10 |", "|---|---|",
-        f"| random order | {p['random']:.1%} |", f"| plain relevance score | {p['relevance']:.1%} |", f"| recommender | {p['recommender']:.1%} |", f"| recommender without the synonym table | {p['no_synonyms']:.1%} |", "",
-        "## Per post", "", "| post | truly relevant | random | relevance | recommender | no synonyms |", "|---|---|---|---|---|---|",
-        *[f"| {r['query']} | {r['relevant']} | {r['random']:.0%} | {r['relevance']:.0%} | {r['recommender']:.0%} | {r['no_synonyms']:.0%} |" for r in result["per_query"]], "",
+        f"| random order | {p['random']:.1%} |", f"| plain relevance score | {p['relevance']:.1%} |", f"| recommender | {p['recommender']:.1%} |", f"| recommender without the synonym table | {p['no_synonyms']:.1%} |", f"| recommender, content words only (no audience or history bonus) | {p['content_only']:.1%} |", "",
+        "## Per post", "", "| post | truly relevant | random | relevance | recommender | no synonyms | content only |", "|---|---|---|---|---|---|---|",
+        *[f"| {r['query']} | {r['relevant']} | {r['random']:.0%} | {r['relevance']:.0%} | {r['recommender']:.0%} | {r['no_synonyms']:.0%} | {r['content_only']:.0%} |" for r in result["per_query"]], "",
         "## What this does and does not show", "",
         "- The destinations and posts are generated, with hidden true topics and deliberately messy surface text (synonyms, missing topics, generic names, false friends).",
         "- The label rule is simple (topic overlap, same language, not refused by the destination's rules). It is not the judgement of many people.",

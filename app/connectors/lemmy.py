@@ -9,7 +9,7 @@ from typing import Any
 
 import httpx
 
-from app.connectors.base import BaseConnector
+from app.connectors.base import BaseConnector, markdown_images
 from app.connectors.registry import register_connector
 from app.errors import ErrorCode, IncuBrixError
 from app.models import Connection, DeleteResult, Destination, MetricsResult, PublishResult, RefreshResult, Rendition, StatusResult
@@ -32,11 +32,15 @@ class LemmyConnector(BaseConnector):
     # ---------- contract methods ----------
     def publish(self, rendition: Rendition, destination: Destination, connection: Connection, idempotency_key: str) -> PublishResult:
         base = self.instance_url(connection, destination)
+        images = [m.url for m in rendition.media if m.kind == "image" and m.url.startswith(("http://", "https://"))]
+        link = rendition.link_url or rendition.canonical_url
+        extra_images = markdown_images(rendition, skip=0 if link else 1)  # with no link, the first image becomes the post's own address (an image post)
+        body = f"{rendition.body}\n\n{extra_images}".strip() if extra_images else rendition.body
         payload: dict[str, Any] = {
             "name": rendition.title,
             "community_id": self._community_id(base, destination, connection),
-            "body": rendition.body or None,
-            "url": rendition.link_url or rendition.canonical_url,
+            "body": body or None,
+            "url": link or (images[0] if images else None),
         }
         data = self._api("POST", "/post", connection, destination, json={k: v for k, v in payload.items() if v is not None}).json()
         return self._to_publish_result(data["post_view"]["post"], connection, base)

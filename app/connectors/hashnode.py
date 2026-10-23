@@ -15,7 +15,7 @@ from typing import Any
 
 import httpx
 
-from app.connectors.base import BaseConnector
+from app.connectors.base import BaseConnector, markdown_images
 from app.connectors.registry import register_connector
 from app.errors import ErrorCode, IncuBrixError
 from app.models import Connection, DeleteResult, Destination, MetricsResult, PublishResult, Rendition, StatusResult
@@ -41,7 +41,8 @@ def _markdown(rendition: Rendition) -> str:
     body = rendition.body
     if rendition.link_url and rendition.link_url not in body:
         body = f"{body}\n\n{rendition.link_url}".strip()
-    return body
+    images = markdown_images(rendition)
+    return f"{body}\n\n{images}".strip() if images else body
 
 
 @register_connector("hashnode")

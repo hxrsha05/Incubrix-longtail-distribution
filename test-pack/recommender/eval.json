@@ -6,7 +6,8 @@
     "random": 0.09,
     "relevance": 0.82,
     "recommender": 0.967,
-    "no_synonyms": 0.943
+    "no_synonyms": 0.953,
+    "content_only": 0.967
   },
   "per_query": [
     {
@@ -15,15 +16,17 @@
       "random": 0.1,
       "relevance": 0.9,
       "recommender": 1.0,
-      "no_synonyms": 1.0
+      "no_synonyms": 1.0,
+      "content_only": 1.0
     },
     {
       "query": "q01",
       "relevant": 18,
       "random": 0.05,
       "relevance": 0.7,
-      "recommender": 0.9,
-      "no_synonyms": 0.9
+      "recommender": 1.0,
+      "no_synonyms": 0.9,
+      "content_only": 0.9
     },
     {
       "query": "q02",
@@ -31,7 +34,8 @@
       "random": 0.1,
       "relevance": 1.0,
       "recommender": 1.0,
-      "no_synonyms": 1.0
+      "no_synonyms": 1.0,
+      "content_only": 1.0
     },
     {
       "query": "q03",
@@ -39,7 +43,8 @@
       "random": 0.06,
       "relevance": 0.7,
       "recommender": 1.0,
-      "no_synonyms": 1.0
+      "no_synonyms": 1.0,
+      "content_only": 1.0
     },
     {
       "query": "q04",
@@ -47,7 +52,8 @@
       "random": 0.1,
       "relevance": 1.0,
       "recommender": 1.0,
-      "no_synonyms": 1.0
+      "no_synonyms": 1.0,
+      "content_only": 1.0
     },
     {
       "query": "q05",
@@ -55,7 +61,8 @@
       "random": 0.08,
       "relevance": 0.9,
       "recommender": 1.0,
-      "no_synonyms": 1.0
+      "no_synonyms": 1.0,
+      "content_only": 1.0
     },
     {
       "query": "q06",
@@ -63,7 +70,8 @@
       "random": 0.06,
       "relevance": 1.0,
       "recommender": 0.9,
-      "no_synonyms": 0.9
+      "no_synonyms": 0.9,
+      "content_only": 0.9
     },
     {
       "query": "q07",
@@ -71,7 +79,8 @@
       "random": 0.08,
       "relevance": 1.0,
       "recommender": 1.0,
-      "no_synonyms": 1.0
+      "no_synonyms": 1.0,
+      "content_only": 1.0
     },
     {
       "query": "q08",
@@ -79,7 +88,8 @@
       "random": 0.08,
       "relevance": 0.9,
       "recommender": 1.0,
-      "no_synonyms": 1.0
+      "no_synonyms": 1.0,
+      "content_only": 1.0
     },
     {
       "query": "q09",
@@ -87,7 +97,8 @@
       "random": 0.07,
       "relevance": 0.4,
       "recommender": 1.0,
-      "no_synonyms": 1.0
+      "no_synonyms": 1.0,
+      "content_only": 1.0
     },
     {
       "query": "q10",
@@ -95,7 +106,8 @@
       "random": 0.08,
       "relevance": 0.9,
       "recommender": 0.9,
-      "no_synonyms": 0.9
+      "no_synonyms": 0.9,
+      "content_only": 0.9
     },
     {
       "query": "q11",
@@ -103,7 +115,8 @@
       "random": 0.11,
       "relevance": 0.9,
       "recommender": 1.0,
-      "no_synonyms": 0.9
+      "no_synonyms": 0.8,
+      "content_only": 1.0
     },
     {
       "query": "q12",
@@ -111,7 +124,8 @@
       "random": 0.06,
       "relevance": 0.9,
       "recommender": 0.8,
-      "no_synonyms": 0.8
+      "no_synonyms": 0.9,
+      "content_only": 0.8
     },
     {
       "query": "q13",
@@ -119,7 +133,8 @@
       "random": 0.14,
       "relevance": 0.8,
       "recommender": 1.0,
-      "no_synonyms": 0.9
+      "no_synonyms": 0.9,
+      "content_only": 1.0
     },
     {
       "query": "q14",
@@ -127,7 +142,8 @@
       "random": 0.09,
       "relevance": 1.0,
       "recommender": 0.9,
-      "no_synonyms": 1.0
+      "no_synonyms": 1.0,
+      "content_only": 0.9
     },
     {
       "query": "q15",
@@ -135,7 +151,8 @@
       "random": 0.11,
       "relevance": 0.8,
       "recommender": 1.0,
-      "no_synonyms": 1.0
+      "no_synonyms": 1.0,
+      "content_only": 1.0
     },
     {
       "query": "q16",
@@ -143,15 +160,17 @@
       "random": 0.05,
       "relevance": 0.7,
       "recommender": 1.0,
-      "no_synonyms": 1.0
+      "no_synonyms": 1.0,
+      "content_only": 1.0
     },
     {
       "query": "q17",
       "relevant": 26,
       "random": 0.1,
       "relevance": 1.0,
-      "recommender": 1.0,
-      "no_synonyms": 1.0
+      "recommender": 0.9,
+      "no_synonyms": 1.0,
+      "content_only": 1.0
     },
     {
       "query": "q18",
@@ -159,7 +178,8 @@
       "random": 0.1,
       "relevance": 0.7,
       "recommender": 1.0,
-      "no_synonyms": 0.9
+      "no_synonyms": 0.9,
+      "content_only": 1.0
     },
     {
       "query": "q19",
@@ -167,7 +187,8 @@
       "random": 0.21,
       "relevance": 0.7,
       "recommender": 1.0,
-      "no_synonyms": 1.0
+      "no_synonyms": 1.0,
+      "content_only": 1.0
     },
     {
       "query": "q20",
@@ -175,7 +196,8 @@
       "random": 0.08,
       "relevance": 1.0,
       "recommender": 1.0,
-      "no_synonyms": 1.0
+      "no_synonyms": 1.0,
+      "content_only": 1.0
     },
     {
       "query": "q21",
@@ -183,7 +205,8 @@
       "random": 0.17,
       "relevance": 1.0,
       "recommender": 1.0,
-      "no_synonyms": 1.0
+      "no_synonyms": 1.0,
+      "content_only": 1.0
     },
     {
       "query": "q22",
@@ -191,7 +214,8 @@
       "random": 0.15,
       "relevance": 0.8,
       "recommender": 1.0,
-      "no_synonyms": 1.0
+      "no_synonyms": 1.0,
+      "content_only": 1.0
     },
     {
       "query": "q23",
@@ -199,7 +223,8 @@
       "random": 0.04,
       "relevance": 0.8,
       "recommender": 0.9,
-      "no_synonyms": 0.8
+      "no_synonyms": 0.8,
+      "content_only": 0.9
     },
     {
       "query": "q24",
@@ -207,7 +232,8 @@
       "random": 0.06,
       "relevance": 1.0,
       "recommender": 1.0,
-      "no_synonyms": 1.0
+      "no_synonyms": 1.0,
+      "content_only": 1.0
     },
     {
       "query": "q25",
@@ -215,7 +241,8 @@
       "random": 0.04,
       "relevance": 0.6,
       "recommender": 0.8,
-      "no_synonyms": 0.8
+      "no_synonyms": 0.8,
+      "content_only": 0.8
     },
     {
       "query": "q26",
@@ -223,7 +250,8 @@
       "random": 0.15,
       "relevance": 0.9,
       "recommender": 1.0,
-      "no_synonyms": 1.0
+      "no_synonyms": 1.0,
+      "content_only": 1.0
     },
     {
       "query": "q27",
@@ -231,7 +259,8 @@
       "random": 0.07,
       "relevance": 0.8,
       "recommender": 1.0,
-      "no_synonyms": 1.0
+      "no_synonyms": 1.0,
+      "content_only": 1.0
     },
     {
       "query": "q28",
@@ -239,7 +268,8 @@
       "random": 0.04,
       "relevance": 0.3,
       "recommender": 0.9,
-      "no_synonyms": 0.9
+      "no_synonyms": 0.9,
+      "content_only": 0.9
     },
     {
       "query": "q29",
@@ -247,7 +277,8 @@
       "random": 0.07,
       "relevance": 0.5,
       "recommender": 1.0,
-      "no_synonyms": 0.6
+      "no_synonyms": 0.9,
+      "content_only": 1.0
     }
   ]
 }

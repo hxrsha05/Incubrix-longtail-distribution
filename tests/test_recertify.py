@@ -6,6 +6,7 @@ import httpx
 import pytest
 from sqlalchemy import create_engine
 
+from app.alerts import AlertService
 from app.catalogue import Catalogue
 from app.certify_service import CertificationService
 from app.connectors.registry import build_registry
@@ -43,14 +44,15 @@ def env(mock, tmp_path):
     registry = build_registry(httpx.Client(timeout=5.0), set())
     service = CertificationService(catalogue, registry, CredentialProvider(None, True, mock.url), EvidenceStore(tmp_path / "ev"), ttl_s=600, simulation=True,
                                    clock=clock, sleep=lambda s: None)
-    recert = Recertifier(catalogue, service, max_age_s=7 * DAY, demoted_cooldown_s=DAY, attention_retry_s=3600, batch_limit=25, clock=clock)
+    alerts = AlertService(engine, clock=clock)
+    recert = Recertifier(catalogue, service, max_age_s=7 * DAY, demoted_cooldown_s=DAY, attention_retry_s=3600, batch_limit=25, clock=clock, alerts=alerts)
     publisher = PublishService(registry, IdempotencyStore(engine, 120, clock), PostLog(engine), clock, catalogue)
 
     class Env:
         pass
 
     e = Env()
-    e.clock, e.catalogue, e.service, e.recert, e.publisher, e.mock, e.registry = clock, catalogue, service, recert, publisher, mock, registry
+    e.clock, e.catalogue, e.service, e.recert, e.publisher, e.mock, e.registry, e.alerts = clock, catalogue, service, recert, publisher, mock, registry, alerts
     return e
 
 
@@ -263,5 +265,68 @@ def test_the_scheduler_starts_and_stops_with_the_server(tmp_path, monkeypatch):
         with TestClient(app):
             assert app.state.scheduler._thread is not None and app.state.scheduler._thread.is_alive()
         assert app.state.scheduler._stop.is_set()
+    finally:
+        get_settings.cache_clear()
+
+
+# ---------------------------------------------------------------- alerts (a ticket for a person) and the 30-day limit
+def test_a_demotion_raises_an_alert_and_a_recovery_raises_an_info_alert(env):
+    dest_id = certified(env, "forum")
+    env.mock.fail(platform="discourse", kind="rename_field", rename={"topic_id": "topic_identifier"})
+    env.clock.advance(8 * DAY)
+    env.recert.run_once()
+    alerts = env.alerts.list(unacknowledged_only=True)
+    assert [(a["kind"], a["severity"], a["destination_id"]) for a in alerts] == [("destination_demoted", "warning", dest_id)]
+    assert "topic_id" in alerts[0]["message"] and "excluded" in alerts[0]["message"] and alerts[0]["details"]["run"]
+    env.mock.reset()
+    env.clock.advance(DAY + 60)
+    env.recert.run_once()
+    kinds = [(a["kind"], a["severity"]) for a in env.alerts.list()]
+    assert ("destination_recovered", "info") in kinds and len(kinds) == 2
+
+
+def test_a_temporary_problem_raises_needs_attention_not_a_demotion_alert(env):
+    certified(env, "forum")
+    env.mock.fail(platform="discourse", op="create", kind="status", status=500)
+    env.clock.advance(8 * DAY)
+    env.recert.run_once()
+    assert [a["kind"] for a in env.alerts.list()] == ["destination_needs_attention"]
+
+
+def test_a_passing_recheck_raises_nothing(env):
+    certified(env, "forum")
+    env.clock.advance(8 * DAY)
+    env.recert.run_once()
+    assert env.alerts.list() == []
+
+
+def test_destinations_are_always_retested_before_30_days(env):
+    capped = Recertifier(env.catalogue, env.service, max_age_s=90 * DAY, clock=env.clock)
+    assert capped.max_age_s == 30 * DAY
+    certified(env, "forum")
+    env.clock.advance(30 * DAY + 1)
+    assert len(capped.due()) == 1
+    assert Recertifier(env.catalogue, env.service, max_age_s=7 * DAY, clock=env.clock).max_age_s == 7 * DAY
+
+
+def test_alerts_api_lists_and_acknowledges(mock, tmp_path, monkeypatch):
+    from fastapi.testclient import TestClient
+
+    from app.config import get_settings
+    from app.main import create_app
+
+    monkeypatch.setenv("DATABASE_URL", f"sqlite:///{tmp_path / 'al.db'}")
+    get_settings.cache_clear()
+    try:
+        client = TestClient(create_app())
+        a = client.app.state.alerts.raise_alert("destination_demoted", "forum", "forum was demoted: field renamed")
+        client.app.state.alerts.raise_alert("destination_recovered", "forum", "forum is back", severity="info")
+        assert client.get("/api/v1/alerts").json()["count"] == 2
+        assert client.get("/api/v1/alerts?unacknowledged=true&destination_id=forum").json()["count"] == 2
+        done = client.post(f"/api/v1/alerts/{a['id']}/acknowledge", json={"acknowledged_by": "Asha"})
+        assert done.status_code == 200 and done.json()["acknowledged_by"] == "Asha" and done.json()["acknowledged_at"]
+        assert client.get("/api/v1/alerts?unacknowledged=true").json()["count"] == 1
+        assert client.post("/api/v1/alerts/9999/acknowledge", json={"acknowledged_by": "x"}).json()["error"]["code"] == "NOT_FOUND"
+        assert client.post(f"/api/v1/alerts/{a['id']}/acknowledge", json={}).status_code == 422
     finally:
         get_settings.cache_clear()

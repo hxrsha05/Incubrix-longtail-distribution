@@ -115,6 +115,22 @@ feed_items = Table(
 )
 
 
+# Alerts (tickets) for a person: a destination demoted or recovered, and the like.
+alerts = Table(
+    "alerts",
+    metadata,
+    Column("id", Integer, primary_key=True, autoincrement=True),
+    Column("created_at", Float, nullable=False),
+    Column("kind", String(60), nullable=False),  # destination_demoted | destination_recovered | ...
+    Column("severity", String(12), nullable=False),  # warning | info
+    Column("destination_id", String(120), index=True),
+    Column("message", Text, nullable=False),
+    Column("details", JSON),
+    Column("acknowledged_at", Float),
+    Column("acknowledged_by", String(200)),
+)
+
+
 def make_engine(url: str) -> Engine:
     kwargs: dict = {"pool_pre_ping": True}
     parsed = make_url(url)

@@ -30,17 +30,20 @@ from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 import httpx
 
+from app.audience import score_audience
 from app.catalogue import Catalogue, slugify
 from app.errors import ErrorCode, IncuBrixError
 from app.models import Destination
 from app.output_manifest import build_manifest
+from app.records import CATEGORY
 
 MAX_ROWS = 10_000
 MAX_CSV_BYTES = 20_000_000
 MAX_PAGE_BYTES = 200_000
 REQUIRED = ("name", "url")
 REPORT_COLUMNS = ["row", "name", "url", "status", "reasons", "warnings", "normalized_url", "final_url", "http_status", "response_ms",
-                  "detected_platform", "detected_language", "language", "title", "connector_key", "destination_id", "duplicate_of"]
+                  "detected_platform", "detected_language", "language", "title", "member_count", "rules_url", "category", "relevance_score", "relevance_reason",
+                  "connector_key", "destination_id", "duplicate_of"]
 
 CONSERVATIVE_RULES = {  # used until a person confirms better rules (see the rules-capture feature)
     "frequency_cap": {"max_posts": 1, "per_seconds": 604800},
@@ -142,6 +145,22 @@ def parse_page(html: str) -> dict[str, str | None]:
     return info
 
 
+_HREF = re.compile(r"<a\s+[^>]*?href\s*=\s*[\"']([^\"'#]+)[\"'][^>]*>(.*?)</a>", re.I | re.S)
+
+
+def find_rules_url(html: str, base_url: str) -> str | None:
+    """The link to the community's rules page: a link whose address or text says rules, guidelines or code of conduct."""
+    from urllib.parse import urljoin
+
+    for href, text in _HREF.findall(html):
+        label = f"{href} {re.sub(r'<[^>]+>', ' ', text)}".lower()
+        if re.search(r"\brules?\b|guidelines|code[- ]of[- ]conduct|community[- ]standards|posting[- ]policy", label):
+            absolute = urljoin(base_url if base_url.endswith("/") else base_url + "/", href.strip())
+            if absolute.startswith(("http://", "https://")):
+                return absolute
+    return None
+
+
 def detect_platform(host: str, generator: str | None) -> str | None:
     for domain, platform in HOST_PLATFORMS.items():
         if host == domain or host.endswith("." + domain):
@@ -192,6 +211,7 @@ class Importer:
             for _ in pool.map(self._check_site, todo):
                 done += 1
                 progress(int(90 * done / max(len(todo), 1)))
+        self._after_fetch(todo)
         for r in todo:
             if r["status"] == "pending":
                 r["status"] = "accepted"
@@ -244,7 +264,8 @@ class Importer:
     def _blank(row_number: int, raw: dict[str, str]) -> dict[str, Any]:
         return {"row": row_number, "name": raw.get("name", ""), "url": raw.get("url", ""), "status": "pending", "reasons": [], "warnings": [],
                 "normalized_url": None, "final_url": None, "http_status": None, "response_ms": None, "detected_platform": None,
-                "detected_language": None, "language": None, "title": None, "connector_key": None, "destination_id": None, "duplicate_of": None,
+                "detected_language": None, "language": None, "title": None, "member_count": None, "rules_url": None, "category": None,
+                "relevance_score": None, "relevance_reason": None, "connector_key": None, "destination_id": None, "duplicate_of": None,
                 "_raw": raw}
 
     def _validate_and_dedupe(self, rows: list[dict[str, str]], results: list[dict[str, Any]]) -> None:
@@ -331,6 +352,44 @@ class Importer:
             r["language"] = r["detected_language"]
         raw_connector = r["_raw"].get("connector_key")
         r["connector_key"] = raw_connector or PLATFORM_CONNECTORS.get(r["detected_platform"] or "", "assisted")
+        r["description"] = info["description"]
+        r["rules_url"] = find_rules_url(body, r["final_url"] or url)
+        r["member_count"] = self._member_count(url, r["detected_platform"])  # enrichment: how big is the community?
+
+    @staticmethod
+    def _after_fetch(todo: list[dict[str, Any]]) -> None:
+        """Two things that need the page: a second look for duplicates (the same site reached by two addresses, judged by its
+        FINAL address and its platform), and the 1-5 relevance score against IncuBrix's audience."""
+        seen: dict[str, int] = {}
+        for r in todo:
+            if r["status"] != "pending" or not r["final_url"]:
+                continue
+            final, _ = normalize_url(r["final_url"], True)
+            key = f"{r['detected_platform'] or r['connector_key']}|{dedupe_key(final)}" if final else None
+            if key and key in seen:
+                r["status"], r["duplicate_of"] = "duplicate", f"row {seen[key]}"
+                r["reasons"].append(f"same site as row {seen[key]} once redirects are followed (platform {r['detected_platform'] or r['connector_key']})")
+                continue
+            if key:
+                seen[key] = r["row"]
+            row_like = {"topics": [t for t in re.split(r"[;|]", r["_raw"].get("topics", "")) if t.strip()],
+                        "destination": {"name": r["name"], "extra": {"site_title": r["title"], "site_description": r.get("description"), "platform_key": r["detected_platform"]}}}
+            audience = score_audience(row_like)
+            r["relevance_score"], r["relevance_reason"] = audience.score, audience.reason
+            r["category"] = CATEGORY.get(r["connector_key"], "other")
+
+    def _member_count(self, url: str, platform: str | None) -> int | None:
+        """Ask the platform's own public stats endpoint. Best effort: a missing number is fine, never an error."""
+        origin = url.rstrip("/")
+        endpoints = {"lemmy": ("/api/v3/site", lambda d: d["site_view"]["counts"]["users"]), "discourse": ("/about.json", lambda d: d["about"]["stats"]["users_count"])}
+        if platform not in endpoints:
+            return None
+        path, pick = endpoints[platform]
+        try:
+            resp = self.http.get(origin + path, timeout=self.fetch_timeout_s, follow_redirects=True)
+            return int(pick(resp.json())) if resp.status_code == 200 else None
+        except (httpx.HTTPError, ValueError, KeyError, TypeError):
+            return None
 
     def _fetch(self, url: str) -> tuple[int, str, str]:
         with self.http.stream("GET", url, timeout=self.fetch_timeout_s, follow_redirects=True) as resp:
@@ -352,7 +411,8 @@ class Importer:
         origin = urlsplit(r["normalized_url"])
         base = f"{origin.scheme}://{origin.netloc}"
         key = r["connector_key"]
-        extra: dict[str, Any] = {"source": "csv_import", "rules_status": "default_conservative_unconfirmed", "site_title": r["title"]}
+        extra: dict[str, Any] = {"source": "csv_import", "rules_status": "default_conservative_unconfirmed", "site_title": r["title"], "site_description": r.get("description"),
+                                 "platform_key": r["detected_platform"] or key, "member_count": r.get("member_count"), "rules_url": r.get("rules_url"), "site_url": r["normalized_url"]}
         if key == "assisted":
             extra["submit_url"] = r["normalized_url"]
         destination = Destination(name=raw["name"], connector_key=key, base_url=None if key == "assisted" else base,

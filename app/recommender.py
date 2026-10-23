@@ -1,6 +1,7 @@
 """Recommender (Outstanding level): which destinations should this content go to? Best first, never a blocked one.
+It ranks by fit of the content (words), the destination's audience relevance to IncuBrix, the destination's rules, and its past results.
 
-It improves on the plain relevance score in three ways:
+It improves on the plain relevance score in these ways:
   * words are WEIGHTED by how rare they are in the catalogue (idf): "kubernetes" says more about a destination than "community";
   * word endings are folded together (creator / creators / creating) and a small synonym table links obvious pairs;
   * destinations that would refuse the content (promotion to a no-promo place, links to a no-link place, wrong language
@@ -17,6 +18,7 @@ from typing import Any
 
 from pydantic import BaseModel
 
+from app.audience import score_audience
 from app.models import Rendition
 from app.relevance import STOPWORDS, WORD, score_destination
 
@@ -51,12 +53,18 @@ def terms(text: str, synonyms: bool = True) -> list[str]:
     return [stem(w, synonyms) for w in WORD.findall(text.lower()) if w not in STOPWORDS]
 
 
+AUDIENCE_WEIGHT = 0.08  # at most this much is added for a destination that matches IncuBrix's audience (AI, video, marketing, SaaS, creators, founders)
+HISTORY_WEIGHT = 0.04  # at most this much for a destination whose certification runs all passed
+
+
 class Recommendation(BaseModel):
     destination_id: str
     score: int  # 1 to 5, the relevance score
     similarity: float  # 0 to 1, the weighted overlap that decided the order
     explanation: str
     matched_terms: list[str]
+    audience_score: int = 1  # the destination's relevance to IncuBrix's audience, 1 to 5
+    track_record: str | None = None  # for example "3 of 3 certification runs passed"
 
 
 def _descriptor(row: dict[str, Any]) -> str:
@@ -64,7 +72,8 @@ def _descriptor(row: dict[str, Any]) -> str:
     return " ".join([row.get("name", ""), dest.get("name", ""), " ".join(row.get("topics") or []), (dest.get("extra") or {}).get("site_title") or ""])
 
 
-def recommend(rendition: Rendition, rows: list[dict[str, Any]], top: int = 10, synonyms: bool = True) -> list[Recommendation]:
+def recommend(rendition: Rendition, rows: list[dict[str, Any]], top: int = 10, synonyms: bool = True, history: dict[str, dict[str, int]] | None = None,
+              audience_weight: float = AUDIENCE_WEIGHT, history_weight: float = HISTORY_WEIGHT) -> list[Recommendation]:
     if not rows:
         return []
     docs = {r["id"]: Counter(terms(_descriptor(r), synonyms)) for r in rows}
@@ -99,7 +108,14 @@ def recommend(rendition: Rendition, rows: list[dict[str, Any]], top: int = 10, s
         norm_d = math.sqrt(sum((c * idf[t]) ** 2 for t, c in d.items())) or 1.0
         similarity = dot / (norm_c * norm_d)
         bonus = 0.02 if row.get("status") == "certified" else 0.0  # a proven destination wins a tie
-        out.append(Recommendation(destination_id=row["id"], score=relevance.score, similarity=round(similarity + bonus, 4), matched_terms=sorted({shown.get(t, t) for t in shared})[:8],
-                                  explanation=relevance.explanation if shared else relevance.explanation + " (no weighted overlap)"))
+        aud = score_audience(row)
+        stats = (history or {}).get(row["id"])
+        past = (stats["passes"] / stats["runs"]) if stats and stats["runs"] else 0.0
+        total = similarity + bonus + audience_weight * (aud.score - 1) / 4 + history_weight * past
+        record = f"{stats['passes']} of {stats['runs']} certification runs passed" if stats and stats["runs"] else None
+        why = relevance.explanation if shared else relevance.explanation + " (no weighted overlap)"
+        why += f" Audience fit {aud.score}/5." + (f" Track record: {record}." if record else "")
+        out.append(Recommendation(destination_id=row["id"], score=relevance.score, similarity=round(total, 4), matched_terms=sorted({shown.get(t, t) for t in shared})[:8],
+                                  explanation=why, audience_score=aud.score, track_record=record))
     out.sort(key=lambda r: (-r.similarity, -r.score, r.destination_id))
     return out[:top]

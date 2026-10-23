@@ -61,5 +61,5 @@ class RecommendRequest(BaseModel):
 def recommend_destinations(body: RecommendRequest, request: Request) -> dict[str, Any]:
     """Which destinations should this content go to? Best first; destinations that would refuse it are left out."""
     rows = request.app.state.catalogue.list(connector_key=body.connector_key, status=body.status, limit=5000)["items"]
-    items: list[Recommendation] = recommend(body.rendition, rows, body.top)
+    items: list[Recommendation] = recommend(body.rendition, rows, body.top, history=request.app.state.catalogue.run_stats())
     return {"items": [i.model_dump() for i in items], "considered": len(rows)}

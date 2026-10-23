@@ -111,3 +111,51 @@ def test_recommend_api(mock, tmp_path, monkeypatch):
         assert client.post("/api/v1/recommend", json={"rendition": {"title": "x"}, "top": 0}).status_code == 422
     finally:
         get_settings.cache_clear()
+
+
+# ---------------------------------------------------------------- audience fit and past results
+def test_equal_content_fit_is_broken_by_audience_relevance_to_incubrix():
+    rows = [row("plain", ["updates"], name="Weekly updates"), row("audience", ["updates"], name="Weekly updates")]  # the same words, so the same content fit
+    rows[1]["destination"]["extra"]["site_description"] = "a place for SaaS founders and AI builders"  # only the audience score sees this
+    post = Rendition(title="Weekly updates", body="our weekly updates", tags=["updates"])
+    ranked = recommend(post, rows)
+    assert ids(ranked)[0] == "audience" and ranked[0].audience_score > ranked[1].audience_score and "Audience fit" in ranked[0].explanation
+
+
+def test_a_clean_track_record_helps_and_is_explained():
+    rows = [row("a", ["video"]), row("b", ["video"])]
+    post = Rendition(title="Video", body="video", tags=["video"])
+    ranked = recommend(post, rows, history={"b": {"runs": 4, "passes": 4}, "a": {"runs": 4, "passes": 1}})
+    assert ids(ranked) == ["b", "a"] and ranked[0].track_record == "4 of 4 certification runs passed" and "Track record: 4 of 4" in ranked[0].explanation
+
+
+def test_the_bonuses_never_beat_a_clearly_better_content_fit():
+    rows = [row("fits", ["kubernetes"]), row("popular", ["ai", "saas", "founders", "video", "marketing", "creators"])]
+    post = Rendition(title="Kubernetes news", body="kubernetes", tags=["kubernetes"])
+    assert ids(recommend(post, rows, history={"popular": {"runs": 9, "passes": 9}}))[0] == "fits"
+
+
+def test_the_api_uses_the_track_record(mock, tmp_path, monkeypatch):
+    from fastapi.testclient import TestClient
+
+    from app.config import get_settings
+    from app.main import create_app
+
+    monkeypatch.setenv("DATABASE_URL", f"sqlite:///{tmp_path / 'api2.db'}")
+    monkeypatch.setenv("EVIDENCE_DIR", str(tmp_path / "ev"))
+    monkeypatch.setenv("MOCK_PLATFORMS_URL", mock.url)
+    get_settings.cache_clear()
+    try:
+        import time
+
+        client = TestClient(create_app())
+        client.post("/api/v1/destinations", json={"destination": {"name": "Video Forum", "connector_key": "discourse", "rules": {"self_promo_allowed": True}}, "language": "en", "topics": ["video"]})
+        job = client.post("/api/v1/destinations/video-forum/certify").json()["job_id"]
+        for _ in range(100):
+            if client.get(f"/api/v1/jobs/{job}").json()["status"] in ("succeeded", "failed"):
+                break
+            time.sleep(0.1)
+        item = client.post("/api/v1/recommend", json={"rendition": {"title": "Video", "body": "video", "tags": ["video"]}}).json()["items"][0]
+        assert item["track_record"] == "1 of 1 certification runs passed" and item["audience_score"] >= 2
+    finally:
+        get_settings.cache_clear()

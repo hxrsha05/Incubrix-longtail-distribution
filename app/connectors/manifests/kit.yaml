@@ -6,7 +6,7 @@ surfaces:
   - key: broadcast
     content_types: [article, text]
     # drafts only by default: certification must never email real subscribers
-    spec: {title_max_chars: 200, body_max_chars: 500000, links_allowed: true, tag_style: none, canonical_supported: false, mention_style: none, certify_status: draft}
+    spec: {title_max_chars: 200, body_max_chars: 500000, links_allowed: true, tag_style: none, canonical_supported: false, mention_style: none, certify_status: draft, media_kinds: [image], max_media: 10}
 rate_limits:
   per_connection: {requests: 120, per_seconds: 60}
 capabilities: [publish, status, delete, metrics]

@@ -1,5 +1,15 @@
 components:
   schemas:
+    Acknowledge:
+      properties:
+        acknowledged_by:
+          minLength: 1
+          title: Acknowledged By
+          type: string
+      required:
+      - acknowledged_by
+      title: Acknowledge
+      type: object
     CaptureRequest:
       properties:
         text:
@@ -396,6 +406,123 @@ info:
   version: 0.1.0
 openapi: 3.1.0
 paths:
+  /api/v1/alerts:
+    get:
+      operationId: list_alerts_api_v1_alerts_get
+      parameters:
+      - in: query
+        name: unacknowledged
+        required: false
+        schema:
+          default: false
+          title: Unacknowledged
+          type: boolean
+      - in: query
+        name: destination_id
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Destination Id
+      - in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          title: Limit
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                title: Response List Alerts Api V1 Alerts Get
+                type: object
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: List Alerts
+  /api/v1/alerts/{alert_id}/acknowledge:
+    post:
+      operationId: acknowledge_alert_api_v1_alerts__alert_id__acknowledge_post
+      parameters:
+      - in: path
+        name: alert_id
+        required: true
+        schema:
+          title: Alert Id
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Acknowledge'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                title: Response Acknowledge Alert Api V1 Alerts  Alert Id  Acknowledge
+                  Post
+                type: object
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Acknowledge Alert
+  /api/v1/catalogue/export:
+    get:
+      description: Every destination as the destination record (name, url, platform_key,
+        ... relevance_score, relevance_reason, level, last_certified_at).
+      operationId: export_catalogue_api_v1_catalogue_export_get
+      parameters:
+      - in: query
+        name: format
+        required: false
+        schema:
+          default: csv
+          title: Format
+          type: string
+      - in: query
+        name: connector_key
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Connector Key
+      - in: query
+        name: status
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Export Catalogue
   /api/v1/destinations:
     get:
       operationId: list_destinations_api_v1_destinations_get

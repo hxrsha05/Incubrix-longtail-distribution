@@ -20,6 +20,7 @@ from app.api.connector_routes import router as connector_router
 from app.api.feed_routes import router as feed_router
 from app.api.import_routes import router as import_router
 from app.api.publish_routes import router as publish_router
+from app.api.alert_routes import router as alert_router
 from app.api.recert_routes import router as recert_router
 from app.api.rules_routes import router as rules_router
 from app.api.job_routes import router as job_router
@@ -35,6 +36,7 @@ from app.evidence import EvidenceStore, make_s3_client
 from app.feeds import FeedStore
 from app.connectors.registry import ConnectorRegistry, build_registry
 from app.db import init_db, make_engine
+from app.alerts import AlertService
 from app.http_guard import ApiGuard, IdempotencyMiddleware
 from app.idempotency import IdempotencyStore
 from app.jobs import JobService
@@ -116,8 +118,9 @@ def create_app(
     app.state.rules_capture = RulesCapture(engine, app.state.catalogue, extractor, http, allow_private_hosts=settings.import_allow_private_hosts, clock=clock)
     app.state.jobs.register("rules_capture", lambda ctx, params: app.state.rules_capture.capture(params["destination_id"], url=params.get("url"), text=params.get("text")))
     register_certification_jobs(app.state.jobs, app.state.certification, app.state.catalogue)
+    app.state.alerts = AlertService(engine, http, settings.alert_webhook_url, settings.callback_hmac_secret.get_secret_value(), clock)
     app.state.recertifier = Recertifier(app.state.catalogue, app.state.certification, max_age_s=settings.recert_max_age_s, demoted_cooldown_s=settings.recert_demoted_cooldown_s,
-                                        attention_retry_s=settings.recert_attention_retry_s, batch_limit=settings.recert_batch_limit, clock=clock)
+                                        attention_retry_s=settings.recert_attention_retry_s, batch_limit=settings.recert_batch_limit, clock=clock, alerts=app.state.alerts)
     app.state.jobs.register("recertify", lambda ctx, params: app.state.recertifier.run_once(dry_run=bool(params.get("dry_run", False)), force=bool(params.get("force", False))))
     app.state.scheduler = RecertScheduler(app.state.recertifier, settings.recert_interval_s)
 
@@ -180,6 +183,7 @@ def create_app(
     app.include_router(catalogue_router)  # /api/v1/destinations, /api/v1/evidence
     app.include_router(advice_router)  # POST /api/v1/tailor, /api/v1/relevance
     app.include_router(publish_router)  # POST /api/v1/publish
+    app.include_router(alert_router)  # GET /api/v1/alerts, POST /api/v1/alerts/{id}/acknowledge
     app.include_router(recert_router)  # POST /api/v1/recertify, GET /api/v1/recertification
     app.include_router(rules_router)  # AI rules capture: propose, review, confirm
     app.include_router(feed_router)  # GET /feeds/{id}.xml (public), /api/v1/feeds/... (token)
