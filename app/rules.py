@@ -43,12 +43,38 @@ class RuleDecision:
         return self.action == "allow"
 
 
+_BARE = re.compile(r"(?<![\w@/.-])(?:www\.[a-z0-9-]+(?:\.[a-z0-9-]+)+|[a-z0-9-]+(?:\.[a-z0-9-]+)*\.(?:com|org|net|io|ai|co|dev|app|me|tv|xyz|info|gg|page|link)\b)(?:/[^\s)\]>\"']*)?", re.I)
+_MARKDOWN_OR_HTML_LINK = re.compile(r"\]\(\s*([^)\s]+)\s*\)|href\s*=\s*[\"']([^\"']+)[\"']", re.I)
+
+# strong signs of an advert in the text itself, for a post that was not marked promotional by its sender
+PROMO_MARKERS = ("buy now", "% off", "discount code", "promo code", "use code", "limited time offer", "limited-time offer", "sign up today", "sign up now",
+                 "free trial", "special offer", "order now", "shop now", "subscribe now", "act now", "check out our", "our new product", "now available at", "get yours")
+
+
 def count_links(rendition: Rendition) -> int:
-    urls = set(_URL.findall(rendition.body))
+    """Every link in the post: full addresses, www. addresses, bare domains such as example.com/page, markdown and HTML links, and the
+    link and canonical fields. Counting more rather than fewer is deliberate: a link rule that misses a link is the dangerous kind of mistake."""
+    seen: set[str] = set()
+
+    def norm(url: str) -> str:
+        return re.sub(r"^https?://", "", url.strip().lower()).removeprefix("www.").rstrip("/.,;:!?")
+
+    text = rendition.body
+    for found in _URL.findall(text):
+        seen.add(norm(found))
+    for md, html_ in _MARKDOWN_OR_HTML_LINK.findall(text):
+        seen.add(norm(md or html_))
+    for found in _BARE.findall(text):
+        seen.add(norm(found))
     for extra in (rendition.link_url, rendition.canonical_url):
         if extra:
-            urls.add(extra)
-    return len(urls)
+            seen.add(norm(extra))
+    return len({u for u in seen if u})
+
+
+def promo_markers(rendition: Rendition) -> list[str]:
+    text = f"{rendition.title} {rendition.body}".lower()
+    return [m for m in PROMO_MARKERS if m in text]
 
 
 def check_rules(
@@ -68,8 +94,11 @@ def check_rules(
     if automated and rules["automation_allowed"] is False:
         violations.append(RuleViolation("automation", "automated posting is not allowed here; use the assisted pack"))
 
-    if rendition.promotional and rules["self_promo_allowed"] is False:
-        violations.append(RuleViolation("self_promotion", "this destination bans self-promotional posts"))
+    if rules["self_promo_allowed"] is False:
+        if rendition.promotional:
+            violations.append(RuleViolation("self_promotion", "this destination bans self-promotional posts"))
+        elif len(markers := promo_markers(rendition)) >= 2:  # not marked promotional, but the text reads like an advert
+            violations.append(RuleViolation("self_promotion", f"this destination bans self-promotional posts and the text looks promotional (matched: {', '.join(markers[:3])})"))
 
     policy = rules["link_policy"]
     links = count_links(rendition)

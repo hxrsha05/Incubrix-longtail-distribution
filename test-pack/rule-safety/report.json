@@ -1,0 +1,36 @@
+{
+  "cases": 15557,
+  "violating_cases": 12317,
+  "caught": 12317,
+  "missed": 0,
+  "wrong_action_or_reason": 0,
+  "allowed_correctly": 3240,
+  "false_blocks": 0,
+  "by_kind": {
+    "automation": {
+      "cases": 3888,
+      "caught": 3888
+    },
+    "ai_disclosure": {
+      "cases": 2592,
+      "caught": 2592
+    },
+    "link_policy": {
+      "cases": 5184,
+      "caught": 5184
+    },
+    "self_promotion": {
+      "cases": 3888,
+      "caught": 3888
+    },
+    "frequency_cap": {
+      "cases": 1620,
+      "caught": 1620
+    },
+    "rules_missing": {
+      "cases": 5,
+      "caught": 5
+    }
+  },
+  "problems": []
+}

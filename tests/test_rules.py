@@ -90,3 +90,47 @@ def test_hard_violation_beats_reschedule():
     cap = {"frequency_cap": {"max_posts": 1, "per_seconds": WEEK}, "self_promo_allowed": False}
     d = run(Rendition(title="t", promotional=True), cap, history=[NOW - 10])
     assert d.action == "block"  # waiting a week would not make a banned post allowed
+
+
+# ---------------------------------------------------------------- links in any form, and adverts that are not marked
+import pytest as _pytest  # noqa: E402
+
+from app.models import Rendition as _R  # noqa: E402
+from app.rules import check_rules as _check, count_links as _count  # noqa: E402
+
+NO_LINKS = {"frequency_cap": None, "self_promo_allowed": True, "link_policy": "none", "disclosure_required": False, "automation_allowed": True}
+NO_PROMO = {**NO_LINKS, "link_policy": "allowed", "self_promo_allowed": False}
+
+
+def _decide(rendition, rules):
+    return _check(rendition, rules, now=1000.0, automated=True, post_times_since=lambda since: [])
+
+
+@_pytest.mark.parametrize("body,expected", [
+    ("see https://example.com/page", 1), ("see HTTP://EXAMPLE.COM/Page", 1), ("visit www.example.com today", 1), ("read example.com/blog/post now", 1),
+    ("[docs](https://docs.example.org/x)", 1), ('<a href="http://y.example/z">here</a>', 1), ("two: example.com and other.io/a", 2),
+    ("the same one twice: https://example.com/a/ and example.com/a", 1), ("no links at all, just words", 0), ("mail me@example.com please", 0),
+    ("Node.js version 1.2.3 and e.g. this", 0), ("Thanks.So we begin", 0), ("a trailing dot https://example.com/a.", 1),
+])
+def test_links_are_counted_in_every_form_people_write_them(body, expected):
+    assert _count(_R(title="t", body=body)) == expected
+
+
+@_pytest.mark.parametrize("body", ["check www.example.com", "go to example.com/offer", "[here](https://x.example)", "see https://x.example"])
+def test_a_no_links_destination_blocks_a_link_however_it_is_written(body):
+    d = _decide(_R(title="t", body=body), NO_LINKS)
+    assert d.action == "block" and d.violations[0].rule == "link_policy"
+
+
+def test_an_advert_that_was_not_marked_promotional_is_still_caught_where_promotion_is_banned():
+    d = _decide(_R(title="Big news", body="Buy now and get 20% off with our discount code, a limited time offer", promotional=False), NO_PROMO)
+    assert d.action == "block" and d.violations[0].rule == "self_promotion" and "looks promotional" in d.violations[0].reason
+
+
+def test_a_single_marker_is_not_enough_and_ordinary_posts_pass():
+    assert _decide(_R(title="Our free trial results", body="We wrote up what we learned running a study."), NO_PROMO).action == "allow"
+    assert _decide(_R(title="How we edit video", body="A walkthrough of our editing workflow, with tips."), NO_PROMO).action == "allow"
+
+
+def test_the_promo_heuristic_only_applies_where_promotion_is_banned():
+    assert _decide(_R(title="t", body="Buy now, 50% off, use code SAVE"), {**NO_PROMO, "self_promo_allowed": True}).action == "allow"

@@ -1,0 +1,57 @@
+{
+  "simulation": {
+    "A": {
+      "discourse": {
+        "attempts": 40,
+        "succeeded": 40
+      },
+      "devto": {
+        "attempts": 40,
+        "succeeded": 40
+      },
+      "hashnode": {
+        "attempts": 40,
+        "succeeded": 40
+      },
+      "kit": {
+        "attempts": 40,
+        "succeeded": 40
+      },
+      "webhook": {
+        "attempts": 40,
+        "succeeded": 40
+      }
+    },
+    "B": {
+      "discourse": {
+        "cases": 40,
+        "first_call_timed_out": 40,
+        "retry_succeeded": 40,
+        "posts_intended": 40,
+        "posts_on_platform": 40,
+        "duplicates": 0
+      },
+      "devto": {
+        "cases": 40,
+        "first_call_timed_out": 40,
+        "retry_succeeded": 40,
+        "posts_intended": 40,
+        "posts_on_platform": 40,
+        "duplicates": 0
+      }
+    },
+    "C": {
+      "cases": 40,
+      "posts_intended": 40,
+      "posts_on_platform": 40,
+      "duplicates": 0
+    },
+    "D": {
+      "cases": 20,
+      "reported_with_reset_time": 20,
+      "retry_succeeded": 20,
+      "posts_on_platform": 20
+    }
+  },
+  "local_instances": null
+}
