@@ -12,9 +12,12 @@
     }
   },
   "second": {
-    "live_url": "http://mock-platforms:9100/discourse/t/a-failure-demo-post-title/101",
-    "platform_post_id": "101",
-    "status": "live"
+    "error": {
+      "code": "INTERNAL_ERROR",
+      "details": {},
+      "message": "Unexpected server error",
+      "retryable": false
+    }
   },
-  "topics_after": 1
+  "topics_after": 3
 }

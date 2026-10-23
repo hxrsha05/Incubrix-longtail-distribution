@@ -6,8 +6,8 @@
       "output_tokens": 0,
       "usd": 0.0
     },
-    "created_at": 1792745326.9588192,
-    "decided_at": 1792745327.0224128,
+    "created_at": 1792764315.8496919,
+    "decided_at": 1792764316.4707863,
     "decided_by": "Demo Reviewer",
     "destination_id": "demo-strict-forum",
     "diff": [
@@ -59,7 +59,7 @@
       "link_policy": "none",
       "self_promo_allowed": false
     },
-    "id": "3177d4c0cde4492c",
+    "id": "2289188c83934a7e",
     "note": null,
     "proposed": {
       "dropped": [],
@@ -106,7 +106,7 @@
       "output_tokens": 0,
       "usd": 0.0
     },
-    "created_at": 1792745326.9588192,
+    "created_at": 1792764315.8496919,
     "decided_at": null,
     "decided_by": null,
     "destination_id": "demo-strict-forum",
@@ -150,7 +150,7 @@
     ],
     "extractor": "mock-keyword-reader",
     "final_rules": null,
-    "id": "3177d4c0cde4492c",
+    "id": "2289188c83934a7e",
     "manifest": {
       "ai_generated": {
         "label": "no AI-generated content in this result",
@@ -174,13 +174,21 @@
           "reference": "SOURCES.md"
         }
       ],
+      "models": [
+        {
+          "model": "mock-keyword-reader",
+          "provider": "mock-keyword-reader",
+          "role": "reads the rules page and proposes rules; a person confirms"
+        }
+      ],
+      "seed": null,
       "settings": {
         "extractor": "mock-keyword-reader"
       },
       "timings": {
-        "duration_s": 0.009,
-        "finished_at": 1792745326.967361,
-        "started_at": 1792745326.9588192
+        "duration_s": 0.084,
+        "finished_at": 1792764315.9333365,
+        "started_at": 1792764315.8496919
       },
       "versions": {
         "connector": null,

@@ -1,0 +1,11 @@
+Certification run c8a65a2e32c4
+destination: recertification-demo-forum  connector: discourse
+verdict: PASSED   duration: 0.042 s
+  [ok] validate (0.0 s)
+  [ok] publish (0.009 s)
+  [ok] confirm_live (0.0 s)
+  [ok] status (0.012 s)
+  [ok] metrics (0.006 s)
+  [ok] delete (0.008 s)
+  [ok] confirm_deleted (0.007 s)
+test post: id=106 url=http://mock-platforms:9100/discourse/t/incubrix-certification-test-c8a65a2e32c4/106 deleted=True after 0.026 s (limit 600 s)

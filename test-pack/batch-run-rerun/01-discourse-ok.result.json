@@ -1,6 +1,6 @@
 {
-  "duration_s": 0.005,
-  "input": "01-discourse-ok.json",
+  "duration_s": 0.046,
+  "input": "01-discourse-ok",
   "manifest": {
     "ai_generated": {
       "label": "no AI-generated content in this result",
@@ -24,16 +24,19 @@
         "reference": "SOURCES.md"
       }
     ],
+    "models": [],
+    "seed": null,
     "settings": {
-      "simulation_mode": true
+      "simulation_mode": true,
+      "tailored": true
     },
     "timings": {
-      "duration_s": 0.005,
-      "finished_at": 1792689510.8562207,
-      "started_at": 1792689510.8509111
+      "duration_s": 0.076,
+      "finished_at": 1792764290.5437238,
+      "started_at": 1792764290.4677463
     },
     "versions": {
-      "connector": null,
+      "connector": "1.0.0",
       "python": "3.12.15",
       "service": "0.1.0"
     },
@@ -41,9 +44,15 @@
   },
   "replayed": true,
   "result": {
-    "live_url": "http://mock-platforms:9100/discourse/t/our-new-video-tool-is-out/105",
-    "platform_post_id": "105",
+    "live_url": "http://mock-platforms:9100/discourse/t/our-new-video-tool-is-out/101",
+    "platform_post_id": "101",
     "status": "live"
   },
-  "status": "published"
+  "status": "published",
+  "tailoring": {
+    "changes": [
+      "closing question added: forum members answer questions, an announcement with no question gets few replies"
+    ],
+    "warnings": []
+  }
 }

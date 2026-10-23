@@ -1,6 +1,6 @@
 {
-  "duration_s": 0.008,
-  "input": "02-devto-ok.json",
+  "duration_s": 0.047,
+  "input": "02-devto-ok",
   "manifest": {
     "ai_generated": {
       "label": "no AI-generated content in this result",
@@ -24,16 +24,19 @@
         "reference": "SOURCES.md"
       }
     ],
+    "models": [],
+    "seed": null,
     "settings": {
-      "simulation_mode": true
+      "simulation_mode": true,
+      "tailored": true
     },
     "timings": {
-      "duration_s": 0.008,
-      "finished_at": 1792689502.252751,
-      "started_at": 1792689502.2444258
+      "duration_s": 0.031,
+      "finished_at": 1792764290.5919285,
+      "started_at": 1792764290.561083
     },
     "versions": {
-      "connector": null,
+      "connector": "1.0.0",
       "python": "3.12.15",
       "service": "0.1.0"
     },
@@ -41,9 +44,15 @@
   },
   "replayed": false,
   "result": {
-    "live_url": "http://devto.mock/mock_user/how-we-retry-safely-6b",
-    "platform_post_id": "107",
+    "live_url": "http://devto.mock/mock_user/how-we-retry-safely-67",
+    "platform_post_id": "103",
     "status": "live"
   },
-  "status": "published"
+  "status": "published",
+  "tailoring": {
+    "changes": [
+      "canonical URL set to the original link"
+    ],
+    "warnings": []
+  }
 }

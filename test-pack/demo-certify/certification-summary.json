@@ -1,0 +1,65 @@
+{
+  "job_id": "72ad9e7c708e4c19b2defc40b666ae1b",
+  "kind": "certify_batch",
+  "status": "succeeded",
+  "progress": 100,
+  "result": {
+    "results": [
+      {
+        "destination_id": "local-ghost-blog",
+        "verdict": "passed",
+        "run_id": "b34106418858",
+        "duration_s": 0.127,
+        "evidence": "http://localhost:9000/incubrix-distribution/certification/local-ghost-blog/run-b34106418858.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=incubrix-local%2F20261023%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20261023T140549Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=58bafb7d0219ceccbe86d826aad7dff4886fdfdfeb9ae961cfb6693efd57f448"
+      }
+    ],
+    "skipped": [],
+    "passed": 1,
+    "failed": 0,
+    "inconclusive": 0,
+    "manifest": {
+      "kind": "certification_batch",
+      "versions": {
+        "service": "0.1.0",
+        "connector": null,
+        "python": "3.12.15"
+      },
+      "models": [],
+      "seed": null,
+      "settings": {
+        "simulation_mode": true
+      },
+      "timings": {
+        "started_at": 1792764349.3905163,
+        "finished_at": 1792764349.5542638,
+        "duration_s": 0.164
+      },
+      "cost": {
+        "model_calls": 0,
+        "usd": 0.0,
+        "note": "no paid API or model is called by certification"
+      },
+      "warnings": [],
+      "licences": [
+        {
+          "component": "IncuBrix Distribution service (this repo)",
+          "licence": "own code",
+          "reference": "SOURCES.md"
+        },
+        {
+          "component": "FastAPI, Pydantic, SQLAlchemy, httpx",
+          "licence": "MIT / BSD (see SOURCES.md)",
+          "reference": "SOURCES.md"
+        }
+      ],
+      "ai_generated": {
+        "present": false,
+        "label": "no AI-generated content in this result"
+      }
+    }
+  },
+  "error": null,
+  "callback_status": "none",
+  "created_at": 1792764349.3817432,
+  "updated_at": 1792764349.554441
+}

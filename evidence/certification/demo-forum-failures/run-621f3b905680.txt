@@ -1,0 +1,9 @@
+Certification run 621f3b905680
+destination: demo-forum-failures  connector: discourse
+verdict: FAILED   duration: 0.016 s
+  [ok] validate (0.0 s)
+  [FAIL] publish (0.007 s)
+  [ok] cleanup (0.005 s)
+failure: the platform's response changed: field 'topic_id' is missing
+test post: id=101 url=http://mock-platforms:9100/discourse/t/incubrix-certification-test-621f3b905680/101 deleted=True after 0.005 s (limit 600 s)
+warning: publish failed but the platform had created the post; it was found by reconcile and will be deleted

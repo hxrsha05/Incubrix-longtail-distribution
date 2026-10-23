@@ -1,5 +1,5 @@
 {
-  "duration_s": 0.005,
+  "duration_s": 0.113,
   "error": {
     "code": "DEST_SPEC_VIOLATION",
     "details": {
@@ -13,44 +13,7 @@
     "message": "post blocked by destination rules",
     "retryable": false
   },
-  "input": "04-blocked-no-promo.json",
-  "manifest": {
-    "ai_generated": {
-      "label": "no AI-generated content in this result",
-      "present": false
-    },
-    "cost": {
-      "model_calls": 0,
-      "note": "no paid API or model is called by certification",
-      "usd": 0.0
-    },
-    "kind": "publish",
-    "licences": [
-      {
-        "component": "IncuBrix Distribution service (this repo)",
-        "licence": "own code",
-        "reference": "SOURCES.md"
-      },
-      {
-        "component": "FastAPI, Pydantic, SQLAlchemy, httpx",
-        "licence": "MIT / BSD (see SOURCES.md)",
-        "reference": "SOURCES.md"
-      }
-    ],
-    "settings": {
-      "simulation_mode": true
-    },
-    "timings": {
-      "duration_s": 0.005,
-      "finished_at": 1792689510.8865132,
-      "started_at": 1792689510.8810973
-    },
-    "versions": {
-      "connector": null,
-      "python": "3.12.15",
-      "service": "0.1.0"
-    },
-    "warnings": []
-  },
+  "http_status": 422,
+  "input": "04-blocked-no-promo",
   "status": "blocked"
 }

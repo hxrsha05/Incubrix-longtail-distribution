@@ -1,0 +1,139 @@
+{
+  "connector_key": "lemmy",
+  "destination_id": "local-lemmy-incubrix-test",
+  "duration_s": 0.209,
+  "finished_at": 1792764401.4599214,
+  "manifest": {
+    "ai_generated": {
+      "label": "no AI-generated content in this result",
+      "present": false
+    },
+    "cost": {
+      "model_calls": 0,
+      "note": "no paid API or model is called by certification",
+      "usd": 0.0
+    },
+    "kind": "certification",
+    "licences": [
+      {
+        "component": "IncuBrix Distribution service (this repo)",
+        "licence": "own code",
+        "reference": "SOURCES.md"
+      },
+      {
+        "component": "FastAPI, Pydantic, SQLAlchemy, httpx",
+        "licence": "MIT / BSD (see SOURCES.md)",
+        "reference": "SOURCES.md"
+      }
+    ],
+    "models": [],
+    "seed": null,
+    "settings": {
+      "rate_limit_wait_cap_s": 30.0,
+      "simulation_mode": true,
+      "test_post_ttl_s": 600
+    },
+    "timings": {
+      "duration_s": 0.209,
+      "finished_at": 1792764401.4599214,
+      "started_at": 1792764401.2511618
+    },
+    "versions": {
+      "connector": "1.0.0",
+      "python": "3.12.15",
+      "service": "0.1.0"
+    },
+    "warnings": []
+  },
+  "run_id": "0e1b515e2abe",
+  "started_at": 1792764401.2511618,
+  "steps": [
+    {
+      "detail": {
+        "ok": true,
+        "violations": []
+      },
+      "duration_s": 0.0,
+      "name": "validate",
+      "ok": true,
+      "started_at": 1792764401.2512124
+    },
+    {
+      "detail": {
+        "attempts": 1,
+        "live_url": "http://lemmy:8536/post/52",
+        "platform_post_id": "52",
+        "status": "live"
+      },
+      "duration_s": 0.013,
+      "name": "publish",
+      "ok": true,
+      "started_at": 1792764401.2512298
+    },
+    {
+      "detail": {
+        "expected_status": "live",
+        "live_url": "http://lemmy:8536/post/52"
+      },
+      "duration_s": 0.0,
+      "name": "confirm_live",
+      "ok": true,
+      "started_at": 1792764401.2638032
+    },
+    {
+      "detail": {
+        "live_url": "http://lemmy:8536/post/52",
+        "status": "live"
+      },
+      "duration_s": 0.048,
+      "name": "status",
+      "ok": true,
+      "started_at": 1792764401.2638054
+    },
+    {
+      "detail": {
+        "clicks": 0,
+        "comments": 0,
+        "likes": 1,
+        "saves": 0,
+        "shares": 0,
+        "views": 0,
+        "watch_time_s": 0.0
+      },
+      "duration_s": 0.048,
+      "name": "metrics",
+      "ok": true,
+      "started_at": 1792764401.3115664
+    },
+    {
+      "detail": {
+        "deleted": true
+      },
+      "duration_s": 0.048,
+      "name": "delete",
+      "ok": true,
+      "started_at": 1792764401.3595705
+    },
+    {
+      "detail": {
+        "note": "",
+        "status_after_delete": "deleted"
+      },
+      "duration_s": 0.052,
+      "name": "confirm_deleted",
+      "ok": true,
+      "started_at": 1792764401.407743
+    }
+  ],
+  "target": "http://lemmy:8536",
+  "test_post": {
+    "deleted": true,
+    "deleted_after_s": 0.144,
+    "limit_s": 600,
+    "live_url": "http://lemmy:8536/post/52",
+    "platform_post_id": "52"
+  },
+  "tier": "protocol",
+  "verdict": "passed",
+  "warnings": []
+}

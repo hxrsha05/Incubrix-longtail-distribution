@@ -1,0 +1,10 @@
+Certification run b1439b56484a
+destination: local-ghost-blog  connector: ghost
+verdict: PASSED   duration: 2.155 s
+  [ok] validate (0.0 s)
+  [ok] publish (1.671 s)
+  [ok] confirm_live (0.0 s)
+  [ok] status (0.184 s)
+  [ok] delete (0.216 s)
+  [ok] confirm_deleted (0.084 s)
+test post: id=6adb69a13cb7480001e4d50e url=http://ghost.localhost:2368/incubrix-certification-test-b1439b56484a-fd04c993/ deleted=True after 0.4 s (limit 600 s)

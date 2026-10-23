@@ -3,32 +3,32 @@
   "published": 3,
   "blocked": 1,
   "failed": 1,
-  "duration_s": 0.325,
+  "duration_s": 1.404,
   "results": [
     {
-      "input": "01-discourse-ok.json",
+      "input": "01-discourse-ok",
       "status": "published",
-      "duration_s": 0.017
+      "duration_s": 0.124
     },
     {
-      "input": "02-devto-ok.json",
+      "input": "02-devto-ok",
       "status": "published",
-      "duration_s": 0.008
+      "duration_s": 0.047
     },
     {
-      "input": "03-lemmy-ok.json",
+      "input": "03-lemmy-ok",
       "status": "published",
-      "duration_s": 0.265
+      "duration_s": 1.12
     },
     {
-      "input": "04-blocked-no-promo.json",
+      "input": "04-blocked-no-promo",
       "status": "blocked",
-      "duration_s": 0.005
+      "duration_s": 0.076
     },
     {
-      "input": "05-bad-destination.json",
+      "input": "05-bad-destination",
       "status": "failed",
-      "duration_s": 0.001
+      "duration_s": 0.034
     }
   ]
 }

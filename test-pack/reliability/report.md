@@ -32,8 +32,11 @@ For the timeout tests, how the first call and the retry went:
 
 - 20 of 20 429 answers carried the reset time (15 s) to the caller; the retry with the same key succeeded 20 of 20 times; posts on the platform: 20
 
-## Local instances
+## Local instances: full certification cycles (publish, live, status, delete, gone)
 
-Not run in this report (needs `--local` and the docker compose stack).
+| Destination | Cycles | Passed | Mean seconds | Slowest |
+|---|---|---|---|---|
+| local-lemmy-incubrix-test | 20 | 20 | 0.211 | 0.237 |
+| local-ghost-blog | 20 | 20 | 0.08 | 0.181 |
 
 Limits: simulated platforms behave as I modelled them; a real platform may fail in ways I did not think of. The local Lemmy and Ghost are real but tiny.

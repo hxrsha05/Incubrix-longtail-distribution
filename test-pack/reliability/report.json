@@ -53,5 +53,18 @@
       "posts_on_platform": 20
     }
   },
-  "local_instances": null
+  "local_instances": {
+    "local-lemmy-incubrix-test": {
+      "cycles": 20,
+      "passed": 20,
+      "mean_s": 0.211,
+      "max_s": 0.237
+    },
+    "local-ghost-blog": {
+      "cycles": 20,
+      "passed": 20,
+      "mean_s": 0.08,
+      "max_s": 0.181
+    }
+  }
 }

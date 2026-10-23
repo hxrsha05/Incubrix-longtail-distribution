@@ -1,0 +1,11 @@
+Certification run f46642617721
+destination: mock-discourse-forum  connector: discourse
+verdict: PASSED   duration: 0.027 s
+  [ok] validate (0.0 s)
+  [ok] publish (0.007 s)
+  [ok] confirm_live (0.0 s)
+  [ok] status (0.005 s)
+  [ok] metrics (0.005 s)
+  [ok] delete (0.005 s)
+  [ok] confirm_deleted (0.005 s)
+test post: id=101 url=http://mock-platforms:9100/discourse/t/incubrix-certification-test-f46642617721/101 deleted=True after 0.015 s (limit 600 s)

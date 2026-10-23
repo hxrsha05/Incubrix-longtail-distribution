@@ -1,0 +1,11 @@
+Certification run bddefce9626e
+destination: mock-kit-newsletter-drafts-only  connector: kit
+verdict: PASSED   duration: 0.029 s
+  [ok] validate (0.0 s)
+  [ok] publish (0.008 s)
+  [ok] confirm_live (0.0 s)
+  [ok] status (0.006 s)
+  [ok] metrics (0.005 s)
+  [ok] delete (0.005 s)
+  [ok] confirm_deleted (0.005 s)
+test post: id=104 url=http://mock-platforms:9100/kit/v4/broadcasts/104 deleted=True after 0.016 s (limit 600 s)

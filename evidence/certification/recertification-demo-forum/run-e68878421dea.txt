@@ -1,0 +1,11 @@
+Certification run e68878421dea
+destination: recertification-demo-forum  connector: discourse
+verdict: PASSED   duration: 0.025 s
+  [ok] validate (0.0 s)
+  [ok] publish (0.006 s)
+  [ok] confirm_live (0.0 s)
+  [ok] status (0.004 s)
+  [ok] metrics (0.006 s)
+  [ok] delete (0.004 s)
+  [ok] confirm_deleted (0.004 s)
+test post: id=101 url=http://mock-platforms:9100/discourse/t/incubrix-certification-test-e68878421dea/101 deleted=True after 0.014 s (limit 600 s)

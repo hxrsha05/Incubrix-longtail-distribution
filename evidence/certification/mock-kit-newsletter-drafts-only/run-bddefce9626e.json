@@ -1,0 +1,139 @@
+{
+  "connector_key": "kit",
+  "destination_id": "mock-kit-newsletter-drafts-only",
+  "duration_s": 0.029,
+  "finished_at": 1792764323.711481,
+  "manifest": {
+    "ai_generated": {
+      "label": "no AI-generated content in this result",
+      "present": false
+    },
+    "cost": {
+      "model_calls": 0,
+      "note": "no paid API or model is called by certification",
+      "usd": 0.0
+    },
+    "kind": "certification",
+    "licences": [
+      {
+        "component": "IncuBrix Distribution service (this repo)",
+        "licence": "own code",
+        "reference": "SOURCES.md"
+      },
+      {
+        "component": "FastAPI, Pydantic, SQLAlchemy, httpx",
+        "licence": "MIT / BSD (see SOURCES.md)",
+        "reference": "SOURCES.md"
+      }
+    ],
+    "models": [],
+    "seed": null,
+    "settings": {
+      "rate_limit_wait_cap_s": 30.0,
+      "simulation_mode": true,
+      "test_post_ttl_s": 600
+    },
+    "timings": {
+      "duration_s": 0.029,
+      "finished_at": 1792764323.711481,
+      "started_at": 1792764323.6823654
+    },
+    "versions": {
+      "connector": "1.0.0",
+      "python": "3.12.15",
+      "service": "0.1.0"
+    },
+    "warnings": []
+  },
+  "run_id": "bddefce9626e",
+  "started_at": 1792764323.6823654,
+  "steps": [
+    {
+      "detail": {
+        "ok": true,
+        "violations": []
+      },
+      "duration_s": 0.0,
+      "name": "validate",
+      "ok": true,
+      "started_at": 1792764323.6824822
+    },
+    {
+      "detail": {
+        "attempts": 1,
+        "live_url": "http://mock-platforms:9100/kit/v4/broadcasts/104",
+        "platform_post_id": "104",
+        "status": "draft"
+      },
+      "duration_s": 0.008,
+      "name": "publish",
+      "ok": true,
+      "started_at": 1792764323.6825364
+    },
+    {
+      "detail": {
+        "expected_status": "draft",
+        "live_url": "http://mock-platforms:9100/kit/v4/broadcasts/104"
+      },
+      "duration_s": 0.0,
+      "name": "confirm_live",
+      "ok": true,
+      "started_at": 1792764323.6902142
+    },
+    {
+      "detail": {
+        "live_url": null,
+        "status": "draft"
+      },
+      "duration_s": 0.006,
+      "name": "status",
+      "ok": true,
+      "started_at": 1792764323.6902206
+    },
+    {
+      "detail": {
+        "clicks": 0,
+        "comments": 0,
+        "likes": 0,
+        "saves": 0,
+        "shares": 0,
+        "views": 0,
+        "watch_time_s": 0.0
+      },
+      "duration_s": 0.005,
+      "name": "metrics",
+      "ok": true,
+      "started_at": 1792764323.6961806
+    },
+    {
+      "detail": {
+        "deleted": true
+      },
+      "duration_s": 0.005,
+      "name": "delete",
+      "ok": true,
+      "started_at": 1792764323.701299
+    },
+    {
+      "detail": {
+        "note": "",
+        "status_after_delete": "not_found"
+      },
+      "duration_s": 0.005,
+      "name": "confirm_deleted",
+      "ok": true,
+      "started_at": 1792764323.70648
+    }
+  ],
+  "target": "http://mock-platforms:9100/kit",
+  "test_post": {
+    "deleted": true,
+    "deleted_after_s": 0.016,
+    "limit_s": 600,
+    "live_url": "http://mock-platforms:9100/kit/v4/broadcasts/104",
+    "platform_post_id": "104"
+  },
+  "tier": "native",
+  "verdict": "passed",
+  "warnings": []
+}

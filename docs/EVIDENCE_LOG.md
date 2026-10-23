@@ -153,3 +153,12 @@ Ghost, checked against the real local Ghost 6.72.0:
 - Without a token: `/health`, `/ready` and `/docs` answer 200, every other call answers 401 UNAUTHORIZED.
 - With the token (typed only on the developer's own machine): `scripts/check_live_demo.py` passed all 10 checks, screenshot `evidence/manual-demos/live-demo/01-live-demo-checks-all-pass.png`.
 - Still to measure: cold start after 20 minutes idle.
+
+### Evidence refreshed on the final code (23 Oct 2026, evening)
+Run against the rebuilt docker compose stack (API image rebuilt from the final code, real local Lemmy and Ghost, S3 on):
+- `python -m app.cli run` (through the API, twice): 5 inputs, 3 published, 1 blocked by rules, 1 failed cleanly -> `test-pack/batch-run`, `test-pack/batch-run-rerun`.
+- `python -m app.cli certify --connector ghost`: 1 passed -> `test-pack/demo-certify`.
+- `scripts.demo_failures`, `scripts.demo_advanced`, `scripts.demo_recertification`: all cases behave as described (duplicates 0 after a timeout and retry; 429 with reset time; renamed field -> demoted -> publishing refused -> promoted back). Note: two demo scripts started at the same time share one fake platform and disturb each other; run them one at a time.
+- `scripts.import_demo`: 1,000 rows in 18.3 s (762 accepted, 108 duplicates, 60 invalid, 70 unreachable).
+- `scripts.measure_reliability --local http://localhost:8000` -> `test-pack/reliability/report.md`: 200 of 200 simulated publishes, 0 duplicates in 120 retry cases, 20 of 20 429 answers carried the reset time, and 20 of 20 full certification cycles passed on each of the real local Lemmy (mean 0.21 s) and Ghost (mean 0.08 s).
+- `python -m pytest`: 442 passed, 18 skipped (live-instance tests); secret scan clean.

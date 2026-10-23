@@ -1,0 +1,4 @@
+Certification run skip-09f4b1f463
+destination: demo-forum-no-access  connector: discourse
+verdict: INCONCLUSIVE   duration: 0.0 s
+failure: CONNECTION_AUTH_EXPIRED: no credentials for 'nobody'; add it to the connections file

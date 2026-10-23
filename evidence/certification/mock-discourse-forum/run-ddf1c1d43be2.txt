@@ -1,0 +1,11 @@
+Certification run ddf1c1d43be2
+destination: mock-discourse-forum  connector: discourse
+verdict: PASSED   duration: 0.006 s
+  [ok] validate (0.0 s)
+  [ok] publish (0.002 s)
+  [ok] confirm_live (0.0 s)
+  [ok] status (0.001 s)
+  [ok] metrics (0.001 s)
+  [ok] delete (0.001 s)
+  [ok] confirm_deleted (0.001 s)
+test post: id=102 url=http://mock-platforms:9100/discourse/t/incubrix-certification-test-ddf1c1d43be2/102 deleted=True after 0.003 s (limit 600 s)

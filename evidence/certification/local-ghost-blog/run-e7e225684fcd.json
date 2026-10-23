@@ -1,0 +1,124 @@
+{
+  "connector_key": "ghost",
+  "destination_id": "local-ghost-blog",
+  "duration_s": 0.081,
+  "finished_at": 1792764426.4283338,
+  "manifest": {
+    "ai_generated": {
+      "label": "no AI-generated content in this result",
+      "present": false
+    },
+    "cost": {
+      "model_calls": 0,
+      "note": "no paid API or model is called by certification",
+      "usd": 0.0
+    },
+    "kind": "certification",
+    "licences": [
+      {
+        "component": "IncuBrix Distribution service (this repo)",
+        "licence": "own code",
+        "reference": "SOURCES.md"
+      },
+      {
+        "component": "FastAPI, Pydantic, SQLAlchemy, httpx",
+        "licence": "MIT / BSD (see SOURCES.md)",
+        "reference": "SOURCES.md"
+      }
+    ],
+    "models": [],
+    "seed": null,
+    "settings": {
+      "rate_limit_wait_cap_s": 30.0,
+      "simulation_mode": true,
+      "test_post_ttl_s": 600
+    },
+    "timings": {
+      "duration_s": 0.081,
+      "finished_at": 1792764426.4283338,
+      "started_at": 1792764426.3469765
+    },
+    "versions": {
+      "connector": "1.0.0",
+      "python": "3.12.15",
+      "service": "0.1.0"
+    },
+    "warnings": []
+  },
+  "run_id": "e7e225684fcd",
+  "started_at": 1792764426.3469765,
+  "steps": [
+    {
+      "detail": {
+        "ok": true,
+        "violations": []
+      },
+      "duration_s": 0.0,
+      "name": "validate",
+      "ok": true,
+      "started_at": 1792764426.346995
+    },
+    {
+      "detail": {
+        "attempts": 1,
+        "live_url": "http://ghost.localhost:2368/incubrix-certification-test-e7e225684fcd-117e2550/",
+        "platform_post_id": "6adb6a0a3cb7480001e4d520",
+        "status": "live"
+      },
+      "duration_s": 0.044,
+      "name": "publish",
+      "ok": true,
+      "started_at": 1792764426.3470085
+    },
+    {
+      "detail": {
+        "expected_status": "live",
+        "live_url": "http://ghost.localhost:2368/incubrix-certification-test-e7e225684fcd-117e2550/"
+      },
+      "duration_s": 0.0,
+      "name": "confirm_live",
+      "ok": true,
+      "started_at": 1792764426.3914924
+    },
+    {
+      "detail": {
+        "live_url": "http://ghost.localhost:2368/incubrix-certification-test-e7e225684fcd-117e2550/",
+        "status": "live"
+      },
+      "duration_s": 0.011,
+      "name": "status",
+      "ok": true,
+      "started_at": 1792764426.391495
+    },
+    {
+      "detail": {
+        "deleted": true
+      },
+      "duration_s": 0.02,
+      "name": "delete",
+      "ok": true,
+      "started_at": 1792764426.402597
+    },
+    {
+      "detail": {
+        "note": "",
+        "status_after_delete": "not_found"
+      },
+      "duration_s": 0.006,
+      "name": "confirm_deleted",
+      "ok": true,
+      "started_at": 1792764426.422307
+    }
+  ],
+  "target": "http://ghost.localhost:2368",
+  "test_post": {
+    "deleted": true,
+    "deleted_after_s": 0.031,
+    "limit_s": 600,
+    "live_url": "http://ghost.localhost:2368/incubrix-certification-test-e7e225684fcd-117e2550/",
+    "platform_post_id": "6adb6a0a3cb7480001e4d520"
+  },
+  "tier": "native",
+  "verdict": "passed",
+  "warnings": []
+}
