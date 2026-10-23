@@ -21,6 +21,9 @@ Status: **TO VERIFY** = recalled from memory, I must open the licence link and c
 | boto3 / botocore | ≥1.34 | S3 client for certification evidence | Apache-2.0 | https://github.com/boto/boto3 | TO VERIFY |
 | pytest | ≥8 | Tests (dev only) | MIT | https://github.com/pytest-dev/pytest | TO VERIFY |
 
+> No extra library was added for the Hashnode, Kit and feed connectors: they use httpx and the Python standard library (xml.etree).
+> Hashnode API terms: https://hashnode.com/terms  ·  Kit API documentation and terms: https://developers.kit.com/ and https://kit.com/terms  (TO VERIFY; the connectors were not run against real accounts).
+
 ## Infrastructure containers (docker compose)
 
 | Name | Version | What for | Licence | Link | Status |

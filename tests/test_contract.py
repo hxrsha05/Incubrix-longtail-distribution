@@ -17,6 +17,8 @@ MOCKED = {  # connector -> (destination, connection builder); lemmy and ghost ha
     "discourse": ({"name": "c-discourse", "connector_key": "discourse"}, lambda u: {"base_url": f"{u}/discourse", "api_key": "mock-discourse-key", "username": "bot"}),
     "devto": ({"name": "c-devto", "connector_key": "devto"}, lambda u: {"base_url": f"{u}/devto", "api_key": "mock-devto-key"}),
     "webhook": ({"name": "c-webhook", "connector_key": "webhook"}, lambda u: {"base_url": f"{u}/partner/hooks/demo-partner", "api_key": "mock-partner-secret"}),
+    "hashnode": ({"name": "c-hashnode", "connector_key": "hashnode", "community": "pub-demo"}, lambda u: {"base_url": f"{u}/hashnode/graphql", "api_key": "mock-hashnode-token"}),
+    "kit": ({"name": "c-kit", "connector_key": "kit"}, lambda u: {"base_url": f"{u}/kit", "api_key": "mock-kit-key"}),
 }
 
 
@@ -36,7 +38,7 @@ def call(client, key, method, body):
 
 def test_every_connector_gates_every_method_by_its_manifest(client):
     registry = client.app.state.registry
-    assert {"lemmy", "ghost", "discourse", "devto", "webhook", "assisted"} <= registry.keys()
+    assert {"lemmy", "ghost", "discourse", "devto", "webhook", "assisted", "hashnode", "kit", "feed"} <= registry.keys()
     for key in sorted(registry.keys()):
         manifest = registry.get(key).manifest
         for method in METHODS:
@@ -62,8 +64,9 @@ def test_supported_methods_return_the_documented_shape(client, mock, key):
     assert p.status_code == 200 and set(p.json()) == {"platform_post_id", "live_url", "status"}
     post_id = p.json()["platform_post_id"]
 
+    expected = client.app.state.registry.get(key).effective_spec(type("D", (), {"surface": None, "spec": {}})())  .get("certify_status", "live")  # email connectors hold drafts
     s = call(client, key, "get_status", {"platform_post_id": post_id, "connection": conn})
-    assert s.status_code == 200 and s.json()["status"] == "live" and s.json()["live_url"]
+    assert s.status_code == 200 and s.json()["status"] == expected and (s.json()["live_url"] if expected == "live" else s.json()["live_url"] is None)
 
     if manifest.supports("fetch_metrics"):
         m = call(client, key, "fetch_metrics", {"platform_post_id": post_id, "connection": conn})

@@ -26,7 +26,7 @@ from typing import Any
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse, Response
 
-PLATFORMS = {"discourse", "devto", "partner"}
+PLATFORMS = {"discourse", "devto", "partner", "hashnode", "kit"}
 _OPS = {"POST": "create", "GET": "read", "DELETE": "delete", "PUT": "update"}
 
 
@@ -49,6 +49,10 @@ class MockState:
     def __init__(self) -> None:
         self.discourse_key = os.environ.get("MOCK_DISCOURSE_KEY", "mock-discourse-key")
         self.devto_key = os.environ.get("MOCK_DEVTO_KEY", "mock-devto-key")
+        self.hashnode_key = os.environ.get("MOCK_HASHNODE_KEY", "mock-hashnode-token")
+        self.kit_key = os.environ.get("MOCK_KIT_KEY", "mock-kit-key")
+        self.hashnode_posts: dict[str, dict[str, Any]] = {}  # hashnode
+        self.kit_broadcasts: dict[int, dict[str, Any]] = {}  # kit
         self.partner_secrets = {"demo-partner": os.environ.get("MOCK_PARTNER_SECRET", "mock-partner-secret")}
         self.next_id = 100
         self.topics: dict[int, dict[str, Any]] = {}  # discourse
@@ -168,8 +172,9 @@ def create_app() -> FastAPI:
 
     @app.post("/__control/metrics")
     async def set_metrics(body: dict) -> dict:
-        store = {"discourse": state.topics, "devto": state.articles}[body["platform"]]
-        store[int(body["id"])].update(body.get("values", {}))
+        store = {"discourse": state.topics, "devto": state.articles, "hashnode": state.hashnode_posts, "kit": state.kit_broadcasts}[body["platform"]]
+        key = body["id"] if body["platform"] == "hashnode" else int(body["id"])
+        store[key].update(body.get("values", {}))
         return {"ok": True}
 
     @app.get("/__control/partner_posts")
@@ -180,6 +185,7 @@ def create_app() -> FastAPI:
     async def dump() -> dict:
         return {
             "discourse_topics": len(state.topics), "devto_articles": len(state.articles),
+            "hashnode_posts": len(state.hashnode_posts), "kit_broadcasts": len(state.kit_broadcasts),
             "partner_posts": sum(len(v) for v in state.partner_posts.values()),
             "rules": [r.__dict__ for r in state.rules],
         }
@@ -346,6 +352,107 @@ def create_app() -> FastAPI:
         if post is None or post["deleted"]:
             return JSONResponse({"error": "not_found"}, status_code=404)
         post["deleted"] = True
+        return Response(status_code=204)
+
+    # ------------------------------------------------------------------ Hashnode (modelled: one GraphQL endpoint)
+    HASHNODE_PUBLICATION = "pub-demo"
+
+    def gql_error(message: str, code: str) -> JSONResponse:
+        # Hashnode answers HTTP 200 with an "errors" list for most failures: callers must read the body, not the status
+        return JSONResponse({"errors": [{"message": message, "extensions": {"code": code}}], "data": None})
+
+    def hashnode_view(post: dict[str, Any]) -> dict[str, Any]:
+        return {"id": post["id"], "title": post["title"], "slug": post["slug"], "url": f"http://hashnode.mock/{post['slug']}",
+                "views": post["views"], "reactionCount": post["reactionCount"], "responseCount": post["responseCount"],
+                "canonicalUrl": post.get("canonicalUrl")}
+
+    @app.post("/hashnode/graphql")
+    async def hashnode_graphql(request: Request):
+        if request.headers.get("Authorization") != state.hashnode_key:  # the token is sent as is, without "Bearer"
+            return gql_error("You must be logged in to perform this action", "UNAUTHENTICATED")
+        body = await request.json()
+        op, variables = body.get("operationName"), body.get("variables") or {}
+        if op == "PublishPost":
+            data = variables.get("input") or {}
+            title = str(data.get("title", "")).strip()
+            if data.get("publicationId") != HASHNODE_PUBLICATION:
+                return gql_error("Publication not found", "NOT_FOUND")
+            if not title or len(title) < 6:
+                return gql_error("Title must be at least 6 characters long", "BAD_USER_INPUT")
+            if len(data.get("tags") or []) > 5:
+                return gql_error("A post can have at most 5 tags", "BAD_USER_INPUT")
+            post_id = f"hn{state.new_id():x}"
+            state.hashnode_posts[post_id] = {"id": post_id, "title": title, "slug": f"{_slug(title)}-{post_id}", "views": 0, "reactionCount": 0, "responseCount": 0,
+                                             "canonicalUrl": data.get("originalArticleURL"), "content": data.get("contentMarkdown", "")}
+            return {"data": {"publishPost": {"post": hashnode_view(state.hashnode_posts[post_id])}}}
+        if op == "GetPost":
+            post = state.hashnode_posts.get(str(variables.get("id")))
+            return {"data": {"post": hashnode_view(post) if post else None}}
+        if op == "RemovePost":
+            post = state.hashnode_posts.pop(str((variables.get("input") or {}).get("id")), None)
+            if post is None:
+                return gql_error("Post not found", "NOT_FOUND")
+            return {"data": {"removePost": {"post": {"id": post["id"]}}}}
+        if op == "ListPosts":
+            return {"data": {"publication": {"posts": {"edges": [{"node": hashnode_view(p)} for p in reversed(list(state.hashnode_posts.values()))][: int(variables.get("first", 20))]}}}}
+        return gql_error(f"Unknown operation {op!r}", "GRAPHQL_VALIDATION_FAILED")
+
+    # ------------------------------------------------------------------ Kit (modelled, API v4 broadcasts)
+    def kit_auth(request: Request) -> JSONResponse | None:
+        if request.headers.get("X-Kit-Api-Key") != state.kit_key:
+            return JSONResponse({"errors": ["The access token is invalid"]}, status_code=401)
+        return None
+
+    def kit_view(b: dict[str, Any]) -> dict[str, Any]:
+        return {"id": b["id"], "subject": b["subject"], "content": b["content"], "public": b["public"], "send_at": b["send_at"], "published_at": b["published_at"],
+                "created_at": b["created_at"], "preview_text": b.get("preview_text"), "description": b.get("description")}
+
+    @app.post("/kit/v4/broadcasts")
+    async def kit_create(request: Request):
+        if (denied := kit_auth(request)) is not None:
+            return denied
+        data = await request.json()
+        if not str(data.get("subject", "")).strip():
+            return JSONResponse({"errors": ["Subject can't be blank"]}, status_code=422)
+        broadcast_id = state.new_id()
+        sent = bool(data.get("send_at")) and bool(data.get("public"))
+        state.kit_broadcasts[broadcast_id] = {
+            "id": broadcast_id, "subject": data["subject"], "content": data.get("content", ""), "public": bool(data.get("public", False)),
+            "send_at": data.get("send_at"), "published_at": "2026-01-01T00:00:00Z" if sent else None, "created_at": "2026-01-01T00:00:00Z",
+            "preview_text": data.get("preview_text"), "description": data.get("description"), "recipients": 0, "emails_opened": 0, "total_clicks": 0, "unsubscribes": 0,
+        }
+        return JSONResponse({"broadcast": kit_view(state.kit_broadcasts[broadcast_id])}, status_code=201)
+
+    @app.get("/kit/v4/broadcasts")
+    async def kit_list(request: Request):
+        if (denied := kit_auth(request)) is not None:
+            return denied
+        return {"broadcasts": [kit_view(b) for b in reversed(list(state.kit_broadcasts.values()))], "pagination": {"has_next_page": False}}
+
+    @app.get("/kit/v4/broadcasts/{broadcast_id}")
+    async def kit_get(broadcast_id: int, request: Request):
+        if (denied := kit_auth(request)) is not None:
+            return denied
+        b = state.kit_broadcasts.get(broadcast_id)
+        if b is None:
+            return JSONResponse({"errors": ["Not Found"]}, status_code=404)
+        return {"broadcast": kit_view(b)}
+
+    @app.get("/kit/v4/broadcasts/{broadcast_id}/stats")
+    async def kit_stats(broadcast_id: int, request: Request):
+        if (denied := kit_auth(request)) is not None:
+            return denied
+        b = state.kit_broadcasts.get(broadcast_id)
+        if b is None:
+            return JSONResponse({"errors": ["Not Found"]}, status_code=404)
+        return {"broadcast": {"id": b["id"], "stats": {k: b[k] for k in ("recipients", "emails_opened", "total_clicks", "unsubscribes")}}}
+
+    @app.delete("/kit/v4/broadcasts/{broadcast_id}")
+    async def kit_delete(broadcast_id: int, request: Request):
+        if (denied := kit_auth(request)) is not None:
+            return denied
+        if state.kit_broadcasts.pop(broadcast_id, None) is None:
+            return JSONResponse({"errors": ["Not Found"]}, status_code=404)
         return Response(status_code=204)
 
     # ------------------------------------------------------------------ fake rules pages (for AI rules capture)

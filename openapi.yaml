@@ -97,6 +97,46 @@ components:
       - destination
       title: DestinationIn
       type: object
+    FeedItemIn:
+      properties:
+        canonical_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Canonical Url
+        description:
+          default: ''
+          title: Description
+          type: string
+        guid:
+          maxLength: 100
+          minLength: 1
+          title: Guid
+          type: string
+        link:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Link
+        media:
+          items:
+            additionalProperties: true
+            type: object
+          title: Media
+          type: array
+        tags:
+          items:
+            type: string
+          title: Tags
+          type: array
+        title:
+          title: Title
+          type: string
+      required:
+      - guid
+      - title
+      title: FeedItemIn
+      type: object
     HTTPValidationError:
       properties:
         detail:
@@ -598,6 +638,119 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Download Evidence
+  /api/v1/feeds/{feed_id}/items:
+    post:
+      operationId: add_item_api_v1_feeds__feed_id__items_post
+      parameters:
+      - in: path
+        name: feed_id
+        required: true
+        schema:
+          title: Feed Id
+          type: string
+      - in: header
+        name: x-feed-token
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Feed-Token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeedItemIn'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                title: Response Add Item Api V1 Feeds  Feed Id  Items Post
+                type: object
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Add Item
+  /api/v1/feeds/{feed_id}/items/{guid}:
+    delete:
+      operationId: delete_item_api_v1_feeds__feed_id__items__guid__delete
+      parameters:
+      - in: path
+        name: feed_id
+        required: true
+        schema:
+          title: Feed Id
+          type: string
+      - in: path
+        name: guid
+        required: true
+        schema:
+          title: Guid
+          type: string
+      - in: header
+        name: x-feed-token
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Feed-Token
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Delete Item
+    get:
+      operationId: get_item_api_v1_feeds__feed_id__items__guid__get
+      parameters:
+      - in: path
+        name: feed_id
+        required: true
+        schema:
+          title: Feed Id
+          type: string
+      - in: path
+        name: guid
+        required: true
+        schema:
+          title: Guid
+          type: string
+      - in: header
+        name: x-feed-token
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Feed-Token
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                title: Response Get Item Api V1 Feeds  Feed Id  Items  Guid  Get
+                type: object
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Item
   /api/v1/health:
     get:
       operationId: health_check_api_v1_health_get
@@ -932,6 +1085,29 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Call Connector
+  /feeds/{feed_name}.xml:
+    get:
+      operationId: read_feed_feeds__feed_name__xml_get
+      parameters:
+      - in: path
+        name: feed_name
+        required: true
+        schema:
+          title: Feed Name
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Read Feed
   /health:
     get:
       operationId: health_check_health_get

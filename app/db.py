@@ -99,6 +99,22 @@ rule_proposals = Table(
 )
 
 
+# Items of the MRSS feeds we host. A feed is public to read (GET /feeds/{feed_id}.xml); writing needs the feed token.
+feed_items = Table(
+    "feed_items",
+    metadata,
+    Column("feed_id", String(100), primary_key=True),
+    Column("guid", String(100), primary_key=True),
+    Column("title", Text, nullable=False),
+    Column("description", Text),
+    Column("link", Text),
+    Column("canonical_url", Text),
+    Column("media", JSON),
+    Column("tags", JSON),
+    Column("created_at", Float, nullable=False),
+)
+
+
 def make_engine(url: str) -> Engine:
     kwargs: dict = {"pool_pre_ping": True}
     parsed = make_url(url)

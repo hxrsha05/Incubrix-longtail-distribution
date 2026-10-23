@@ -40,6 +40,8 @@ def env(mock, tmp_path):
 
 
 def add(env, name, connector_key, **kw):
+    if connector_key == "hashnode":
+        kw.setdefault("community", "pub-demo")
     row, _ = env.catalogue.upsert(Destination(name=name, connector_key=connector_key, **kw), language="en")
     return row["id"]
 
@@ -54,7 +56,7 @@ def step_names(record):
 
 
 # ---------------------------------------------------------------- passes
-@pytest.mark.parametrize("connector_key", ["discourse", "devto", "webhook"])
+@pytest.mark.parametrize("connector_key", ["discourse", "devto", "webhook", "hashnode", "kit"])
 def test_full_certification_passes_and_stores_evidence(env, connector_key):
     dest_id = add(env, f"{connector_key} test", connector_key)
     record = env.service.certify_destination(dest_id)

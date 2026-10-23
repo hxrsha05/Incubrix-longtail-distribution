@@ -1,0 +1,18 @@
+key: kit
+version: 1.0.0
+tier: native
+auth: api_key
+surfaces:
+  - key: broadcast
+    content_types: [article, text]
+    # drafts only by default: certification must never email real subscribers
+    spec: {title_max_chars: 200, body_max_chars: 500000, links_allowed: true, tag_style: none, canonical_supported: false, mention_style: none, certify_status: draft}
+rate_limits:
+  per_connection: {requests: 120, per_seconds: 60}
+capabilities: [publish, status, delete, metrics]
+error_map:
+  "401": CONNECTION_AUTH_EXPIRED
+  "403": CONNECTION_AUTH_EXPIRED
+  "422": PLATFORM_CONTENT_REJECTED
+  "429": PLATFORM_RATE_LIMIT
+instance_param: base_url

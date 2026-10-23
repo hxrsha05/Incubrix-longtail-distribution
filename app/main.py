@@ -16,6 +16,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from app.api.advice_routes import router as advice_router
 from app.api.catalogue_routes import router as catalogue_router
 from app.api.connector_routes import router as connector_router
+from app.api.feed_routes import router as feed_router
 from app.api.import_routes import router as import_router
 from app.api.rules_routes import router as rules_router
 from app.api.job_routes import router as job_router
@@ -27,6 +28,7 @@ from app.certify_service import CertificationService, register_certification_job
 from app.config import get_settings
 from app.credentials import CredentialProvider
 from app.evidence import EvidenceStore, make_s3_client
+from app.feeds import FeedStore
 from app.connectors.registry import ConnectorRegistry, build_registry
 from app.db import init_db, make_engine
 from app.idempotency import IdempotencyStore
@@ -72,11 +74,14 @@ def create_app(
     s3 = make_s3_client(settings.s3_endpoint_url, settings.s3_access_key.get_secret_value(), settings.s3_secret_key.get_secret_value()) if settings.s3_enabled else None
     app.state.idempotency_store = store
     app.state.catalogue = Catalogue(engine, clock)
+    app.state.feeds = FeedStore(engine, settings.feed_max_items, clock)
+    app.state.feed_token = settings.feed_token.get_secret_value()
+    app.state.service_base_url = settings.service_base_url
     presigner = make_s3_client(settings.s3_public_url, settings.s3_access_key.get_secret_value(), settings.s3_secret_key.get_secret_value()) if s3 and settings.s3_public_url else None
     app.state.evidence = EvidenceStore(settings.evidence_dir, s3, settings.s3_bucket, presigner=presigner)
     app.state.certification = CertificationService(
         app.state.catalogue, app.state.registry,
-        CredentialProvider(settings.connections_file, settings.simulation_mode, settings.mock_platforms_url), app.state.evidence,
+        CredentialProvider(settings.connections_file, settings.simulation_mode, settings.mock_platforms_url, settings.service_base_url, settings.feed_token.get_secret_value()), app.state.evidence,
         ttl_s=settings.test_post_ttl_seconds, simulation=settings.simulation_mode,
         max_consecutive_failures=settings.certify_max_consecutive_failures, rate_limit_wait_cap_s=settings.certify_rate_limit_wait_cap_s, clock=clock,
     )
@@ -149,6 +154,7 @@ def create_app(
     app.include_router(catalogue_router)  # /api/v1/destinations, /api/v1/evidence
     app.include_router(advice_router)  # POST /api/v1/tailor, /api/v1/relevance
     app.include_router(rules_router)  # AI rules capture: propose, review, confirm
+    app.include_router(feed_router)  # GET /feeds/{id}.xml (public), /api/v1/feeds/... (token)
     app.include_router(import_router)  # POST /api/v1/imports, /api/v1/import-files
     app.include_router(job_router)  # POST /api/v1/jobs, GET /api/v1/jobs/{job_id}
     app.include_router(health)  # /health, /ready (as the brief names them)

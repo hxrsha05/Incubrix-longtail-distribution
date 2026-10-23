@@ -38,6 +38,10 @@ class Settings(BaseSettings):
     rules_price_per_mtok_in: float = 0.0  # set the real prices to get a cost estimate in the output manifest
     rules_price_per_mtok_out: float = 0.0
 
+    service_base_url: str = "http://localhost:8000"  # this service's own address: the feed connector writes to our own feed host
+    feed_token: SecretStr = SecretStr("local-dev-feed-token")  # lets a client add and remove feed items; the feed itself is public
+    feed_max_items: int = 50
+
     callback_hmac_secret: SecretStr = SecretStr("change-me")
     test_post_ttl_seconds: int = 600
 

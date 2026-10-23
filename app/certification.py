@@ -111,6 +111,7 @@ def certify(
 # ---------------------------------------------------------------- the two kinds of run
 def _full_run(connector, destination, connection, run_id, step, state, clock, sleep, wait_cap) -> None:
     rendition = make_test_rendition(run_id)
+    expected = connector.effective_spec(destination).get("certify_status", "live")  # email connectors publish drafts, never sends
     verdict = step("validate", lambda: _validate(connector, rendition, destination, connection))
     if not verdict["ok"]:
         raise CertificationFailed(f"our own test post fails validation: {verdict['violations']}")
@@ -133,16 +134,16 @@ def _full_run(connector, destination, connection, run_id, step, state, clock, sl
     post: PublishResult = state["post"]
 
     def confirm_live() -> dict[str, Any]:
-        if post.status != "live" or not post.live_url:
-            raise CertificationFailed(f"publish did not report a live post (status={post.status!r}, live_url={post.live_url!r})")
-        return {"live_url": post.live_url}
+        if post.status != expected or not post.live_url:
+            raise CertificationFailed(f"publish did not report a {expected!r} post (status={post.status!r}, live_url={post.live_url!r})")
+        return {"live_url": post.live_url, "expected_status": expected}
 
     step("confirm_live", confirm_live)
 
     def status_live() -> dict[str, Any]:
         s = connector.get_status(post.platform_post_id, connection)
-        if s.status != "live":
-            raise CertificationFailed(f"get_status says {s.status!r}, expected 'live'")
+        if s.status != expected:
+            raise CertificationFailed(f"get_status says {s.status!r}, expected {expected!r}")
         return {"status": s.status, "live_url": s.live_url}
 
     step("status", status_live)
@@ -161,8 +162,8 @@ def _full_run(connector, destination, connection, run_id, step, state, clock, sl
 
     def confirm_gone() -> dict[str, Any]:
         s = connector.get_status(post.platform_post_id, connection)
-        if s.status == "live":
-            raise CertificationFailed("the post is still live after delete")
+        if s.status == "live" or (expected != "live" and s.status != "not_found"):
+            raise CertificationFailed(f"the post is still there after delete (status {s.status!r})")
         return {"status_after_delete": s.status, "note": "unpublished, not erased (platform has no delete)" if s.status == "draft" else ""}
 
     step("confirm_deleted", confirm_gone)

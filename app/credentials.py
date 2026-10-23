@@ -15,8 +15,9 @@ from app.models import Connection, Destination
 
 
 class CredentialProvider:
-    def __init__(self, connections_file: str | None, simulation_mode: bool, mock_url: str) -> None:
+    def __init__(self, connections_file: str | None, simulation_mode: bool, mock_url: str, self_url: str = "http://localhost:8000", feed_token: str = "local-dev-feed-token") -> None:
         self.simulation_mode, self.mock_url = simulation_mode, mock_url.rstrip("/")
+        self.self_url, self.feed_token = self_url.rstrip("/"), feed_token
         self.entries: dict[str, dict] = {}
         if connections_file and Path(connections_file).is_file():
             self.entries = json.loads(Path(connections_file).read_text(encoding="utf-8"))
@@ -27,6 +28,8 @@ class CredentialProvider:
             return _to_connection(self.entries[ref])
         explicit = "connection_ref" in destination.extra  # a named connection must exist; only the default falls back to the mocks
         if self.simulation_mode and not explicit and destination.connector_key in _MOCK_ACCOUNTS:
+            if destination.connector_key == "feed":  # the feed host is this very service, not the mock server
+                return Connection(base_url=self.self_url, api_key=SecretStr(self.feed_token), extra={"feed_id": destination.community or destination.extra.get("feed_id") or "main"})
             return _MOCK_ACCOUNTS[destination.connector_key](self.mock_url, destination)
         raise IncuBrixError(ErrorCode.CONNECTION_AUTH_EXPIRED, f"no credentials for {ref!r}; add it to the connections file")
 
@@ -54,8 +57,16 @@ def _mock_webhook(url: str, d: Destination) -> Connection:
     return Connection(base_url=f"{url}/partner/hooks/{partner}", api_key=SecretStr("mock-partner-secret"))
 
 
+def _mock_hashnode(url: str, d: Destination) -> Connection:
+    return Connection(base_url=f"{url}/hashnode/graphql", api_key=SecretStr("mock-hashnode-token"))
+
+
+def _mock_kit(url: str, d: Destination) -> Connection:
+    return Connection(base_url=f"{url}/kit", api_key=SecretStr("mock-kit-key"))
+
+
 def _no_credentials(url: str, d: Destination) -> Connection:
     return Connection(base_url=d.base_url or url)
 
 
-_MOCK_ACCOUNTS = {"discourse": _mock_discourse, "devto": _mock_devto, "webhook": _mock_webhook, "assisted": _no_credentials}
+_MOCK_ACCOUNTS = {"discourse": _mock_discourse, "devto": _mock_devto, "webhook": _mock_webhook, "assisted": _no_credentials, "hashnode": _mock_hashnode, "kit": _mock_kit, "feed": _no_credentials}

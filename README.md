@@ -13,7 +13,7 @@ a certification run that proves each destination works and saves the evidence.
 +--------------------------- FastAPI service (api) ------------------------------+
 |  publish pipeline:  1. idempotency store  ->  2. rules engine  ->  3. connector |
 |                                                                                  |
-|  connectors:  lemmy  ghost  discourse  devto  webhook (signed)  assisted         |
+|  connectors:  lemmy ghost discourse devto webhook(signed) assisted hashnode kit feed |
 |  catalogue:   destinations table (a new forum = a new row)                       |
 |  certification: publish test post -> live? -> status -> delete -> gone?          |
 |                 always cleans up, saves evidence, demotes on a changed platform  |
@@ -66,6 +66,20 @@ A batch input file:
 `{"destination_id": "mock-discourse-forum", "rendition": {"title": "...", "body": "..."}}`. Results: one `<name>.result.json`
 per input plus `summary.json`; each result has an output manifest (versions, settings, timings, cost, warnings, licences, AI-generated label).
 
+## The nine connectors
+
+| Connector | What it posts to | Notes |
+|---|---|---|
+| lemmy | a Lemmy community | real local instance in compose |
+| ghost | a Ghost blog | real local instance in compose |
+| discourse | a Discourse forum | mock server (modelled, not verified against a real forum) |
+| devto | Dev.to | mock; Dev.to has no delete, so delete = unpublish |
+| webhook | a partner site | every call signed with HMAC-SHA256 (X-IncuBrix-Signature) |
+| assisted | any site without an API | builds an assist pack for a person; never posts |
+| hashnode | a Hashnode blog (GraphQL) | mock; errors arrive inside HTTP 200 bodies and are mapped |
+| kit | a Kit newsletter | mock; drafts only, never sends |
+| feed | an MRSS feed we host (`/feeds/{id}.xml`) | verified end to end; partners poll the feed |
+
 ## AI rules capture (a person confirms)
 
 `POST /api/v1/destinations/{id}/rules/capture` reads a community's rules page (`url`) or pasted text and creates a **pending proposal**: for each rule it found, a value and a quote from the page. Quotes are checked against the page, so an invented rule is dropped. Nothing changes until a person calls `POST /api/v1/rule-proposals/{id}/confirm` with their name (they may edit values first); making a destination looser needs `acknowledge_loosening=true`. Until then the destination keeps its conservative rules. `RULES_EXTRACTOR=mock` (default) is an offline keyword reader; `RULES_EXTRACTOR=anthropic` with `ANTHROPIC_API_KEY` uses Claude.
@@ -112,6 +126,7 @@ credentials come from the seed file (`CONNECTIONS_FILE`) and take priority. No r
 | IMPORT_DIR | evidence/imports | where import files are kept |
 | RULES_EXTRACTOR, ANTHROPIC_API_KEY, RULES_MODEL | mock, -, claude-haiku-5-5 | who reads rules pages: the offline mock, or Claude |
 | RULES_PRICE_PER_MTOK_IN / _OUT | 0 | prices used to estimate the cost in the output manifest |
+| SERVICE_BASE_URL, FEED_TOKEN, FEED_MAX_ITEMS | http://localhost:8000, local-dev-feed-token, 50 | this service's own address (used in feed links), the token that lets a client write to feeds, items kept per feed |
 | DISABLED_CONNECTORS | - | kill switch: those connectors answer CONNECTOR_DISABLED |
 
 ## Error codes
