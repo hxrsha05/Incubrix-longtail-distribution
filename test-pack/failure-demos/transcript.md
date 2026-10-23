@@ -1,7 +1,7 @@
 # Failure demos against the running service
 
 ## 1. Timeout after the platform created the post, then a retry with the same key
-- first call: HTTP 503 PLATFORM_UNAVAILABLE (outcome_unknown=True) after 10.0 s
+- first call: HTTP 503 PLATFORM_UNAVAILABLE (outcome_unknown=True) after 10.1 s
 - the platform DID create the post: discourse_topics = 1
 - retry with the same Idempotency-Key: HTTP 200, topic 101
 - topics on the platform after the retry: 1  (duplicates: 0)

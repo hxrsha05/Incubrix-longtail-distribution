@@ -1,21 +1,21 @@
 {
   "callback_status": "none",
-  "created_at": 1792689599.274284,
+  "created_at": 1792744523.1586616,
   "error": null,
-  "job_id": "ca8141bbb78e4c8187f2199eb5256b4c",
+  "job_id": "a7f146c7880142349b356b540248e142",
   "kind": "certify",
   "progress": 100,
   "result": {
     "evidence": {
       "record": {
-        "download_url": "http://localhost:9000/incubrix-distribution/certification/demo-forum-failures/run-829e87119a31.json?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=incubrix-local%2F20261022%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20261022T171959Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=a4b0244e53d221f8228461a4e4298ea55a06b3863694370fc568195ab4b73bba",
-        "local_path": "evidence/certification/demo-forum-failures/run-829e87119a31.json",
-        "s3_key": "certification/demo-forum-failures/run-829e87119a31.json"
+        "download_url": "http://localhost:9000/incubrix-distribution/certification/demo-forum-failures/run-cc5a4daa731b.json?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=incubrix-local%2F20261023%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20261023T083523Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=50c831e7211c226c23eac0ac675af9b1131a73c27d7ac9018d860ecbb38bae1a",
+        "local_path": "evidence/certification/demo-forum-failures/run-cc5a4daa731b.json",
+        "s3_key": "certification/demo-forum-failures/run-cc5a4daa731b.json"
       },
       "summary": {
-        "download_url": "http://localhost:9000/incubrix-distribution/certification/demo-forum-failures/run-829e87119a31.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=incubrix-local%2F20261022%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20261022T171959Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=74d018d41b7ff7c29950152c3cee92336e63eb2bbd2ee05f6acd854c09cad17b",
-        "local_path": "evidence/certification/demo-forum-failures/run-829e87119a31.txt",
-        "s3_key": "certification/demo-forum-failures/run-829e87119a31.txt"
+        "download_url": "http://localhost:9000/incubrix-distribution/certification/demo-forum-failures/run-cc5a4daa731b.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=incubrix-local%2F20261023%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20261023T083523Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=46ba180cedc1840bba5742ff08ae6a898f9e33c0e7131b563d848d1f2f3a567e",
+        "local_path": "evidence/certification/demo-forum-failures/run-cc5a4daa731b.txt",
+        "s3_key": "certification/demo-forum-failures/run-cc5a4daa731b.txt"
       }
     },
     "failure": {
@@ -54,9 +54,9 @@
         "test_post_ttl_s": 600
       },
       "timings": {
-        "duration_s": 0.006,
-        "finished_at": 1792689599.293624,
-        "started_at": 1792689599.2873294
+        "duration_s": 0.004,
+        "finished_at": 1792744523.170408,
+        "started_at": 1792744523.1664238
       },
       "versions": {
         "connector": "1.0.0",
@@ -67,9 +67,9 @@
         "publish failed but the platform had created the post; it was found by reconcile and will be deleted"
       ]
     },
-    "run_id": "829e87119a31",
+    "run_id": "cc5a4daa731b",
     "verdict": "failed"
   },
   "status": "succeeded",
-  "updated_at": 1792689599.3494334
+  "updated_at": 1792744523.2019155
 }

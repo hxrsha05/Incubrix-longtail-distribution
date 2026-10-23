@@ -15,7 +15,7 @@ Last updated: 2026-10-22. Unit and integration tests: **208 passing** (`python -
 | 3 | Configuration, not code | Done | Catalogue API (`app/api/catalogue_routes.py`, `tests/test_certification.py::test_catalogue_api_...`): a new destination is one POST; per-destination spec override test | Live "add an instance" demo in the video |
 | 4 | Rules checked before every post | Done | `tests/test_rules.py`, `tests/test_idempotency.py`; batch runner shows a blocked promo post: `test-pack/batch-run/04-blocked-no-promo.result.json` | Rule test set for the "caught vs missed" metric |
 | 5 | Never spam, never cheat | Done | 429 + reset time (`test-pack/failure-demos/2-rate-limit.json`), certification waits out a 429 with a cap, stops after 3 consecutive failures on a connector, test posts deleted (also on failure, within 10 minutes: `tests/test_certification.py`), own local instances only | Written proof from logs for the form |
-| 6 | Safe retries | Done | `tests/test_idempotency.py::test_timeout_after_create_then_retry_does_not_duplicate`; **live-service run**: `test-pack/failure-demos/transcript.md` case 1 (timeout after the platform created the post, retry with the same key, 0 duplicates); batch re-run replays instead of re-posting (`test-pack/batch-run-rerun/`) | Screenshot of the transcript for the form |
+| 6 | Safe retries | Done | `tests/test_idempotency.py::test_timeout_after_create_then_retry_does_not_duplicate`; **live-service run**: `test-pack/failure-demos/transcript.md` case 1 (timeout after the platform created the post, retry with the same key, 0 duplicates); batch re-run replays instead of re-posting (`test-pack/batch-run-rerun/`) | Screenshot: `evidence/manual-demos/failure-demos/01-demo-failures-output.png` |
 | 7 | Secrets protected + simulation mode | Done | Redaction in `app/logging_setup.py` + tests; secret never in errors (webhook, Discourse, Dev.to tests); `evidence/secret-scan.txt` (repo files and service logs: CLEAN); simulation mode (`README.md`, `app/credentials.py`) | Re-run `python -m scripts.secret_scan --docker-logs` just before submitting |
 | 8 | Local test instances (compose) | Partial | `docker compose up` starts Lemmy, Ghost, Postgres, S3, API, mock platforms and the seed job; seed is safe to re-run | Run on a clean machine (fresh clone) |
 | 9 | Integration Standard + live demo | Partial | see below | Deploy live demo; keep it up until results |
@@ -97,7 +97,7 @@ errors mapped for expired token / rate limit / rejected content **Done** (every 
 - [x] Lemmy UI showing the batch-runner post: `evidence/manual-demos/lemmy/01-batch-runner-post-live.png`
 - [x] Certification summary opened from a presigned S3 link: `evidence/manual-demos/certification/01-s3-download-link-ghost-run.png`
 - [x] Terminal with `python -m pytest` finishing green: `evidence/manual-demos/tests/01-pytest-208-passed.png`
-- [ ] Terminal with `python -m scripts.demo_failures` output
+- [x] Terminal with `python -m scripts.demo_failures` output: `evidence/manual-demos/failure-demos/01-demo-failures-output.png`
 
 ## Final-day safety checks
 

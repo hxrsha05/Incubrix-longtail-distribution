@@ -42,3 +42,9 @@ the header `Idempotent-Replayed: true`.
 | File | What it shows |
 |---|---|
 | `tests/01-pytest-208-passed.png` | `python -m pytest` run from the project folder in VS Code: 208 passed, 18 skipped in 11.45 s (the 18 skipped are the live Lemmy and Ghost tests, which switch on only when those servers are running and their addresses are set). 23 Oct 2026, 02:04 PM. |
+
+## The hard cases, run against the live service
+
+| File | What it shows |
+|---|---|
+| `failure-demos/01-demo-failures-output.png` | Output of `python -m scripts.demo_failures` (23 Oct 2026, 02:05 PM): (1) the platform timed out after creating the post, the retry with the same Idempotency-Key returned the same topic, 1 topic on the platform, 0 duplicates; (2) a 429 with a 15 s reset time, then success on retry; (3) a renamed field made certification fail, the destination was demoted, and 0 test posts were left behind; (4) missing credentials gave an inconclusive run and status needs_attention. The same cases are saved as JSON in `test-pack/failure-demos/`. |
