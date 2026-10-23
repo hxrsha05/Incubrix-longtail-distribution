@@ -147,3 +147,9 @@ Ghost, checked against the real local Ghost 6.72.0:
 - Run locally with `API_TOKEN` set: `/ready` answered 1.7 to 2.2 seconds after `docker run` (cold start measured on a developer laptop, not on the public host).
 - Seeded 7 simulation destinations; a call without the token got 401; a publish with the token and an Idempotency-Key went live on the fake Discourse.
 - Found and fixed: the start script did not pass the token to the seed script, so seeding got 401 (the API stayed up).
+
+### Public demo on Render (23 Oct 2026)
+- Deployed from `render.yaml` (free plan, `Dockerfile.demo`, source commit 4848748), address https://incubrix-demo.onrender.com. Deploy took 56 s after the image build; Render's health checks answered 200.
+- Without a token: `/health`, `/ready` and `/docs` answer 200, every other call answers 401 UNAUTHORIZED.
+- With the token (typed only on the developer's own machine): `scripts/check_live_demo.py` passed all 10 checks, screenshot `evidence/manual-demos/live-demo/01-live-demo-checks-all-pass.png`.
+- Still to measure: cold start after 20 minutes idle.

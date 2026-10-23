@@ -48,3 +48,9 @@ the header `Idempotent-Replayed: true`.
 | File | What it shows |
 |---|---|
 | `failure-demos/01-demo-failures-output.png` | Output of `python -m scripts.demo_failures` (23 Oct 2026, 02:05 PM): (1) the platform timed out after creating the post, the retry with the same Idempotency-Key returned the same topic, 1 topic on the platform, 0 duplicates; (2) a 429 with a 15 s reset time, then success on retry; (3) a renamed field made certification fail, the destination was demoted, and 0 test posts were left behind; (4) missing credentials gave an inconclusive run and status needs_attention. The same cases are saved as JSON in `test-pack/failure-demos/`. |
+
+## The public demo
+
+| File | What it shows |
+|---|---|
+| `live-demo/01-live-demo-checks-all-pass.png` | `python -m scripts.check_live_demo https://incubrix-demo.onrender.com` run from a developer laptop against the public demo on Render (23 Oct 2026, evening): health answered in 0.81 s, a call without the token was refused with 401, the catalogue listed 7 destinations, a publish went live, the same Idempotency-Key returned the same post, a late platform answer gave outcome unknown (503), the retry succeeded and exactly 1 post existed afterwards (0 duplicates), and the destination export worked. All 10 checks passed. The token is not shown. |
