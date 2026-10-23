@@ -5,6 +5,7 @@ post twice is the same item and a timed-out publish can be checked exactly.
 """
 from __future__ import annotations
 
+import threading
 import time
 import xml.etree.ElementTree as ET
 from email.utils import formatdate
@@ -26,6 +27,14 @@ _MEDIUM = {"image": "image", "video": "video", "file": "document"}
 class FeedStore:
     def __init__(self, engine: Engine, max_items: int = 50, clock: Callable[[], float] = time.time) -> None:
         self.engine, self.max_items, self.clock = engine, max_items, clock
+        self._last_stamp = 0.0
+        self._stamp_lock = threading.Lock()
+
+    def _next_stamp(self) -> float:
+        """Strictly increasing, so two items added within one clock tick still have a clear order (newest first)."""
+        with self._stamp_lock:
+            self._last_stamp = max(self.clock(), self._last_stamp + 1e-6)
+            return self._last_stamp
 
     def add(self, feed_id: str, item: dict[str, Any]) -> tuple[dict[str, Any], bool]:
         """Returns (item, created). The same guid again returns the existing item."""
@@ -35,7 +44,7 @@ class FeedStore:
             return existing, False
         with self.engine.begin() as conn:
             conn.execute(insert(t).values(feed_id=feed_id, guid=guid, title=item["title"], description=item.get("description", ""), link=item.get("link"),
-                                          canonical_url=item.get("canonical_url"), media=item.get("media") or [], tags=item.get("tags") or [], created_at=self.clock()))
+                                          canonical_url=item.get("canonical_url"), media=item.get("media") or [], tags=item.get("tags") or [], created_at=self._next_stamp()))
         return self.get(feed_id, guid), True
 
     def get(self, feed_id: str, guid: str, missing_ok: bool = False) -> dict[str, Any] | None:
