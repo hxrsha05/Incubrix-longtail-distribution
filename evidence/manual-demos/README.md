@@ -36,3 +36,9 @@ the header `Idempotent-Replayed: true`.
 | File | What it shows |
 |---|---|
 | `certification/01-s3-download-link-ghost-run.png` | The certification summary of the Ghost destination (run 822e6775e2ca, verdict PASSED, every step ok, test post deleted 0.052 s after it was created, limit 600 s), opened in the browser from the presigned S3 link (`localhost:9000/incubrix-distribution/certification/local-ghost-blog/...`). The same record is in `evidence/certification/local-ghost-blog/`. |
+
+## The test suite
+
+| File | What it shows |
+|---|---|
+| `tests/01-pytest-208-passed.png` | `python -m pytest` run from the project folder in VS Code: 208 passed, 18 skipped in 11.45 s (the 18 skipped are the live Lemmy and Ghost tests, which switch on only when those servers are running and their addresses are set). 23 Oct 2026, 02:04 PM. |

@@ -96,7 +96,7 @@ errors mapped for expired token / rate limit / rejected content **Done** (every 
 
 - [x] Lemmy UI showing the batch-runner post: `evidence/manual-demos/lemmy/01-batch-runner-post-live.png`
 - [x] Certification summary opened from a presigned S3 link: `evidence/manual-demos/certification/01-s3-download-link-ghost-run.png`
-- [ ] Terminal with `python -m pytest` finishing green
+- [x] Terminal with `python -m pytest` finishing green: `evidence/manual-demos/tests/01-pytest-208-passed.png`
 - [ ] Terminal with `python -m scripts.demo_failures` output
 
 ## Final-day safety checks
