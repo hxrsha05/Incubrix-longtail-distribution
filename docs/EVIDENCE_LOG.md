@@ -141,3 +141,9 @@ Ghost, checked against the real local Ghost 6.72.0:
 | A duplicate slug is silently renamed to `slug-2` instead of refused. | The slug is built from the idempotency key (`my-title-3f2a1b9c`), and `reconcile` looks the post up by that exact slug after a timeout. |
 | A Ghost **draft** has an unlisted preview link (`/p/<random-id>/`) that works for anyone who has the URL. | A draft is reported as `draft` with no live URL, and the live test checks it is not on the public site or feed. |
 | Windows Python cannot resolve `ghost.localhost` (browsers and containers can). | Host-side tests connect to 127.0.0.1 and send the `Host` header explicitly. |
+
+### Demo image check (23 Oct 2026)
+- `docker build -f Dockerfile.demo -t incubrix-demo .` produced a 325 MB image (first build 21 minutes on a slow network, a rebuild with cached layers 3 seconds).
+- Run locally with `API_TOKEN` set: `/ready` answered 1.7 to 2.2 seconds after `docker run` (cold start measured on a developer laptop, not on the public host).
+- Seeded 7 simulation destinations; a call without the token got 401; a publish with the token and an Idempotency-Key went live on the fake Discourse.
+- Found and fixed: the start script did not pass the token to the seed script, so seeding got 401 (the API stayed up).
