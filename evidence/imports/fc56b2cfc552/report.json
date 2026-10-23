@@ -1,0 +1,139 @@
+{
+  "manifest": {
+    "ai_generated": {
+      "label": "no AI-generated content in this result",
+      "present": false
+    },
+    "cost": {
+      "model_calls": 0,
+      "note": "no paid API or model is called by certification",
+      "usd": 0.0
+    },
+    "kind": "csv_import",
+    "licences": [
+      {
+        "component": "IncuBrix Distribution service (this repo)",
+        "licence": "own code",
+        "reference": "SOURCES.md"
+      },
+      {
+        "component": "FastAPI, Pydantic, SQLAlchemy, httpx",
+        "licence": "MIT / BSD (see SOURCES.md)",
+        "reference": "SOURCES.md"
+      }
+    ],
+    "models": [],
+    "seed": null,
+    "settings": {
+      "allow_private_hosts": false,
+      "catalogue_only": false,
+      "commit": false,
+      "fetch_timeout_s": 5.0,
+      "private_host_allowlist": [
+        "127.0.0.1"
+      ],
+      "workers": 32
+    },
+    "timings": {
+      "duration_s": 0.0,
+      "finished_at": 1792760838.0131822,
+      "started_at": 1792760838.0131822
+    },
+    "versions": {
+      "connector": null,
+      "python": "3.10.10",
+      "service": "0.1.0"
+    },
+    "warnings": []
+  },
+  "rows": [
+    {
+      "category": "community (posted by hand)",
+      "connector_key": "assisted",
+      "description": "A community called plain-1.",
+      "destination_id": null,
+      "detected_language": "en",
+      "detected_platform": null,
+      "duplicate_of": null,
+      "final_url": "http://127.0.0.1:50828/sites/plain-1",
+      "http_status": 200,
+      "language": "en",
+      "member_count": null,
+      "name": "Ok",
+      "normalized_url": "http://127.0.0.1:50828/sites/plain-1",
+      "reasons": [],
+      "relevance_reason": "1/5: nothing in its description points at IncuBrix's audience (AI, video, marketing, SaaS, creators, founders).",
+      "relevance_score": 1,
+      "response_ms": 0,
+      "row": 2,
+      "rules_url": "http://127.0.0.1:50828/sites/plain-1/rules",
+      "status": "accepted",
+      "title": "Community plain-1",
+      "url": "http://127.0.0.1:50828/sites/plain-1",
+      "warnings": []
+    },
+    {
+      "category": null,
+      "connector_key": null,
+      "destination_id": null,
+      "detected_language": null,
+      "detected_platform": null,
+      "duplicate_of": null,
+      "final_url": null,
+      "http_status": null,
+      "language": null,
+      "member_count": null,
+      "name": "Internal",
+      "normalized_url": "http://10.0.0.5/admin",
+      "reasons": [
+        "host is a private or local address; the service will not fetch it"
+      ],
+      "relevance_reason": null,
+      "relevance_score": null,
+      "response_ms": null,
+      "row": 3,
+      "rules_url": null,
+      "status": "invalid",
+      "title": null,
+      "url": "http://10.0.0.5/admin",
+      "warnings": []
+    },
+    {
+      "category": null,
+      "connector_key": null,
+      "destination_id": null,
+      "detected_language": null,
+      "detected_platform": null,
+      "duplicate_of": null,
+      "final_url": null,
+      "http_status": null,
+      "language": null,
+      "member_count": null,
+      "name": "Metadata",
+      "normalized_url": "http://169.254.169.254/latest",
+      "reasons": [
+        "host is a private or local address; the service will not fetch it"
+      ],
+      "relevance_reason": null,
+      "relevance_score": null,
+      "response_ms": null,
+      "row": 4,
+      "rules_url": null,
+      "status": "invalid",
+      "title": null,
+      "url": "http://169.254.169.254/latest",
+      "warnings": []
+    }
+  ],
+  "summary": {
+    "accepted": 1,
+    "catalogue_rows_created": 0,
+    "committed": false,
+    "duplicate": 0,
+    "duration_s": 0.0,
+    "invalid": 2,
+    "rows": 3,
+    "rows_per_second": 3000.0,
+    "unreachable": 0
+  }
+}

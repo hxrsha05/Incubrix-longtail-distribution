@@ -26,6 +26,7 @@
     "seed": null,
     "settings": {
       "allow_private_hosts": false,
+      "catalogue_only": false,
       "commit": false,
       "fetch_timeout_s": 5.0,
       "private_host_allowlist": [
@@ -34,9 +35,9 @@
       "workers": 32
     },
     "timings": {
-      "duration_s": 13.711,
-      "finished_at": 1792760748.4176621,
-      "started_at": 1792760734.706734
+      "duration_s": 13.65,
+      "finished_at": 1792760851.6218362,
+      "started_at": 1792760837.971744
     },
     "versions": {
       "connector": null,
@@ -104,7 +105,7 @@
     "catalogue_rows_created": 0,
     "committed": false,
     "duplicate": 0,
-    "duration_s": 13.71,
+    "duration_s": 13.65,
     "invalid": 0,
     "rows": 2,
     "rows_per_second": 0.1,

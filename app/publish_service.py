@@ -121,6 +121,9 @@ class PublishService:
             row = self.catalogue.get(slugify(req.destination.name))
         except IncuBrixError:
             return  # not a catalogue destination (ad-hoc call): nothing to check
+        if (row["destination"].get("extra") or {}).get("catalogue_only"):
+            raise IncuBrixError(ErrorCode.DEST_SPEC_VIOLATION, "post blocked: this destination is catalogue only (a real community we list but never post to)",
+                                {"violations": [{"rule": "catalogue_only", "reason": "nothing is ever posted to a catalogue-only destination"}]})
         if row["status"] == "demoted":
             raise IncuBrixError(ErrorCode.DEST_SPEC_VIOLATION, "post blocked: this destination is demoted until it passes certification again",
                                 {"violations": [{"rule": "destination_demoted", "reason": row["status_reason"] or "failed its last certification"}]})

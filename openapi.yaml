@@ -1028,6 +1028,13 @@ paths:
           title: Commit
           type: boolean
       - in: query
+        name: catalogue_only
+        required: false
+        schema:
+          default: false
+          title: Catalogue Only
+          type: boolean
+      - in: query
         name: callback_url
         required: false
         schema:

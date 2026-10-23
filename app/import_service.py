@@ -15,7 +15,7 @@ def register_import_job(jobs, importer: Importer, store: EvidenceStore) -> None:
         path = store.read(f"{import_id}/input.csv") if import_id else None
         if path is None:
             raise IncuBrixError(ErrorCode.NOT_FOUND, f"no uploaded CSV for import {import_id!r}")
-        result = importer.run(path.read_text(encoding="utf-8"), commit=bool(params.get("commit", True)), progress=ctx.progress)
+        result = importer.run(path.read_text(encoding="utf-8"), commit=bool(params.get("commit", True)), catalogue_only=bool(params.get("catalogue_only", False)), progress=ctx.progress)
         report = result.pop("report")
         links = {
             "input_csv": store.save(import_id, "input.csv", path.read_text(encoding="utf-8")),

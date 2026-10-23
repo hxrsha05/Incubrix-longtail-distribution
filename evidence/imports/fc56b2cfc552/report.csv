@@ -1,0 +1,4 @@
+row,name,url,status,reasons,warnings,normalized_url,final_url,http_status,response_ms,detected_platform,detected_language,language,title,member_count,rules_url,category,relevance_score,relevance_reason,connector_key,destination_id,duplicate_of
+2,Ok,http://127.0.0.1:50828/sites/plain-1,accepted,,,http://127.0.0.1:50828/sites/plain-1,http://127.0.0.1:50828/sites/plain-1,200,0,,en,en,Community plain-1,,http://127.0.0.1:50828/sites/plain-1/rules,community (posted by hand),1,"1/5: nothing in its description points at IncuBrix's audience (AI, video, marketing, SaaS, creators, founders).",assisted,,
+3,Internal,http://10.0.0.5/admin,invalid,host is a private or local address; the service will not fetch it,,http://10.0.0.5/admin,,,,,,,,,,,,,,,
+4,Metadata,http://169.254.169.254/latest,invalid,host is a private or local address; the service will not fetch it,,http://169.254.169.254/latest,,,,,,,,,,,,,,,

@@ -14,6 +14,11 @@ from app.evidence import EvidenceStore
 from app.output_manifest import build_manifest
 
 
+def is_catalogue_only(row: dict[str, Any]) -> bool:
+    """A real community that is only LISTED (researched, never posted to). Set by the catalogue builder and the importer's catalogue_only option."""
+    return bool((row["destination"].get("extra") or {}).get("catalogue_only"))
+
+
 class CertificationService:
     def __init__(self, catalogue: Catalogue, registry: ConnectorRegistry, credentials: CredentialProvider, evidence: EvidenceStore,
                  *, ttl_s: float, simulation: bool, max_consecutive_failures: int = 3, rate_limit_wait_cap_s: float = 30,
@@ -24,6 +29,9 @@ class CertificationService:
 
     def certify_destination(self, dest_id: str) -> dict[str, Any]:
         row = self.catalogue.get(dest_id)
+        if is_catalogue_only(row):
+            raise IncuBrixError(ErrorCode.DEST_SPEC_VIOLATION, f"{dest_id} is catalogue only (a real community we only list): certification would post a test message there, so it is refused",
+                                {"violations": [{"rule": "catalogue_only", "reason": "nothing is ever posted to a catalogue-only destination"}]})
         destination = self.catalogue.destination(dest_id)
         try:
             connector = self.registry.get(destination.connector_key)
@@ -45,7 +53,11 @@ class CertificationService:
         started = self.clock()
         results, streak, skipped = [], {}, []
         for i, dest_id in enumerate(dest_ids, 1):
-            key = self.catalogue.get(dest_id)["connector_key"]
+            row = self.catalogue.get(dest_id)
+            key = row["connector_key"]
+            if is_catalogue_only(row):
+                skipped.append({"destination_id": dest_id, "reason": "catalogue only: nothing is ever posted to it, so it is not certified"})
+                continue
             if streak.get(key, 0) >= self.max_failures:
                 skipped.append({"destination_id": dest_id, "reason": f"{self.max_failures} failures in a row on connector {key!r}; stopped to avoid hammering it"})
                 continue

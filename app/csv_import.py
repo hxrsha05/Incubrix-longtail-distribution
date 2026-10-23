@@ -207,13 +207,15 @@ class Importer:
         self.catalogue, self.http, self.workers = catalogue, http, workers
         self.allow_private_hosts, self.fetch_timeout_s, self.clock = allow_private_hosts, fetch_timeout_s, clock
         self.private_host_allowlist = private_host_allowlist
+        self.catalogue_only = False
         self._robots: dict[str, RobotFileParser | None] = {}  # origin -> parsed robots.txt (None = none found, everything allowed)
         self.allow_local_names = allow_private_hosts or bool(private_host_allowlist)  # single-word host names (docker service names) are valid only in a local setup
         self._host_locks: dict[str, threading.Lock] = defaultdict(threading.Lock)
         self._locks_guard = threading.Lock()
 
-    def run(self, csv_text: str, *, commit: bool = True, progress: Callable[[int], None] = lambda p: None) -> dict[str, Any]:
+    def run(self, csv_text: str, *, commit: bool = True, catalogue_only: bool = False, progress: Callable[[int], None] = lambda p: None) -> dict[str, Any]:
         started = self.clock()
+        self.catalogue_only = catalogue_only
         rows = parse_csv(csv_text)
         results = [self._blank(i, r) for i, r in enumerate(rows, start=2)]  # row 1 is the header, as in a spreadsheet
         by_row = {r["row"]: r for r in results}
@@ -244,7 +246,7 @@ class Importer:
             "duration_s": round(finished - started, 2), "rows_per_second": round(len(results) / max(finished - started, 0.001), 1),
             "report": public_report(results),
             "manifest": build_manifest(kind="csv_import", started_at=started, finished_at=finished,
-                                       settings={"workers": self.workers, "fetch_timeout_s": self.fetch_timeout_s, "allow_private_hosts": self.allow_private_hosts, "private_host_allowlist": sorted(self.private_host_allowlist), "commit": commit},
+                                       settings={"workers": self.workers, "fetch_timeout_s": self.fetch_timeout_s, "allow_private_hosts": self.allow_private_hosts, "private_host_allowlist": sorted(self.private_host_allowlist), "commit": commit, "catalogue_only": catalogue_only},
                                        warnings=warnings),
         }
 
@@ -452,6 +454,8 @@ class Importer:
         key = r["connector_key"]
         extra: dict[str, Any] = {"source": "csv_import", "rules_status": "default_conservative_unconfirmed", "site_title": r["title"], "site_description": r.get("description"),
                                  "platform_key": r["detected_platform"] or key, "member_count": r.get("member_count"), "rules_url": r.get("rules_url"), "site_url": r["normalized_url"]}
+        if self.catalogue_only:
+            extra["catalogue_only"] = True  # a real community we only list: never certified, never posted to
         if key == "assisted":
             extra["submit_url"] = r["normalized_url"]
         destination = Destination(name=raw["name"], connector_key=key, base_url=None if key == "assisted" else base,

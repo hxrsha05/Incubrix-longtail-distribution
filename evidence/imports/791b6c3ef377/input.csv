@@ -1,0 +1,6 @@
+name,url,language
+Good,http://127.0.0.1:50828/sites/plain-1,English
+Good again,http://127.0.0.1:50828/sites/plain-1/,English
+Bad,not a url,English
+German,http://127.0.0.1:50828/sites/lang-de-1,English
+Dead,http://127.0.0.1:50828/sites/dead-1,English
