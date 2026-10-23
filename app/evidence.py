@@ -5,6 +5,8 @@ The result carries a download link: a presigned S3 URL, or our own /api/v1/evide
 from __future__ import annotations
 
 import json
+import os
+import uuid
 from pathlib import Path
 from typing import Any, Protocol
 
@@ -38,7 +40,9 @@ class EvidenceStore:
         rel = f"{destination_id}/{name}"
         path = self.directory / rel
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(text, encoding="utf-8")
+        tmp = path.with_name(f".{path.name}.{uuid.uuid4().hex[:8]}.tmp")
+        tmp.write_text(text, encoding="utf-8")
+        os.replace(tmp, path)  # atomic: a reader sees the old file or the new one, never a half-written or empty file
         result: dict[str, str | None] = {"local_path": str(path).replace("\\", "/"), "s3_key": None, "download_url": f"{self.url_prefix}/{rel}"}
         if self.s3 is not None:
             self._ensure_bucket()

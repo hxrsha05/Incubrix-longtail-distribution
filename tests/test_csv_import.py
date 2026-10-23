@@ -232,7 +232,8 @@ def test_upload_a_csv_get_a_job_then_the_report(api, mock):
     replay = api.post("/api/v1/imports", content=text, headers={"Content-Type": "text/csv", "Idempotency-Key": "imp-1"})
     assert replay.headers["Idempotent-Replayed"] == "true" and replay.json()["job_id"] == resp.json()["job_id"]
     done = wait_job(api, resp.json()["job_id"])
-    assert done["status"] == "succeeded" and done["result"]["accepted"] == 1 and done["result"]["unreachable"] == 1 and done["result"]["invalid"] == 1
+    assert done["status"] == "succeeded", done["error"]
+    assert done["result"]["accepted"] == 1 and done["result"]["unreachable"] == 1 and done["result"]["invalid"] == 1
     report = api.get(done["result"]["files"]["report_csv"])
     assert report.status_code == 200 and "Dead" in report.text and "404" in report.text
     assert api.get(done["result"]["files"]["report_json"]).json()["summary"]["accepted"] == 1

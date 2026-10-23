@@ -68,6 +68,8 @@ No other AI coding tools were used.
 - The first 1,000-row test file had 20 "duplicates" written in upper case including the path; paths are case-sensitive, so they were correctly treated as different, missing pages. The file generator was changed to vary only the scheme and host, and the counts now match what the generator put in.
 - The importer accepts single-word host names (docker service names) only in local-demo mode; in normal mode they are refused as invalid.
 
+- The test suite caught two real faults in the AI's new code: a replayed import upload rewrote the input file while the first job was reading it (the job saw an empty CSV), and two "could not run" certification records created in the same millisecond got the same id. Files are now written atomically, an upload never rewrites an existing input, and record ids are random.
+
 ## Manual work
 
 No outputs have been edited by hand and presented as automated.

@@ -28,7 +28,8 @@ async def create_import(request: Request, commit: bool = True, callback_url: str
             raise IncuBrixError(ErrorCode.VALIDATION_ERROR, "the CSV must be UTF-8 text") from None
     rows = len(parse_csv(text))  # refuse a malformed file now, with a clear message, not inside the job
     import_id = import_id_for(text)
-    request.app.state.imports.save(import_id, "input.csv", text)
+    if request.app.state.imports.read(f"{import_id}/input.csv") is None:  # same content = same id: never rewrite a file a running job may be reading
+        request.app.state.imports.save(import_id, "input.csv", text)
     job, created = request.app.state.jobs.submit("import", {"import_id": import_id, "commit": commit}, callback_url, idempotency_key)
     return JSONResponse(status_code=202, content={**job, "rows": rows, "import_id": import_id}, headers={} if created else {"Idempotent-Replayed": "true"})
 

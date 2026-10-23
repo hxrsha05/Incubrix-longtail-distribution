@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import time
+import uuid
 from typing import Any, Callable
 
 from app.catalogue import Catalogue
@@ -62,7 +63,7 @@ class CertificationService:
     def _unrunnable(self, row: dict[str, Any], exc: IncuBrixError) -> dict[str, Any]:
         now = self.clock()
         verdict = "inconclusive"  # we could not even try: that says nothing about the destination
-        return {"run_id": f"skip-{int(now * 1000)}", "destination_id": row["id"], "connector_key": row["connector_key"], "tier": None,
+        return {"run_id": f"skip-{uuid.uuid4().hex[:10]}", "destination_id": row["id"], "connector_key": row["connector_key"], "tier": None,
                 "started_at": now, "finished_at": now, "duration_s": 0.0, "steps": [], "verdict": verdict, "warnings": [],
                 "failure": {"kind": exc.code.value, "summary": f"{exc.code.value}: {exc.message}", "details": exc.details},
                 "manifest": build_manifest(kind="certification", started_at=now, finished_at=now, settings={"simulation_mode": self.simulation})}
