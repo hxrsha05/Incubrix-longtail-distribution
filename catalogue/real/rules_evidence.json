@@ -1,0 +1,825 @@
+[
+  {
+    "id": "openai-developer-community",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "hugging-face-forums",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "cursor-community-forum",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "n8n-community",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "bubble-forum",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "make-community",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "obsidian-forum",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "discourse-meta",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "the-freecodecamp-forum",
+    "rules_found": [
+      "link_policy"
+    ],
+    "evidence": {
+      "link_policy": {
+        "quote": "Affiliate links are not allowed.",
+        "confidence": 0.85
+      }
+    }
+  },
+  {
+    "id": "pytorch-forums",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "google-ai-developers-forum",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "fast-ai-course-forums",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "fly-io",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "langchain-forum",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "deeplearning-ai",
+    "rules_found": [
+      "frequency_cap"
+    ],
+    "evidence": {
+      "frequency_cap": {
+        "quote": "Personal & Open-Source 1 per week Keep all project updates within the original thread.",
+        "confidence": 0.8
+      }
+    }
+  },
+  {
+    "id": "nvidia-developer-forums",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "ghost-forum",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "retool-forum",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "vercel-community",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "glide-community",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "thunkable-community",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "mautic-forums",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "activepieces-community",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "shotcut-forum",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "discuss-pixls-us",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "krita-artists",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "penpot-community",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "ardour",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "matomo-forums",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "softr-community",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "latenode-official-community",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "noloco",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "perplexity-api-platform-forum",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "superhuman-community",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "metabase-discussion",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "dbt-community-forum",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "shopify-developer-community-forums",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "maker-forums",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "logseq",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "developer-forum-blender",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "grafana-labs-community-forums",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "open-source-design",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "free-open-source-artificial-intelligence",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "artificial-intelligence",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "technology",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "graphic-design",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "digital-art",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "youtube",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "podcasts",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "online-marketing-digital-marketing",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "ai-artificial-intelligence",
+    "rules_found": [
+      "self_promo_allowed"
+    ],
+    "evidence": {
+      "self_promo_allowed": {
+        "quote": "No self promotion**: Don't post links to your articles.",
+        "confidence": 0.9
+      }
+    }
+  },
+  {
+    "id": "machine-learning",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "opensource",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "web-development",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "software-as-a-service",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "programming",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "devops",
+    "rules_found": [
+      "self_promo_allowed"
+    ],
+    "evidence": {
+      "self_promo_allowed": {
+        "quote": "No spam of tools/companies/advertisements",
+        "confidence": 0.9
+      }
+    }
+  },
+  {
+    "id": "ai",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "marketing",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "seo-search-engine-optimization-discussion",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "startups",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "open-source",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "blender",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "foss-freie-software",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "technologie-nachrichten-aus-wissenschaft-bio-und-technik",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "llm",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "generative-artificial-intelligence",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "free-and-open-source-software",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "content-creators-drama-and-self-destruction",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "hacker-news-show-hn",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "product-hunt",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "betalist",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "devhunt",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "future-tools",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "twiml-ai-community",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "video-production-stack-exchange",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "artificial-intelligence-stack-exchange",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "graphic-design-stack-exchange",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "webmasters-stack-exchange",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "software-recommendations-stack-exchange",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "stash-media",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "motionographer",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "creative-boom",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "colossal",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "sound-on-sound-forum",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "medium",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "substack",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "datatalks-club-slack",
+    "rules_found": [
+      "link_policy"
+    ],
+    "evidence": {
+      "link_policy": {
+        "quote": "Don\u2019t include more than one link per post",
+        "confidence": 0.8
+      }
+    }
+  },
+  {
+    "id": "revgenius",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "ai-tools-directory",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "warrior-forum",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "cinematography-com-forum",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "hackernoon",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "locally-optimistic",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "deviantart",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "ads-of-the-world",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "digital-point-forums",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "kubernetes-slack",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "stack-overflow",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "quora",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "dang-ai",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "smashing-magazine",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "towards-data-science",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "lilach-bullock",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "smash-vc",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "videomaker",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "vmaker-blog",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "filmmaking-stuff",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "the-podcast-host",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "foss-force",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "no-film-school",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "podnews",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "we-are-founders",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "a-list-apart",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "towards-ai",
+    "rules_found": [
+      "disclosure_required"
+    ],
+    "evidence": {
+      "disclosure_required": {
+        "quote": "disclose AI-generated text within the first two paragraphs and label AI-generated images in their captions.",
+        "confidence": 0.85
+      }
+    }
+  },
+  {
+    "id": "nexa-growth-blog",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "claudiv",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "wavel-ai-blog",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "better-stack-community",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "who-s-mailing-what",
+    "rules_found": [
+      "link_policy"
+    ],
+    "evidence": {
+      "link_policy": {
+        "quote": "No more than one link to your company's website in the body of the guest post.",
+        "confidence": 0.8
+      }
+    }
+  },
+  {
+    "id": "best-startup-us",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "the-startup-magazine",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "freecodecamp-news",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "social-media-today",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "the-rundown-ai",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "changelog-news",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "inc42",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "search-engine-journal",
+    "rules_found": [
+      "self_promo_allowed"
+    ],
+    "evidence": {
+      "self_promo_allowed": {
+        "quote": "No self-promotional calls to action",
+        "confidence": 0.9
+      }
+    }
+  },
+  {
+    "id": "mind-the-product",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "infoq",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "yans-media-blog",
+    "rules_found": [
+      "link_policy"
+    ],
+    "evidence": {
+      "link_policy": {
+        "quote": "The article can include one link to your website.",
+        "confidence": 0.8
+      }
+    }
+  },
+  {
+    "id": "dev-community-ai-tag",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "dev-community-showdev-tag",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "dev-community-productivity-tag",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "dev-community-news-tag",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "dev-community-career-tag",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "dev-community-chatgpt-tag",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "dev-community-ux-tag",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "dev-community-machinelearning-tag",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "dev-community-devjournal-tag",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "dev-community-tutorial-tag",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "dev-community-opensource-tag",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "dev-community-discuss-tag",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "hashnode-community",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "hashnode-ai-topic-feed",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "hashnode-saas-topic-feed",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "hashnode-marketing-topic-feed",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "hashnode-startups-topic-feed",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "hashnode-video-topic-feed",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "hashnode-productivity-topic-feed",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "hashnode-design-topic-feed",
+    "rules_found": [],
+    "evidence": {}
+  },
+  {
+    "id": "digitalocean-community-write-for-donations",
+    "rules_found": [],
+    "evidence": {}
+  }
+]

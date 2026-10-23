@@ -59,8 +59,13 @@ Everything runs with `docker compose up`, with no real accounts needed. The code
   descriptions; it does not predict performance on real communities.
 - **The Claude adapter for rules capture has not been run against the live API.** It is tested against a fake API only. The default is an
   offline keyword reader.
-- **"150 real destinations researched" was not done.** It needs real research that cannot be checked from here; inventing entries would
-  be worse than leaving it out. The importer is ready to take such a list.
+- **The real catalogue (`catalogue/real/`) is listing only, and its rules are mostly unconfirmed.** 152 real communities, platforms and publications were
+  researched by five AI research agents and checked by `scripts/build_real_catalogue.py` against the real internet: 137 answered the importer,
+  10 blocked it (HTTP 403) and 5 forbid automated visits in robots.txt (kept with a warning, found live by the research step). Rules were read
+  by software from short verbatim quotes of each community's own rules page for only 9 destinations; the other 143 keep the conservative
+  default, and none is confirmed by a person. `geo` was not researched. All 152 are flagged catalogue only: nothing is ever certified or posted
+  to them. Several entries are company blogs rather than independent publications, one (Search Engine Journal) is invite-only, and
+  member counts exist only where a site states one.
 - **Import speed is measured on test sites that share one host,** where politeness (one request per host at a time) serialises the checks.
   A real list over many hosts would be faster, but that is not measured.
 - **Untested at scale:** one instance, SQLite in tests and Postgres in compose, no load test beyond the 1,000-row import.

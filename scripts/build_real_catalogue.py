@@ -143,6 +143,9 @@ def main() -> None:
     lines = ["# Real catalogue (catalogue only: nothing here is ever posted to)", "",
              f"- researched candidates: {len(items)}; after removing duplicates: {len(unique)} ({len(dropped_dups)} duplicates or unusable addresses dropped)",
              f"- import check against the real internet: **{result['accepted']} accepted**, {result['unreachable']} unreachable, {result['invalid']} invalid, {result['duplicate']} duplicates; {result['duration_s']} s",
+             f"- of the accepted: {sum(1 for r in result['report'] if r['status'] == 'accepted' and r['http_status'] == 200)} answered HTTP 200 to the importer; "
+             f"{sum(1 for r in result['report'] if r['status'] == 'accepted' and r['http_status'] not in (200, None))} blocked the importer (HTTP 403) and "
+             f"{sum(1 for r in result['report'] if r['status'] == 'accepted' and r['http_status'] is None)} were not visited because robots.txt forbids it; those are kept with a warning, because the research step (a person-like browser read) found them live",
              f"- destination records written: **{len(records)}** (`real_catalogue.csv`, the fields the brief requires)",
              f"- rules proposed from the community's own quoted words for {with_rules} destinations; the others keep the conservative default",
              f"- by category: {dict(sorted(by_kind.items()))}", f"- by connector type: {dict(sorted(by_connector.items()))}",

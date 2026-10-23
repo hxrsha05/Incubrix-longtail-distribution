@@ -1,0 +1,821 @@
+[
+  {
+    "name": "Hacker News (Show HN)",
+    "url": "https://news.ycombinator.com/",
+    "submit_url": "https://news.ycombinator.com/submit",
+    "platform": "custom",
+    "category": "community",
+    "language": "en",
+    "topics": [
+      "founders",
+      "devtools",
+      "ai",
+      "saas"
+    ],
+    "member_count": null,
+    "rules_url": "https://news.ycombinator.com/newsguidelines.html",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Please don't use HN primarily for promotion."
+      },
+      {
+        "topic": "links",
+        "quote": "Please submit the original source."
+      },
+      {
+        "topic": "ai_disclosure",
+        "quote": "Please don't put generated text in HN posts."
+      },
+      {
+        "topic": "automation",
+        "quote": "For the same reason, please don't automate posting."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Link and discussion site where a person submits a story or a Show HN post by hand; automated posting is asked against."
+  },
+  {
+    "name": "Product Hunt",
+    "url": "https://www.producthunt.com/",
+    "submit_url": "https://www.producthunt.com/launch",
+    "platform": "custom",
+    "category": "directory",
+    "language": "en",
+    "topics": [
+      "founders",
+      "saas",
+      "ai",
+      "devtools"
+    ],
+    "member_count": null,
+    "rules_url": "https://www.producthunt.com/launch",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "The only real rule here is that you cannot ask people directly to upvote your product."
+      },
+      {
+        "topic": "frequency",
+        "quote": "You can launch as often as you have new significant product iterations available."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Daily product launch site where a maker posts a launch by hand from a personal account; company accounts are not allowed."
+  },
+  {
+    "name": "BetaList",
+    "url": "https://betalist.com/",
+    "submit_url": "https://betalist.com/submit",
+    "platform": "custom",
+    "category": "directory",
+    "language": "en",
+    "topics": [
+      "founders",
+      "saas",
+      "ai"
+    ],
+    "member_count": null,
+    "rules_url": "https://betalist.com/criteria",
+    "rules_quotes": [
+      {
+        "topic": "frequency",
+        "quote": "Each startup gets up to two opportunities to be featured: once pre-launch and once at launch."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Curated directory of early-stage startups; a founder fills in the submission form and the editors choose what to feature."
+  },
+  {
+    "name": "DevHunt",
+    "url": "https://devhunt.org/",
+    "submit_url": "https://devhunt.org/",
+    "platform": "custom",
+    "category": "directory",
+    "language": "en",
+    "topics": [
+      "devtools",
+      "ai",
+      "opensource",
+      "founders"
+    ],
+    "member_count": null,
+    "rules_url": "https://devhunt.org/faq",
+    "rules_quotes": [
+      {
+        "topic": "links",
+        "quote": "Links on free listings are nofollow; paid launches get a permanent dofollow link."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Launch site for developer tools where a maker submits a tool by hand; free and paid launch options exist."
+  },
+  {
+    "name": "Future Tools",
+    "url": "https://www.futuretools.io/",
+    "submit_url": "https://www.futuretools.io/submit-a-tool",
+    "platform": "custom",
+    "category": "directory",
+    "language": "en",
+    "topics": [
+      "ai",
+      "creators",
+      "saas"
+    ],
+    "member_count": null,
+    "rules_url": "https://www.futuretools.io/faq",
+    "rules_quotes": [
+      {
+        "topic": "frequency",
+        "quote": "If you submitted a tool and it was not listed within a week of submission, you can resubmit it and we will review it again."
+      },
+      {
+        "topic": "automation",
+        "quote": "Do not spam the submit form."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "AI tool directory curated by Matt Wolfe's team; a person submits a tool through a web form and it is reviewed by a human."
+  },
+  {
+    "name": "TWIML AI Community",
+    "url": "https://twimlai.com/community/",
+    "submit_url": "https://twimlai.com/community/",
+    "platform": "slack",
+    "category": "community",
+    "language": "en",
+    "topics": [
+      "ai",
+      "devtools"
+    ],
+    "member_count": null,
+    "rules_url": "https://twimlai.com/community-code-of-conduct",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "The one exception to this is in the #bulletin-board channel. Feel free to post links to your content there."
+      },
+      {
+        "topic": "frequency",
+        "quote": "Please don’t cross post the same question in multiple channels."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Machine learning and AI community on Slack; members join by form and post by hand, with promotion limited to #bulletin-board."
+  },
+  {
+    "name": "Video Production Stack Exchange",
+    "url": "https://video.stackexchange.com/",
+    "submit_url": "https://video.stackexchange.com/",
+    "platform": "stack exchange",
+    "category": "community",
+    "language": "en",
+    "topics": [
+      "video",
+      "creators"
+    ],
+    "member_count": null,
+    "rules_url": "https://video.stackexchange.com/help/promotion",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "However, if you mention your product, website, etc. in your question or answer (or any other contribution to the site), you must disclose your affiliation in your post."
+      },
+      {
+        "topic": "links",
+        "quote": "Don't include links except to support what you've written."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Question and answer site for video production where a person posts questions or answers by hand and must disclose any affiliation."
+  },
+  {
+    "name": "Artificial Intelligence Stack Exchange",
+    "url": "https://ai.stackexchange.com/",
+    "submit_url": "https://ai.stackexchange.com/",
+    "platform": "stack exchange",
+    "category": "community",
+    "language": "en",
+    "topics": [
+      "ai",
+      "devtools"
+    ],
+    "member_count": null,
+    "rules_url": "https://ai.stackexchange.com/help/promotion",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "However, if you mention your product, website, etc. in your question or answer (or any other contribution to the site), you must disclose your affiliation in your post."
+      },
+      {
+        "topic": "links",
+        "quote": "Don't include links except to support what you've written."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Question and answer site about AI where a person posts by hand; affiliation with any product mentioned must be disclosed."
+  },
+  {
+    "name": "Graphic Design Stack Exchange",
+    "url": "https://graphicdesign.stackexchange.com/",
+    "submit_url": "https://graphicdesign.stackexchange.com/",
+    "platform": "stack exchange",
+    "category": "community",
+    "language": "en",
+    "topics": [
+      "design",
+      "creators"
+    ],
+    "member_count": null,
+    "rules_url": "https://graphicdesign.stackexchange.com/help/promotion",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "However, if you mention your product, website, etc. in your question or answer (or any other contribution to the site), you must disclose your affiliation in your post."
+      },
+      {
+        "topic": "links",
+        "quote": "Don't include links except to support what you've written."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Question and answer site for graphic design where a person posts by hand and must disclose any affiliation."
+  },
+  {
+    "name": "Webmasters Stack Exchange",
+    "url": "https://webmasters.stackexchange.com/",
+    "submit_url": "https://webmasters.stackexchange.com/",
+    "platform": "stack exchange",
+    "category": "community",
+    "language": "en",
+    "topics": [
+      "marketing",
+      "saas"
+    ],
+    "member_count": null,
+    "rules_url": "https://webmasters.stackexchange.com/help/promotion",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "However, if you mention your product, website, etc. in your question or answer (or any other contribution to the site), you must disclose your affiliation in your post."
+      },
+      {
+        "topic": "links",
+        "quote": "Don't include links except to support what you've written."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Question and answer site for site owners and SEO where a person posts by hand and must disclose any affiliation."
+  },
+  {
+    "name": "Software Recommendations Stack Exchange",
+    "url": "https://softwarerecs.stackexchange.com/",
+    "submit_url": "https://softwarerecs.stackexchange.com/",
+    "platform": "stack exchange",
+    "category": "community",
+    "language": "en",
+    "topics": [
+      "saas",
+      "devtools"
+    ],
+    "member_count": null,
+    "rules_url": "https://softwarerecs.stackexchange.com/help/promotion",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "However, if you mention your product, website, etc. in your question or answer (or any other contribution to the site), you must disclose your affiliation in your post."
+      },
+      {
+        "topic": "links",
+        "quote": "Don't include links except to support what you've written."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Question and answer site for software recommendations where a person posts by hand and must disclose any affiliation."
+  },
+  {
+    "name": "Stash Media",
+    "url": "https://www.stashmedia.tv/",
+    "submit_url": "https://www.stashmedia.tv/submit/",
+    "platform": "custom",
+    "category": "video showcase",
+    "language": "en",
+    "topics": [
+      "video",
+      "creators",
+      "design"
+    ],
+    "member_count": null,
+    "rules_url": "https://www.stashmedia.tv/submit/",
+    "rules_quotes": [
+      {
+        "topic": "links",
+        "quote": "Must allow for embedding, e.g. Vimeo, YouTube (or a link to a downloadable file)"
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Motion design, animation and VFX showcase; a person emails project links, credits and a write-up through the submit page."
+  },
+  {
+    "name": "Motionographer",
+    "url": "https://motionographer.com/",
+    "submit_url": "https://motionographer.com/submit/",
+    "platform": "custom",
+    "category": "video showcase",
+    "language": "en",
+    "topics": [
+      "video",
+      "creators",
+      "design"
+    ],
+    "member_count": null,
+    "rules_url": "https://motionographer.com/submission_guidelines/",
+    "rules_quotes": [
+      {
+        "topic": "frequency",
+        "quote": "Please submit your work only once, and do not resubmit the same piece if it has been rejected."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Motion design site that publishes Quickies; a person sends a project through the online submission form."
+  },
+  {
+    "name": "Creative Boom",
+    "url": "https://www.creativeboom.com/",
+    "submit_url": "https://www.creativeboom.com/submit/",
+    "platform": "custom",
+    "category": "video showcase",
+    "language": "en",
+    "topics": [
+      "creators",
+      "design",
+      "marketing"
+    ],
+    "member_count": null,
+    "rules_url": "https://www.creativeboom.com/submit/",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "If you'd like guaranteed coverage on Creative Boom, check out our advertising opportunities."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Creative industry magazine that features artists, filmmakers and studios; pitches are sent by email, not social media."
+  },
+  {
+    "name": "Colossal",
+    "url": "https://www.thisiscolossal.com/",
+    "submit_url": "https://www.thisiscolossal.com/submissions/",
+    "platform": "custom",
+    "category": "video showcase",
+    "language": "en",
+    "topics": [
+      "creators",
+      "design"
+    ],
+    "member_count": null,
+    "rules_url": "https://www.thisiscolossal.com/submissions/",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "If you are interested in sharing a product or service with our audience, you can learn more about advertising here."
+      },
+      {
+        "topic": "ai_disclosure",
+        "quote": "We are unlikely to cover speculative work, exhibitions without images of individual works, AI-generated imagery, NFTs, VR,"
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Art, design and animation publication; a person emails a project description with images or video link to the submissions address."
+  },
+  {
+    "name": "Sound On Sound Forum",
+    "url": "https://www.soundonsound.com/forum",
+    "submit_url": "https://www.soundonsound.com/forum",
+    "platform": "phpbb",
+    "category": "community",
+    "language": "en",
+    "topics": [
+      "podcasting",
+      "creators"
+    ],
+    "member_count": null,
+    "rules_url": "https://www.soundonsound.com/sos-forum-rules-etiquette",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Individuals may post promotional material regarding products and services that would be relevant to the SOS readership"
+      },
+      {
+        "topic": "frequency",
+        "quote": "Do not post the same topic into multiple sub-forums."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Audio recording and production forum where members post by hand; promotion belongs in the designated forums."
+  },
+  {
+    "name": "Medium",
+    "url": "https://medium.com/",
+    "submit_url": "https://medium.com/",
+    "platform": "custom",
+    "category": "community",
+    "language": "en",
+    "topics": [
+      "creators",
+      "founders",
+      "marketing",
+      "ai"
+    ],
+    "member_count": null,
+    "rules_url": "https://policy.medium.com/medium-rules-30e5502c4eb4",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Posting content primarily to drive traffic to, or increase the search rankings of, an external site, product, or service"
+      },
+      {
+        "topic": "automation",
+        "quote": "Performing a disproportionately large number of interactions, particularly by automated means."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Open publishing platform where a writer posts a story by hand in the editor; spam and automated bulk interactions are removed."
+  },
+  {
+    "name": "Substack",
+    "url": "https://substack.com/",
+    "submit_url": "https://substack.com/",
+    "platform": "custom",
+    "category": "community",
+    "language": "en",
+    "topics": [
+      "creators",
+      "podcasting",
+      "marketing",
+      "founders"
+    ],
+    "member_count": null,
+    "rules_url": "https://substack.com/content",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "We are vehemently anti-spam and anti-phishing."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Newsletter and podcast publishing platform where a creator writes and posts by hand; content guidelines restrict spam."
+  },
+  {
+    "name": "DataTalks.Club Slack",
+    "url": "https://datatalks.club/",
+    "submit_url": "https://datatalks.club/slack.html",
+    "platform": "slack",
+    "category": "community",
+    "language": "en",
+    "topics": [
+      "ai",
+      "devtools",
+      "opensource"
+    ],
+    "member_count": null,
+    "rules_url": "https://datatalks.club/docs/general/guidelines/promotion/",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Posting promotional content outside of these 4 channels is not allowed"
+      },
+      {
+        "topic": "frequency",
+        "quote": "Don’t post more than two promotional posts per week"
+      },
+      {
+        "topic": "links",
+        "quote": "Don’t include more than one link per post"
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Free data and AI community on Slack; promotion goes in four set channels, and a separate AI usage page bans bot and AI-agent accounts."
+  },
+  {
+    "name": "RevGenius",
+    "url": "https://www.revgenius.com/",
+    "submit_url": "https://www.revgenius.com/",
+    "platform": "slack",
+    "category": "community",
+    "language": "en",
+    "topics": [
+      "saas",
+      "marketing",
+      "founders"
+    ],
+    "member_count": null,
+    "rules_url": "https://www.revgenius.com/code-of-conduct",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Posts promoting your solutions or solutions in which you have a vested interest will be removed."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Revenue and go-to-market professionals community on Slack; members join from the site and promotion is not allowed."
+  },
+  {
+    "name": "AI Tools Directory",
+    "url": "https://aitoolsdirectory.com/",
+    "submit_url": "https://aitoolsdirectory.com/submit-tool",
+    "platform": "custom",
+    "category": "directory",
+    "language": "en",
+    "topics": [
+      "ai",
+      "creators",
+      "saas"
+    ],
+    "member_count": null,
+    "rules_url": "https://aitoolsdirectory.com/submit-tool",
+    "rules_quotes": [
+      {
+        "topic": "ai_disclosure",
+        "quote": "Content written using AI tools or copied content will be detected and discarded."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "AI tool directory where a person submits a tool through a form; every listing is reviewed by hand and the free route has no guarantee."
+  },
+  {
+    "name": "Warrior Forum",
+    "url": "https://www.warriorforum.com/",
+    "submit_url": "https://www.warriorforum.com/",
+    "platform": "custom",
+    "category": "community",
+    "language": "en",
+    "topics": [
+      "marketing",
+      "founders",
+      "ai"
+    ],
+    "member_count": 2049599,
+    "rules_url": "https://www.warriorforum.com/warrior-forum-help/1470491-warrior-forum-community-guidelines-rules.html",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Shameless self-promotion such as \"see my sig\", \"PM me for more details\", or \"check out my blog\" is prohibited."
+      },
+      {
+        "topic": "links",
+        "quote": "Self-promotional links (blogs, personal websites, et al.) are not allowed in the discussion areas of the forum."
+      },
+      {
+        "topic": "ai_disclosure",
+        "quote": "AI-generated content is not allowed."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Large digital marketing forum where members post by hand; the member count is the figure shown on the home page."
+  },
+  {
+    "name": "Cinematography.com Forum",
+    "url": "https://cinematography.com/",
+    "submit_url": "https://cinematography.com/",
+    "platform": "invision",
+    "category": "community",
+    "language": "en",
+    "topics": [
+      "video",
+      "creators"
+    ],
+    "member_count": null,
+    "rules_url": "https://cinematography.com/index.php?/guidelines/",
+    "rules_quotes": [
+      {
+        "topic": "frequency",
+        "quote": "Do not cross-post. Posting the same or similar message in more than one place in the forum is not acceptable."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Forum for cinematographers and filmmakers where members post by hand under their real names."
+  },
+  {
+    "name": "HackerNoon",
+    "url": "https://hackernoon.com/",
+    "submit_url": "https://app.hackernoon.com/new",
+    "platform": "custom",
+    "category": "community",
+    "language": "en",
+    "topics": [
+      "founders",
+      "ai",
+      "devtools",
+      "marketing"
+    ],
+    "member_count": null,
+    "rules_url": "https://help.hackernoon.com/backlinks-guideline",
+    "rules_quotes": [
+      {
+        "topic": "links",
+        "quote": "You can only add 1 link to your brand's website per 500 words."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Technology publication where a writer drafts and submits a story by hand for editorial review."
+  },
+  {
+    "name": "Locally Optimistic",
+    "url": "https://locallyoptimistic.com/community/",
+    "submit_url": "https://locallyoptimistic.com/community/",
+    "platform": "slack",
+    "category": "community",
+    "language": "en",
+    "topics": [
+      "marketing",
+      "saas"
+    ],
+    "member_count": null,
+    "rules_url": "https://locallyoptimistic.com/community/",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Promote your own product outside #vendor-content or your specific #tools- channel unless a community member has asked a question directly about it."
+      },
+      {
+        "topic": "frequency",
+        "quote": "announce it once in #discussion to allow interested users to opt into conversation related to your tool."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Analytics leaders community on Slack; invite is requested by email and vendors follow set promotion rules."
+  },
+  {
+    "name": "DeviantArt",
+    "url": "https://www.deviantart.com/",
+    "submit_url": "https://www.deviantart.com/",
+    "platform": "custom",
+    "category": "community",
+    "language": "en",
+    "topics": [
+      "creators",
+      "design"
+    ],
+    "member_count": null,
+    "rules_url": "https://www.deviantart.com/about/policy/etiquette",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Don't post spam, and don't artificially post repetitive comments or content or repeatedly contact people for commercial purposes without their consent."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Art community where an artist uploads work by hand to a profile; spam and repetitive posting can lead to restrictions."
+  },
+  {
+    "name": "Ads of the World",
+    "url": "https://www.adsoftheworld.com/",
+    "submit_url": "https://www.adsoftheworld.com/campaigns/new",
+    "platform": "custom",
+    "category": "video showcase",
+    "language": "en",
+    "topics": [
+      "marketing",
+      "video",
+      "creators"
+    ],
+    "member_count": null,
+    "rules_url": "https://www.adsoftheworld.com/faqs",
+    "rules_quotes": [
+      {
+        "topic": "frequency",
+        "quote": "Do not create multiple campaigns with one media asset in each."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Advertising showcase run by Clio where a person with a professional or student email uploads a campaign through the submission form."
+  },
+  {
+    "name": "Digital Point Forums",
+    "url": "https://www.digitalpoint.com/",
+    "submit_url": "https://www.digitalpoint.com/",
+    "platform": "xenforo",
+    "category": "community",
+    "language": "en",
+    "topics": [
+      "marketing",
+      "saas",
+      "founders"
+    ],
+    "member_count": null,
+    "rules_url": "https://www.digitalpoint.com/help/terms/",
+    "rules_quotes": [
+      {
+        "topic": "links",
+        "quote": "You agree to not use the Service to post or link to any Content which is defamatory, abusive, hateful, threatening, spam or spam-like"
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Long-running webmaster and online marketing forum where members post by hand; the terms page lists the forum rules."
+  },
+  {
+    "name": "Kubernetes Slack",
+    "url": "https://slack.k8s.io/",
+    "submit_url": "https://slack.k8s.io/",
+    "platform": "slack",
+    "category": "community",
+    "language": "en",
+    "topics": [
+      "devtools",
+      "opensource",
+      "ai"
+    ],
+    "member_count": null,
+    "rules_url": "https://www.k8s.dev/docs/comms/slack/",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "you may not post commercial, promotional messages anywhere in Kubernetes, whether in public channels or direct messages"
+      },
+      {
+        "topic": "automation",
+        "quote": "Connecting any automated program or service to Kubernetes Slack without explicit approval by the Slack Administrators or K8s-Infra is strictly prohibited."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Open source contributor community on Slack with a public join page; bots and AI agents need approval and promotion is banned."
+  },
+  {
+    "name": "Stack Overflow",
+    "url": "https://stackoverflow.com/",
+    "submit_url": "https://stackoverflow.com/",
+    "platform": "stack exchange",
+    "category": "community",
+    "language": "en",
+    "topics": [
+      "devtools",
+      "ai",
+      "opensource"
+    ],
+    "member_count": null,
+    "rules_url": "https://stackoverflow.com/help/promotion",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "However, if you mention your product, website, etc. in your question or answer (or any other contribution to the site), you must disclose your affiliation in your post."
+      },
+      {
+        "topic": "links",
+        "quote": "Don't include links except to support what you've written."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Programming question and answer site where a person posts by hand and must disclose any affiliation with a product mentioned."
+  },
+  {
+    "name": "Quora",
+    "url": "https://www.quora.com/",
+    "submit_url": "https://www.quora.com/",
+    "platform": "custom",
+    "category": "community",
+    "language": "en",
+    "topics": [
+      "marketing",
+      "founders",
+      "creators"
+    ],
+    "member_count": null,
+    "rules_url": "https://help.quora.com/hc/en-us/articles/360000470706-Platform-Policies",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Excessively promoting the same product or service"
+      },
+      {
+        "topic": "frequency",
+        "quote": "Posting the same content repeatedly, or sending the same messages repeatedly"
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Question and answer site where a person posts answers by hand; promotion aimed at driving traffic is treated as spam."
+  },
+  {
+    "name": "Dang.ai",
+    "url": "https://dang.ai/",
+    "submit_url": "https://dang.ai/submit",
+    "platform": "custom",
+    "category": "directory",
+    "language": "en",
+    "topics": [
+      "ai",
+      "saas",
+      "creators"
+    ],
+    "member_count": null,
+    "rules_url": "https://dang.ai/pricing",
+    "rules_quotes": [
+      {
+        "topic": "links",
+        "quote": "Requires a crawlable backlink to dang.ai, 1 category, and up to 4 weeks for review."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "AI tool directory where a person submits a tool through a form; the free listing needs a backlink and a review wait."
+  }
+]

@@ -1,0 +1,153 @@
+name,url,language,topics,connector_key
+OpenAI Developer Community,https://community.openai.com/,en,ai;devtools,discourse
+Hugging Face Forums,https://discuss.huggingface.co/,en,ai;opensource;devtools,discourse
+Cursor - Community Forum,https://forum.cursor.com/,en,ai;devtools,discourse
+n8n Community,https://community.n8n.io/,en,ai;saas;devtools,discourse
+Bubble Forum,https://forum.bubble.io/,en,saas;founders;devtools,discourse
+Make Community,https://community.make.com/,en,saas;ai;marketing,discourse
+Obsidian Forum,https://forum.obsidian.md/,en,creators;saas,discourse
+Discourse Meta,https://meta.discourse.org/,en,opensource;saas;devtools,discourse
+The freeCodeCamp Forum,https://forum.freecodecamp.org/,en,devtools;creators,discourse
+PyTorch Forums,https://discuss.pytorch.org/,en,ai;opensource;devtools,discourse
+Google AI Developers Forum,https://discuss.ai.google.dev/,en,ai;devtools,discourse
+fast.ai Course Forums,https://forums.fast.ai/,en,ai;opensource,discourse
+Fly.io,https://community.fly.io/,en,devtools;saas,discourse
+LangChain Forum,https://forum.langchain.com/,en,ai;devtools;opensource,discourse
+DeepLearning.AI,https://community.deeplearning.ai/,en,ai;creators,discourse
+NVIDIA Developer Forums,https://forums.developer.nvidia.com/,en,ai;devtools,discourse
+Ghost Forum,https://forum.ghost.org/,en,creators;founders;saas,discourse
+Retool Forum,https://community.retool.com/,en,saas;devtools,discourse
+Vercel Community,https://community.vercel.com/,en,devtools;saas;ai,discourse
+Glide Community,https://community.glideapps.com/,en,saas;founders;devtools,discourse
+Thunkable Community,https://community.thunkable.com/,en,saas;creators;devtools,discourse
+Mautic Forums,https://forum.mautic.org/,en,marketing;opensource;saas,discourse
+Activepieces Community,https://community.activepieces.com/,en,ai;saas;opensource,discourse
+Shotcut Forum,https://forum.shotcut.org/,en,video;opensource;creators,discourse
+discuss.pixls.us,https://discuss.pixls.us/,en,creators;opensource;design,discourse
+Krita Artists,https://krita-artists.org/,en,creators;design;opensource,discourse
+Penpot Community,https://community.penpot.app/,en,design;opensource;saas,discourse
+Ardour,https://discourse.ardour.org/,en,creators;opensource;podcasting,discourse
+Matomo forums,https://forum.matomo.org/,en,marketing;opensource;saas,discourse
+Softr Community,https://community.softr.io/,en,saas;founders;devtools,discourse
+Latenode Official Community,https://community.latenode.com/,en,ai;saas;marketing,discourse
+Noloco,https://community.noloco.io/,en,saas;founders,discourse
+Perplexity API Platform Forum,https://community.perplexity.ai/,en,ai;devtools,discourse
+Superhuman Community,https://connect.superhuman.com/,en,saas;founders;ai,discourse
+Metabase Discussion,https://discourse.metabase.com/,en,saas;opensource;devtools,discourse
+dbt Community Forum,https://discourse.getdbt.com/,en,saas;devtools;opensource,discourse
+Shopify Developer Community Forums,https://community.shopify.dev/,en,saas;devtools;marketing,discourse
+Maker Forums,https://forum.makerforums.info/,en,founders;creators;devtools,discourse
+Logseq,https://discuss.logseq.com/,en,creators;opensource,discourse
+Developer Forum (Blender),https://devtalk.blender.org/,en,creators;design;opensource,discourse
+Grafana Labs Community Forums,https://community.grafana.com/,en,devtools;opensource;saas,discourse
+Open Source Design,https://discourse.opensourcedesign.net/,en,design;opensource;creators,discourse
+Free Open-Source Artificial Intelligence,https://lemmy.world/c/fosai,en,ai;opensource;devtools,lemmy
+Artificial Intelligence,https://lemmy.world/c/ai_,en,ai;devtools,lemmy
+Technology,https://lemmy.world/c/technology,en,devtools;ai;saas,lemmy
+Graphic Design,https://lemmy.world/c/graphic_design,en,design;creators,lemmy
+Digital Art,https://lemmy.world/c/digitalart,en,design;creators,lemmy
+youtube,https://lemmy.world/c/youtube,en,video;creators,lemmy
+Podcasts,https://lemmy.world/c/podcasts,en,podcasting;creators,lemmy
+Online Marketing & Digital Marketing,https://lemmy.world/c/onlinemarketing,en,marketing,lemmy
+AI - Artificial intelligence,https://programming.dev/c/Aii,en,ai;devtools,lemmy
+Machine Learning,https://programming.dev/c/machine_learning,en,ai;devtools,lemmy
+Opensource,https://programming.dev/c/opensource,en,opensource;devtools,lemmy
+Web Development,https://programming.dev/c/webdev,en,devtools;design,lemmy
+Software as a Service,https://programming.dev/c/saas,en,saas;founders,lemmy
+Programming,https://programming.dev/c/programming,en,devtools;opensource,lemmy
+DevOps,https://programming.dev/c/devops,en,devtools;saas,lemmy
+AI,https://lemmy.ml/c/artificial_intel,en,ai,lemmy
+Marketing,https://lemmy.ml/c/marketing,en,marketing,lemmy
+SEO (Search Engine Optimization) Discussion,https://lemmy.ml/c/seo,en,marketing,lemmy
+startups,https://lemmy.ml/c/startups,en,founders;saas,lemmy
+Open Source,https://lemmy.ml/c/opensource,en,opensource;devtools,lemmy
+Blender,https://lemmy.ml/c/blender,en,video;design;creators,lemmy
+FOSS - Freie Software,https://feddit.org/c/foss_de,de,opensource;devtools,lemmy
+"Technologie: Nachrichten aus Wissenschaft, Bio und Technik",https://feddit.org/c/technologie,de,devtools;ai,lemmy
+LLM,https://sopuli.xyz/c/LLM,en,ai;devtools,lemmy
+Generative Artificial Intelligence,https://sopuli.xyz/c/gai,en,ai;creators,lemmy
+Free and Open Source Software,https://beehaw.org/c/foss,en,opensource;devtools,lemmy
+"Content Creators, Drama, and Self-Destruction",https://reddthat.com/c/youtubedrama,en,creators;video,lemmy
+Hacker News (Show HN),https://news.ycombinator.com/,en,founders;devtools;ai;saas,assisted
+Product Hunt,https://www.producthunt.com/,en,founders;saas;ai;devtools,assisted
+BetaList,https://betalist.com/,en,founders;saas;ai,assisted
+DevHunt,https://devhunt.org/,en,devtools;ai;opensource;founders,assisted
+Future Tools,https://www.futuretools.io/,en,ai;creators;saas,assisted
+TWIML AI Community,https://twimlai.com/community/,en,ai;devtools,assisted
+Video Production Stack Exchange,https://video.stackexchange.com/,en,video;creators,assisted
+Artificial Intelligence Stack Exchange,https://ai.stackexchange.com/,en,ai;devtools,assisted
+Graphic Design Stack Exchange,https://graphicdesign.stackexchange.com/,en,design;creators,assisted
+Webmasters Stack Exchange,https://webmasters.stackexchange.com/,en,marketing;saas,assisted
+Software Recommendations Stack Exchange,https://softwarerecs.stackexchange.com/,en,saas;devtools,assisted
+Stash Media,https://www.stashmedia.tv/,en,video;creators;design,assisted
+Motionographer,https://motionographer.com/,en,video;creators;design,assisted
+Creative Boom,https://www.creativeboom.com/,en,creators;design;marketing,assisted
+Colossal,https://www.thisiscolossal.com/,en,creators;design,assisted
+Sound On Sound Forum,https://www.soundonsound.com/forum,en,podcasting;creators,assisted
+Medium,https://medium.com/,en,creators;founders;marketing;ai,assisted
+Substack,https://substack.com/,en,creators;podcasting;marketing;founders,assisted
+DataTalks.Club Slack,https://datatalks.club/,en,ai;devtools;opensource,assisted
+RevGenius,https://www.revgenius.com/,en,saas;marketing;founders,assisted
+AI Tools Directory,https://aitoolsdirectory.com/,en,ai;creators;saas,assisted
+Warrior Forum,https://www.warriorforum.com/,en,marketing;founders;ai,assisted
+Cinematography.com Forum,https://cinematography.com/,en,video;creators,assisted
+HackerNoon,https://hackernoon.com/,en,founders;ai;devtools;marketing,assisted
+Locally Optimistic,https://locallyoptimistic.com/community/,en,marketing;saas,assisted
+DeviantArt,https://www.deviantart.com/,en,creators;design,assisted
+Ads of the World,https://www.adsoftheworld.com/,en,marketing;video;creators,assisted
+Digital Point Forums,https://www.digitalpoint.com/,en,marketing;saas;founders,assisted
+Kubernetes Slack,https://slack.k8s.io/,en,devtools;opensource;ai,assisted
+Stack Overflow,https://stackoverflow.com/,en,devtools;ai;opensource,assisted
+Quora,https://www.quora.com/,en,marketing;founders;creators,assisted
+Dang.ai,https://dang.ai/,en,ai;saas;creators,assisted
+Smashing Magazine,https://www.smashingmagazine.com/,en,design;devtools;creators,assisted
+Towards Data Science,https://towardsdatascience.com/,en,ai;devtools,assisted
+Lilach Bullock,https://www.lilachbullock.com/,en,marketing;ai;saas;founders,assisted
+Smash.vc,https://smash.vc/,en,saas;founders;marketing,assisted
+Videomaker,https://www.videomaker.com/,en,video;creators,assisted
+Vmaker Blog,https://www.vmaker.com/blog/,en,video;marketing;creators,assisted
+Filmmaking Stuff,https://www.filmmakingstuff.com/,en,video;creators,assisted
+The Podcast Host,https://www.thepodcasthost.com/,en,podcasting;creators,assisted
+FOSS Force,https://fossforce.com/,en,opensource;devtools,assisted
+No Film School,https://nofilmschool.com/,en,video;creators,assisted
+Podnews,https://podnews.net/,en,podcasting;creators,assisted
+We Are Founders,https://www.wearefounders.uk/,en,founders;saas;ai,ghost
+A List Apart,https://alistapart.com/,en,design;devtools,assisted
+Towards AI,https://towardsai.net/,en,ai;devtools,assisted
+Nexa Growth Blog,https://nexagrowth.co.uk/blog/,en,marketing;saas,assisted
+Claudiv,https://claudiv.com/,en,ai;marketing;saas,assisted
+Wavel AI Blog,https://wavel.ai/blog,en,ai;video;creators,assisted
+Better Stack Community,https://betterstack.com/community/,en,devtools;opensource,assisted
+Who's Mailing What!,https://blog.whosmailingwhat.com/,en,marketing;design,assisted
+Best Startup US,https://beststartup.us/,en,founders;saas,assisted
+The Startup Magazine,https://thestartupmag.com/,en,founders;marketing,assisted
+freeCodeCamp News,https://www.freecodecamp.org/news/,en,devtools;opensource,assisted
+Social Media Today,https://www.socialmediatoday.com/,en,marketing;creators,assisted
+The Rundown AI,https://www.therundown.ai/,en,ai;marketing,assisted
+Changelog News,https://changelog.com/news,en,devtools;opensource;ai,assisted
+Inc42,https://inc42.com/,en,founders;saas;ai,assisted
+Search Engine Journal,https://www.searchenginejournal.com/,en,marketing;ai,assisted
+Mind the Product,https://www.mindtheproduct.com/,en,saas;founders;design,assisted
+InfoQ,https://www.infoq.com/,en,devtools;ai,assisted
+Yans Media Blog,https://www.yansmedia.com/blog,en,video;marketing,assisted
+DEV Community: #ai tag,https://dev.to/t/ai,en,ai;devtools;creators,devto
+DEV Community: #showdev tag,https://dev.to/t/showdev,en,founders;saas;devtools,devto
+DEV Community: #productivity tag,https://dev.to/t/productivity,en,creators;founders;devtools,devto
+DEV Community: #news tag,https://dev.to/t/news,en,saas;ai;devtools,devto
+DEV Community: #career tag,https://dev.to/t/career,en,founders;creators,devto
+DEV Community: #chatgpt tag,https://dev.to/t/chatgpt,en,ai;creators;devtools,devto
+DEV Community: #ux tag,https://dev.to/t/ux,en,design;saas;creators,devto
+DEV Community: #machinelearning tag,https://dev.to/t/machinelearning,en,ai;opensource;devtools,devto
+DEV Community: #devjournal tag,https://dev.to/t/devjournal,en,creators;founders;devtools,devto
+DEV Community: #tutorial tag,https://dev.to/t/tutorial,en,devtools;creators;opensource,devto
+DEV Community: #opensource tag,https://dev.to/t/opensource,en,opensource;founders;devtools,devto
+DEV Community: #discuss tag,https://dev.to/t/discuss,en,creators;founders;marketing,devto
+Hashnode community,https://hashnode.com/,en,devtools;ai;creators;founders,hashnode
+Hashnode: #ai topic feed,https://hashnode.com/tag/ai,en,ai;devtools;creators,hashnode
+Hashnode: #saas topic feed,https://hashnode.com/tag/saas,en,saas;founders;marketing,hashnode
+Hashnode: #marketing topic feed,https://hashnode.com/tag/marketing,en,marketing;creators;saas,hashnode
+Hashnode: #startups topic feed,https://hashnode.com/tag/startups,en,founders;saas;marketing,hashnode
+Hashnode: #video topic feed,https://hashnode.com/tag/video,en,video;creators;devtools,hashnode
+Hashnode: #productivity topic feed,https://hashnode.com/tag/productivity,en,creators;founders;devtools,hashnode
+Hashnode: #design topic feed,https://hashnode.com/tag/design,en,design;creators;saas,hashnode
+DigitalOcean Community: Write for DOnations,https://www.digitalocean.com/community,en,devtools;opensource;saas,assisted

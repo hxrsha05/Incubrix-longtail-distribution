@@ -1,0 +1,749 @@
+[
+  {
+    "name": "Smashing Magazine",
+    "url": "https://www.smashingmagazine.com/",
+    "platform": "other",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "design",
+      "devtools",
+      "creators"
+    ],
+    "member_count": null,
+    "rules_url": "https://www.smashingmagazine.com/write-for-us/",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "We do have sponsored post options for companies who would like to increase their visibility while sponsoring great content."
+      },
+      {
+        "topic": "links",
+        "quote": "While your experience in your company and with your product is valuable, pieces full of links to your product, or which are a walkthrough of how to use your product, will be rejected."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Web design and front-end magazine; outsiders pitch an article idea with an outline through the write-for-us form."
+  },
+  {
+    "name": "Towards Data Science",
+    "url": "https://towardsdatascience.com/",
+    "platform": "other",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "ai",
+      "devtools"
+    ],
+    "member_count": null,
+    "rules_url": "https://towardsdatascience.com/questions-96667b06af5/",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Is your conclusion to the point and not promotional?"
+      },
+      {
+        "topic": "links",
+        "quote": "Adding an extra link to your author profile or to a social media account is fine, but please avoid call-to-action (CTA) buttons."
+      },
+      {
+        "topic": "ai_disclosure",
+        "quote": "Any image you use on TDS must be licensed for commercial use, including AI-generated images."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Data science and AI publication; writers submit original articles through the TDS submission process."
+  },
+  {
+    "name": "Lilach Bullock",
+    "url": "https://www.lilachbullock.com/",
+    "platform": "wordpress-self-hosted",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "marketing",
+      "ai",
+      "saas",
+      "founders"
+    ],
+    "member_count": 15000,
+    "rules_url": "https://www.lilachbullock.com/write-for-us-saas/",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "The article teaches before it promotes and is not vendor copy wearing an editorial byline."
+      },
+      {
+        "topic": "links",
+        "quote": "One contextual backlink to your own site or a relevant resource is fine in an editorial post."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Marketing and AI consultant blog with topic-specific guest post pages; pitch a specific angle by email."
+  },
+  {
+    "name": "Smash.vc",
+    "url": "https://smash.vc/",
+    "platform": "wordpress-self-hosted",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "saas",
+      "founders",
+      "marketing"
+    ],
+    "member_count": null,
+    "rules_url": "https://smash.vc/write-for-us/",
+    "rules_quotes": [
+      {
+        "topic": "ai_disclosure",
+        "quote": "Native English, no AI sludge."
+      },
+      {
+        "topic": "ai_disclosure",
+        "quote": "We don’t chase “perfect,” but we reject translation-artifact drafts and obvious AI output nobody edited."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Investor blog on SaaS, startups and acquisitions; writers pitch guest post ideas via the write-for-us page."
+  },
+  {
+    "name": "Videomaker",
+    "url": "https://www.videomaker.com/",
+    "platform": "wordpress-self-hosted",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "video",
+      "creators"
+    ],
+    "member_count": null,
+    "rules_url": "https://www.videomaker.com/about-us/writers-guidelines/",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Video production magazine; freelancers send a short query with outline, resume and samples, not full manuscripts."
+  },
+  {
+    "name": "Vmaker Blog",
+    "url": "https://www.vmaker.com/blog/",
+    "platform": "wordpress-self-hosted",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "video",
+      "marketing",
+      "creators"
+    ],
+    "member_count": null,
+    "rules_url": "https://www.vmaker.com/blog/write-for-us/",
+    "rules_quotes": [
+      {
+        "topic": "links",
+        "quote": "We offer only one do-follow backlink per article (DA must greater then 35)"
+      },
+      {
+        "topic": "self_promotion",
+        "quote": "You can submit guest posts for free, and no publishing fee is involved."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Video and screen recording company blog; email three to four topic ideas for video marketing and learning posts."
+  },
+  {
+    "name": "Filmmaking Stuff",
+    "url": "https://www.filmmakingstuff.com/",
+    "platform": "wordpress-self-hosted",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "video",
+      "creators"
+    ],
+    "member_count": 20000,
+    "rules_url": "https://www.filmmakingstuff.com/write-for-filmmaking-stuff/",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Your article should be 95% informative."
+      },
+      {
+        "topic": "links",
+        "quote": "However, you are welcome to include a bio and one call to action at the end."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Independent filmmaking blog; filmmakers email an article pitch with at least three practical tips."
+  },
+  {
+    "name": "The Podcast Host",
+    "url": "https://www.thepodcasthost.com/",
+    "platform": "wordpress-self-hosted",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "podcasting",
+      "creators"
+    ],
+    "member_count": null,
+    "rules_url": "https://www.thepodcasthost.com/writing-guide-for-bloggers/",
+    "rules_quotes": [
+      {
+        "topic": "frequency",
+        "quote": "how many articles can you commit to per week/month"
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Podcasting how-to site; writers apply through a short form with two sample articles."
+  },
+  {
+    "name": "FOSS Force",
+    "url": "https://fossforce.com/",
+    "platform": "wordpress-self-hosted",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "opensource",
+      "devtools"
+    ],
+    "member_count": null,
+    "rules_url": "https://fossforce.com/writers/writers-guidelines/",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Free and open source software news site; send a query through the contact form with writing samples."
+  },
+  {
+    "name": "HackerNoon",
+    "url": "https://hackernoon.com/",
+    "platform": "other",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "devtools",
+      "ai",
+      "founders"
+    ],
+    "member_count": null,
+    "rules_url": "https://help.hackernoon.com/more-faqs",
+    "rules_quotes": [
+      {
+        "topic": "frequency",
+        "quote": "You can submit as many as you one for how as often as you one."
+      },
+      {
+        "topic": "links",
+        "quote": "Contributing writers are also welcome to republish their content wherever and whenever they see fit - we appreciate a mention and link back but it is completely optional."
+      },
+      {
+        "topic": "self_promotion",
+        "quote": "The author bio is prime real estate for 140 characters about the company, 5 social profile links and one very prominent call to action linked to anywhere sensical on the interwebs."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Technology publication where anyone can write and submit a story for editorial review; brands pay an author fee."
+  },
+  {
+    "name": "No Film School",
+    "url": "https://nofilmschool.com/",
+    "platform": "other",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "video",
+      "creators"
+    ],
+    "member_count": null,
+    "rules_url": "https://nofilmschool.com/pitch-to-no-film-school",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Filmmaking news and education site; email the editor a specific pitch with potential headlines."
+  },
+  {
+    "name": "Podnews",
+    "url": "https://podnews.net/",
+    "platform": "other",
+    "category": "newsletter",
+    "language": "en",
+    "topics": [
+      "podcasting",
+      "creators"
+    ],
+    "member_count": null,
+    "rules_url": "https://podnews.net/article/submissions-and-disclosures",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Sponsors and supporters are not given any editorial control of stories within the main newsletter, nor given any guarantee we’ll cover a story."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Daily podcasting industry newsletter; send news, launches and press releases by email to the editor."
+  },
+  {
+    "name": "We Are Founders",
+    "url": "https://www.wearefounders.uk/",
+    "platform": "ghost",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "founders",
+      "saas",
+      "ai"
+    ],
+    "member_count": null,
+    "rules_url": "https://www.wearefounders.uk/guide-submitting-to-we-are-founders/",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Startup blog publishing founder stories; founders apply through a short submission form."
+  },
+  {
+    "name": "A List Apart",
+    "url": "https://alistapart.com/",
+    "platform": "wordpress-self-hosted",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "design",
+      "devtools"
+    ],
+    "member_count": null,
+    "rules_url": "https://alistapart.com/about/contribute/",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Please don’t send us press releases or sales pitches."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Web design and development magazine; send a draft or a short pitch with an outline."
+  },
+  {
+    "name": "Towards AI",
+    "url": "https://towardsai.net/",
+    "platform": "other",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "ai",
+      "devtools"
+    ],
+    "member_count": 150000,
+    "rules_url": "https://towardsai.com/contribute/",
+    "rules_quotes": [
+      {
+        "topic": "ai_disclosure",
+        "quote": "disclose AI-generated text within the first two paragraphs and label AI-generated images in their captions."
+      },
+      {
+        "topic": "self_promotion",
+        "quote": "Articles promoting a company or product follow our sponsorship process"
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "AI engineering publication on Medium; follow it and submit an unpublished Medium draft."
+  },
+  {
+    "name": "Nexa Growth Blog",
+    "url": "https://nexagrowth.co.uk/blog/",
+    "platform": "wordpress-self-hosted",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "marketing",
+      "saas"
+    ],
+    "member_count": null,
+    "rules_url": "https://nexagrowth.co.uk/blog/write-for-us/",
+    "rules_quotes": [
+      {
+        "topic": "ai_disclosure",
+        "quote": "We do not accept AI-generated content in any form."
+      },
+      {
+        "topic": "self_promotion",
+        "quote": "We do not publish promotional content in editorial format."
+      },
+      {
+        "topic": "links",
+        "quote": "You may include one do-follow link in your author bio."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "B2B digital marketing and SaaS blog; pitch each idea individually and write only original, human-written pieces."
+  },
+  {
+    "name": "Claudiv",
+    "url": "https://claudiv.com/",
+    "platform": "wordpress-self-hosted",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "ai",
+      "marketing",
+      "saas"
+    ],
+    "member_count": null,
+    "rules_url": "https://claudiv.com/write-for-us/",
+    "rules_quotes": [
+      {
+        "topic": "ai_disclosure",
+        "quote": "Low-quality AI-generated articles published without human editing will not be accepted."
+      },
+      {
+        "topic": "links",
+        "quote": "Excessive promotional links may be removed."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "AI and technology blog; submit original guest posts, sponsored posts are handled separately."
+  },
+  {
+    "name": "Wavel AI Blog",
+    "url": "https://wavel.ai/blog",
+    "platform": "wordpress-self-hosted",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "ai",
+      "video",
+      "creators"
+    ],
+    "member_count": null,
+    "rules_url": "https://wavel.ai/write-for-us",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Content that is overly promotional for your company is not allowed."
+      },
+      {
+        "topic": "links",
+        "quote": "Only link to your site if it’s a highly relevant blog post."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "AI video and dubbing company blog; agree a topic and title first, then share a Google Doc."
+  },
+  {
+    "name": "Better Stack Community",
+    "url": "https://betterstack.com/community/",
+    "platform": "other",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "devtools",
+      "opensource"
+    ],
+    "member_count": 100000,
+    "rules_url": "https://betterstack.com/community/write-for-us/",
+    "rules_quotes": [
+      {
+        "topic": "frequency",
+        "quote": "You can submit another idea immediately."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Developer guides on observability and DevOps; submit an article idea and get paid after approval."
+  },
+  {
+    "name": "Who's Mailing What!",
+    "url": "https://blog.whosmailingwhat.com/",
+    "platform": "wordpress-self-hosted",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "marketing",
+      "design"
+    ],
+    "member_count": null,
+    "rules_url": "https://blog.whosmailingwhat.com/write-for-us/",
+    "rules_quotes": [
+      {
+        "topic": "links",
+        "quote": "No more than one link to your company's website in the body of the guest post."
+      },
+      {
+        "topic": "self_promotion",
+        "quote": "Anything that's too promotional for your company or organization."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Direct mail and email marketing blog; email a pitch with the subject line format given on the page."
+  },
+  {
+    "name": "Best Startup US",
+    "url": "https://beststartup.us/",
+    "platform": "wordpress-self-hosted",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "founders",
+      "saas"
+    ],
+    "member_count": null,
+    "rules_url": "https://beststartup.us/contributing-articles/",
+    "rules_quotes": [
+      {
+        "topic": "links",
+        "quote": "We allow genuine contributions and backlinking to appropriate sources."
+      },
+      {
+        "topic": "self_promotion",
+        "quote": "Guest posts submitted on behalf of businesses will have a sponsored post banner linking to the business."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "American startup magazine; pitch an article and an editor replies with a decision."
+  },
+  {
+    "name": "The Startup Magazine",
+    "url": "https://thestartupmag.com/",
+    "platform": "wordpress-self-hosted",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "founders",
+      "marketing"
+    ],
+    "member_count": null,
+    "rules_url": "https://thestartupmag.com/article-contribution/",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Startup and entrepreneurship magazine; send a 500 to 1000 word pitch through the contribution form."
+  },
+  {
+    "name": "freeCodeCamp News",
+    "url": "https://www.freecodecamp.org/news/",
+    "platform": "other",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "devtools",
+      "opensource"
+    ],
+    "member_count": null,
+    "rules_url": "https://www.freecodecamp.org/news/developer-news-style-guide/",
+    "rules_quotes": [
+      {
+        "topic": "ai_disclosure",
+        "quote": "Don't submit any text written by AI."
+      },
+      {
+        "topic": "self_promotion",
+        "quote": "It is perfectly fine to have a one-sentence call-to-action for your product at the end of your tutorial"
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Programming tutorials publication; writers submit a draft via Hashnode after the contributor process."
+  },
+  {
+    "name": "Social Media Today",
+    "url": "https://www.socialmediatoday.com/",
+    "platform": "other",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "marketing",
+      "creators"
+    ],
+    "member_count": null,
+    "rules_url": "https://www.socialmediatoday.com/contributor-guidelines/",
+    "rules_quotes": [
+      {
+        "topic": "frequency",
+        "quote": "You are encouraged to submit new content often."
+      },
+      {
+        "topic": "self_promotion",
+        "quote": "NO SALES PITCHES: We do not accept content that is promotional or commercial in nature."
+      },
+      {
+        "topic": "links",
+        "quote": "We do accept (and encourage) high-quality and relevant links, but any links that aren’t informational in nature will be removed without notice."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Social media marketing news site; approved contributors post articles through an online submission form."
+  },
+  {
+    "name": "The Rundown AI",
+    "url": "https://www.therundown.ai/",
+    "platform": "other",
+    "category": "newsletter",
+    "language": "en",
+    "topics": [
+      "ai",
+      "marketing"
+    ],
+    "member_count": 2000000,
+    "rules_url": "https://www.therundown.ai/submit",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Daily AI newsletter; submit a tool by form or email for the tools directory, or buy a newsletter feature."
+  },
+  {
+    "name": "Changelog News",
+    "url": "https://changelog.com/news",
+    "platform": "other",
+    "category": "newsletter",
+    "language": "en",
+    "topics": [
+      "devtools",
+      "opensource",
+      "ai"
+    ],
+    "member_count": null,
+    "rules_url": "https://changelog.com/news/submit",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Submitting your own work is also encouraged."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Developer news newsletter and podcast; sign in and submit a link with a short note on why it is interesting."
+  },
+  {
+    "name": "Creative Boom",
+    "url": "https://www.creativeboom.com/",
+    "platform": "other",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "design",
+      "creators",
+      "video"
+    ],
+    "member_count": null,
+    "rules_url": "https://www.creativeboom.com/submit/",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "If you'd like guaranteed coverage on Creative Boom, check out our advertising opportunities"
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Design and creative industry magazine; email news, project features or Insight pitches to the relevant editor address."
+  },
+  {
+    "name": "Inc42",
+    "url": "https://inc42.com/",
+    "platform": "wordpress-self-hosted",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "founders",
+      "saas",
+      "ai"
+    ],
+    "member_count": null,
+    "rules_url": "https://pages.inc42.com/submit-your-guest-post/",
+    "rules_quotes": [
+      {
+        "topic": "links",
+        "quote": "The article should not contain more than 2 link backs (One should be in Author Bio)"
+      },
+      {
+        "topic": "self_promotion",
+        "quote": "An article shouldn’t be promoting any particular brand or the brands associated with the author directly or indirectly."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Indian startup news site; submit a guest post as a document of at least 500 words."
+  },
+  {
+    "name": "Search Engine Journal",
+    "url": "https://www.searchenginejournal.com/",
+    "platform": "wordpress-self-hosted",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "marketing",
+      "ai"
+    ],
+    "member_count": null,
+    "rules_url": "https://www.searchenginejournal.com/writers-guidelines-for-search-engine-journal/",
+    "rules_quotes": [
+      {
+        "topic": "ai_disclosure",
+        "quote": "Therefore, we do not accept articles or content entirely generated by AI systems."
+      },
+      {
+        "topic": "self_promotion",
+        "quote": "No self-promotional calls to action"
+      },
+      {
+        "topic": "frequency",
+        "quote": "SEJ prefers expert contributors commit to a recurring publishing date either monthly, every other month, or quarterly."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Search and AI marketing news site; contributors are invited by the editors, who then evaluate pitched titles."
+  },
+  {
+    "name": "Mind the Product",
+    "url": "https://www.mindtheproduct.com/",
+    "platform": "other",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "saas",
+      "founders",
+      "design"
+    ],
+    "member_count": null,
+    "rules_url": "https://www.mindtheproduct.com/contribute/",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Articles written to advertise a product or service will be rejected."
+      },
+      {
+        "topic": "ai_disclosure",
+        "quote": "We don’t accept articles written solely by AI."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Product management community and blog; submit a guest article through the online form for review."
+  },
+  {
+    "name": "InfoQ",
+    "url": "https://www.infoq.com/",
+    "platform": "other",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "devtools",
+      "ai"
+    ],
+    "member_count": null,
+    "rules_url": "https://www.infoq.com/write-for-infoq/",
+    "rules_quotes": [
+      {
+        "topic": "ai_disclosure",
+        "quote": "We reject primarily AI-generated work."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Software development news and articles; authors send an article proposal for editor review."
+  },
+  {
+    "name": "Yans Media Blog",
+    "url": "https://www.yansmedia.com/blog",
+    "platform": "other",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "video",
+      "marketing"
+    ],
+    "member_count": null,
+    "rules_url": "https://www.yansmedia.com/write-for-us",
+    "rules_quotes": [
+      {
+        "topic": "links",
+        "quote": "The article can include one link to your website."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Animation and explainer video studio blog; send a headline and summary with links to published work."
+  }
+]

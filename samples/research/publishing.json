@@ -1,0 +1,735 @@
+[
+  {
+    "name": "DEV Community: #ai tag",
+    "url": "https://dev.to/t/ai",
+    "platform": "devto",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "ai",
+      "devtools",
+      "creators"
+    ],
+    "member_count": null,
+    "rules_url": "https://dev.to/guidelines-for-ai-assisted-articles-on-dev",
+    "rules_quotes": [
+      {
+        "topic": "ai_disclosure",
+        "quote": "Disclose the fact that they were generated or assisted by AI in the post, either upfront using the tag #ABotWroteThis or at any point in the article’s copy (including right at the end)."
+      },
+      {
+        "topic": "automation",
+        "quote": "we ask that you not use bots or AI to generate comments on posts, whether the post was published by you or another community member."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Open tag feed on DEV for posts about artificial intelligence; any member can publish a post with the tag, and AI-assisted posts must follow DEV's AI guidelines."
+  },
+  {
+    "name": "DEV Community: #showdev tag",
+    "url": "https://dev.to/t/showdev",
+    "platform": "devto",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "founders",
+      "saas",
+      "devtools"
+    ],
+    "member_count": null,
+    "rules_url": "https://dev.to/t/showdev",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Please make posts community-driven and not overly corporate or salesy."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Tag for showing off projects and launching products; any member publishes a post with the tag and keeps it community-driven rather than salesy."
+  },
+  {
+    "name": "DEV Community: #productivity tag",
+    "url": "https://dev.to/t/productivity",
+    "platform": "devto",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "creators",
+      "founders",
+      "devtools"
+    ],
+    "member_count": null,
+    "rules_url": "https://dev.to/t/productivity",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Open tag for tips on tools, process optimisation and team or personal productivity; any member can publish a matching post."
+  },
+  {
+    "name": "DEV Community: #news tag",
+    "url": "https://dev.to/t/news",
+    "platform": "devto",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "saas",
+      "ai",
+      "devtools"
+    ],
+    "member_count": null,
+    "rules_url": "https://dev.to/t/news",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Tag for product launches, updates and tech industry news summaries; any member can publish a post that meets the tag rules."
+  },
+  {
+    "name": "DEV Community: #career tag",
+    "url": "https://dev.to/t/career",
+    "platform": "devto",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "founders",
+      "creators"
+    ],
+    "member_count": null,
+    "rules_url": "https://dev.to/t/career",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Open tag for posts about getting, leaving or maintaining a career or job; any member can publish a matching post."
+  },
+  {
+    "name": "DEV Community: #chatgpt tag",
+    "url": "https://dev.to/t/chatgpt",
+    "platform": "devto",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "ai",
+      "creators",
+      "devtools"
+    ],
+    "member_count": null,
+    "rules_url": "https://dev.to/t/chatgpt",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Tag welcoming technical articles, personal stories and discussions about ChatGPT; any member can publish a post with it."
+  },
+  {
+    "name": "DEV Community: #ux tag",
+    "url": "https://dev.to/t/ux",
+    "platform": "devto",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "design",
+      "saas",
+      "creators"
+    ],
+    "member_count": null,
+    "rules_url": "https://dev.to/t/ux",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Tag for posts about UX design approaches; any member can publish a matching post."
+  },
+  {
+    "name": "DEV Community: #machinelearning tag",
+    "url": "https://dev.to/t/machinelearning",
+    "platform": "devto",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "ai",
+      "opensource",
+      "devtools"
+    ],
+    "member_count": null,
+    "rules_url": "https://dev.to/t/machinelearning",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Tag for articles and discussions directly related to machine learning; any member can publish a matching post."
+  },
+  {
+    "name": "DEV Community: #devjournal tag",
+    "url": "https://dev.to/t/devjournal",
+    "platform": "devto",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "creators",
+      "founders",
+      "devtools"
+    ],
+    "member_count": null,
+    "rules_url": "https://dev.to/t/devjournal",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Tag for first-person posts about your own journey and what you learned; any member can publish a matching post."
+  },
+  {
+    "name": "DEV Community: #tutorial tag",
+    "url": "https://dev.to/t/tutorial",
+    "platform": "devto",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "devtools",
+      "creators",
+      "opensource"
+    ],
+    "member_count": null,
+    "rules_url": "https://dev.to/t/tutorial",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Tag for tutorials that teach by example with steps readers can follow; any member can publish a matching post."
+  },
+  {
+    "name": "DEV Community: #opensource tag",
+    "url": "https://dev.to/t/opensource",
+    "platform": "devto",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "opensource",
+      "founders",
+      "devtools"
+    ],
+    "member_count": null,
+    "rules_url": "https://dev.to/t/opensource",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Tag for open source project management, philosophy, licensing and advocacy; any member can publish a post that fits its listed categories."
+  },
+  {
+    "name": "DEV Community: #discuss tag",
+    "url": "https://dev.to/t/discuss",
+    "platform": "devto",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "creators",
+      "founders",
+      "marketing"
+    ],
+    "member_count": null,
+    "rules_url": "https://dev.to/t/discuss",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Tag for discussion posts that include a question or prompt to start a conversation in the comments; any member can publish one."
+  },
+  {
+    "name": "Hashnode community",
+    "url": "https://hashnode.com/",
+    "platform": "hashnode",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "devtools",
+      "ai",
+      "creators",
+      "founders"
+    ],
+    "member_count": null,
+    "rules_url": "https://hashnode.com/code-of-conduct",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Automated or bulk posting, engagement farming, misleading links, SEO abuse, or using the platform primarily for self-promotion without contributing to the community."
+      },
+      {
+        "topic": "links",
+        "quote": "Linking to documentation, repositories, articles, code samples, or other relevant references is welcome and encouraged."
+      },
+      {
+        "topic": "ai_disclosure",
+        "quote": "AI-generated content is permitted, but you must review and take responsibility for everything you publish."
+      },
+      {
+        "topic": "automation",
+        "quote": "No engagement farming, misleading links, or bulk automated content."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Developer blogging platform with a shared community feed; anyone can create a free blog and publish, governed by the Hashnode Code of Conduct."
+  },
+  {
+    "name": "Hashnode: #ai topic feed",
+    "url": "https://hashnode.com/tag/ai",
+    "platform": "hashnode",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "ai",
+      "devtools",
+      "creators"
+    ],
+    "member_count": null,
+    "rules_url": "https://hashnode.com/code-of-conduct",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Automated or bulk posting, engagement farming, misleading links, SEO abuse, or using the platform primarily for self-promotion without contributing to the community."
+      },
+      {
+        "topic": "links",
+        "quote": "Linking to documentation, repositories, articles, code samples, or other relevant references is welcome and encouraged."
+      },
+      {
+        "topic": "ai_disclosure",
+        "quote": "AI-generated content is permitted, but you must review and take responsibility for everything you publish."
+      },
+      {
+        "topic": "automation",
+        "quote": "No engagement farming, misleading links, or bulk automated content."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Public Hashnode topic feed; any member publishes from their own Hashnode blog with the ai tag, under the platform Code of Conduct (no tag-specific rules)."
+  },
+  {
+    "name": "Hashnode: #saas topic feed",
+    "url": "https://hashnode.com/tag/saas",
+    "platform": "hashnode",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "saas",
+      "founders",
+      "marketing"
+    ],
+    "member_count": null,
+    "rules_url": "https://hashnode.com/code-of-conduct",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Automated or bulk posting, engagement farming, misleading links, SEO abuse, or using the platform primarily for self-promotion without contributing to the community."
+      },
+      {
+        "topic": "links",
+        "quote": "Linking to documentation, repositories, articles, code samples, or other relevant references is welcome and encouraged."
+      },
+      {
+        "topic": "ai_disclosure",
+        "quote": "AI-generated content is permitted, but you must review and take responsibility for everything you publish."
+      },
+      {
+        "topic": "automation",
+        "quote": "No engagement farming, misleading links, or bulk automated content."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Public Hashnode topic feed; any member publishes from their own Hashnode blog with the saas tag, under the platform Code of Conduct (no tag-specific rules)."
+  },
+  {
+    "name": "Hashnode: #marketing topic feed",
+    "url": "https://hashnode.com/tag/marketing",
+    "platform": "hashnode",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "marketing",
+      "creators",
+      "saas"
+    ],
+    "member_count": null,
+    "rules_url": "https://hashnode.com/code-of-conduct",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Automated or bulk posting, engagement farming, misleading links, SEO abuse, or using the platform primarily for self-promotion without contributing to the community."
+      },
+      {
+        "topic": "links",
+        "quote": "Linking to documentation, repositories, articles, code samples, or other relevant references is welcome and encouraged."
+      },
+      {
+        "topic": "ai_disclosure",
+        "quote": "AI-generated content is permitted, but you must review and take responsibility for everything you publish."
+      },
+      {
+        "topic": "automation",
+        "quote": "No engagement farming, misleading links, or bulk automated content."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Public Hashnode topic feed; any member publishes from their own Hashnode blog with the marketing tag, under the platform Code of Conduct (no tag-specific rules)."
+  },
+  {
+    "name": "Hashnode: #startups topic feed",
+    "url": "https://hashnode.com/tag/startups",
+    "platform": "hashnode",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "founders",
+      "saas",
+      "marketing"
+    ],
+    "member_count": null,
+    "rules_url": "https://hashnode.com/code-of-conduct",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Automated or bulk posting, engagement farming, misleading links, SEO abuse, or using the platform primarily for self-promotion without contributing to the community."
+      },
+      {
+        "topic": "links",
+        "quote": "Linking to documentation, repositories, articles, code samples, or other relevant references is welcome and encouraged."
+      },
+      {
+        "topic": "ai_disclosure",
+        "quote": "AI-generated content is permitted, but you must review and take responsibility for everything you publish."
+      },
+      {
+        "topic": "automation",
+        "quote": "No engagement farming, misleading links, or bulk automated content."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Public Hashnode topic feed; any member publishes from their own Hashnode blog with the startups tag, under the platform Code of Conduct (no tag-specific rules)."
+  },
+  {
+    "name": "Hashnode: #video topic feed",
+    "url": "https://hashnode.com/tag/video",
+    "platform": "hashnode",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "video",
+      "creators",
+      "devtools"
+    ],
+    "member_count": null,
+    "rules_url": "https://hashnode.com/code-of-conduct",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Automated or bulk posting, engagement farming, misleading links, SEO abuse, or using the platform primarily for self-promotion without contributing to the community."
+      },
+      {
+        "topic": "links",
+        "quote": "Linking to documentation, repositories, articles, code samples, or other relevant references is welcome and encouraged."
+      },
+      {
+        "topic": "ai_disclosure",
+        "quote": "AI-generated content is permitted, but you must review and take responsibility for everything you publish."
+      },
+      {
+        "topic": "automation",
+        "quote": "No engagement farming, misleading links, or bulk automated content."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Public Hashnode topic feed; any member publishes from their own Hashnode blog with the video tag, under the platform Code of Conduct (no tag-specific rules)."
+  },
+  {
+    "name": "Hashnode: #productivity topic feed",
+    "url": "https://hashnode.com/tag/productivity",
+    "platform": "hashnode",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "creators",
+      "founders",
+      "devtools"
+    ],
+    "member_count": null,
+    "rules_url": "https://hashnode.com/code-of-conduct",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Automated or bulk posting, engagement farming, misleading links, SEO abuse, or using the platform primarily for self-promotion without contributing to the community."
+      },
+      {
+        "topic": "links",
+        "quote": "Linking to documentation, repositories, articles, code samples, or other relevant references is welcome and encouraged."
+      },
+      {
+        "topic": "ai_disclosure",
+        "quote": "AI-generated content is permitted, but you must review and take responsibility for everything you publish."
+      },
+      {
+        "topic": "automation",
+        "quote": "No engagement farming, misleading links, or bulk automated content."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Public Hashnode topic feed; any member publishes from their own Hashnode blog with the productivity tag, under the platform Code of Conduct (no tag-specific rules)."
+  },
+  {
+    "name": "Hashnode: #design topic feed",
+    "url": "https://hashnode.com/tag/design",
+    "platform": "hashnode",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "design",
+      "creators",
+      "saas"
+    ],
+    "member_count": null,
+    "rules_url": "https://hashnode.com/code-of-conduct",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Automated or bulk posting, engagement farming, misleading links, SEO abuse, or using the platform primarily for self-promotion without contributing to the community."
+      },
+      {
+        "topic": "links",
+        "quote": "Linking to documentation, repositories, articles, code samples, or other relevant references is welcome and encouraged."
+      },
+      {
+        "topic": "ai_disclosure",
+        "quote": "AI-generated content is permitted, but you must review and take responsibility for everything you publish."
+      },
+      {
+        "topic": "automation",
+        "quote": "No engagement farming, misleading links, or bulk automated content."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Public Hashnode topic feed; any member publishes from their own Hashnode blog with the design tag, under the platform Code of Conduct (no tag-specific rules)."
+  },
+  {
+    "name": "freeCodeCamp News",
+    "url": "https://www.freecodecamp.org/news/",
+    "platform": "other",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "devtools",
+      "opensource",
+      "ai",
+      "creators"
+    ],
+    "member_count": null,
+    "rules_url": "https://www.freecodecamp.org/news/developer-news-style-guide/",
+    "rules_quotes": [
+      {
+        "topic": "ai_disclosure",
+        "quote": "Don't submit any text written by AI. We can tell when text is written by AI."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Large free developer publication; writers draft in Hashnode, submit to the editorial team, and are published after review."
+  },
+  {
+    "name": "Smashing Magazine",
+    "url": "https://www.smashingmagazine.com/",
+    "platform": "other",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "design",
+      "devtools",
+      "saas"
+    ],
+    "member_count": null,
+    "rules_url": "https://www.smashingmagazine.com/write-for-us/",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "We do not publish articles which are an obvious attempt at content marketing."
+      },
+      {
+        "topic": "links",
+        "quote": "pieces full of links to your product, or which are a walkthrough of how to use your product, will be rejected."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Web design and development magazine that pays authors; outsiders send a pitch through the contact form and write after approval."
+  },
+  {
+    "name": "InfoQ",
+    "url": "https://www.infoq.com/",
+    "platform": "other",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "devtools",
+      "ai",
+      "saas"
+    ],
+    "member_count": null,
+    "rules_url": "https://www.infoq.com/write-for-infoq/",
+    "rules_quotes": [
+      {
+        "topic": "ai_disclosure",
+        "quote": "We reject primarily AI-generated work."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Software engineering news site; outsiders submit an article proposal that editors review within a stated 5 to 7 working days."
+  },
+  {
+    "name": "A List Apart",
+    "url": "https://alistapart.com/",
+    "platform": "other",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "design",
+      "devtools",
+      "creators"
+    ],
+    "member_count": null,
+    "rules_url": "https://alistapart.com/about/contribute/",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Please don’t send us press releases or sales pitches."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Long-running web design and development magazine; outsiders send a draft or short pitch with an outline for editorial feedback."
+  },
+  {
+    "name": "Towards Data Science",
+    "url": "https://towardsdatascience.com/",
+    "platform": "other",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "ai",
+      "opensource",
+      "devtools"
+    ],
+    "member_count": null,
+    "rules_url": "https://towardsdatascience.com/submission-guidelines/",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Is your conclusion to the point and not promotional?"
+      },
+      {
+        "topic": "links",
+        "quote": "Adding an extra link to your author profile or to a social media account is fine, but please avoid call-to-action (CTA) buttons."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Data science and AI publication that takes outside author submissions through its submission page."
+  },
+  {
+    "name": "HackerNoon",
+    "url": "https://hackernoon.com/",
+    "platform": "other",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "ai",
+      "founders",
+      "devtools",
+      "creators"
+    ],
+    "member_count": null,
+    "rules_url": "https://hackernoon.com/the-right-way-to-use-ai-on-hackernoon",
+    "rules_quotes": [
+      {
+        "topic": "ai_disclosure",
+        "quote": "we neither accept nor encourage the use of AI to generate text"
+      },
+      {
+        "topic": "ai_disclosure",
+        "quote": "Using AI for assistance, such as improving grammar or polishing prose, is perfectly acceptable."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Independent tech publication; anyone creates an account, writes in its editor and submits the story for staff editor review."
+  },
+  {
+    "name": "Towards AI",
+    "url": "https://towardsai.com/",
+    "platform": "medium",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "ai",
+      "devtools",
+      "founders"
+    ],
+    "member_count": 150000,
+    "rules_url": "https://towardsai.com/contribute/",
+    "rules_quotes": [
+      {
+        "topic": "ai_disclosure",
+        "quote": "disclose AI-generated text within the first two paragraphs and label AI-generated images in their captions."
+      },
+      {
+        "topic": "self_promotion",
+        "quote": "Please discuss these pieces with us before submitting."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "AI publication on Medium; outsiders follow it and submit an unpublished Medium draft, with no application form needed."
+  },
+  {
+    "name": "Medium",
+    "url": "https://medium.com/",
+    "platform": "medium",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "creators",
+      "founders",
+      "marketing",
+      "ai"
+    ],
+    "member_count": null,
+    "rules_url": "https://policy.medium.com/medium-rules-30e5502c4eb4",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "First party promotion is allowed, and you may promote and link to your own business, website, mailing list, or fundraiser."
+      },
+      {
+        "topic": "self_promotion",
+        "quote": "Third-party advertising and sponsorships are not allowed."
+      },
+      {
+        "topic": "automation",
+        "quote": "Performing a disproportionately large number of interactions, particularly by automated means."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Open publishing platform; anyone with an account can publish stories or submit them to Medium publications under the Medium Rules."
+  },
+  {
+    "name": "Substack",
+    "url": "https://substack.com/",
+    "platform": "other",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "creators",
+      "founders",
+      "marketing",
+      "podcasting"
+    ],
+    "member_count": null,
+    "rules_url": "https://substack.com/content",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "Substack is intended for high quality editorial content, not conventional email marketing."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Newsletter and publishing platform; anyone can start a free publication and publish posts under the Substack content guidelines."
+  },
+  {
+    "name": "DigitalOcean Community: Write for DOnations",
+    "url": "https://www.digitalocean.com/community",
+    "platform": "other",
+    "category": "blog",
+    "language": "en",
+    "topics": [
+      "devtools",
+      "opensource",
+      "saas"
+    ],
+    "member_count": null,
+    "rules_url": "https://www.digitalocean.com/community/pages/write-for-digitalocean",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Paid tutorial program; outsiders apply with a topic idea, outline and writing sample, then work with an editor."
+  }
+]

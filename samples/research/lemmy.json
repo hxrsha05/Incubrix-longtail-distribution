@@ -1,0 +1,577 @@
+[
+  {
+    "name": "Free Open-Source Artificial Intelligence",
+    "url": "https://lemmy.world/c/fosai",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "ai",
+      "opensource",
+      "devtools"
+    ],
+    "member_count": 4875,
+    "rules_url": "https://lemmy.world/c/fosai",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Free and open-source AI news, tools and research; open to any lemmy account, no posted rules."
+  },
+  {
+    "name": "Artificial Intelligence",
+    "url": "https://lemmy.world/c/ai_",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "ai",
+      "devtools"
+    ],
+    "member_count": 1993,
+    "rules_url": "https://lemmy.world/c/ai_",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "General AI discussion community with short civility guidelines; outsiders can post."
+  },
+  {
+    "name": "Technology",
+    "url": "https://lemmy.world/c/technology",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "devtools",
+      "ai",
+      "saas"
+    ],
+    "member_count": 88997,
+    "rules_url": "https://lemmy.world/c/technology",
+    "rules_quotes": [
+      {
+        "topic": "automation",
+        "quote": "Mod approved content bots can post up to 10 articles per day."
+      },
+      {
+        "topic": "ai_disclosure",
+        "quote": "Only approved bots from the list below, this includes using AI responses and summaries."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Very large tech-news community; outsiders can post tech news but accounts under 7 days old are auto-removed and bots need approval."
+  },
+  {
+    "name": "Graphic Design",
+    "url": "https://lemmy.world/c/graphic_design",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "design",
+      "creators"
+    ],
+    "member_count": 345,
+    "rules_url": "https://lemmy.world/c/graphic_design",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Small graphic design community with a one-line description; open to outside posters."
+  },
+  {
+    "name": "Digital Art",
+    "url": "https://lemmy.world/c/digitalart",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "design",
+      "creators"
+    ],
+    "member_count": 9239,
+    "rules_url": "https://lemmy.world/c/digitalart",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "You can post your own work here, but avoid spamming."
+      },
+      {
+        "topic": "ai_disclosure",
+        "quote": "No A.I. generated dreamscapes for now, as those are at best unethically sourced in the current state."
+      },
+      {
+        "topic": "links",
+        "quote": "In the description link the source to the image, and also include a direct link to the artists gallery."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Digital art sharing community; own work is allowed but AI-generated dreamscapes are not."
+  },
+  {
+    "name": "youtube",
+    "url": "https://lemmy.world/c/youtube",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "video",
+      "creators"
+    ],
+    "member_count": 233,
+    "rules_url": "https://lemmy.world/c/youtube",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Community for YouTube-related links and chat with no posted rules; outsiders can post."
+  },
+  {
+    "name": "Podcasts",
+    "url": "https://lemmy.world/c/podcasts",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "podcasting",
+      "creators"
+    ],
+    "member_count": 104,
+    "rules_url": "https://lemmy.world/c/podcasts",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Podcast recommendations and discussion with no posted rules; outsiders can post."
+  },
+  {
+    "name": "Online Marketing & Digital Marketing",
+    "url": "https://lemmy.world/c/onlinemarketing",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "marketing"
+    ],
+    "member_count": 46,
+    "rules_url": "https://lemmy.world/c/onlinemarketing",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Small online and digital marketing community (SEO, ads, social media); outsiders can post."
+  },
+  {
+    "name": "AI - Artificial intelligence",
+    "url": "https://programming.dev/c/Aii",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "ai",
+      "devtools"
+    ],
+    "member_count": 393,
+    "rules_url": "https://programming.dev/c/Aii",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "**No self promotion**: Don't post links to your articles."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "AI news and articles community that bans self promotion and videos; active daily."
+  },
+  {
+    "name": "Machine Learning",
+    "url": "https://programming.dev/c/machine_learning",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "ai",
+      "devtools"
+    ],
+    "member_count": 656,
+    "rules_url": "https://programming.dev/c/machine_learning",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Machine learning links and discussion with no posted rules; outsiders can post."
+  },
+  {
+    "name": "Opensource",
+    "url": "https://programming.dev/c/opensource",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "opensource",
+      "devtools"
+    ],
+    "member_count": 6897,
+    "rules_url": "https://programming.dev/c/opensource",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Large open source software community; outsiders can post, no explicit rules in sidebar."
+  },
+  {
+    "name": "Web Development",
+    "url": "https://programming.dev/c/webdev",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "devtools",
+      "design"
+    ],
+    "member_count": 5895,
+    "rules_url": "https://programming.dev/c/webdev",
+    "rules_quotes": [
+      {
+        "topic": "links",
+        "quote": "If youre posting an article older than two years put the year it was made in brackets after the title"
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Active web development community with a short guideline list; outsiders can post."
+  },
+  {
+    "name": "Software as a Service",
+    "url": "https://programming.dev/c/saas",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "saas",
+      "founders"
+    ],
+    "member_count": 83,
+    "rules_url": "https://programming.dev/c/saas",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Small SaaS and online business community for owners; low volume, outsiders can post."
+  },
+  {
+    "name": "Programming",
+    "url": "https://programming.dev/c/programming",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "devtools",
+      "opensource"
+    ],
+    "member_count": 28933,
+    "rules_url": "https://programming.dev/c/programming",
+    "rules_quotes": [
+      {
+        "topic": "links",
+        "quote": "If you're posting long videos try to add in some form of tldr for those who don't want to watch videos"
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Main programming.dev community; very active, outsiders can post."
+  },
+  {
+    "name": "DevOps",
+    "url": "https://programming.dev/c/devops",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "devtools",
+      "saas"
+    ],
+    "member_count": 2245,
+    "rules_url": "https://programming.dev/c/devops",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "No spam of tools/companies/advertisements"
+      },
+      {
+        "topic": "self_promotion",
+        "quote": "It’s OK to post your own stuff part of the time, but the primary use of the community should not be promotional content."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "DevOps community that allows occasional own-content posts but not promotion."
+  },
+  {
+    "name": "AI",
+    "url": "https://lemmy.ml/c/artificial_intel",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "ai"
+    ],
+    "member_count": 6623,
+    "rules_url": "https://lemmy.ml/c/artificial_intel",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Large AI news community on lemmy.ml with only a definition as sidebar; outsiders can post."
+  },
+  {
+    "name": "Machine Learning",
+    "url": "https://lemmy.ml/c/machinelearning",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "ai",
+      "devtools"
+    ],
+    "member_count": 2176,
+    "rules_url": "https://lemmy.ml/c/machinelearning",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Machine learning community with no description or rules; posts continue sporadically."
+  },
+  {
+    "name": "Marketing",
+    "url": "https://lemmy.ml/c/marketing",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "marketing"
+    ],
+    "member_count": 108,
+    "rules_url": "https://lemmy.ml/c/marketing",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Small marketing community with no description or rules; low activity."
+  },
+  {
+    "name": "SEO (Search Engine Optimization) Discussion",
+    "url": "https://lemmy.ml/c/seo",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "marketing"
+    ],
+    "member_count": 119,
+    "rules_url": "https://lemmy.ml/c/seo",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Small SEO discussion community with no description or rules; low but recent activity."
+  },
+  {
+    "name": "startups",
+    "url": "https://lemmy.ml/c/startups",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "founders",
+      "saas"
+    ],
+    "member_count": 97,
+    "rules_url": "https://lemmy.ml/c/startups",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Startups and entrepreneurship community; very low volume but recent post, outsiders can post."
+  },
+  {
+    "name": "Open Source",
+    "url": "https://lemmy.ml/c/opensource",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "opensource",
+      "devtools"
+    ],
+    "member_count": 49659,
+    "rules_url": "https://lemmy.ml/c/opensource",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Very large open source community with a three-line rule set; outsiders can post."
+  },
+  {
+    "name": "Blender",
+    "url": "https://lemmy.ml/c/blender",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "video",
+      "design",
+      "creators"
+    ],
+    "member_count": 1026,
+    "rules_url": "https://lemmy.ml/c/blender",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Community to share art made in Blender; outsiders can post."
+  },
+  {
+    "name": "FOSS - Freie Software",
+    "url": "https://feddit.org/c/foss_de",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "de",
+    "topics": [
+      "opensource",
+      "devtools"
+    ],
+    "member_count": 1427,
+    "rules_url": "https://feddit.org/c/foss_de",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "German-language free software community; outsiders can post news, articles and questions."
+  },
+  {
+    "name": "Technologie: Nachrichten aus Wissenschaft, Bio und Technik",
+    "url": "https://feddit.org/c/technologie",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "de",
+    "topics": [
+      "devtools",
+      "ai"
+    ],
+    "member_count": 468,
+    "rules_url": "https://feddit.org/c/technologie",
+    "rules_quotes": [
+      {
+        "topic": "links",
+        "quote": "Posts oder Antworten, die einen Archive[.]today (oder eines der Derivate) beinhaltet, werden kommentarlos gelöscht"
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "German-language science and technology news community that deletes archive.today links."
+  },
+  {
+    "name": "LLM",
+    "url": "https://sopuli.xyz/c/LLM",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "ai",
+      "devtools"
+    ],
+    "member_count": 64,
+    "rules_url": "https://sopuli.xyz/c/LLM",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Non-partisan community about large language models; outsiders can post."
+  },
+  {
+    "name": "Generative Artificial Intelligence",
+    "url": "https://sopuli.xyz/c/gai",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "ai",
+      "creators"
+    ],
+    "member_count": 330,
+    "rules_url": "https://sopuli.xyz/c/gai",
+    "rules_quotes": [
+      {
+        "topic": "self_promotion",
+        "quote": "You can post your own creations, ask for feedback, share resources, or just chat with other fans."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Generative AI community where members may share their own creations; outsiders can post."
+  },
+  {
+    "name": "Artificial Intelligence",
+    "url": "https://lemmy.sdf.org/c/artificialintelligence",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "ai"
+    ],
+    "member_count": 275,
+    "rules_url": "https://lemmy.sdf.org/c/artificialintelligence",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "General AI chat and sharing community with a one-line description; outsiders can post."
+  },
+  {
+    "name": "Free and Open Source Software",
+    "url": "https://beehaw.org/c/foss",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "opensource",
+      "devtools"
+    ],
+    "member_count": 23107,
+    "rules_url": "https://beehaw.org/c/foss",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Free and open source software community on Beehaw; Beehaw instance rules apply, active daily."
+  },
+  {
+    "name": "Technology",
+    "url": "https://beehaw.org/c/technology",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "devtools",
+      "ai"
+    ],
+    "member_count": 43736,
+    "rules_url": "https://beehaw.org/c/technology",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Large technology news community with a be-nice ethos; outsiders can post."
+  },
+  {
+    "name": "Technology",
+    "url": "https://lemmy.zip/c/technology",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "devtools",
+      "ai"
+    ],
+    "member_count": 7426,
+    "rules_url": "https://lemmy.zip/c/technology",
+    "rules_quotes": [
+      {
+        "topic": "links",
+        "quote": "Post URL should be the original link to the article (even if paywalled) and archived copies left in the body."
+      },
+      {
+        "topic": "links",
+        "quote": "Post title should mirror the news source title."
+      }
+    ],
+    "checked_on": "2026-10-23",
+    "notes": "Tech news community with a detailed rule list, English only; outsiders can post."
+  },
+  {
+    "name": "Technology",
+    "url": "https://lemmy.today/c/technology",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "devtools",
+      "ai"
+    ],
+    "member_count": 446,
+    "rules_url": "https://lemmy.today/c/technology",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Tech news community meant to spread activity off lemmy.world; outsiders can post."
+  },
+  {
+    "name": "Content Creators, Drama, and Self-Destruction",
+    "url": "https://reddthat.com/c/youtubedrama",
+    "platform": "lemmy",
+    "category": "forum",
+    "language": "en",
+    "topics": [
+      "creators",
+      "video"
+    ],
+    "member_count": 179,
+    "rules_url": "https://reddthat.com/c/youtubedrama",
+    "rules_quotes": [],
+    "checked_on": "2026-10-23",
+    "notes": "Drama about YouTube, Twitch and other creator platforms; low volume, outsiders can post."
+  }
+]

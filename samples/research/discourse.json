@@ -1,0 +1,997 @@
+[
+ {
+  "name": "OpenAI Developer Community",
+  "url": "https://community.openai.com/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "ai",
+   "devtools"
+  ],
+  "member_count": 1042802,
+  "rules_url": "https://community.openai.com/faq",
+  "rules_quotes": [
+   {
+    "topic": "self_promotion",
+    "quote": "Share the cool things you have built, but avoid repetitive or overly promotional posts."
+   },
+   {
+    "topic": "self_promotion",
+    "quote": "Spamming other members with pitches or other forms of self-promotion will not be tolerated."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Official OpenAI community for ChatGPT and API users; publicly readable, posting needs a free account."
+ },
+ {
+  "name": "Hugging Face Forums",
+  "url": "https://discuss.huggingface.co/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "ai",
+   "opensource",
+   "devtools"
+  ],
+  "member_count": 104419,
+  "rules_url": "https://discuss.huggingface.co/faq",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Keep the language, links, and images safe for family and friends."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Forum for Hugging Face models, datasets and libraries; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Cursor - Community Forum",
+  "url": "https://forum.cursor.com/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "ai",
+   "devtools"
+  ],
+  "member_count": 132018,
+  "rules_url": "https://forum.cursor.com/faq",
+  "rules_quotes": [
+   {
+    "topic": "ai_disclosure",
+    "quote": "Posts generated entirely by AI will likely be removed."
+   },
+   {
+    "topic": "ai_disclosure",
+    "quote": "While AI tools can help you draft or refine your writing, posts should reflect your own thoughts and understanding."
+   },
+   {
+    "topic": "automation",
+    "quote": "Automated bots will be silenced."
+   },
+   {
+    "topic": "self_promotion",
+    "quote": "If your main activity here is dropping links to your product (especially paid tools or services) in other people’s threads, that’s closer to spam than participation."
+   },
+   {
+    "topic": "links",
+    "quote": "Don’t shoehorn links into unrelated conversations."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Community forum for the Cursor AI code editor; publicly readable, posting needs an account and promotion is restricted."
+ },
+ {
+  "name": "n8n Community",
+  "url": "https://community.n8n.io/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "ai",
+   "saas",
+   "devtools"
+  ],
+  "member_count": 183243,
+  "rules_url": "https://community.n8n.io/faq",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Keep the language, links, and images safe for family and friends."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Forum for n8n workflow automation users and builders; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Bubble Forum",
+  "url": "https://forum.bubble.io/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "saas",
+   "founders",
+   "devtools"
+  ],
+  "member_count": 72423,
+  "rules_url": "https://forum.bubble.io/guidelines",
+  "rules_quotes": [
+   {
+    "topic": "self_promotion",
+    "quote": "Do not send direct messages that contain anything that could be reasonably considered spam."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Forum for Bubble no-code app builders and agencies; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Make Community",
+  "url": "https://community.make.com/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "saas",
+   "ai",
+   "marketing"
+  ],
+  "member_count": 62550,
+  "rules_url": "https://community.make.com/faq",
+  "rules_quotes": [
+   {
+    "topic": "self_promotion",
+    "quote": "We have a zero-tolerance policy for spam or self-promotion outside of the designated areas."
+   },
+   {
+    "topic": "links",
+    "quote": "Links to official Make documentation or screenshots to clarify your point are fine."
+   },
+   {
+    "topic": "ai_disclosure",
+    "quote": "No AI-generated content : Do not use AI tools (like ChatGPT) to generate your responses."
+   },
+   {
+    "topic": "automation",
+    "quote": "Do not post automated content of any kind."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Community for Make automation users with strict anti-promotion and no-AI-content rules; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Obsidian Forum",
+  "url": "https://forum.obsidian.md/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "creators",
+   "saas"
+  ],
+  "member_count": 102264,
+  "rules_url": "https://forum.obsidian.md/faq",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Keep the language, links, and images safe for family and friends."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Forum for the Obsidian note-taking app, plugins and workflows; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Discourse Meta",
+  "url": "https://meta.discourse.org/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "opensource",
+   "saas",
+   "devtools"
+  ],
+  "member_count": 69214,
+  "rules_url": "https://meta.discourse.org/faq",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Keep the language, links, and images safe for family and friends."
+   },
+   {
+    "topic": "ai_disclosure",
+    "quote": "When asking and answering questions, or posting any kind of reply, don’t simply copy in AI generated content."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Official Discourse support forum, also useful for community-building practice; publicly readable, posting needs an account."
+ },
+ {
+  "name": "The freeCodeCamp Forum",
+  "url": "https://forum.freecodecamp.org/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "devtools",
+   "creators"
+  ],
+  "member_count": 361056,
+  "rules_url": "https://forum.freecodecamp.org/guidelines",
+  "rules_quotes": [
+   {
+    "topic": "self_promotion",
+    "quote": "Affiliate links are not allowed."
+   },
+   {
+    "topic": "links",
+    "quote": "Do not post links to products/services/websites unless they are responsive/relevant to the current discussion."
+   },
+   {
+    "topic": "ai_disclosure",
+    "quote": "Please do not share AI-generated content within this community."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Large learn-to-code forum that discourages self-promotion and AI-generated posts; publicly readable, posting needs an account."
+ },
+ {
+  "name": "PyTorch Forums",
+  "url": "https://discuss.pytorch.org/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "ai",
+   "opensource",
+   "devtools"
+  ],
+  "member_count": 68078,
+  "rules_url": "https://discuss.pytorch.org/faq",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Keep the language, links, and images safe for family and friends."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Forum for PyTorch machine-learning questions; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Google AI Developers Forum",
+  "url": "https://discuss.ai.google.dev/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "ai",
+   "devtools"
+  ],
+  "member_count": 164813,
+  "rules_url": "https://discuss.ai.google.dev/faq",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Also, please don’t provide links to sites where your readers can obtain unauthorized downloads of other people’s content."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Official forum for Google Gemini and AI developer products; publicly readable, posting needs an account."
+ },
+ {
+  "name": "fast.ai Course Forums",
+  "url": "https://forums.fast.ai/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "ai",
+   "opensource"
+  ],
+  "member_count": 38304,
+  "rules_url": "https://forums.fast.ai/faq",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Keep the language, links, and images safe for family and friends."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Forum for fast.ai deep-learning courses and library; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Fly.io",
+  "url": "https://community.fly.io/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "devtools",
+   "saas"
+  ],
+  "member_count": 23748,
+  "rules_url": "https://community.fly.io/faq",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Keep the language, links, and images safe for family and friends."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Community forum for Fly.io app hosting; publicly readable, posting needs an account."
+ },
+ {
+  "name": "LangChain Forum",
+  "url": "https://forum.langchain.com/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "ai",
+   "devtools",
+   "opensource"
+  ],
+  "member_count": 3588,
+  "rules_url": "https://forum.langchain.com/faq",
+  "rules_quotes": [
+   {
+    "topic": "self_promotion",
+    "quote": "Promotional content or solicitation of any kind will result in an immediate ban."
+   },
+   {
+    "topic": "links",
+    "quote": "If you are helping someone, do not answer by linking to an external link (unless it is the LangChain Docs), as external articles may be incorrect and are impossible for us to update."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Forum for LangChain and LangGraph agent builders with a strict no-promotion rule; publicly readable, posting needs an account."
+ },
+ {
+  "name": "DeepLearning.AI",
+  "url": "https://community.deeplearning.ai/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "ai",
+   "creators"
+  ],
+  "member_count": 786372,
+  "rules_url": "https://community.deeplearning.ai/t/self-promotion-and-solicitation-policies/894879",
+  "rules_quotes": [
+   {
+    "topic": "self_promotion",
+    "quote": "No Promotion in Q&A: You are not allowed to self-promote or add businesses in the Q&A categories as a new topic or in replies."
+   },
+   {
+    "topic": "self_promotion",
+    "quote": "Relevant Replies Only: You may only self-promote yourself or a business in a reply if it is located within the AI Discussions category and is strictly relevant to the active topic."
+   },
+   {
+    "topic": "frequency",
+    "quote": "Personal & Open-Source 1 per week Keep all project updates within the original thread."
+   },
+   {
+    "topic": "frequency",
+    "quote": "Companies & Businesses 1 per month Update existing threads; no new topics for updates."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Forum for DeepLearning.AI course learners with a published self-promotion cadence; publicly readable, posting needs an account."
+ },
+ {
+  "name": "NVIDIA Developer Forums",
+  "url": "https://forums.developer.nvidia.com/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "ai",
+   "devtools"
+  ],
+  "member_count": 5296424,
+  "rules_url": "https://forums.developer.nvidia.com/guidelines",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Keep the language, links, and images safe for family and friends."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Official NVIDIA developer support forums covering AI, GPUs and SDKs; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Ghost Forum",
+  "url": "https://forum.ghost.org/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "creators",
+   "founders",
+   "saas"
+  ],
+  "member_count": 16973,
+  "rules_url": "https://forum.ghost.org/faq",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Keep the language, links, and images safe for family and friends."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Forum for Ghost publishing and newsletter platform users; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Retool Forum",
+  "url": "https://community.retool.com/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "saas",
+   "devtools"
+  ],
+  "member_count": 17658,
+  "rules_url": "https://community.retool.com/faq",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Keep the language, links, and images safe for family and friends."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Forum for Retool internal-tool builders; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Vercel Community",
+  "url": "https://community.vercel.com/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "devtools",
+   "saas",
+   "ai"
+  ],
+  "member_count": 32518,
+  "rules_url": "https://community.vercel.com/guidelines",
+  "rules_quotes": [
+   {
+    "topic": "self_promotion",
+    "quote": "Share or post content that constitutes advertising, self-promotion, or solicitations."
+   },
+   {
+    "topic": "frequency",
+    "quote": "Post the same, or similar, content multiple times, spamming irrelevant content, or sustained disruption of Community Spaces."
+   },
+   {
+    "topic": "automation",
+    "quote": "Automating access or monitoring the Community with web crawlers, browser plug-ins or add-ons, or other computer programs that are not a web browser"
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Official Vercel community for deployments and the AI SDK; publicly readable, posting needs an account and advertising is banned."
+ },
+ {
+  "name": "Glide Community",
+  "url": "https://community.glideapps.com/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "saas",
+   "founders",
+   "devtools"
+  ],
+  "member_count": 21070,
+  "rules_url": "https://community.glideapps.com/guidelines",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Keep the language, links, and images safe for family and friends."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Forum for Glide no-code app builders; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Thunkable Community",
+  "url": "https://community.thunkable.com/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "saas",
+   "creators",
+   "devtools"
+  ],
+  "member_count": 4200499,
+  "rules_url": "https://community.thunkable.com/faq",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Keep the language, links, and images safe for family and friends."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Forum for Thunkable no-code mobile app makers; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Mautic Forums",
+  "url": "https://forum.mautic.org/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "marketing",
+   "opensource",
+   "saas"
+  ],
+  "member_count": 10819,
+  "rules_url": "https://forum.mautic.org/guidelines",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Keep the language, links, and images safe for family and friends."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Forum for Mautic open-source marketing automation; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Activepieces Community",
+  "url": "https://community.activepieces.com/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "ai",
+   "saas",
+   "opensource"
+  ],
+  "member_count": 3853,
+  "rules_url": "https://community.activepieces.com/faq",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Keep the language, links, and images safe for family and friends."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Forum for Activepieces open-source automation and AI agents; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Shotcut Forum",
+  "url": "https://forum.shotcut.org/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "video",
+   "opensource",
+   "creators"
+  ],
+  "member_count": 14213,
+  "rules_url": "https://forum.shotcut.org/faq",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Keep the language, links, and images safe for family and friends."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Forum for the Shotcut open-source video editor; publicly readable, posting needs an account."
+ },
+ {
+  "name": "discuss.pixls.us",
+  "url": "https://discuss.pixls.us/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "creators",
+   "opensource",
+   "design"
+  ],
+  "member_count": 11735,
+  "rules_url": "https://discuss.pixls.us/faq",
+  "rules_quotes": [
+   {
+    "topic": "ai_disclosure",
+    "quote": "No AI answers, please!"
+   },
+   {
+    "topic": "ai_disclosure",
+    "quote": "AI or chatbots are everywhere, and if you want an answer from a bot, you’re encouraged to use one of the many tools available to fill your need."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Photography and free-software imaging forum (darktable, RawTherapee, GIMP) that bans AI answers; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Krita Artists",
+  "url": "https://krita-artists.org/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "creators",
+   "design",
+   "opensource"
+  ],
+  "member_count": 68288,
+  "rules_url": "https://krita-artists.org/guidelines",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "The best practice is to include a link to the owner’s website, if you can."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Artist community for the Krita painting app with artwork showcases; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Penpot Community",
+  "url": "https://community.penpot.app/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "design",
+   "opensource",
+   "saas"
+  ],
+  "member_count": 6438,
+  "rules_url": "https://community.penpot.app/faq",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Keep the language, links, and images safe for family and friends."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Forum for the open-source Penpot design and prototyping tool; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Ardour",
+  "url": "https://discourse.ardour.org/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "creators",
+   "opensource",
+   "podcasting"
+  ],
+  "member_count": null,
+  "rules_url": "https://discourse.ardour.org/faq",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Keep the language, links, and images safe for family and friends."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Forum for the Ardour open-source audio workstation used for music and podcast production; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Matomo forums",
+  "url": "https://forum.matomo.org/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "marketing",
+   "opensource",
+   "saas"
+  ],
+  "member_count": 25559,
+  "rules_url": "https://forum.matomo.org/guidelines",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Keep the language, links, and images safe for family and friends."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Forum for Matomo web analytics users; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Softr Community",
+  "url": "https://community.softr.io/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "saas",
+   "founders",
+   "devtools"
+  ],
+  "member_count": 4698,
+  "rules_url": "https://community.softr.io/faq",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Keep the language, links, and images safe for family and friends."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Forum for Softr no-code portal and app builders; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Latenode Official Community",
+  "url": "https://community.latenode.com/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "ai",
+   "saas",
+   "marketing"
+  ],
+  "member_count": 2385,
+  "rules_url": "https://community.latenode.com/faq",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Keep the language, links, and images safe for family and friends."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Forum for Latenode low-code automation and AI workflow users; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Noloco",
+  "url": "https://community.noloco.io/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "saas",
+   "founders"
+  ],
+  "member_count": 493,
+  "rules_url": "https://community.noloco.io/faq",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Keep the language, links, and images safe for family and friends."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Small forum for Noloco no-code app builders; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Perplexity API Platform Forum",
+  "url": "https://community.perplexity.ai/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "ai",
+   "devtools"
+  ],
+  "member_count": 4414,
+  "rules_url": "https://community.perplexity.ai/faq",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Keep the language, links, and images safe for family and friends."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Forum for developers using the Perplexity API; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Superhuman Community",
+  "url": "https://connect.superhuman.com/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "saas",
+   "founders",
+   "ai"
+  ],
+  "member_count": 15389,
+  "rules_url": "https://connect.superhuman.com/guidelines",
+  "rules_quotes": [
+   {
+    "topic": "self_promotion",
+    "quote": "Do not solicit others: Having discussions about services, service providers, and products that you’ve used is encouraged; selling your services to others is not."
+   },
+   {
+    "topic": "self_promotion",
+    "quote": "Authentic Engagement: Do not spam users in the Community, and do not engage in inauthentic engagement (including creating false profiles, selling usernames, etc.)"
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Community for Coda and Superhuman users (Coda's former forum) that bars soliciting others; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Metabase Discussion",
+  "url": "https://discourse.metabase.com/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "saas",
+   "opensource",
+   "devtools"
+  ],
+  "member_count": 10834,
+  "rules_url": "https://discourse.metabase.com/faq",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Keep the language, links, and images safe for family and friends."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Forum for Metabase business-intelligence users; publicly readable, posting needs an account."
+ },
+ {
+  "name": "dbt Community Forum",
+  "url": "https://discourse.getdbt.com/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "saas",
+   "devtools",
+   "opensource"
+  ],
+  "member_count": 9037,
+  "rules_url": "https://discourse.getdbt.com/faq",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Keep the language, links, and images safe for family and friends."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Forum for dbt analytics-engineering practitioners; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Shopify Developer Community Forums",
+  "url": "https://community.shopify.dev/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "saas",
+   "devtools",
+   "marketing"
+  ],
+  "member_count": 19357,
+  "rules_url": "https://community.shopify.dev/faq",
+  "rules_quotes": [
+   {
+    "topic": "self_promotion",
+    "quote": "Spam, including off-topic or unsolicited promotional content, will be removed."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Forum for Shopify app and theme developers; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Maker Forums",
+  "url": "https://forum.makerforums.info/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "founders",
+   "creators",
+   "devtools"
+  ],
+  "member_count": 28489,
+  "rules_url": "https://forum.makerforums.info/faq",
+  "rules_quotes": [
+   {
+    "topic": "self_promotion",
+    "quote": "Affiliate links and advertising are examples of commercial activity, and if links you post benefit you, you must disclose that benefit."
+   },
+   {
+    "topic": "links",
+    "quote": "Don’t post links without other content."
+   },
+   {
+    "topic": "automation",
+    "quote": "If you use an LLM to interact with Maker Forums, via MCP or otherwise, it must obey the rules at llms.txt , and failure to do so will be grounds for permanent suspension of all site privileges ."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Forum for makers and indie builders that requires disclosure of commercial interest; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Logseq",
+  "url": "https://discuss.logseq.com/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "creators",
+   "opensource"
+  ],
+  "member_count": 13727,
+  "rules_url": "https://discuss.logseq.com/faq",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Keep the language, links, and images safe for family and friends."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Forum for the Logseq open-source knowledge-management app; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Developer Forum (Blender)",
+  "url": "https://devtalk.blender.org/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "creators",
+   "design",
+   "opensource"
+  ],
+  "member_count": 9970,
+  "rules_url": "https://devtalk.blender.org/faq",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Keep the language, links, and images safe for family and friends."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Blender developer discussion forum for the 3D and video tool; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Grafana Labs Community Forums",
+  "url": "https://community.grafana.com/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "devtools",
+   "opensource",
+   "saas"
+  ],
+  "member_count": 48945,
+  "rules_url": "https://community.grafana.com/faq",
+  "rules_quotes": [
+   {
+    "topic": "frequency",
+    "quote": "It can be frustrating not getting an immediate answer to your question or issue, however repeated posts complaining about a lack of response will count as spam."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Grafana Labs forum for observability dashboards and tools; publicly readable, posting needs an account."
+ },
+ {
+  "name": "Open Source Design",
+  "url": "https://discourse.opensourcedesign.net/",
+  "platform": "discourse",
+  "category": "forum",
+  "language": "en",
+  "topics": [
+   "design",
+   "opensource",
+   "creators"
+  ],
+  "member_count": 1904,
+  "rules_url": "https://discourse.opensourcedesign.net/faq",
+  "rules_quotes": [
+   {
+    "topic": "links",
+    "quote": "Keep the language, links, and images safe for family and friends."
+   }
+  ],
+  "checked_on": "2026-10-23",
+  "notes": "Forum for designers contributing to open-source projects; publicly readable, posting needs an account."
+ }
+]

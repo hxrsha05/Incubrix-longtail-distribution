@@ -35,9 +35,9 @@
       "workers": 32
     },
     "timings": {
-      "duration_s": 13.65,
-      "finished_at": 1792760851.6218362,
-      "started_at": 1792760837.971744
+      "duration_s": 14.693,
+      "finished_at": 1792762468.5968611,
+      "started_at": 1792762453.9035394
     },
     "versions": {
       "connector": null,
@@ -105,7 +105,7 @@
     "catalogue_rows_created": 0,
     "committed": false,
     "duplicate": 0,
-    "duration_s": 13.65,
+    "duration_s": 14.69,
     "invalid": 0,
     "rows": 2,
     "rows_per_second": 0.1,
