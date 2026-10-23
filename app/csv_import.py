@@ -27,6 +27,7 @@ from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from typing import Any, Callable
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+from urllib.robotparser import RobotFileParser
 
 import httpx
 
@@ -38,6 +39,7 @@ from app.output_manifest import build_manifest
 from app.records import CATEGORY
 
 MAX_ROWS = 10_000
+USER_AGENT = "IncuBrix-Catalogue-Importer"  # the name robots.txt rules are matched against
 MAX_CSV_BYTES = 20_000_000
 MAX_PAGE_BYTES = 200_000
 REQUIRED = ("name", "url")
@@ -205,6 +207,7 @@ class Importer:
         self.catalogue, self.http, self.workers = catalogue, http, workers
         self.allow_private_hosts, self.fetch_timeout_s, self.clock = allow_private_hosts, fetch_timeout_s, clock
         self.private_host_allowlist = private_host_allowlist
+        self._robots: dict[str, RobotFileParser | None] = {}  # origin -> parsed robots.txt (None = none found, everything allowed)
         self.allow_local_names = allow_private_hosts or bool(private_host_allowlist)  # single-word host names (docker service names) are valid only in a local setup
         self._host_locks: dict[str, threading.Lock] = defaultdict(threading.Lock)
         self._locks_guard = threading.Lock()
@@ -330,6 +333,11 @@ class Importer:
             r["reasons"].append("host is a private or local address; the service will not fetch it")
             return
         with self._host_lock(host):  # one request per host at a time: polite, and it cannot hammer a small forum
+            if not self._robots_allow(url):
+                r["warnings"].append("the site's robots.txt does not allow automated visits to this address, so it was not visited and no details were read")
+                r["connector_key"] = r["_raw"].get("connector_key") or "assisted"
+                r["category"] = CATEGORY.get(r["connector_key"], "other")
+                return
             last_error = ""
             for attempt in (1, 2):
                 t0 = self.clock()
@@ -388,6 +396,26 @@ class Importer:
             audience = score_audience(row_like)
             r["relevance_score"], r["relevance_reason"] = audience.score, audience.reason
             r["category"] = CATEGORY.get(r["connector_key"], "other")
+
+    def _robots_allow(self, url: str) -> bool:
+        """Respect robots.txt: fetched once per site; a missing or unreadable file means allowed (that is what the standard says)."""
+        parts = urlsplit(url)
+        origin = f"{parts.scheme}://{parts.netloc}"
+        with self._locks_guard:
+            known = origin in self._robots
+            parser = self._robots.get(origin)
+        if not known:
+            parser = None
+            try:
+                resp = self.http.get(f"{origin}/robots.txt", timeout=self.fetch_timeout_s, follow_redirects=True)
+                if resp.status_code == 200 and "html" not in resp.headers.get("content-type", ""):
+                    parser = RobotFileParser()
+                    parser.parse(resp.text.splitlines())
+            except httpx.HTTPError:
+                parser = None
+            with self._locks_guard:
+                self._robots[origin] = parser
+        return parser is None or parser.can_fetch(USER_AGENT, url)
 
     def _member_count(self, url: str, platform: str | None) -> int | None:
         """Ask the platform's own public stats endpoint. Best effort: a missing number is fine, never an error."""

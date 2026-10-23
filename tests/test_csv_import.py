@@ -156,7 +156,8 @@ def test_a_timeout_is_retried_once_then_reported(catalogue):
     calls = []
 
     def handler(request):
-        calls.append(1)
+        if request.url.path != "/robots.txt":  # only the page itself counts: robots.txt is fetched once per site
+            calls.append(1)
         raise httpx.ReadTimeout("slow", request=request)
 
     out = Importer(catalogue, httpx.Client(transport=httpx.MockTransport(handler)), allow_private_hosts=True).run(make_csv(["Slow,https://slow.example,en,"]))

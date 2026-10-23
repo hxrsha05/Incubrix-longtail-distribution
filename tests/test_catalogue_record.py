@@ -176,3 +176,26 @@ def test_the_report_csv_has_the_new_columns(mock, catalogue):
     out = Importer(catalogue, httpx.Client(), allow_private_hosts=True).run(f"name,url\nA,{mock.url}/sites/plain-1\n")
     header = next(csv.reader(io.StringIO(report_to_csv(out["report"]))))
     assert header == REPORT_COLUMNS and {"member_count", "rules_url", "category", "relevance_score", "relevance_reason"} <= set(header)
+
+
+def test_robots_txt_is_respected_one_fetch_per_site_and_blocked_pages_are_not_visited(catalogue):
+    requested: list[str] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        requested.append(f"{request.url.host}{request.url.path}")
+        if request.url.path == "/robots.txt":
+            if request.url.host == "closed.example":
+                return httpx.Response(200, text="User-agent: *\nDisallow: /", headers={"content-type": "text/plain"})
+            if request.url.host == "bots.example":
+                return httpx.Response(200, text="User-agent: IncuBrix-Catalogue-Importer\nDisallow: /private\n", headers={"content-type": "text/plain"})
+            return httpx.Response(404)
+        return httpx.Response(200, text="<html lang='en'><title>Open</title></html>")
+
+    text = ("name,url\nClosed,https://closed.example/forum\nOpen,https://open.example/\nPrivate part,https://bots.example/private/area\n"
+            "Public part,https://bots.example/public\nSame site twice,https://open.example/other\n")
+    out = Importer(catalogue, httpx.Client(transport=httpx.MockTransport(handler)), allow_private_hosts=True, workers=1).run(text)
+    by = {r["name"]: r for r in out["report"]}
+    assert "robots.txt does not allow" in by["Closed"]["warnings"][0] and by["Closed"]["status"] == "accepted" and by["Closed"]["connector_key"] == "assisted" and by["Closed"]["title"] is None
+    assert "robots.txt does not allow" in by["Private part"]["warnings"][0] and by["Public part"]["warnings"] == [] and by["Open"]["title"] == "Open"
+    assert "closed.example/forum" not in requested and "bots.example/private/area" not in requested  # the blocked pages were never requested
+    assert requested.count("open.example/robots.txt") == 1 and requested.count("bots.example/robots.txt") == 1  # robots.txt once per site

@@ -107,7 +107,7 @@ def create_app(
     )
     app.state.imports = EvidenceStore(settings.import_dir, s3, settings.s3_bucket, presigner=presigner, s3_prefix="imports", url_prefix="/api/v1/import-files")
     importer = Importer(app.state.catalogue, httpx.Client(timeout=settings.import_fetch_timeout_s, limits=httpx.Limits(max_connections=settings.import_workers * 2),
-                                                           headers={"User-Agent": "IncuBrix-Catalogue-Importer/0.1"}),
+                                                           headers={"User-Agent": "IncuBrix-Catalogue-Importer/0.1 (+catalogue research; respects robots.txt)"}),
                         workers=settings.import_workers, allow_private_hosts=settings.import_allow_private_hosts, private_host_allowlist=settings.private_host_allowlist, fetch_timeout_s=settings.import_fetch_timeout_s, clock=clock)
     app.state.importer = importer
     register_import_job(app.state.jobs, importer, app.state.imports)
