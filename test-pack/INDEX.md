@@ -16,6 +16,7 @@ Regenerate any of them with the command in the last column (the service must be 
 | Tailoring, relevance score, AI rules capture with human confirmation | made by the script | `test-pack/advanced-demos/` (`transcript.md` and one JSON per feature) | `python -m scripts.demo_advanced` |
 | Recommender precision@10 on a labelled set | `samples/recommender/labelled_set.json` (synthetic, read its description) | `test-pack/recommender/eval.md`, `eval.json` | `python -m scripts.eval_recommender` |
 | Failed recertification demotes; demoted destinations are refused and not recommended; a later pass promotes back | made by the script | `test-pack/recertification/transcript.md` | `python -m scripts.demo_recertification` |
+| AI rules capture run live on 15 real communities (Gemini free tier), quotes checked on the page, unconfirmed | `samples/research/*.json` | `catalogue/real/ai_rules/results.json`, `catalogue/real/ai_rules/SUMMARY.md` | `python -m scripts.live_rules_capture --extractor=gemini --limit=15` (needs a key in the terminal) |
 | No secrets in the repository or the service logs | the repository | `evidence/secret-scan.txt` | `python -m scripts.secret_scan --docker-logs` |
 | The whole test suite passes with no keys | `tests/` | screenshot `evidence/manual-demos/tests/01-pytest-208-passed.png` (the suite has grown since: run `python -m pytest`) | `python -m pytest` |
 

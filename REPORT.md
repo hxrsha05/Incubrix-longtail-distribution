@@ -57,7 +57,7 @@ Everything runs with `docker compose up`, with no real accounts needed. The code
 - **The recommender's number is optimistic.** The labelled set is synthetic (300 generated destinations, 30 generated posts, hidden true
   topics, messy descriptions) and the synonym table and the set were written by the same author. It shows the method copes with messy
   descriptions; it does not predict performance on real communities.
-- **The Claude adapter for rules capture has not been run against the live API.** It is tested against a fake API only. The default is an
+- **The AI rules step was run live on 15 communities only, with Google Gemini (free tier).** 5 of the 15 pages state at least one of the five rules (6 rules verified, quote checked on the page, 0 dropped); the others state none. The proposals are unconfirmed and a few are judgement calls (for example "avoid overly promotional posts" was read as self-promotion allowed). The other 137 catalogue entries have not been read by the AI step. The Claude adapter has not been run against the live API; it is tested against a fake API only. The default is an
   offline keyword reader.
 - **The real catalogue (`catalogue/real/`) is listing only, and its rules are mostly unconfirmed.** 152 real communities, platforms and publications were
   researched by five AI research agents and checked by `scripts/build_real_catalogue.py` against the real internet: 137 answered the importer,

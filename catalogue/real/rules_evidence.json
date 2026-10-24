@@ -1,8 +1,15 @@
 [
   {
     "id": "openai-developer-community",
-    "rules_found": [],
-    "evidence": {}
+    "rules_found": [
+      "self_promo_allowed"
+    ],
+    "evidence": {
+      "self_promo_allowed": {
+        "quote": "Share the cool things you have built, but avoid repetitive or overly promotional posts.",
+        "confidence": 0.85
+      }
+    }
   },
   {
     "id": "hugging-face-forums",
@@ -11,8 +18,20 @@
   },
   {
     "id": "cursor-community-forum",
-    "rules_found": [],
-    "evidence": {}
+    "rules_found": [
+      "automation_allowed",
+      "self_promo_allowed"
+    ],
+    "evidence": {
+      "self_promo_allowed": {
+        "quote": "Sharing what you\u2019ve built with or for Cursor is welcome and it\u2019s one of the best parts of this community.",
+        "confidence": 1.0
+      },
+      "automation_allowed": {
+        "quote": "Automated bots will be silenced.",
+        "confidence": 1.0
+      }
+    }
   },
   {
     "id": "n8n-community",
@@ -26,8 +45,15 @@
   },
   {
     "id": "make-community",
-    "rules_found": [],
-    "evidence": {}
+    "rules_found": [
+      "automation_allowed"
+    ],
+    "evidence": {
+      "automation_allowed": {
+        "quote": "Do not post automated content of any kind.",
+        "confidence": 1.0
+      }
+    }
   },
   {
     "id": "obsidian-forum",
@@ -73,18 +99,25 @@
   },
   {
     "id": "langchain-forum",
-    "rules_found": [],
-    "evidence": {}
+    "rules_found": [
+      "self_promo_allowed"
+    ],
+    "evidence": {
+      "self_promo_allowed": {
+        "quote": "Promotional content or solicitation of any kind will result in an immediate ban.",
+        "confidence": 1.0
+      }
+    }
   },
   {
     "id": "deeplearning-ai",
     "rules_found": [
-      "frequency_cap"
+      "self_promo_allowed"
     ],
     "evidence": {
-      "frequency_cap": {
-        "quote": "Personal & Open-Source 1 per week Keep all project updates within the original thread.",
-        "confidence": 0.8
+      "self_promo_allowed": {
+        "quote": "You may only self-promote yourself or a business in a reply if it is located within the AI Discussions category and is strictly relevant to the active topic.",
+        "confidence": 0.95
       }
     }
   },

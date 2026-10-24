@@ -54,6 +54,11 @@ No other AI coding tools were used.
 | Tests | `tests/` |
 | Documentation | `README.md`, `AI_USE.md`, `SOURCES.md`, `docs/EVIDENCE_LOG.md` |
 
+## AI model used inside the project's output (not a coding tool)
+
+- **Google Gemini (`gemini-3.8-flash`, free tier)** was run once, on 24 Oct 2026, as the AI step of rules capture on 15 communities of the real catalogue (`scripts/live_rules_capture.py`, results in `catalogue/real/ai_rules/`). It reads the public rules page and proposes the five rules; every proposal carries a quote that the code checks is an exact substring of the text the model read, and anything else is dropped (0 of 6 proposals had to be dropped). All proposals are unconfirmed; a person must confirm them. Only public rules text was sent. The key was typed by the developer into their own terminal and is not in the repository.
+- Gemini is not in the default path: the default reader is the offline keyword reader and needs no key.
+
 ## Decisions made by me
 
 - Chose assessment 4 (Long-Tail Distribution) after reading all four briefs.

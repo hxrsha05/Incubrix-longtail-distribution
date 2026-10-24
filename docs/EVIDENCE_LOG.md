@@ -175,3 +175,10 @@ Followed the README exactly on a clean clone of the repository, with all contain
 
 ### Public demo re-checked on the final code (24 Oct 2026)
 Render auto-deployed commit d27eadc (49.9 s). `python -m scripts.check_live_demo https://incubrix-demo.onrender.com` (token typed only on the developer's machine) passed all 10 checks: health 0.78 s, 401 without a token, 7 destinations, publish, same-key replay, outcome unknown (503) on a late answer, retry succeeded, exactly 1 post on the platform (0 duplicates), catalogue export.
+
+### AI rules capture, live run (24 Oct 2026)
+- `python -m scripts.live_rules_capture --extractor=gemini --limit=15` with `RULES_MODEL=gemini-3.8-flash` (free tier; the key was set only in the developer's terminal). Output: `catalogue/real/ai_rules/results.json`, `SUMMARY.md`, `progress.jsonl`.
+- Result: 15 communities read (13 from the live rules page, 2 from stored verbatim quotes), 0 failed calls, 5 communities with at least one verified rule, 6 verified rules, 0 of 6 proposals dropped, 20,108 tokens in and 388 out, 461 s (calls paced 6 s apart), cost $0 on the free tier.
+- Problems found on the way: `gemini-2.5-flash` returned 404 ("no longer available to new users"), so the model was changed to `gemini-3.8-flash`; the first full run hit the free quota and every later call got HTTP 429, so the script was made resumable, paced, and to stop cleanly when the quota is gone; a read timeout at 90 s became 240 s with retries.
+- Limits: 15 of 152 communities, proposals are unconfirmed, the page text read by the model is not stored (the quote and the page address are).
+- `python -m scripts.build_real_catalogue` was re-run afterwards: 5 communities now carry AI-proposed rules (marked `proposed_by_ai_unconfirmed`), 8 carry rules from the offline keyword reader, the rest keep the conservative default.

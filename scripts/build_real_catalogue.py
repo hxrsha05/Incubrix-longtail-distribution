@@ -144,6 +144,7 @@ def main() -> None:
     (out_dir / "rules_evidence.json").write_text(json.dumps(applied, indent=2), encoding="utf-8")
 
     with_rules = sum(1 for a in applied if a["rules_found"])
+    n_ai = sum(1 for r in ai_by_name.values() if r["rules"])
     by_kind: dict[str, int] = {}
     for r in records:
         by_kind[r["category"]] = by_kind.get(r["category"], 0) + 1
@@ -158,7 +159,7 @@ def main() -> None:
              f"{sum(1 for r in result['report'] if r['status'] == 'accepted' and r['http_status'] not in (200, None))} blocked the importer (HTTP 403) and "
              f"{sum(1 for r in result['report'] if r['status'] == 'accepted' and r['http_status'] is None)} were not visited because robots.txt forbids it; those are kept with a warning, because the research step (a person-like browser read) found them live",
              f"- destination records written: **{len(records)}** (`real_catalogue.csv`, the fields the brief requires)",
-             f"- rules proposed from the community's own quoted words for {with_rules} destinations; the others keep the conservative default",
+             f"- rules proposed (all UNCONFIRMED) for {with_rules} destinations: {n_ai} by the AI reader from the live rules page (quote checked on the page), {with_rules - n_ai} by the offline keyword reader from stored quotes; the others keep the conservative default",
              f"- by category: {dict(sorted(by_kind.items()))}", f"- by connector type: {dict(sorted(by_connector.items()))}",
              f"- relevance score to IncuBrix's audience (1-5): " + ", ".join(f"{s}: {scores.count(s)}" for s in range(1, 6)),
              f"- with a member count: {sum(1 for r in records if r['est_audience'] is not None)}; with a rules page address: {sum(1 for r in records if r['rules_url'])}", "",
