@@ -96,6 +96,9 @@ def process(entry: dict, http: httpx.Client, extractor) -> dict:
             if exc.code.value == "PLATFORM_RATE_LIMIT" and attempt < 3:
                 time.sleep(min(float((exc.details or {}).get("retry_after_s", 20)), 60))
                 continue
+            if exc.code.value == "PLATFORM_UNAVAILABLE" and attempt < 3 and "could not be reached" in exc.message:  # a timeout or dropped connection: asking again is safe (a read, not a post)
+                time.sleep(5)
+                continue
             record["error"] = f"{exc.code.value}: {exc.message}"
             return record
     rules, evidence, dropped = verify(found["rules"], text)
@@ -134,7 +137,7 @@ def main() -> None:
         entries = entries[:limit]
     print(f"{len(entries)} communities with a rules page or stored quotes; extractor: {extractor.name}")
     started = time.time()
-    with ThreadPoolExecutor(max_workers=4) as pool:
+    with ThreadPoolExecutor(max_workers=3) as pool:
         def run_one(entry: dict) -> dict:
             record = process(entry, http, extractor)
             print(f"  {record['name'][:40]:40} {record['source'] or '-':14} verified rules: {len(record['rules'])}" + (f"  ERROR: {record['error'][:70]}" if record["error"] else ""), flush=True)

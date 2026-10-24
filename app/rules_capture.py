@@ -159,7 +159,7 @@ class GeminiExtractor:
                 "contents": [{"role": "user", "parts": [{"text": f"Rules page{f' ({url})' if url else ''}:\n\n{page_text}"}]}],
                 "generationConfig": {"temperature": 0, "responseMimeType": "application/json", "maxOutputTokens": 8192}}
         try:
-            resp = self.http.post(f"{self.base_url}/v1beta/models/{self.model}:generateContent", json=body, timeout=90,
+            resp = self.http.post(f"{self.base_url}/v1beta/models/{self.model}:generateContent", json=body, timeout=240,
                                   headers={"x-goog-api-key": self.api_key, "content-type": "application/json"})
         except httpx.HTTPError as exc:
             raise IncuBrixError(ErrorCode.PLATFORM_UNAVAILABLE, f"the AI model could not be reached ({type(exc).__name__})", {"outcome_unknown": False}) from None
