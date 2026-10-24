@@ -172,3 +172,6 @@ Followed the README exactly on a clean clone of the repository, with all contain
 ### Cold start of the public demo (24 Oct 2026)
 - The free Render service had been idle overnight (more than 12 hours). The first request, `curl -s -o NUL -w "%{time_total}" https://incubrix-demo.onrender.com/health` from a developer laptop in India, took **41.5 s** to answer 200. Later requests answer in under 1 s (0.81 s measured by the live check on the earlier version).
 - Free Render instances sleep after about 15 minutes without traffic. No uptime pinger is used.
+
+### Public demo re-checked on the final code (24 Oct 2026)
+Render auto-deployed commit d27eadc (49.9 s). `python -m scripts.check_live_demo https://incubrix-demo.onrender.com` (token typed only on the developer's machine) passed all 10 checks: health 0.78 s, 401 without a token, 7 destinations, publish, same-key replay, outcome unknown (503) on a late answer, retry succeeded, exactly 1 post on the platform (0 duplicates), catalogue export.
