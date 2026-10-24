@@ -135,7 +135,12 @@ def main() -> None:
     print(f"{len(entries)} communities with a rules page or stored quotes; extractor: {extractor.name}")
     started = time.time()
     with ThreadPoolExecutor(max_workers=4) as pool:
-        records = list(pool.map(lambda e: process(e, http, extractor), entries))
+        def run_one(entry: dict) -> dict:
+            record = process(entry, http, extractor)
+            print(f"  {record['name'][:40]:40} {record['source'] or '-':14} verified rules: {len(record['rules'])}" + (f"  ERROR: {record['error'][:70]}" if record["error"] else ""), flush=True)
+            return record
+
+        records = list(pool.map(run_one, entries))
 
     (out / "results.json").write_text(json.dumps({"extractor": extractor.name, "records": records}, indent=2, ensure_ascii=False), encoding="utf-8")
     with_rules = [r for r in records if r["rules"]]
