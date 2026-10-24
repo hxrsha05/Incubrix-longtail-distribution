@@ -164,7 +164,11 @@ class GeminiExtractor:
         except httpx.HTTPError as exc:
             raise IncuBrixError(ErrorCode.PLATFORM_UNAVAILABLE, f"the AI model could not be reached ({type(exc).__name__})", {"outcome_unknown": False}) from None
         if resp.status_code == 429:
-            raise IncuBrixError(ErrorCode.PLATFORM_RATE_LIMIT, "the AI model is rate limiting us (free tier limits)", {"retry_after_s": float(resp.headers.get("retry-after", 30))})
+            try:
+                detail = str(resp.json().get("error", {}).get("message", ""))[:160]
+            except ValueError:
+                detail = ""
+            raise IncuBrixError(ErrorCode.PLATFORM_RATE_LIMIT, f"the AI model is rate limiting us (free tier limits): {detail}", {"retry_after_s": float(resp.headers.get("retry-after", 30))})
         if resp.status_code in (401, 403) or (resp.status_code == 400 and "API key" in resp.text[:400]):
             raise IncuBrixError(ErrorCode.CONNECTION_AUTH_EXPIRED, "the AI model rejected the API key")
         if resp.status_code >= 400:

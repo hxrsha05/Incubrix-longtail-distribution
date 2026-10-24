@@ -19,6 +19,7 @@ from __future__ import annotations
 import json
 import os
 import sys
+import threading
 import time
 import urllib.robotparser
 from concurrent.futures import ThreadPoolExecutor
@@ -135,17 +136,63 @@ def main() -> None:
     entries = [e for e in load_entries(research) if e.get("rules_url") or e.get("rules_quotes")]
     if limit:
         entries = entries[:limit]
-    print(f"{len(entries)} communities with a rules page or stored quotes; extractor: {extractor.name}")
+
+    # Resume: communities already read without an error (in an earlier run, by any model) are kept, so a stopped run loses nothing.
+    cache_file = out / "progress.jsonl"
+    done: dict[str, dict] = {}
+    if cache_file.is_file():
+        for line in cache_file.read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                rec = json.loads(line)
+                done[rec["name"]] = rec
+    todo = [e for e in entries if e["name"] not in done]
+    print(f"{len(entries)} communities with a rules page or stored quotes; {len(done)} already done; {len(todo)} to read; extractor: {extractor.name}")
+
+    state = {"last_call": 0.0, "rate_limited_in_a_row": 0, "stop": False}
+    lock = threading.Lock()
+    min_interval = float(os.environ.get("RULES_MIN_INTERVAL_S", "6"))  # keeps us under a free tier's calls per minute
+
+    class Paced:
+        name = extractor.name
+
+        def extract(self, page_text, url):
+            with lock:
+                wait = state["last_call"] + min_interval - time.time()
+                if wait > 0:
+                    time.sleep(wait)
+                state["last_call"] = time.time()
+            return extractor.extract(page_text, url)
+
+        def cost_usd(self, usage):
+            return extractor.cost_usd(usage) if hasattr(extractor, "cost_usd") else 0.0
+
+    paced = Paced()
     started = time.time()
     with ThreadPoolExecutor(max_workers=3) as pool:
         def run_one(entry: dict) -> dict:
-            record = process(entry, http, extractor)
-            print(f"  {record['name'][:40]:40} {record['source'] or '-':14} verified rules: {len(record['rules'])}" + (f"  ERROR: {record['error'][:70]}" if record["error"] else ""), flush=True)
+            if state["stop"]:
+                return {"name": entry["name"], "source": "", "rules": {}, "dropped": [], "usage": {"input_tokens": 0, "output_tokens": 0}, "cost_usd": 0.0, "error": "skipped: the free quota ran out (run the same command again later, or with another model, to continue)"}
+            record = process(entry, http, paced)
+            record["extractor"] = extractor.name
+            if record["error"] and "PLATFORM_RATE_LIMIT" in record["error"]:
+                state["rate_limited_in_a_row"] += 1
+                if state["rate_limited_in_a_row"] >= 4:
+                    state["stop"] = True
+            else:
+                state["rate_limited_in_a_row"] = 0
+            if not record["error"]:
+                with lock, cache_file.open("a", encoding="utf-8") as fh:
+                    fh.write(json.dumps(record, ensure_ascii=False) + "\n")
+            print(f"  {record['name'][:40]:40} {record['source'] or '-':14} verified rules: {len(record['rules'])}" + (f"  ERROR: {record['error'][:90]}" if record["error"] else ""), flush=True)
             return record
 
-        records = list(pool.map(run_one, entries))
+        fresh = list(pool.map(run_one, todo))
 
-    (out / "results.json").write_text(json.dumps({"extractor": extractor.name, "records": records}, indent=2, ensure_ascii=False), encoding="utf-8")
+    records = [done[e["name"]] for e in entries if e["name"] in done] + [r for r in fresh if r["error"]] + [r for r in fresh if not r["error"]]
+    names_used = sorted({r.get("extractor", extractor.name) for r in records if not r["error"]}) or [extractor.name]
+    if state["stop"]:
+        print("\nSTOPPED: the free quota is used up. Nothing is lost: run the same command again later (or set RULES_MODEL to another model) and it continues where it stopped.\n")
+    (out / "results.json").write_text(json.dumps({"extractor": ", ".join(names_used), "records": records}, indent=2, ensure_ascii=False), encoding="utf-8")
     with_rules = [r for r in records if r["rules"]]
     proposals = sum(len(r["rules"]) + len(r["dropped"]) for r in records)
     dropped = sum(len(r["dropped"]) for r in records)

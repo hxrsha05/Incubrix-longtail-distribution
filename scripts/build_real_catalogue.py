@@ -129,7 +129,7 @@ def main() -> None:
     ai_by_name: dict[str, dict] = {}
     if ai_file.is_file():
         data = json.loads(ai_file.read_text(encoding="utf-8"))
-        ai_by_name = {r["name"]: {**r, "reader": data["extractor"]} for r in data["records"]}
+        ai_by_name = {r["name"]: {**r, "reader": r.get("extractor") or data["extractor"]} for r in data["records"]}
         print(f"using rules proposals from {data['extractor']} for {sum(1 for r in ai_by_name.values() if r['rules'])} communities")
     applied = []
     for r in result["report"]:
