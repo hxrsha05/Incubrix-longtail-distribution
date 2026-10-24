@@ -157,7 +157,7 @@ class GeminiExtractor:
     def extract(self, page_text: str, url: str | None) -> dict[str, Any]:
         body = {"systemInstruction": {"parts": [{"text": SYSTEM_PROMPT}]},
                 "contents": [{"role": "user", "parts": [{"text": f"Rules page{f' ({url})' if url else ''}:\n\n{page_text}"}]}],
-                "generationConfig": {"temperature": 0, "responseMimeType": "application/json", "maxOutputTokens": 1500}}
+                "generationConfig": {"temperature": 0, "responseMimeType": "application/json", "maxOutputTokens": 8192}}
         try:
             resp = self.http.post(f"{self.base_url}/v1beta/models/{self.model}:generateContent", json=body, timeout=90,
                                   headers={"x-goog-api-key": self.api_key, "content-type": "application/json"})
