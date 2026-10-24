@@ -143,6 +143,47 @@ class AnthropicExtractor:
         return round(usage["input_tokens"] * self.price_in / 1e6 + usage["output_tokens"] * self.price_out / 1e6, 6)
 
 
+class GeminiExtractor:
+    """Google Gemini through the Generative Language REST API (the free tier of Google AI Studio is enough for this job).
+
+    Same job and same output shape as AnthropicExtractor, so the verification step treats every reader the same way.
+    Only public rules text is sent. The key comes from GEMINI_API_KEY and is sent in a header, never in the address."""
+
+    def __init__(self, http: httpx.Client, api_key: str, model: str, price_in: float = 0.0, price_out: float = 0.0, base_url: str = "https://generativelanguage.googleapis.com") -> None:
+        self.http, self.api_key, self.model, self.base_url = http, api_key, model, base_url.rstrip("/")
+        self.price_in, self.price_out = price_in, price_out
+        self.name = f"gemini:{model}"
+
+    def extract(self, page_text: str, url: str | None) -> dict[str, Any]:
+        body = {"systemInstruction": {"parts": [{"text": SYSTEM_PROMPT}]},
+                "contents": [{"role": "user", "parts": [{"text": f"Rules page{f' ({url})' if url else ''}:\n\n{page_text}"}]}],
+                "generationConfig": {"temperature": 0, "responseMimeType": "application/json", "maxOutputTokens": 1500}}
+        try:
+            resp = self.http.post(f"{self.base_url}/v1beta/models/{self.model}:generateContent", json=body, timeout=90,
+                                  headers={"x-goog-api-key": self.api_key, "content-type": "application/json"})
+        except httpx.HTTPError as exc:
+            raise IncuBrixError(ErrorCode.PLATFORM_UNAVAILABLE, f"the AI model could not be reached ({type(exc).__name__})", {"outcome_unknown": False}) from None
+        if resp.status_code == 429:
+            raise IncuBrixError(ErrorCode.PLATFORM_RATE_LIMIT, "the AI model is rate limiting us (free tier limits)", {"retry_after_s": float(resp.headers.get("retry-after", 30))})
+        if resp.status_code in (401, 403) or (resp.status_code == 400 and "API key" in resp.text[:400]):
+            raise IncuBrixError(ErrorCode.CONNECTION_AUTH_EXPIRED, "the AI model rejected the API key")
+        if resp.status_code >= 400:
+            raise IncuBrixError(ErrorCode.PLATFORM_UNAVAILABLE, f"the AI model answered HTTP {resp.status_code}", {"http_status": resp.status_code})
+        data = resp.json()
+        parts = ((data.get("candidates") or [{}])[0].get("content") or {}).get("parts") or []
+        text = "".join(part.get("text", "") for part in parts if isinstance(part, dict))
+        match = re.search(r"\{.*\}", text, re.S)
+        try:
+            rules = json.loads(match.group(0))["rules"] if match else []
+        except (ValueError, KeyError, TypeError):
+            raise IncuBrixError(ErrorCode.PLATFORM_CONTENT_REJECTED, "the AI model did not return the JSON we asked for; nothing was proposed") from None
+        usage = data.get("usageMetadata", {})
+        return {"rules": rules if isinstance(rules, list) else [], "usage": {"input_tokens": usage.get("promptTokenCount", 0), "output_tokens": usage.get("candidatesTokenCount", 0)}}
+
+    def cost_usd(self, usage: dict[str, int]) -> float:
+        return round(usage["input_tokens"] * self.price_in / 1e6 + usage["output_tokens"] * self.price_out / 1e6, 6)
+
+
 # ---------------------------------------------------------------- verification and diff
 def _valid_value(rule: str, value: Any) -> bool:
     if rule == "frequency_cap":

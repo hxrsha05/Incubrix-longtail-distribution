@@ -75,19 +75,24 @@ def research_csv(items: list[dict]) -> str:
     return out.getvalue()
 
 
-def apply_rules(catalogue: Catalogue, row: dict, entry: dict) -> dict:
-    """Propose rules from the community's own quoted words (nothing else) and store them as unconfirmed."""
-    quotes = [q["quote"] for q in entry.get("rules_quotes", []) if q.get("quote")]
-    page_text = "\n".join(quotes)
-    rules, evidence = {}, {}
-    if page_text:
-        found = MockExtractor().extract(page_text, entry.get("rules_url"))["rules"]
-        rules, evidence, _dropped = verify(found, page_text)
+def apply_rules(catalogue: Catalogue, row: dict, entry: dict, ai: dict | None = None) -> dict:
+    """Store the rules proposed for a community as unconfirmed: the AI reader's verified result when there is one
+    (scripts/live_rules_capture.py), otherwise the offline keyword reader over the community's own quoted words."""
+    rules, evidence, reader = {}, {}, "mock-keyword-reader"
+    if ai and ai.get("rules"):
+        rules, evidence, reader = ai["rules"], ai["evidence"], ai["reader"]
+    else:
+        quotes = [q["quote"] for q in entry.get("rules_quotes", []) if q.get("quote")]
+        page_text = "\n".join(quotes)
+        if page_text:
+            found = MockExtractor().extract(page_text, entry.get("rules_url"))["rules"]
+            rules, evidence, _dropped = verify(found, page_text)
     destination = catalogue.destination(row["id"])
     destination.rules = {**CONSERVATIVE_RULES, **rules}
     extra = dict(destination.extra)
     extra["rules_url"] = entry.get("rules_url") or extra.get("rules_url")
-    extra["rules_status"] = "researched_from_public_rules_page_unconfirmed" if rules else "default_conservative_unconfirmed"
+    extra["rules_status"] = "proposed_by_ai_unconfirmed" if (ai and ai.get("rules")) else ("researched_from_public_rules_page_unconfirmed" if rules else "default_conservative_unconfirmed")
+    extra["rules_reader"] = reader if rules else None
     extra["rules_evidence"] = evidence
     extra["research_checked_on"] = entry.get("checked_on")
     extra["research_notes"] = entry.get("notes")
@@ -120,10 +125,16 @@ def main() -> None:
     print()
 
     by_name = {e["name"]: e for e in unique}
+    ai_file = out_dir / "ai_rules" / "results.json"  # written by scripts/live_rules_capture.py (needs an API key)
+    ai_by_name: dict[str, dict] = {}
+    if ai_file.is_file():
+        data = json.loads(ai_file.read_text(encoding="utf-8"))
+        ai_by_name = {r["name"]: {**r, "reader": data["extractor"]} for r in data["records"]}
+        print(f"using rules proposals from {data['extractor']} for {sum(1 for r in ai_by_name.values() if r['rules'])} communities")
     applied = []
     for r in result["report"]:
         if r["status"] == "accepted" and r["destination_id"]:
-            applied.append(apply_rules(catalogue, catalogue.get(r["destination_id"]), by_name[r["name"]]))
+            applied.append(apply_rules(catalogue, catalogue.get(r["destination_id"]), by_name[r["name"]], ai_by_name.get(r["name"])))
 
     registry = build_registry(httpx.Client(), set())
     rows = catalogue.list(limit=100000)["items"]

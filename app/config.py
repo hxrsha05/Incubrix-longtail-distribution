@@ -34,9 +34,10 @@ class Settings(BaseSettings):
     import_private_host_allowlist: str = ""  # comma-separated host names the service may fetch although they are private (a public demo lists only its own fake-sites host)
     import_allow_private_hosts: bool = False  # false = refuse private/loopback addresses (SSRF); compose turns it on for the local demo
 
-    rules_extractor: str = "mock"  # mock = deterministic keyword reader (no key, no cost); anthropic = Claude via the Messages API
+    rules_extractor: str = "mock"  # mock = deterministic keyword reader (no key, no cost); anthropic = Claude via the Messages API; gemini = Google Gemini (free tier works)
     anthropic_api_key: SecretStr | None = None
-    rules_model: str = "claude-haiku-5-5"
+    gemini_api_key: SecretStr | None = None
+    rules_model: str = "claude-haiku-5-5"  # the model name for the chosen extractor (for gemini, a Flash model id from Google AI Studio)
     rules_price_per_mtok_in: float = 0.0  # set the real prices to get a cost estimate in the output manifest
     rules_price_per_mtok_out: float = 0.0
 

@@ -29,7 +29,7 @@ from app.catalogue import Catalogue
 from app.csv_import import Importer
 from app.import_service import register_import_job
 from app.recertify import RecertScheduler, Recertifier
-from app.rules_capture import AnthropicExtractor, MockExtractor, RulesCapture
+from app.rules_capture import AnthropicExtractor, GeminiExtractor, MockExtractor, RulesCapture
 from app.certify_service import CertificationService, register_certification_jobs
 from app.config import get_settings
 from app.credentials import CredentialProvider
@@ -116,6 +116,11 @@ def create_app(
             raise RuntimeError("RULES_EXTRACTOR=anthropic needs ANTHROPIC_API_KEY")
         extractor = AnthropicExtractor(httpx.Client(), settings.anthropic_api_key.get_secret_value(), settings.rules_model,
                                        settings.rules_price_per_mtok_in, settings.rules_price_per_mtok_out)
+    elif settings.rules_extractor == "gemini":
+        if settings.gemini_api_key is None:
+            raise RuntimeError("RULES_EXTRACTOR=gemini needs GEMINI_API_KEY")
+        extractor = GeminiExtractor(httpx.Client(), settings.gemini_api_key.get_secret_value(), settings.rules_model,
+                                    settings.rules_price_per_mtok_in, settings.rules_price_per_mtok_out)
     else:
         extractor = MockExtractor()
     app.state.rules_capture = RulesCapture(engine, app.state.catalogue, extractor, http, allow_private_hosts=settings.import_allow_private_hosts, private_host_allowlist=settings.private_host_allowlist, clock=clock)
