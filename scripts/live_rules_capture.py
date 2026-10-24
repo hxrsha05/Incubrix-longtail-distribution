@@ -70,7 +70,7 @@ def page_text_for(http: httpx.Client, entry: dict) -> tuple[str, str]:
             if robots_allows(http, url):
                 resp = http.get(url, timeout=15, follow_redirects=True)
                 if resp.status_code == 200:
-                    text = html_to_text(resp.text)
+                    text = html_to_text(resp.content.decode("utf-8", errors="replace"))  # decode as UTF-8 ourselves: the library guesses the wrong encoding for pages that do not declare one
                     if len(text) >= MIN_PAGE_CHARS:
                         return text, "rules page"
         except httpx.HTTPError:
