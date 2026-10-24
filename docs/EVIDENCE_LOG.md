@@ -168,3 +168,7 @@ Followed the README exactly on a clean clone of the repository, with all contain
 - First attempt found a real bug: the service read the credentials file once at start, before the seed step had written it, so the Lemmy and Ghost destinations answered `CONNECTION_AUTH_EXPIRED` until a restart (batch run: 2 published and 2 failed; certification: 2 inconclusive). Fixed in `app/credentials.py` (the file is re-read when it appears or changes), test `tests/test_credentials.py`.
 - Second attempt, from a new clean clone: batch run 3 published, 1 blocked by rules, 1 failed cleanly; `app.cli certify`: 9 passed, 0 failed, 0 inconclusive (including the real local Lemmy and Ghost); `python -m pytest` on the clone: 444 passed, 18 skipped.
 - The same session found and fixed a flaky test: two feed items added in one clock tick tied on their timestamp (`app/feeds.py` now stamps items strictly increasing).
+
+### Cold start of the public demo (24 Oct 2026)
+- The free Render service had been idle overnight (more than 12 hours). The first request, `curl -s -o NUL -w "%{time_total}" https://incubrix-demo.onrender.com/health` from a developer laptop in India, took **41.5 s** to answer 200. Later requests answer in under 1 s (0.81 s measured by the live check on the earlier version).
+- Free Render instances sleep after about 15 minutes without traffic. No uptime pinger is used.
