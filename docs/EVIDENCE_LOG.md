@@ -4,7 +4,7 @@
 > submission."* So a row is marked Done only when the proof exists and it was seen working.
 > **Status key:** Done = done and proven; Partial = partly done, with the limit stated.
 
-Last updated: 2026-10-25. Tests: **452 passing, 18 skipped** (`python -m pytest`, run from this folder, no keys needed; the 18 skipped are the live tests against the real local Lemmy and Ghost, which switch on with environment variables, see `tests/live/`). The dated entries after the findings tables record each run on the final code.
+Last updated: 2026-10-25. Tests: **453 passing, 18 skipped** (`python -m pytest`, run from this folder, no keys needed; the 18 skipped are the live tests against the real local Lemmy and Ghost, which switch on with environment variables, see `tests/live/`). The dated entries after the findings tables record each run on the final code.
 
 ## Must-haves (all 9 must pass)
 

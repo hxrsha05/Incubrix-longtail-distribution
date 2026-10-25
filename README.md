@@ -55,7 +55,7 @@ Then open http://localhost:8000/docs (API), http://localhost:1234 (Lemmy), http:
 | **All tests, no keys, no internet** | `python -m pytest` |
 | Live tests against the running Lemmy and Ghost | see `tests/live/` (they switch on with `LEMMY_LIVE_URL` / `GHOST_LIVE_URL`) |
 | Certify every destination in the catalogue | `curl -X POST localhost:8000/api/v1/jobs -H "Content-Type: application/json" -d "{\"kind\":\"certify_batch\",\"params\":{}}"` |
-| Batch runner: a folder or file of inputs sent through the API, results in one folder | `python -m app.cli run --input samples/inputs --output test-pack/batch-run --api http://localhost:8000 [--token T]` |
+| Batch runner: a folder or file of inputs sent through the API, results in one folder | `python -m app.cli run --input samples/inputs --output test-pack/batch-run --api http://localhost:8000 [--token T] [--fresh]` (`--fresh` posts unchanged inputs again instead of replaying them) |
 | Batch certification through the API | `python -m app.cli certify --output test-pack/batch-certification [--connector discourse]` |
 | Publish to a catalogue destination (the service finds the credentials) | `curl -X POST localhost:8000/api/v1/publish -H "Idempotency-Key: k1" -H "Content-Type: application/json" -d '{"destination_id":"mock-discourse-forum","rendition":{"title":"...","body":"..."}}'` |
 | The catalogue as destination records (CSV or JSON) | `curl localhost:8000/api/v1/catalogue/export?format=csv` |

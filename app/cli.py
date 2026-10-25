@@ -7,7 +7,7 @@
 An input looks like:
   {"destination_id": "mock-discourse-forum", "rendition": {"title": "...", "body": "..."}, "idempotency_key": "optional"}
 Each input is sent to POST /api/v1/publish with an Idempotency-Key (the one in the input, else the file name plus a hash of its content), so
-running the same folder twice never posts twice, while an edited file is a new post. The destination must already be in the catalogue (scripts/seed_catalogue.py). Credentials
+running the same folder twice never posts twice, while an edited file is a new post (add --fresh to post unchanged inputs again). The destination must already be in the catalogue (scripts/seed_catalogue.py). Credentials
 stay on the server. Output: one <name>.result.json per input plus summary.json. Exit code 0 when no input failed.
 The API address and token can also come from INCUBRIX_API and INCUBRIX_TOKEN.
 """
@@ -57,9 +57,10 @@ def default_key(name: str, spec: dict) -> str:
     return f"{name}-{digest}"
 
 
-def run_inputs(http: httpx.Client, inputs: list[tuple[str, Any]], output_dir: Path, tailoring: bool = True) -> dict[str, Any]:
+def run_inputs(http: httpx.Client, inputs: list[tuple[str, Any]], output_dir: Path, tailoring: bool = True, fresh: bool = False) -> dict[str, Any]:
     output_dir.mkdir(parents=True, exist_ok=True)
     started, results = time.time(), []
+    run_id = f"-run{int(started)}" if fresh else ""  # --fresh: every run is a new post, so a repeated demo is not a replay
     for name, spec in inputs:
         t0 = time.time()
         entry: dict[str, Any] = {"input": name}
@@ -69,7 +70,7 @@ def run_inputs(http: httpx.Client, inputs: list[tuple[str, Any]], output_dir: Pa
         else:
             body = {"destination_id": spec["destination_id"], "rendition": spec["rendition"], "tailor": tailoring}
             try:
-                resp = http.post("/api/v1/publish", json=body, headers={"Idempotency-Key": str(spec.get("idempotency_key") or default_key(name, spec))}, timeout=60)
+                resp = http.post("/api/v1/publish", json=body, headers={"Idempotency-Key": str(spec.get("idempotency_key") or default_key(name, spec)) + run_id}, timeout=60)
                 data = resp.json()
             except (httpx.HTTPError, ValueError) as exc:
                 entry.update(status="failed", error={"code": "PLATFORM_UNAVAILABLE", "message": f"the API could not be reached or answered badly ({type(exc).__name__})", "retryable": True, "details": {}})
@@ -117,6 +118,7 @@ def main(argv: list[str] | None = None) -> int:
     run.add_argument("--input", required=True, type=Path)
     run.add_argument("--output", required=True, type=Path)
     run.add_argument("--no-tailor", action="store_true", help="publish the content exactly as written")
+    run.add_argument("--fresh", action="store_true", help="give this run its own keys, so unchanged inputs are posted again instead of replayed (for demos)")
     cert = sub.add_parser("certify", help="certify catalogue destinations through the API")
     cert.add_argument("--output", required=True, type=Path)
     cert.add_argument("--connector")
@@ -125,7 +127,7 @@ def main(argv: list[str] | None = None) -> int:
     http = make_client(args.api, args.token)
     try:
         if args.cmd == "run":
-            summary = run_inputs(http, load_inputs(args.input), args.output, tailoring=not args.no_tailor)
+            summary = run_inputs(http, load_inputs(args.input), args.output, tailoring=not args.no_tailor, fresh=args.fresh)
             print(f"{summary['inputs']} inputs: {summary['published']} published, {summary['blocked']} blocked by rules, {summary['failed']} failed -> {args.output}")
             return 0 if summary["failed"] == 0 else 1
         out = certify_all(http, args.output, args.connector)

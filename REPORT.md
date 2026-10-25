@@ -35,7 +35,7 @@ Everything runs with `docker compose up`, with no real accounts needed. The code
 
 | Area | Result | Proof |
 |---|---|---|
-| Tests | 452 pass, 18 live tests skipped unless the real Lemmy and Ghost are running; also run on a fresh clone with everything removed first (444 passed then); `tests/test_hard_cases.py` runs every hard case from the brief end to end through the API | `python -m pytest`; screenshot in `evidence/manual-demos/tests/` |
+| Tests | 453 pass, 18 live tests skipped unless the real Lemmy and Ghost are running; also run on a fresh clone with everything removed first (444 passed then); `tests/test_hard_cases.py` runs every hard case from the brief end to end through the API | `python -m pytest`; screenshot in `evidence/manual-demos/tests/` |
 | Certification | 9 destinations, 9 connectors, **9 passed, 0 failed** in one batch on a fresh clone; mean time Lemmy 0.26 s, Ghost 0.26 s, the rest 0.01 to 0.03 s | `evidence/certification/` |
 | Reliability | 200 of 200 simulated publishes; 20 of 20 full certification cycles on each of the real local Lemmy and Ghost; **0 duplicates in 120 retry cases** | `test-pack/reliability/report.md` |
 | Rule safety | 0 missed of 12,317 rule violations, 0 false blocks of 3,240 legal posts (my own 15,557-case set) | `test-pack/rule-safety/report.md` |

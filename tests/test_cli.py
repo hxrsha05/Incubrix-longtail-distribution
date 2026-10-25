@@ -83,6 +83,16 @@ def test_rerunning_never_posts_twice(http, tmp_path, mock):
     assert read(tmp_path / "o2", "a")["replayed"] is True and mock.state()["discourse_topics"] == 1
 
 
+def test_fresh_posts_an_unchanged_input_again(http, tmp_path, mock):
+    inp = tmp_path / "in"
+    write(inp, "a.json", GOOD)
+    run_inputs(http, load_inputs(inp), tmp_path / "o1", fresh=True)
+    time.sleep(1.1)  # the run id is the start time in whole seconds
+    run_inputs(http, load_inputs(inp), tmp_path / "o2", fresh=True)
+    # the second run reached the platform again (it is not a replay); the fake Discourse refuses the identical text as a duplicate
+    assert read(tmp_path / "o2", "a").get("replayed") is not True and read(tmp_path / "o2", "a")["status"] == "failed"
+
+
 def test_an_idempotency_key_in_the_input_is_used(http, tmp_path, mock):
     inp = tmp_path / "in"
     write(inp, "one.json", {**GOOD, "idempotency_key": "same"})
