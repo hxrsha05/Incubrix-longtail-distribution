@@ -10,7 +10,7 @@ AI tools used in this project, and what each was used for.
 
 No other AI coding tools were used.
 
-**AI inside the product:** the rules-capture feature can call an AI model (Claude, through the Anthropic Messages API) to read a community's rules page. It is off by default (an offline keyword reader is used instead) and is switched on only with `RULES_EXTRACTOR=anthropic` and an API key. Whatever it proposes is checked against the page text and applied only after a named person confirms it. Results made with it are labelled as AI-generated in the output manifest. It has not been run against the live API during development.
+**AI inside the product:** the rules-capture feature can call an AI model to read a community's rules page: Google Gemini (`RULES_EXTRACTOR=gemini`) or Claude (`RULES_EXTRACTOR=anthropic`), each with an API key from the environment. It is off by default (an offline keyword reader is used instead). Whatever it proposes is checked against the page text and applied only after a named person confirms it. Results made with it are labelled as AI-generated in the output manifest. Only the Gemini adapter was run against its live service (15 communities, see the section below); the Claude adapter is tested against a fake API only.
 
 ## What the AI wrote
 
@@ -51,8 +51,12 @@ No other AI coding tools were used.
 | CSV import (validate, de-duplicate, reachability, enrichment, report) and its job and routes | `app/csv_import.py`, `app/import_service.py`, `app/api/import_routes.py`, `scripts/make_sample_csv.py`, `scripts/import_demo.py`, `samples/catalogue/` |
 | Docker setup and seed scripts | `Dockerfile`, `docker-compose.yml`, `scripts/seed_local.py`, `scripts/seed_catalogue.py` |
 | OpenAPI export and secret scan | `scripts/export_openapi.py`, `scripts/secret_scan.py`, `openapi.yaml` |
+| Public demo: single-container image, Render blueprint, start script, live check | `Dockerfile.demo`, `render.yaml`, `scripts/start_demo.sh`, `scripts/check_live_demo.py`, `docs/DEPLOY.md` |
+| Measurement and demo scripts | `scripts/measure_reliability.py`, `scripts/eval_rules.py`, `scripts/demo_failures.py`, `scripts/demo_advanced.py`, `scripts/demo_recertification.py` |
+| Real catalogue (152 communities): research files, builder, importer check, AI rules run | `samples/research/`, `scripts/build_real_catalogue.py`, `scripts/live_rules_capture.py`, `catalogue/real/` (the five research agents were Claude agents run by Claude Code) |
+| Gemini reader for the AI rules step | `GeminiExtractor` in `app/rules_capture.py`, `tests/test_gemini_extractor.py` |
 | Tests | `tests/` |
-| Documentation | `README.md`, `AI_USE.md`, `SOURCES.md`, `docs/EVIDENCE_LOG.md` |
+| Documentation | `README.md`, `REPORT.md`, `AI_USE.md`, `SOURCES.md`, `docs/EVIDENCE_LOG.md`, `docs/DEPLOY.md`, `test-pack/INDEX.md`, `evidence/manual-demos/README.md` |
 
 ## AI model used inside the project's output (not a coding tool)
 
@@ -67,6 +71,7 @@ No other AI coding tools were used.
 - Created the private repository and gave the reviewer access.
 - Decided which failures demote a destination (a changed platform response, or a rejected valid post) and which only mark it "needs attention" (rate limit, expired token, outage).
 - Chose to certify the real local Lemmy and Ghost, and the mock server for platforms that cannot run on a laptop.
+- Chose the free tier of Google Gemini for the live AI rules run instead of buying API credit, and limited that run to 15 communities because of the free quota and the deadline; the other 137 catalogue entries were not read by the AI step.
 - Took on the signed webhook connector as a learning exercise; in the end the AI wrote the connector so that time was spent on the remaining work. I review and explain the code before the live session.
 
 ## Corrections made along the way
@@ -97,6 +102,12 @@ No other AI coding tools were used.
 
 - Re-reading the brief in full (the AI had worked from a summary) showed several misses, which the AI then fixed: the Advanced relevance score is a score of each DESTINATION against IncuBrix's audience (the AI had built a content-to-destination fit instead, which is now a second, separate feature); the batch runner must call the API (the AI had run the application in-process); an Idempotency-Key header is required on every POST (only some routes had it); anything slower than 2 seconds must be a job (rules capture was synchronous); the manifest must name models and a seed; the destination record and levels L0 to L4 had no implementation; destination format limits were checked by a method but not enforced before publishing; Lemmy and Discourse claimed to take images but ignored media; a public demo needs a token and a rate limit.
 
+- The fresh-clone test (all containers and volumes removed, then only the README steps) found a real bug: the service read the credentials file once at start, before the seed step had written it, so the Lemmy and Ghost destinations failed until a restart. The file is now re-read when it appears or changes, with a test.
+- The same session found a flaky test: two feed items created in one clock tick had the same timestamp, so "newest first" could go wrong. Timestamps are now strictly increasing.
+- The demo image's start script did not pass the access token to its seed step, so the demo catalogue stayed empty at first (the API stayed up). Found by running the image; fixed.
+- The first live Gemini run used a model name that Google had closed to new accounts (HTTP 404); it was changed to `gemini-3.8-flash`. A first full run then used up the free quota (HTTP 429 on every later call), so the script was made resumable, paced, and to stop cleanly when the quota runs out.
+- A Gemini API key was pasted into the AI chat by mistake during that work. It was deleted at once and a new one was used; no key is in the repository, the logs or the form.
+
 ## Manual work
 
-No outputs have been edited by hand and presented as automated.
+No outputs have been edited by hand and presented as automated. The screenshots in `evidence/manual-demos/` were taken by hand by the developer and are described as such in that folder's README.
