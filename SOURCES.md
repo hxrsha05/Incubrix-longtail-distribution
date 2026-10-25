@@ -29,6 +29,7 @@ missing. Versions are the ones pinned in `requirements.txt` (the versions the te
 |---|---|---|---|---|---|
 | PostgreSQL | 16-alpine | Our database | PostgreSQL Licence ("for any purpose, without fee") | https://www.postgresql.org/about/licence/ | Verified: page read |
 | RustFS | 1.0.3 | S3-compatible storage | Apache-2.0 | https://github.com/rustfs/rustfs | Verified: repository page |
+| python:3.12-slim (Debian base image of our `api` and demo images) | 3.12 | Base of the shipped containers | Python is PSF-licensed; the Debian packages in the image carry their own licences (listed in each package's copyright file, some GPL: they are system tools in the base image, not linked into our code) | https://hub.docker.com/_/python | Partly verified: the image page; I did not audit each Debian package |
 | Alpine Linux | 3.20 | One-off permission fix for the storage volume | Free software; the licence of each package is listed in Alpine's package index (the Docker page says so) | https://hub.docker.com/_/alpine | Partly verified: the image page confirms per-package licences; I did not audit each package. It runs once to set a folder's owner and ships nothing |
 
 > MinIO was the brief's suggestion, but it no longer publishes container images, so RustFS (any S3-compatible store is allowed) is used instead.
@@ -62,6 +63,8 @@ These run only as throwaway local instances so certification can publish real te
 | Kit API v4 | broadcasts as drafts | https://developers.kit.com/api-reference/broadcasts/create-a-broadcast | **Mock only, documentation checked.** I read Kit's reference for create (`POST /v4/broadcasts`, header `X-Kit-Api-Key`, `send_at: null` saves a draft, required fields) and delete (`DELETE /v4/broadcasts/{id}`, 204, drafts and scheduled only); the connector and the mock follow it. Never run against a real Kit account; the connector never sends mail by itself |
 | MRSS feed | publish into a feed we host | https://www.rssboard.org/media-rss | **Proven end to end** (we host the feed and read it back) |
 | Anthropic Messages API (model `claude-haiku-5-5`) | optional: reads a rules page in the rules-capture feature | https://www.anthropic.com/legal/commercial-terms (Verified: the page says the customer owns the outputs, subject to the terms and usage policy) | **Off by default** (an offline keyword reader is used). Tested against a fake API only; not run against the live API |
+| Google Gemini API (model `gemini-3.8-flash`) | optional AI step of rules capture | https://ai.google.dev/gemini-api/terms (read 24 Oct 2026; free tier may use submitted text to improve Google products, so only public rules text was sent) | **Run live** on 15 real communities (6 rules verified, 0 dropped), results in `catalogue/real/ai_rules/`; off by default |
+| Render (hosting of the public demo only) | runs the demo image on a free instance | https://render.com/terms | **Not verified:** I did not read Render's terms; it hosts the demo and is not part of the product or its output |
 
 ## Models, datasets, media
 
@@ -80,5 +83,6 @@ These run only as throwaway local instances so certification can publish real te
 ## Not verified, so please read
 
 - pict-rs and Alpine: see the notes above.
-- Discourse, Dev.to, Hashnode and Kit behaviour is from documentation and mocks, not from real accounts.
+- Discourse, Dev.to, Hashnode, Kit and the signed webhook behaviour is from documentation and mocks, not from real accounts.
+- Render's terms and the Debian packages inside the Python base image were not read in full (see the rows above).
 - This file lists what is in this repository on the day of submission; run `pip list` in the container to see the full dependency tree.

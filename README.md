@@ -150,8 +150,10 @@ credentials come from the seed file (`CONNECTIONS_FILE`) and take priority. No r
 | IMPORT_WORKERS, IMPORT_FETCH_TIMEOUT_S | 32, 5 | concurrent site checks in a CSV import, and the timeout for each |
 | IMPORT_ALLOW_PRIVATE_HOSTS | false (true in compose) | false = the importer refuses private and local addresses (SSRF protection) |
 | IMPORT_DIR | evidence/imports | where import files are kept |
-| RULES_EXTRACTOR, ANTHROPIC_API_KEY, RULES_MODEL | mock, -, claude-haiku-5-5 | who reads rules pages: the offline mock, or Claude |
-| RULES_PRICE_PER_MTOK_IN / _OUT | 0 | prices used to estimate the cost in the output manifest |
+| IMPORT_PRIVATE_HOST_ALLOWLIST | empty | host names the importer may fetch although they are private (the public demo lists only its own fake-sites host) |
+| RULES_EXTRACTOR, RULES_MODEL | mock, claude-haiku-5-5 | who reads rules pages: the offline mock (`mock`), Claude (`anthropic`) or Google Gemini (`gemini`); RULES_MODEL is the model name for the chosen reader |
+| ANTHROPIC_API_KEY, GEMINI_API_KEY | - | the key for the chosen reader, from the environment only (never in a file) |
+| RULES_PRICE_PER_MTOK_IN / RULES_PRICE_PER_MTOK_OUT | 0 | prices used to estimate the cost in the output manifest |
 | SERVICE_BASE_URL, FEED_TOKEN, FEED_MAX_ITEMS | http://localhost:8000, local-dev-feed-token, 50 | this service's own address (used in feed links), the token that lets a client write to feeds, items kept per feed |
 | RECERT_INTERVAL_S | 0 (off) | seconds between automatic recertification runs |
 | RECERT_MAX_AGE_S, RECERT_DEMOTED_COOLDOWN_S, RECERT_ATTENTION_RETRY_S, RECERT_BATCH_LIMIT | 7 days, 1 day, 1 hour, 25 | when a destination is due, and how many are checked per run |
@@ -185,6 +187,14 @@ Every error is `{"error": {"code", "message", "retryable", "details"}}`.
 | UNAUTHORIZED | 401 | no | the access token is missing or wrong |
 | RATE_LIMITED | 429 | yes | too many requests from this client; `Retry-After` and `details.retry_after_s` say how long to wait |
 | INTERNAL_ERROR | 500 | no | unexpected error (details are in the logs, never in the response) |
+
+## Public demo
+
+A single-container build (`Dockerfile.demo`: the service plus the fake platforms, simulation mode, no real accounts) runs at https://incubrix-demo.onrender.com on a free Render instance (`render.yaml`, steps in `docs/DEPLOY.md`).
+Every call except `/health`, `/ready` and `/docs` needs the access token (sent in the submission form, never kept in the repository) as `Authorization: Bearer <token>`; the rate limit is 120 requests per minute per client (`429 RATE_LIMITED` with `Retry-After`).
+The failure switches are behind the same token as `POST /api/v1/simulation/fail`, `POST /api/v1/simulation/reset` and `GET /api/v1/simulation/state`.
+A free instance sleeps when idle: the first request after a sleep takes about 30 to 42 seconds, later ones under a second.
+Check a running demo from outside: `INCUBRIX_TOKEN=<token> python -m scripts.check_live_demo https://incubrix-demo.onrender.com` (ten checks: health, 401 without a token, catalogue, publish, same-key replay, outcome unknown on a late answer, retry, exactly one post, export).
 
 ## Where the proof is
 

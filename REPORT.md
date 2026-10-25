@@ -35,8 +35,11 @@ Everything runs with `docker compose up`, with no real accounts needed. The code
 
 | Area | Result | Proof |
 |---|---|---|
-| Tests | 406 pass, 18 live tests skipped unless the real Lemmy and Ghost are running; `tests/test_hard_cases.py` runs every hard case from the brief end to end through the API | `python -m pytest`; screenshot in `evidence/manual-demos/tests/` |
-| Certification | 9 destinations, 9 connectors, **9 passed, 0 failed** in one batch; Lemmy 0.5 s, Ghost 0.3 s, the rest under 0.03 s | `evidence/certification/` |
+| Tests | 452 pass, 18 live tests skipped unless the real Lemmy and Ghost are running; also run on a fresh clone with everything removed first (444 passed then); `tests/test_hard_cases.py` runs every hard case from the brief end to end through the API | `python -m pytest`; screenshot in `evidence/manual-demos/tests/` |
+| Certification | 9 destinations, 9 connectors, **9 passed, 0 failed** in one batch on a fresh clone; mean time Lemmy 0.26 s, Ghost 0.26 s, the rest 0.01 to 0.03 s | `evidence/certification/` |
+| Reliability | 200 of 200 simulated publishes; 20 of 20 full certification cycles on each of the real local Lemmy and Ghost; **0 duplicates in 120 retry cases** | `test-pack/reliability/report.md` |
+| Rule safety | 0 missed of 12,317 rule violations, 0 false blocks of 3,240 legal posts (my own 15,557-case set) | `test-pack/rule-safety/report.md` |
+| Public demo | live on a free Render instance with a token and a rate limit; 10 of 10 checks pass on the final code (health, 401 without a token, publish, replay, timeout then retry with 0 duplicates, export); cold start 41.5 s | `scripts/check_live_demo.py`, `evidence/manual-demos/live-demo/` |
 | Real platforms | Lemmy 0.19 and Ghost 6 run in containers and are posted to, read back and deleted for real | `tests/live/`, screenshots in `evidence/manual-demos/` |
 | Safe retry | Timeout after the platform created the post, same-key retry: 1 post, **0 duplicates** | `test-pack/failure-demos/transcript.md` |
 | Hard cases | 429 with reset time, renamed field then demotion, expired token, content rejected, too long, promotion to a no-promo place, partner revokes permission, disclosure required | `docs/EVIDENCE_LOG.md` (hard-case table) |
@@ -49,7 +52,7 @@ Everything runs with `docker compose up`, with no real accounts needed. The code
 
 ## 4. What does not work, or is not proven
 
-- **Discourse, Dev.to, Hashnode and Kit are verified against a mock, not the real platforms.** The mock is modelled on their documented
+- **Discourse, Dev.to, Hashnode, Kit and the signed webhook are verified against a mock, not the real platforms.** The mock is modelled on their documented
   behaviour and can fail on purpose, but a real platform may differ. Lemmy, Ghost and the feed are verified end to end. For Kit I read the official
   API reference and fixed my connector to send every required field. For Hashnode, its own announcement confirms the `publishPost` mutation but also says
   writes need the publication to be on Hashnode Pro, and I could not confirm the `removePost` name from official documentation (`SOURCES.md`).
@@ -61,8 +64,8 @@ Everything runs with `docker compose up`, with no real accounts needed. The code
   offline keyword reader.
 - **The real catalogue (`catalogue/real/`) is listing only, and its rules are mostly unconfirmed.** 152 real communities, platforms and publications were
   researched by five AI research agents and checked by `scripts/build_real_catalogue.py` against the real internet: 137 answered the importer,
-  10 blocked it (HTTP 403) and 5 forbid automated visits in robots.txt (kept with a warning, found live by the research step). Rules were read
-  by software from short verbatim quotes of each community's own rules page for only 9 destinations; the other 143 keep the conservative
+  10 blocked it (HTTP 403) and 5 forbid automated visits in robots.txt (kept with a warning, found live by the research step). Rules were proposed
+  for only 13 destinations (5 by the Gemini AI reader from the live page, 8 by the keyword reader from stored verbatim quotes); the other 139 keep the conservative
   default, and none is confirmed by a person. `geo` was not researched. All 152 are flagged catalogue only: nothing is ever certified or posted
   to them. Several entries are company blogs rather than independent publications, one (Search Engine Journal) is invite-only, and
   member counts exist only where a site states one.
@@ -73,21 +76,20 @@ Everything runs with `docker compose up`, with no real accounts needed. The code
 ## 5. Cost
 
 No paid service is called by the default path, so the measured cost of certification, import, tailoring, relevance and the
-recommender is **0**. The only possible cost is the optional AI reading of a rules page: one call per page, a few thousand input
-tokens and a few hundred output tokens; the manifest records tokens and, once the provider prices are set in the settings, the cost.
-That number was not measured because the feature was not run against the live API. Infrastructure for the demo is a small container
-host (see the hosting note in the deliverables).
+recommender is **0**. The only possible cost is the optional AI reading of a rules page: the live run on 15 pages used 20,108 input tokens
+and 388 output tokens on Google's free tier, so it cost $0; on a paid plan it would be a few cents. The manifest records tokens and, once the
+provider prices are set in the settings, the cost. The public demo runs on a free Render instance ($0).
 
 ## 6. How AI was used
 
-AI wrote most of the code, tests and documentation. `AI_USE.md` lists every component, the decisions I made, and the corrections
+AI (Claude Code) wrote most of the code, tests and documentation; five Claude research agents gathered the real catalogue; Google Gemini ran the AI rules step on 15 pages. `AI_USE.md` lists every component, the decisions I made, and the corrections
 along the way (including faults that the tests or Docker caught in the AI's own work: a race in import uploads, a startup crash on a
 newer FastAPI, a truncation rule that cut words, an over-generous relevance score).
 
 ## 7. Next steps
 
 1. Run Discourse, Dev.to, Hashnode and Kit against real test accounts and replace the mocks' modelled behaviour with observed behaviour.
-2. Research and import a real list of destinations with their rules, and have a person confirm each captured rule set.
+2. Run the AI rules step on the remaining 137 catalogue pages (the free quota allowed only 15 in the time available), and have a person confirm each captured rule set.
 3. Replace the synthetic labelled set with labels from several people on real communities, and re-measure.
 4. Add media upload for destinations that accept images and video, with a per-destination media check.
 5. Load-test imports and batch certification with many hosts, and add per-host rate limits to the importer.
